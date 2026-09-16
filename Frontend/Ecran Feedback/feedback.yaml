@@ -1,0 +1,473 @@
+Screens:
+  scrFeedback:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
+      OnVisible: =Refresh(Tx_Travaux); Refresh(Tx_Feedbacks); Refresh(Ref_Cantons); If(IsBlank(varFeedbackEvent), Set(varFeedbackEvent, First(Tx_Travaux)))
+    Children:
+      - FeedbackHeader:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 120, 1)
+            Height: =76
+            Width: =1366
+          Children:
+            - FeedbackLogo:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =55
+                  Size: =18
+                  Text: ="SETRAG" & Char(10) & "   ERAMET"
+                  Width: =160
+                  X: =30
+                  Y: =10
+            - FeedbackTitle:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Size: =20
+                  Text: ="NOUVEAU POINTAGE TERRAIN"
+                  Width: =600
+                  X: =383
+                  Y: =8
+            - FeedbackSubtitle:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =27
+                  Size: =11
+                  Text: ="Ajouter un feedback terrain"
+                  Width: =600
+                  X: =383
+                  Y: =43
+            - FeedbackSession:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(255, 255, 255, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =43
+                  Size: =11
+                  Text: |-
+                    ="Poste : " & varQuart & "   |   Agent : " & User().FullName
+                  Width: =370
+                  X: =980
+                  Y: =16
+      - FeedbackWorkspace:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(248, 249, 251, 1)
+            Height: =590
+            Width: =1320
+            X: =22
+            Y: =91
+          Children:
+            - InputPanel:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =565
+                  Width: =700
+                  X: =16
+                  Y: =12
+                Children:
+                  - EventHeading:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        Size: =14
+                        Text: ="1. SÉLECTION DE L’ÉVÉNEMENT CONCERNÉ"
+                        Width: =620
+                        X: =25
+                        Y: =16
+                  - EventLabel:
+                      Control: Label@2.5.1
+                      Properties:
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        Size: =10
+                        Text: ="Événement (Chantier / LTV / Incident)"
+                        Width: =500
+                        X: =25
+                        Y: =55
+                  - EventSelector:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        DefaultSelectedItems: =If(!IsBlank(varFeedbackEvent), [varFeedbackEvent])
+                        DisplayFields: =["Title"]
+                        Items: =SortByColumns(Tx_Travaux, "Created", SortOrder.Descending)
+                        OnChange: =Set(varFeedbackEvent, EventSelector.Selected)
+                        SearchFields: =["Title"]
+                        SelectMultiple: =false
+                        Width: =640
+                        X: =25
+                        Y: =78
+                  - EventContext:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        Fill: =RGBA(239, 245, 255, 1)
+                        Font: =Font.'Segoe UI'
+                        Height: =43
+                        Size: =10
+                        Text: |-
+                          ="Type : Chantier    |    Canton : " & Coalesce(LookUp(Ref_Cantons, ID = varFeedbackEvent.CantonID).Title, "-") & "    |    Début demandé : " & If(!IsBlank(varFeedbackEvent.Heure_Demande), Text(varFeedbackEvent.Heure_Demande, "hh:mm"), "-") & "    |    Resp. : " & User().FullName
+                        Width: =640
+                        X: =25
+                        Y: =128
+                  - PointageHeading:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        Size: =12
+                        Text: ="2. INFORMATIONS DU POINTAGE"
+                        Width: =400
+                        X: =25
+                        Y: =190
+                  - ContactTimeLabel:
+                      Control: Label@2.5.1
+                      Properties:
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        Size: =10
+                        Text: ="Heure du pointage *"
+                        Width: =300
+                        X: =25
+                        Y: =225
+                  - ContactTime:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Default: =Text(Now(), "dd/mm/yyyy hh:mm")
+                        Width: =290
+                        X: =25
+                        Y: =247
+                  - ContactModeLabel:
+                      Control: Label@2.5.1
+                      Properties:
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        Size: =10
+                        Text: ="Mode de contact *"
+                        Width: =300
+                        X: =345
+                        Y: =225
+                  - ContactMode:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        DisplayFields: =["Value"]
+                        Items: =Choices(Tx_Feedbacks.MoyenCom)
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Width: =290
+                        X: =345
+                        Y: =247
+                  - PKLabel:
+                      Control: Label@2.5.1
+                      Properties:
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        Size: =10
+                        Text: ="Localisation exacte (PK)"
+                        Width: =300
+                        X: =25
+                        Y: =300
+                  - PKInput:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Width: =290
+                        X: =25
+                        Y: =322
+                  - ContactStatusLabel:
+                      Control: Label@2.5.1
+                      Properties:
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        Size: =10
+                        Text: ="Statut du contact *"
+                        Width: =300
+                        X: =345
+                        Y: =300
+                  - ContactStatus:
+                      Control: Classic/Radio@2.3.0
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Height: =53
+                        Items: =["OUI", "NON"]
+                        Items.Value: =Value
+                        Layout: =Layout.Horizontal
+                        Width: =290
+                        X: =345
+                        Y: =322
+                  - ObservationHeading:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        Size: =12
+                        Text: ="3. OBSERVATIONS TERRAIN"
+                        Width: =400
+                        X: =25
+                        Y: =375
+                  - ObservationInput:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Height: =78
+                        HintText: ="Saisissez vos observations terrain..."
+                        MaxLength: =1000
+                        Mode: =TextMode.MultiLine
+                        Width: =640
+                        X: =25
+                        Y: =408
+                  - CharacterCount:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Right
+                        Color: =RGBA(83, 87, 99, 1)
+                        Height: =20
+                        Size: =9
+                        Text: =Len(ObservationInput.Text) & " / 1000"
+                        Width: =120
+                        X: =540
+                        Y: =486
+                  - SaveFeedback:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        Fill: =RGBA(255, 174, 0, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =44
+                        OnSelect: |-
+                          =If(
+                              IsBlank(EventSelector.Selected) || IsBlank(ContactMode.Selected) || IsBlank(ContactStatus.Selected),
+                              Notify("Sélectionnez un événement, un mode et un statut de contact", NotificationType.Error),
+                              IfError(
+                                  Patch(
+                                      Tx_Feedbacks,
+                                      Defaults(Tx_Feedbacks),
+                                      {
+                                          TravailID: varFeedbackEvent.ID,
+                                          HeureContact: DateTimeValue(ContactTime.Text),
+                                          MoyenCom: {Value: ContactMode.Selected.Value},
+                                          StatutContact: {Value: ContactStatus.Selected.Value},
+                                          Commentaire: ObservationInput.Text,
+                                          Poste: varQuart,
+                                          Agent: User().FullName,
+                                          DateSaisie: Now()
+                                      }
+                                  );
+                                  Refresh(Tx_Feedbacks);
+                                  Reset(ContactTime);
+                                  Reset(ContactMode);
+                                  Reset(ContactStatus);
+                                  Reset(ObservationInput);
+                                  Reset(PKInput);
+                                  Notify("Feedback ajouté avec succès dans SharePoint", NotificationType.Success),
+                                  Notify("Erreur lors de l'enregistrement : " & FirstError.Message, NotificationType.Error)
+                              )
+                          )
+                        Text: ="AJOUTER LE FEEDBACK"
+                        Width: =300
+                        X: =200
+                        Y: =510
+            - SummaryPanel_2:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =565
+                  Width: =570
+                  X: =736
+                  Y: =12
+                Children:
+                  - SummaryHeading_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        Size: =14
+                        Text: ="RÉSUMÉ DE L’ÉVÉNEMENT"
+                        Width: =500
+                        X: =25
+                        Y: =18
+                  - SummaryCard:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(220, 224, 230, 1)
+                        BorderThickness: =1
+                        Height: =175
+                        Width: =520
+                        X: =25
+                        Y: =60
+                      Children:
+                        - SummaryTitle:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(25, 28, 38, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =32
+                              Size: =14
+                              Text: =Coalesce(varFeedbackEvent.Title, "Aucun événement sélectionné")
+                              Width: =370
+                              X: =25
+                              Y: =20
+                        - SummaryDetails:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =32
+                              Size: =10
+                              Text: |-
+                                ="Canton : " & Coalesce(LookUp(Ref_Cantons, ID = varFeedbackEvent.CantonID).Title, "-") & "    |    Date travaux : " & If(!IsBlank(varFeedbackEvent.DateTravaux), Text(varFeedbackEvent.DateTravaux, "dd/mm/yyyy"), "-")
+                              Width: =450
+                              X: =25
+                              Y: =60
+                        - SummaryStatus:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(18, 135, 43, 1)
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =30
+                              Size: =12
+                              Text: =Coalesce(If(IsBlank(varFeedbackEvent.Heure_Degagement), "Chantier en cours", "Dégagé"), "En cours")
+                              X: =25
+                              Y: =112
+                  - HistoryHeading:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        Size: =14
+                        Text: ="HISTORIQUE DES POINTAGES"
+                        Width: =450
+                        X: =25
+                        Y: =255
+                  - HistoryGallery:
+                      Control: Gallery@2.15.0
+                      Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        Height: =230
+                        Items: =SortByColumns(Filter(Tx_Feedbacks, TravailID = varFeedbackEvent.ID), "HeureContact", SortOrder.Descending)
+                        TemplateSize: =100
+                        Width: =520
+                        X: =25
+                        Y: =295
+                      Children:
+                        - HistoryTime:
+                            Control: Label@2.5.1
+                            Properties:
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =28
+                              Size: =11
+                              Text: =Text(ThisItem.HeureContact, "dd/mm/yyyy hh:mm")
+                              Width: =220
+                              X: =15
+                              Y: =12
+                        - HistoryComment:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              Size: =10
+                              Text: =Left(ThisItem.Commentaire, 70)
+                              Width: =300
+                              X: =180
+                              Y: =25
+                        - HistoryMode:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(8, 49, 120, 1)
+                              Height: =28
+                              Size: =10
+                              Text: =ThisItem.MoyenCom.Value & "  |  Contact : " & ThisItem.StatutContact.Value
+                              X: =15
+                              Y: =42
+      - BackToJournal:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(8, 49, 120, 1)
+            BorderThickness: =1
+            Color: =RGBA(8, 49, 120, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Segoe UI'
+            Height: =48
+            OnSelect: =Navigate(JournalDeBord_1, ScreenTransition.Fade)
+            Text: ="←   RETOUR AU JOURNAL DE BORD"
+            Width: =310
+            X: =22
+            Y: =695
+      - SaveAndClose:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Fill: =RGBA(255, 174, 0, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Bold
+            Height: =48
+            OnSelect: |-
+              =If(
+                  IsBlank(EventSelector.Selected) || IsBlank(ContactMode.Selected) || IsBlank(ContactStatus.Selected),
+                  Notify("Sélectionnez un événement, un mode et un statut de contact", NotificationType.Error),
+                  IfError(
+                      Patch(
+                          Tx_Feedbacks,
+                          Defaults(Tx_Feedbacks),
+                          {
+                              TravailID: varFeedbackEvent.ID,
+                              HeureContact: DateTimeValue(ContactTime.Text),
+                              MoyenCom: {Value: ContactMode.Selected.Value},
+                              StatutContact: {Value: ContactStatus.Selected.Value},
+                              Commentaire: ObservationInput.Text,
+                              Poste: varQuart,
+                              Agent: User().FullName,
+                              DateSaisie: Now()
+                          }
+                      );
+                      Refresh(Tx_Feedbacks);
+                      Notify("Pointage enregistré, retour au journal", NotificationType.Success);
+                      Navigate(JournalDeBord_1, ScreenTransition.Fade),
+                      Notify("Erreur lors de l'enregistrement : " & FirstError.Message, NotificationType.Error)
+                  )
+              )
+            Text: ="ENREGISTRER & RETOUR JOURNAL  →"
+            Width: =340
+            X: =1004
+            Y: =695

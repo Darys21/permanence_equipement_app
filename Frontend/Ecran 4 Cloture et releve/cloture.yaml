@@ -1,0 +1,574 @@
+Screens:
+  scrCloture_1:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
+      OnVisible: =Set(varEtapeCloture, 1); Refresh(Ref_Cantons); Refresh(Ref_Acteurs); Refresh(Tx_Travaux); Refresh(Tx_LTV); Refresh(Tx_incidents_Ruptures); Refresh(Tx_Feedbacks)
+    Children:
+      - ClosureHeader_1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 120, 1)
+            Height: =76
+            Width: =1366
+          Children:
+            - ClosureLogo_1:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =55
+                  Size: =18
+                  Text: ="SETRAG" & Char(10) & "   ERAMET"
+                  Width: =160
+                  X: =30
+                  Y: =10
+            - ClosureTitle_1:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =38
+                  Size: =20
+                  Text: ="CLÔTURE DU POSTE & RELÈVE"
+                  Width: =650
+                  X: =358
+                  Y: =8
+            - ClosureSubtitle_1:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =25
+                  Size: =11
+                  Text: ="Synthèse et validation de fin de service"
+                  Width: =650
+                  X: =358
+                  Y: =44
+            - ClosureSession_1:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(255, 255, 255, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =43
+                  Size: =11
+                  Text: |-
+                    ="Poste : " & varQuart & "   |   Agent : " & User().FullName
+                  Width: =370
+                  X: =980
+                  Y: =16
+      - ClosureSteps_1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Height: =78
+            Width: =1320
+            X: =22
+            Y: =86
+          Children:
+            - StepOne_1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =If(varEtapeCloture = 1, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
+                  BorderThickness: =If(varEtapeCloture = 1, 2, 1)
+                  Color: =If(varEtapeCloture = 1, RGBA(255, 255, 255, 1), RGBA(68, 73, 87, 1))
+                  Fill: =If(varEtapeCloture = 1, RGBA(8, 75, 180, 1), RGBA(255, 255, 255, 1))
+                  Font: =Font.'Segoe UI'
+                  Height: =50
+                  OnSelect: =Set(varEtapeCloture, 1)
+                  Text: ="1   Synthèse du poste"
+                  Width: =300
+                  X: =70
+                  Y: =10
+            - StepTwo_1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =If(varEtapeCloture = 2, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
+                  BorderThickness: =If(varEtapeCloture = 2, 2, 1)
+                  Color: =If(varEtapeCloture = 2, RGBA(255, 255, 255, 1), RGBA(68, 73, 87, 1))
+                  Fill: =If(varEtapeCloture = 2, RGBA(8, 75, 180, 1), RGBA(255, 255, 255, 1))
+                  Font: =Font.'Segoe UI'
+                  Height: =50
+                  OnSelect: =Set(varEtapeCloture, 2)
+                  Text: ="2   Vérification & Commentaires"
+                  Width: =300
+                  X: =390
+                  Y: =10
+            - StepThree_1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =If(varEtapeCloture = 3, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
+                  BorderThickness: =If(varEtapeCloture = 3, 2, 1)
+                  Color: =If(varEtapeCloture = 3, RGBA(255, 255, 255, 1), RGBA(68, 73, 87, 1))
+                  Fill: =If(varEtapeCloture = 3, RGBA(8, 75, 180, 1), RGBA(255, 255, 255, 1))
+                  Font: =Font.'Segoe UI'
+                  Height: =50
+                  OnSelect: =Set(varEtapeCloture, 3)
+                  Text: ="3   Rapport & Transmission"
+                  Width: =300
+                  X: =710
+                  Y: =10
+            - StepFour_1:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =If(varEtapeCloture = 4, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
+                  BorderThickness: =If(varEtapeCloture = 4, 2, 1)
+                  Color: =If(varEtapeCloture = 4, RGBA(255, 255, 255, 1), RGBA(68, 73, 87, 1))
+                  Fill: =If(varEtapeCloture = 4, RGBA(8, 75, 180, 1), RGBA(255, 255, 255, 1))
+                  Font: =Font.'Segoe UI'
+                  Height: =50
+                  OnSelect: =Set(varEtapeCloture, 4)
+                  Text: ="4   Confirmation"
+                  Width: =220
+                  X: =1030
+                  Y: =10
+      - ClosureWorkspace_1:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(248, 249, 251, 1)
+            Height: =570
+            Width: =1320
+            X: =22
+            Y: =164
+          Children:
+            - SummaryPanel_1:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =550
+                  Visible: =varEtapeCloture = 1
+                  Width: =720
+                  X: =16
+                  Y: =10
+                Children:
+                  - SummaryHeading_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =38
+                        Size: =14
+                        Text: |-
+                          ="RÉSUMÉ DU POSTE " & varQuart & " (" &
+                          Switch(varQuart, "P1", "06H - 14H", "P2", "14H - 22H", "P3", "22H - 06H", "08H - 16H") & ")"
+                        Width: =650
+                        X: =25
+                        Y: =16
+                  - SummaryPeriod_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(83, 87, 99, 1)
+                        Height: =25
+                        Size: =10
+                        Text: |-
+                          ="Période : " &
+                          Switch(
+                              varQuart,
+                              "P1", Text(Today(), "dd/mm/yyyy") & " 06:00 → " & Text(Today(), "dd/mm/yyyy") & " 14:00",
+                              "P2", Text(Today(), "dd/mm/yyyy") & " 14:00 → " & Text(Today(), "dd/mm/yyyy") & " 22:00",
+                              "P3", If(Hour(Now()) < 6, Text(DateAdd(Today(), -1, TimeUnit.Days), "dd/mm/yyyy") & " 22:00 → ", Text(Today(), "dd/mm/yyyy") & " 22:00 → ") & If(Hour(Now()) < 6, Text(Today(), "dd/mm/yyyy"), Text(DateAdd(Today(), 1, TimeUnit.Days), "dd/mm/yyyy")) & " 06:00",
+                              Text(Today(), "dd/mm/yyyy")
+                          )
+                        Width: =650
+                        X: =25
+                        Y: =52
+                  - WorkKpi_1:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(225, 228, 235, 1)
+                        BorderThickness: =1
+                        Height: =96
+                        Width: =160
+                        X: =25
+                        Y: =85
+                      Children:
+                        - WorkKpiLabel_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(68, 73, 87, 1)
+                              Height: =26
+                              Size: =9
+                              Text: ="Chantiers & Travaux"
+                              Width: =160
+                              Y: =10
+                        - WorkKpiValue_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(8, 49, 120, 1)
+                              FontWeight: =FontWeight.Bold
+                              Height: =35
+                              Size: =20
+                              Text: =CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && Datetravaux = Today()))
+                              Width: =160
+                              Y: =36
+                        - WorkKpiNote_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(237, 108, 20, 1)
+                              Height: =20
+                              Size: =9
+                              Text: =CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && Datetravaux = Today() && IsBlank(Heures_Degagement))) & " en cours"
+                              Width: =160
+                              Y: =70
+                  - LtvKpi_1:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(225, 228, 235, 1)
+                        BorderThickness: =1
+                        Height: =96
+                        Width: =160
+                        X: =195
+                        Y: =85
+                      Children:
+                        - LtvKpiLabel_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(68, 73, 87, 1)
+                              Height: =26
+                              Size: =9
+                              Text: ="LTV / RAL"
+                              Width: =160
+                              Y: =10
+                        - LtvKpiValue_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(237, 145, 0, 1)
+                              FontWeight: =FontWeight.Bold
+                              Height: =35
+                              Size: =20
+                              Text: =CountRows(Filter(Tx_LTV, Poste.Value = varQuart && Date_imposition >= Today() && Date_imposition < DateAdd(Today(), 1, TimeUnit.Days)))
+                              Width: =160
+                              Y: =36
+                        - LtvKpiNote_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(238, 32, 35, 1)
+                              Height: =20
+                              Size: =9
+                              Text: =CountRows(Filter(Tx_LTV, Poste.Value = varQuart && Statut_LTV.Value = "Imposée")) & " actives"
+                              Width: =160
+                              Y: =70
+                  - IncidentKpi_1:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(225, 228, 235, 1)
+                        BorderThickness: =1
+                        Height: =96
+                        Width: =160
+                        X: =365
+                        Y: =85
+                      Children:
+                        - IncidentKpiLabel_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(68, 73, 87, 1)
+                              Height: =26
+                              Size: =9
+                              Text: ="Ruptures / Incidents"
+                              Width: =160
+                              Y: =10
+                        - IncidentKpiValue_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(238, 32, 35, 1)
+                              FontWeight: =FontWeight.Bold
+                              Height: =35
+                              Size: =20
+                              Text: =CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && DateIncident >= Today() && DateIncident < DateAdd(Today(), 1, TimeUnit.Days)))
+                              Width: =160
+                              Y: =36
+                        - IncidentKpiNote_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(238, 32, 35, 1)
+                              Height: =20
+                              Size: =9
+                              Text: =CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && DateIncident >= Today() && DateIncident < DateAdd(Today(), 1, TimeUnit.Days) && Etat.Value = "En cours")) & " en cours"
+                              Width: =160
+                              Y: =70
+                  - FeedbackKpi_1:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(225, 228, 235, 1)
+                        BorderThickness: =1
+                        Height: =96
+                        Width: =160
+                        X: =535
+                        Y: =85
+                      Children:
+                        - FeedbackKpiLabel_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(68, 73, 87, 1)
+                              Height: =26
+                              Size: =9
+                              Text: ="Feedbacks Terrain"
+                              Width: =160
+                              Y: =10
+                        - FeedbackKpiValue_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(18, 135, 43, 1)
+                              FontWeight: =FontWeight.Bold
+                              Height: =35
+                              Size: =20
+                              Text: =CountRows(Filter(Tx_Feedbacks, Poste.Value = varQuart && HeureContact >= Today() && HeureContact < DateAdd(Today(), 1, TimeUnit.Days)))
+                              Width: =160
+                              Y: =36
+                        - FeedbackKpiNote_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(68, 73, 87, 1)
+                              Height: =20
+                              Size: =9
+                              Text: ="Points de contact"
+                              Width: =160
+                              Y: =70
+                  - DetailHeading_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        Size: =12
+                        Text: ="DÉTAIL DES ÉVÉNEMENTS"
+                        Width: =400
+                        X: =25
+                        Y: =200
+                  - EventGallery_1:
+                      Control: Gallery@2.15.0
+                      Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+                      Properties:
+                        BorderColor: =RGBA(220, 224, 230, 1)
+                        Height: =185
+                        Items: =SortByColumns(Filter(Tx_Travaux, Poste.Value = varQuart && Datetravaux = Today()), "Created", SortOrder.Descending)
+                        TemplateSize: =36
+                        Width: =670
+                        X: =25
+                        Y: =238
+                      Children:
+                        - EventColorBar_1:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              Fill: =RGBA(8, 75, 180, 1)
+                              Height: =Parent.TemplateHeight
+                              Width: =5
+                        - EventWork_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              FontWeight: =FontWeight.Semibold
+                              Height: =30
+                              Size: =9
+                              Text: =ThisItem.Title
+                              Width: =170
+                              X: =18
+                              Y: =3
+                        - EventDate_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              Height: =30
+                              Size: =9
+                              Text: =Text(ThisItem.Datetravaux, "dd/mm") & " " & If(!IsBlank(ThisItem.Heure_Demande), Text(ThisItem.Heure_Demande, "hh:mm"), "--:--")
+                              Width: =100
+                              X: =195
+                              Y: =3
+                        - EventStatus_1:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              Color: =RGBA(18, 135, 43, 1)
+                              Height: =28
+                              Size: =9
+                              Text: =Coalesce(If(IsBlank(ThisItem.Heures_Degagement), "En cours", "Dégagé"), "N/A")
+                              Width: =100
+                              X: =550
+                              Y: =3
+                  - HandoverNotice_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(125, 78, 0, 1)
+                        Fill: =RGBA(255, 248, 232, 1)
+                        Height: =80
+                        Size: =10
+                        Text: |-
+                          ="ÉLÉMENTS À TRANSMETTRE AU POSTE SUIVANT" & Char(10) &
+"• Travaux en cours : " & CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && Datetravaux = Today() && IsBlank(Heures_Degagement))) &
+                           "   • LTV actives : " & CountRows(Filter(Tx_LTV, Poste.Value = varQuart && Statut_LTV.Value = "Imposée")) &
+                           "   • Incidents ouverts : " & CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && DateIncident = Today() && Etat.Value = "En cours")) & Char(10) &
+                          "• Feedbacks terrain saisis : " & CountRows(Filter(Tx_Feedbacks, Poste.Value = varQuart && DateValue(Text(DateSaisie, "dd/mm/yyyy")) = Today()))
+                        Width: =670
+                        X: =25
+                        Y: =438
+            - ClosureActionPanel_1:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =550
+                  Visible: =varEtapeCloture = 2 || varEtapeCloture = 3
+                  Width: =545
+                  X: =751
+                  Y: =10
+                Children:
+                  - CommentHeading_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        Size: =14
+                        Text: ="COMMENTAIRE DE FIN DE POSTE"
+                        Width: =500
+                        X: =25
+                        Y: =18
+                  - ClosureComment_1:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Height: =145
+                        HintText: ="Ajoutez vos observations de fin de service..."
+                        MaxLength: =1000
+                        Mode: =TextMode.MultiLine
+                        Width: =495
+                        X: =25
+                        Y: =60
+                  - ClosureCount_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Right
+                        Color: =RGBA(83, 87, 99, 1)
+                        Height: =20
+                        Size: =9
+                        Text: =Len(ClosureComment_1.Text) & " / 1000 caractères"
+                        Width: =250
+                        X: =270
+                        Y: =207
+                  - DocumentHeading_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        Size: =14
+                        Text: ="DOCUMENTS GÉNÉRÉS"
+                        Width: =400
+                        X: =25
+                        Y: =227
+                  - ReportCard_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        BorderColor: =RGBA(220, 224, 230, 1)
+                        BorderThickness: =1
+                        Color: =RGBA(8, 49, 120, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Height: =65
+                        Size: =11
+                        Text: ="Rapport de fin de poste - " & varQuart & Char(10) & "Génération automatique après validation"
+                        Width: =495
+                        X: =25
+                        Y: =267
+                  - TransmissionHeading_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        Size: =14
+                        Text: ="TRANSMISSION AU POSTE SUIVANT"
+                        Width: =450
+                        X: =25
+                        Y: =332
+                  - NextShift_1:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        DisplayFields: =["Value"]
+                        Height: =42
+                        Items: =["P1 (06h - 14h)", "P2 (14h - 22h)", "P3 (22h - 06h)"]
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Width: =495
+                        X: =25
+                        Y: =372
+                  - LockNotice_1:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 75, 180, 1)
+                        Fill: =RGBA(239, 245, 255, 1)
+                        Height: =70
+                        Size: =9
+                        Text: ="Après clôture, les données ne pourront plus être modifiées. Les feedbacks pourront être ajoutés en consultation."
+                        Width: =495
+                        X: =24
+                        Y: =448
+      - ClosureBack_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(8, 49, 120, 1)
+            BorderThickness: =1
+            Color: =RGBA(8, 49, 120, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Segoe UI'
+            Height: =38
+            OnSelect: =Navigate(JournalDeBord_1, ScreenTransition.Fade)
+            Size: =13
+            Text: ="←   RETOUR AU JOURNAL DE BORD"
+            Width: =271
+            X: =52
+            Y: =720
+      - SaveDraft_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(8, 49, 120, 1)
+            BorderThickness: =1
+            Color: =RGBA(8, 49, 120, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =Font.'Segoe UI'
+            Height: =38
+            OnSelect: =Set(varEtapeCloture, 2); Notify("Commentaire pris en compte", NotificationType.Success)
+            Size: =13
+            Text: ="ENREGISTRER BROUILLON"
+            Width: =234
+            X: =734
+            Y: =721
+      - ValidateClosure_1:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Fill: =RGBA(255, 174, 0, 1)
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Bold
+            Height: =38
+            OnSelect: =If(varEtapeCloture < 4, Set(varEtapeCloture, varEtapeCloture + 1); Notify("Étape " & varEtapeCloture & " validée", NotificationType.Success), Notify("Poste " & varQuart & " clôturé. Redémarrage application pour nouveau poste.", NotificationType.Success); Navigate(PrisePoste_1, ScreenTransition.Fade))
+            Size: =13
+            Text: =If(varEtapeCloture < 4, "CONTINUER ÉTAPE SUIVANTE  →", "VALIDER & CLÔTURER LE POSTE")
+            Width: =316
+            X: =1027
+            Y: =721

@@ -1,0 +1,44 @@
+# Environnements et caches locaux
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Configuration locale et secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+
+# Fichiers système et éditeurs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Outils et artefacts installés localement
+.agents/
+copilot/
+
+# Données sources et exports opérationnels non destinés au dépôt
+BASE/
+Data brute/
+Backend/Ref_Acteurs
+Backend/Ref_Cantons
+Backend/Tx_Feedbacks
+Backend/TX_incidents_Ruptures
+Backend/Tx_LTV
+Backend/Tx_Travaux
+
+# Fichier binaire Power Apps : conserver les sources YAML et la documentation
+*.msapp
+
+# Sorties temporaires ou générées
+script/pdf_output.txt
+*.log
+*.tmp
+~$*

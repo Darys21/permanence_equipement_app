@@ -1,0 +1,404 @@
+{
+  "generated_at": "2026-09-08T13:34:34",
+  "yamls_scanned": [
+    "Frontend\\Ecran 1 Prise de poste\\poste.yaml",
+    "Frontend\\Ecran 2 Journal de bord\\dashboard.yaml",
+    "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+    "Frontend\\Ecran Feedback\\feedback.yaml"
+  ],
+  "total_divergences": 56,
+  "details": [
+    {
+      "file": "Frontend\\Ecran 1 Prise de poste\\poste.yaml",
+      "line": 414,
+      "code": "HEURE_DEG_PLURIEL",
+      "match": "Heure_Degagement",
+      "recommendation": "Heure_Degagement -> Heures_Degagement (PLURIEL interne!)"
+    },
+    {
+      "file": "Frontend\\Ecran 1 Prise de poste\\poste.yaml",
+      "line": 465,
+      "code": "DATETRAVAUX_NOM",
+      "match": "DateTravaux",
+      "recommendation": "DateTravaux -> Datetravaux (nom interne SP = Datetravaux un mot t minuscule)"
+    },
+    {
+      "file": "Frontend\\Ecran 1 Prise de poste\\poste.yaml",
+      "line": 488,
+      "code": "CANTON_FK_TYPE",
+      "match": "CantonID",
+      "recommendation": "CantonID sur Incidents/LTV -> CantonID0 (Incidents Lookup) ou CantonID_ (LTV Lookup) sur bonnes listes. CantonID Nombre seulement OK sur Tx_Travaux."
+    },
+    {
+      "file": "Frontend\\Ecran 1 Prise de poste\\poste.yaml",
+      "line": 510,
+      "code": "STATUT_LTV_IMPOSEE",
+      "match": "Imposée (Active)",
+      "recommendation": "\"Imposée (Active)\" -> backend reel = \"Imposée\" SANS parentheses"
+    },
+    {
+      "file": "Frontend\\Ecran 1 Prise de poste\\poste.yaml",
+      "line": 561,
+      "code": "IMPOSITION_CASSE",
+      "match": "Date_Imposition",
+      "recommendation": "Date_Imposition I MAJ -> Date_imposition i minuscule backend"
+    },
+    {
+      "file": "Frontend\\Ecran 1 Prise de poste\\poste.yaml",
+      "line": 584,
+      "code": "REF_CANTON_PK_E",
+      "match": "PK_Debut",
+      "recommendation": "Ref_Cantons -> PK_d_x00e9_but nom interne (é encode)"
+    },
+    {
+      "file": "Frontend\\Ecran 2 Journal de bord\\dashboard.yaml",
+      "line": 718,
+      "code": "CANTON_FK_TYPE",
+      "match": "CantonID",
+      "recommendation": "CantonID sur Incidents/LTV -> CantonID0 (Incidents Lookup) ou CantonID_ (LTV Lookup) sur bonnes listes. CantonID Nombre seulement OK sur Tx_Travaux."
+    },
+    {
+      "file": "Frontend\\Ecran 2 Journal de bord\\dashboard.yaml",
+      "line": 720,
+      "code": "ACTEUR_LTV_LOOKUP",
+      "match": "ActeurID",
+      "recommendation": "ActeurID sur LTV -> ActeurID0 Lookup suffix 0; ActeurID Nombre OK seulement sur Tx_Travaux"
+    },
+    {
+      "file": "Frontend\\Ecran 2 Journal de bord\\dashboard.yaml",
+      "line": 727,
+      "code": "REF_CANTON_PK_E",
+      "match": "PK_Debut",
+      "recommendation": "Ref_Cantons -> PK_d_x00e9_but nom interne (é encode)"
+    },
+    {
+      "file": "Frontend\\Ecran 2 Journal de bord\\dashboard.yaml",
+      "line": 750,
+      "code": "REF_CANTON_PK_E",
+      "match": "PK_Debut",
+      "recommendation": "Ref_Cantons -> PK_d_x00e9_but nom interne (é encode)"
+    },
+    {
+      "file": "Frontend\\Ecran 2 Journal de bord\\dashboard.yaml",
+      "line": 928,
+      "code": "CANTON_FK_TYPE",
+      "match": "CantonID",
+      "recommendation": "CantonID sur Incidents/LTV -> CantonID0 (Incidents Lookup) ou CantonID_ (LTV Lookup) sur bonnes listes. CantonID Nombre seulement OK sur Tx_Travaux."
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 215,
+      "code": "DATETRAVAUX_NOM",
+      "match": "DateTravaux",
+      "recommendation": "DateTravaux -> Datetravaux (nom interne SP = Datetravaux un mot t minuscule)"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 215,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_Travaux, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 215,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 225,
+      "code": "DATETRAVAUX_NOM",
+      "match": "DateTravaux",
+      "recommendation": "DateTravaux -> Datetravaux (nom interne SP = Datetravaux un mot t minuscule)"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 225,
+      "code": "HEURE_DEG_PLURIEL",
+      "match": "Heure_Degagement",
+      "recommendation": "Heure_Degagement -> Heures_Degagement (PLURIEL interne!)"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 225,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_Travaux, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 225,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 257,
+      "code": "IMPOSITION_CASSE",
+      "match": "Date_Imposition",
+      "recommendation": "Date_Imposition I MAJ -> Date_imposition i minuscule backend"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 257,
+      "code": "IMPOSITION_CASSE",
+      "match": "Date_Imposition",
+      "recommendation": "Date_Imposition I MAJ -> Date_imposition i minuscule backend"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 257,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_LTV, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 257,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 267,
+      "code": "STATUT_LTV_IMPOSEE",
+      "match": "Imposée (Active)",
+      "recommendation": "\"Imposée (Active)\" -> backend reel = \"Imposée\" SANS parentheses"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 267,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_LTV, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 267,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 299,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_incidents_Ruptures, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 299,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 309,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_incidents_Ruptures, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 309,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 341,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_Feedbacks, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 341,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 371,
+      "code": "DATETRAVAUX_NOM",
+      "match": "DateTravaux",
+      "recommendation": "DateTravaux -> Datetravaux (nom interne SP = Datetravaux un mot t minuscule)"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 371,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_Travaux, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 371,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 399,
+      "code": "DATETRAVAUX_NOM",
+      "match": "DateTravaux",
+      "recommendation": "DateTravaux -> Datetravaux (nom interne SP = Datetravaux un mot t minuscule)"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 410,
+      "code": "HEURE_DEG_PLURIEL",
+      "match": "Heure_Degagement",
+      "recommendation": "Heure_Degagement -> Heures_Degagement (PLURIEL interne!)"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 423,
+      "code": "DATETRAVAUX_NOM",
+      "match": "DateTravaux",
+      "recommendation": "DateTravaux -> Datetravaux (nom interne SP = Datetravaux un mot t minuscule)"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 423,
+      "code": "HEURE_DEG_PLURIEL",
+      "match": "Heure_Degagement",
+      "recommendation": "Heure_Degagement -> Heures_Degagement (PLURIEL interne!)"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 423,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_Travaux, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 423,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 424,
+      "code": "STATUT_LTV_IMPOSEE",
+      "match": "Imposée (Active)",
+      "recommendation": "\"Imposée (Active)\" -> backend reel = \"Imposée\" SANS parentheses"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 424,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_LTV, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 424,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 425,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_incidents_Ruptures, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 425,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 426,
+      "code": "POSTE_CHOIX_FILTER",
+      "match": "Filter(Tx_Feedbacks, Poste = varQuart",
+      "recommendation": "Filter Poste = varQuart sans .Value → Poste est CHOIX! Poste.Value = varQuart"
+    },
+    {
+      "file": "Frontend\\Ecran 4 Cloture et releve\\cloture.yaml",
+      "line": 426,
+      "code": "POSTE_CHOIX_READ",
+      "match": " Poste =",
+      "recommendation": "Reference Poste sans .Value (lecture) → Poste est CHOIX! ThisItem.Poste.Value"
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 132,
+      "code": "CANTON_FK_TYPE",
+      "match": "CantonID",
+      "recommendation": "CantonID sur Incidents/LTV -> CantonID0 (Incidents Lookup) ou CantonID_ (LTV Lookup) sur bonnes listes. CantonID Nombre seulement OK sur Tx_Travaux."
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 282,
+      "code": "STATUTCONTACT_BOOLEAN",
+      "match": "StatutContact: {Value:",
+      "recommendation": "StatutContact {Value: ...} CHOIX -> StatutContact BOOLEAN backend reel (=true/false)"
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 285,
+      "code": "AGENT_SAISIE_CLAIMS",
+      "match": "Agent: User().FullName",
+      "recommendation": "Agent texte plein -> AgentSaisie colonne PERSONNE! record Claims format"
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 356,
+      "code": "DATETRAVAUX_NOM",
+      "match": "DateTravaux",
+      "recommendation": "DateTravaux -> Datetravaux (nom interne SP = Datetravaux un mot t minuscule)"
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 356,
+      "code": "DATETRAVAUX_NOM",
+      "match": "DateTravaux",
+      "recommendation": "DateTravaux -> Datetravaux (nom interne SP = Datetravaux un mot t minuscule)"
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 356,
+      "code": "CANTON_FK_TYPE",
+      "match": "CantonID",
+      "recommendation": "CantonID sur Incidents/LTV -> CantonID0 (Incidents Lookup) ou CantonID_ (LTV Lookup) sur bonnes listes. CantonID Nombre seulement OK sur Tx_Travaux."
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 368,
+      "code": "HEURE_DEG_PLURIEL",
+      "match": "Heure_Degagement",
+      "recommendation": "Heure_Degagement -> Heures_Degagement (PLURIEL interne!)"
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 457,
+      "code": "STATUTCONTACT_BOOLEAN",
+      "match": "StatutContact: {Value:",
+      "recommendation": "StatutContact {Value: ...} CHOIX -> StatutContact BOOLEAN backend reel (=true/false)"
+    },
+    {
+      "file": "Frontend\\Ecran Feedback\\feedback.yaml",
+      "line": 460,
+      "code": "AGENT_SAISIE_CLAIMS",
+      "match": "Agent: User().FullName",
+      "recommendation": "Agent texte plein -> AgentSaisie colonne PERSONNE! record Claims format"
+    }
+  ]
+}

@@ -1,0 +1,713 @@
+{
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#sites('erametgroup.sharepoint.com%2C4a6944d0-9e77-4553-a298-4d3a934e23c4%2Cd07072fd-cb19-44e8-89ac-850a5d83005e')/lists('3aa95b78-bc02-4c14-8a67-e917709dceb5')/columns",
+    "@microsoft.graph.tips": "Use $select to choose only the properties your app needs, as this can lead to performance improvements. For example: GET sites('<key>')/lists('<guid>')/columns?$select=boolean,calculated",
+    "value": [
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Titre",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "fa564e0f-0c70-4ab9-b863-0177e6ddd247",
+            "indexed": false,
+            "name": "Title",
+            "readOnly": false,
+            "required": true,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Balise de couleur",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "76d13cd2-1bae-45a5-8b74-545b87b65037",
+            "indexed": false,
+            "name": "_ColorTag",
+            "readOnly": true,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "ID de ressource de conformité",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "3a6b296c-3f50-445c-a13f-9c679ea9dda3",
+            "indexed": false,
+            "name": "ComplianceAssetId",
+            "readOnly": true,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Date_travaux",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "510a6bc3-c181-4750-aebc-e8eecbc061af",
+            "indexed": false,
+            "name": "Datetravaux",
+            "readOnly": false,
+            "required": true,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            },
+            "defaultValue": {
+                "value": "[today]"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "CantonID ",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "c9dcdc51-1c7a-4b25-9ae9-f1aef759cc93",
+            "indexed": false,
+            "name": "CantonID",
+            "readOnly": false,
+            "required": true,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Regime_travaux ",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "565fdc94-4545-49eb-adea-8a476d7edc74",
+            "indexed": false,
+            "name": "R_x00e9_gimetravaux",
+            "readOnly": false,
+            "required": false,
+            "choice": {
+                "allowTextEntry": false,
+                "choices": [
+                    "TSDL",
+                    "VI",
+                    "DIG",
+                    "CAT A",
+                    "CAT B",
+                    "TAC",
+                    "TAV"
+                ],
+                "displayAs": "dropDownMenu"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "ActeurID ",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "591f3f3d-1b5b-44e5-89af-e2cbc1bd6f16",
+            "indexed": false,
+            "name": "ActeurID",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Heure_demande",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "81062dc5-19c6-486a-bba9-2dbac7051e20",
+            "indexed": false,
+            "name": "Heure_demande",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Heure_Fin_Prevue",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "7d5b4878-917b-4a06-9658-dbc2f1b3e037",
+            "indexed": false,
+            "name": "Heure_Fin_Prevue",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Heures_Autorisee",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "5b20e8fa-34e2-4b93-9bb7-f6c5e88fcbb7",
+            "indexed": false,
+            "name": "Heures_Autorisee",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Heure_engagement",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "d28c6b8d-a4ac-4440-b278-cc48ad952d26",
+            "indexed": false,
+            "name": "Heure_engagement",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Heures_Degagement",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "162fde65-3db0-493d-81a0-fcc75683d321",
+            "indexed": false,
+            "name": "Heures_Degagement",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Heures_Voie_Retablie ",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "bfec0af0-c9c3-4856-9f2d-14b8fa198ed0",
+            "indexed": false,
+            "name": "Heures_Voie_Retablie",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Motif_Engagement",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "cf6743ca-7d7f-4968-9dfc-003ef62e0e48",
+            "indexed": false,
+            "name": "Motif_Engagement",
+            "readOnly": false,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Motifs_Engagement_Tardif ",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "a17ee585-abc1-4701-b8e3-cab1e1955a74",
+            "indexed": false,
+            "name": "Motifs_Engagement_Tardif",
+            "readOnly": false,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Motif_Degagement_Tardif",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "26c806db-eceb-41dc-9919-0196d2c566f0",
+            "indexed": false,
+            "name": "Motif_Degagement_Tardif",
+            "readOnly": false,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Poste",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "b634f3dc-a406-4537-8dad-e4fe69e81788",
+            "indexed": false,
+            "name": "Poste",
+            "readOnly": false,
+            "required": true,
+            "choice": {
+                "allowTextEntry": false,
+                "choices": [
+                    "P1",
+                    "P2",
+                    "P3"
+                ],
+                "displayAs": "dropDownMenu"
+            },
+            "defaultValue": {
+                "value": "P1"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "AgentSaisie",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "1a4ae963-9627-4d49-8d72-118cc62151ec",
+            "indexed": false,
+            "name": "AgentSaisie",
+            "readOnly": false,
+            "required": true,
+            "personOrGroup": {
+                "allowMultipleSelection": false,
+                "displayAs": "nameWithPresence",
+                "chooseFromType": "peopleOnly"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "DateSaisie",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "bc77d0e4-e8fe-473c-a7ce-3f0a0b9b5e08",
+            "indexed": false,
+            "name": "DateSaisie",
+            "readOnly": false,
+            "required": true,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PK_Debut",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "85e190cf-ef9e-43f5-a6fc-98cb4449473f",
+            "indexed": false,
+            "name": "PK_Debut",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PK_Fin",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "17c92c0e-6b93-4952-bd21-5a1cd77e67a5",
+            "indexed": false,
+            "name": "PK_Fin",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "ID",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "1d22ea11-1e32-424e-89ab-9fedbadb6ce1",
+            "indexed": false,
+            "name": "ID",
+            "readOnly": true,
+            "required": false
+        },
+        {
+            "columnGroup": "_Hidden",
+            "description": "",
+            "displayName": "Type de contenu",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "c042a256-787d-4a6f-8a8a-cf6ab767f12d",
+            "indexed": false,
+            "name": "ContentType",
+            "readOnly": false,
+            "required": false
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Modifié",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "28cf69c5-fa48-462a-b5cd-27b6f9d2bd5f",
+            "indexed": false,
+            "name": "Modified",
+            "readOnly": true,
+            "required": false,
+            "dateTime": {
+                "displayAs": "default",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Créé",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "8c06beca-0777-48f7-91c7-6da68bc07b69",
+            "indexed": false,
+            "name": "Created",
+            "readOnly": true,
+            "required": false,
+            "dateTime": {
+                "displayAs": "default",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Créé par",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "1df5e554-ec7e-46a6-901d-d85a3881cb18",
+            "indexed": false,
+            "name": "Author",
+            "readOnly": true,
+            "required": false,
+            "personOrGroup": {
+                "allowMultipleSelection": false,
+                "displayAs": "nameWithPresence",
+                "chooseFromType": "peopleAndGroups"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Modifié par",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "d31655d1-1d5b-4511-95a1-7a09e9b75bf2",
+            "indexed": false,
+            "name": "Editor",
+            "readOnly": true,
+            "required": false,
+            "personOrGroup": {
+                "allowMultipleSelection": false,
+                "displayAs": "nameWithPresence",
+                "chooseFromType": "peopleAndGroups"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Version",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "dce8262a-3ae9-45aa-aab4-83bd75fb738a",
+            "indexed": false,
+            "name": "_UIVersionString",
+            "readOnly": true,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Pièces jointes",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "67df98f4-9dec-48ff-a553-29bece9c5bf4",
+            "indexed": false,
+            "name": "Attachments",
+            "readOnly": false,
+            "required": false
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Modifier",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "503f1caa-358e-4918-9094-4a2cdc4bc034",
+            "indexed": false,
+            "name": "Edit",
+            "readOnly": true,
+            "required": false
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Titre",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "bc91a437-52e7-49e1-8c4e-4698904b2b6d",
+            "indexed": false,
+            "name": "LinkTitleNoMenu",
+            "readOnly": true,
+            "required": false
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Titre",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "82642ec8-ef9b-478f-acf9-31f7d45fbc31",
+            "indexed": false,
+            "name": "LinkTitle",
+            "readOnly": true,
+            "required": false
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Type",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "081c6e4c-5c14-4f20-b23e-1a71ceb6a67c",
+            "indexed": false,
+            "name": "DocIcon",
+            "readOnly": true,
+            "required": false
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Nombre d'éléments enfants",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "b824e17e-a1b3-426e-aecf-f0184d900485",
+            "indexed": false,
+            "name": "ItemChildCount",
+            "readOnly": true,
+            "required": false,
+            "lookup": {
+                "allowMultipleValues": false,
+                "allowUnlimitedLength": false,
+                "columnName": "ItemChildCount",
+                "listId": "",
+                "primaryLookupColumnId": "ID"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Nombre d’enfants du dossier",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "960ff01f-2b6d-4f1b-9c3f-e19ad8927341",
+            "indexed": false,
+            "name": "FolderChildCount",
+            "readOnly": true,
+            "required": false,
+            "lookup": {
+                "allowMultipleValues": false,
+                "allowUnlimitedLength": false,
+                "columnName": "FolderChildCount",
+                "listId": "",
+                "primaryLookupColumnId": "ID"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Paramètres de l’étiquette",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "ccc1037f-f65e-434a-868e-8c98af31fe29",
+            "indexed": false,
+            "name": "_ComplianceFlags",
+            "readOnly": true,
+            "required": false,
+            "lookup": {
+                "allowMultipleValues": false,
+                "allowUnlimitedLength": false,
+                "columnName": "ComplianceFlags",
+                "listId": "",
+                "primaryLookupColumnId": "ID"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Étiquette de rétention",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "d4b6480a-4bed-4094-9a52-30181ea38f1d",
+            "indexed": false,
+            "name": "_ComplianceTag",
+            "readOnly": true,
+            "required": false,
+            "lookup": {
+                "allowMultipleValues": false,
+                "allowUnlimitedLength": false,
+                "columnName": "ComplianceTag",
+                "listId": "",
+                "primaryLookupColumnId": "ID"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Étiquette de rétention appliquée",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "92be610e-ddbb-49f4-b3b1-5c2bc768df8f",
+            "indexed": false,
+            "name": "_ComplianceTagWrittenTime",
+            "readOnly": true,
+            "required": false,
+            "lookup": {
+                "allowMultipleValues": false,
+                "allowUnlimitedLength": false,
+                "columnName": "ComplianceTagWrittenTime",
+                "listId": "",
+                "primaryLookupColumnId": "ID"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Étiquette appliquée par",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "418d7676-2d6f-42cf-a16a-e43d2971252a",
+            "indexed": false,
+            "name": "_ComplianceTagUserId",
+            "readOnly": true,
+            "required": false,
+            "lookup": {
+                "allowMultipleValues": false,
+                "allowUnlimitedLength": false,
+                "columnName": "ComplianceTagUserId",
+                "listId": "",
+                "primaryLookupColumnId": "ID"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "L’élément est un enregistrement",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "8382d247-72a9-44b1-9794-7b177edc89f3",
+            "indexed": false,
+            "name": "_IsRecord",
+            "readOnly": true,
+            "required": false
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Application créée par",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "6bfaba20-36bf-44b5-a1b2-eb6346d49716",
+            "indexed": false,
+            "name": "AppAuthor",
+            "readOnly": true,
+            "required": false,
+            "lookup": {
+                "allowMultipleValues": false,
+                "allowUnlimitedLength": false,
+                "columnName": "Title",
+                "listId": "AppPrincipals"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "Application modifiée par",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "e08400f3-c779-4ed2-a18c-ab7f34caa318",
+            "indexed": false,
+            "name": "AppEditor",
+            "readOnly": true,
+            "required": false,
+            "lookup": {
+                "allowMultipleValues": false,
+                "allowUnlimitedLength": false,
+                "columnName": "Title",
+                "listId": "AppPrincipals"
+            }
+        }
+    ]
+}

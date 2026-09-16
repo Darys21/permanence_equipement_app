@@ -1,0 +1,169 @@
+Screens:
+  example_screen:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(11, 56, 126, 1)
+      OnVisible: |-
+        =Set(varQuart, "P1");
+        Set(varOngletJournal, "Travaux");
+        Refresh(Ref_Cantons);
+        Refresh(Ref_Acteurs);
+        Refresh(Tx_Travaux);
+        Refresh(Tx_LTV);
+        Refresh(Tx_incidents_Ruptures);
+        Refresh(Tx_Feedbacks)
+    Children:
+      - Header:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 120, 1)
+            Height: =62
+            Width: =1366
+          Children:
+            - LogoText:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  FontWeight: =FontWeight.Bold
+                  Height: =45
+                  Size: =16
+                  Text: ="PERMANENCE EQUIPEMENT"
+                  Width: =350
+                  X: =30
+                  Y: =8
+      - BodyWorkspace:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(248, 249, 251, 1)
+            Height: =600
+            Width: =1320
+            X: =22
+            Y: =80
+          Children:
+            - ExampleFormPanel:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =560
+                  Width: =700
+                  X: =16
+                  Y: =12
+                Children:
+                  - DivisionInput:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        DisplayFields: =["Value"]
+                        Items: =Choices(Ref_Cantons.Division)
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Width: =300
+                        X: =25
+                        Y: =20
+                  - CantonInput:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        DisplayFields: =["Title"]
+                        Items: |-
+                          =Filter(
+                              Ref_Cantons,
+                              Division.Value = DivisionInput.Selected.Value
+                          )
+                        SearchFields: =["Title"]
+                        SelectMultiple: =false
+                        Width: =300
+                        X: =25
+                        Y: =78
+                  - RegimeInput:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        DisplayFields: =["Value"]
+                        Items: |-
+                          =Switch(
+                              varOngletJournal,
+                              "Travaux", Choices(Tx_Travaux.RegimeTravaux),
+                              "LTV", ["Rupture de rail", "Remplacement rail", "Travaux sur voie", "Defaut geometrie", "Autre"],
+                              "Incidents", Choices(Tx_incidents_Ruptures.Localisation_Type)
+                          )
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Width: =300
+                        X: =25
+                        Y: =136
+                  - ActorInput:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        DisplayFields: =["Title"]
+                        Items: =SortByColumns(Ref_Acteurs, "Title", SortOrder.Ascending)
+                        SearchFields: =["Title"]
+                        SelectMultiple: =false
+                        Width: =300
+                        X: =375
+                        Y: =20
+                  - RequestInput:
+                      Control: Classic/TextInput@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        HintText: ="'hh:mm' - ex: 08:30"
+                        Mode: =TextMode.SingleLine
+                        Width: =150
+                        X: =25
+                        Y: =194
+                  - SaveButton:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        Fill: =RGBA(255, 174, 0, 1)
+                        FontWeight: =FontWeight.Bold
+                        Height: =44
+                        OnSelect: |-
+                          =If(
+                              IsBlank(DivisionInput.Selected) || IsBlank(CantonInput.Selected),
+                              Notify("Division et Canton requis", NotificationType.Error),
+                              If(
+                                  varOngletJournal = "Travaux",
+                                  If(
+                                      IsBlank(RegimeInput.Selected) || IsBlank(ActorInput.Selected) ||
+                                      IsBlank(IfError(DateTimeValue(RequestInput.Text), Blank())),
+                                      Notify("Champs obligatoires manquants", NotificationType.Error),
+                                      Patch(
+                                          Tx_Travaux,
+                                          Defaults(Tx_Travaux),
+                                          {
+                                              Title: "Example - " & Text(Now(), "yyyymmdd-hhmm"),
+                                              DateTravaux: Today(),
+                                              CantonID: CantonInput.Selected.ID,
+                                              RegimeTravaux: {Value: RegimeInput.Selected.Value},
+                                              ActeurID: ActorInput.Selected.ID,
+                                              Heure_Demande: DateTimeValue(RequestInput.Text),
+                                              Poste: varQuart,
+                                              Agent: User().FullName,
+                                              DateSaisie: Now()
+                                          }
+                                      );
+                                      Refresh(Tx_Travaux);
+                                      Reset(RequestInput);
+                                      Reset(DivisionInput);
+                                      Notify("Enregistre Tx_Travaux", NotificationType.Success)
+                                  ),
+                                  Notify("Autres onglets: voir exemple dans dashboard.yaml", NotificationType.Information)
+                              )
+                          )
+                        Text: ="ENREGISTRER DANS SHAREPOINT"
+                        Width: =300
+                        X: =25
+                        Y: =480
+      - FooterBtn:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(8, 49, 120, 1)
+            BorderThickness: =1
+            Color: =RGBA(8, 49, 120, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =48
+            OnSelect: =Navigate(PrisePoste_1, ScreenTransition.Fade)
+            Text: ="← RETOUR"
+            Width: =250
+            X: =22
+            Y: =690
