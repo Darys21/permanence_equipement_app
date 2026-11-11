@@ -30,3 +30,31 @@
 - Les blocs `Properties` et `Children` ont ete controles.
 - 1 580 formules Power Fx ont ete controlees pour l'equilibrage des parentheses, crochets et accolades.
 - Aucun caractere HTML encode (`&amp;`, `&lt;`, `&gt;`, `&quot;`, `&#39;`) ne subsiste.
+
+
+---
+
+## Addendum — revue de synchronisation du 11/11/2026
+
+Le présent rapport historique décrit des corrections antérieures. Les noms d'écrans et certains statuts qui y figurent ne doivent pas être considérés comme la photographie actuelle de l'application.
+
+### Exports YAML de référence synchronisés
+
+- `scrIdentificationAgent`
+- `PrisePoste_2`
+- `JournalDeBord_3`
+- `scrFeedback`
+- `scrCloture_2`
+
+Les fichiers sont conservés dans les dossiers de chaque écran sous `Frontend/`. Leur provenance est documentée dans `Frontend/README.md`.
+
+### Points de vigilance issus des échanges récents
+
+- Identification : sélection du permanent + PIN ; vérifier les scénarios d'erreur et les statuts SharePoint.
+- Prise de poste : P1/P2/P3 conservés ; vérifier la reprise réelle des événements.
+- Travaux : la modification doit cibler l'enregistrement existant et préserver son ID.
+- LTV : création et reprise/modification doivent être retestées ; les résultats de tests anciens sont contradictoires avec les incidents signalés ensuite.
+- Incidents : audit des opérations CRUD requis.
+- Clôture : l'écran existe, mais la transmission réelle des événements ouverts et l'automatisation du rapport ne sont pas considérées comme terminées.
+
+La validation d'une formule dans un YAML ne remplace pas un test dans Power Apps avec vérification de la donnée SharePoint.
