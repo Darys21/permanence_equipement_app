@@ -30,4 +30,4 @@ Les fichiers ci-dessous ont été copiés depuis le dépôt `Darys21/PERMANENCE-
 - `../Ecran 2 Journal de bord/Ecran2.md` : journal Travaux/LTV/Incidents.
 - `../Ecran Feedback/EcranFeedback.md` : pointages terrain.
 - `../Ecran 4 Cloture et releve/EcranCloture.md` : clôture et relève.
-- `../../Documentation/RETOURS_METIER_ET_DECISIONS.md` : demandes des permanents et arbitrages.
+- `../Documentation/RETOURS_METIER_ET_DECISIONS.md` : demandes des permanents et arbitrages.
