@@ -45,10 +45,10 @@ Screens:
           Variant: AutoLayout
           Properties:
             Fill: =RGBA(255, 255, 255, 1)
-            Height: =App.Height
-            Width: =App.Width
+            Height: =Parent.Height
+            Width: =Parent.Width
             LayoutDirection: =LayoutDirection.Vertical
-            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutAlignItems: =LayoutAlignItems.Center
             LayoutJustifyContent: =LayoutJustifyContent.Start
             LayoutGap: =12
             PaddingTop: =12
@@ -71,7 +71,7 @@ Screens:
                         Fill: =RGBA(255, 184, 0, 1)
                         Height: =5
                         Width: =53.41
-                        X: =35.14
+                        X: =20
                         Y: =28
                   - LogoMark2_5:
                       Control: Rectangle@2.3.0
@@ -79,7 +79,7 @@ Screens:
                         Fill: =RGBA(255, 184, 0, 1)
                         Height: =5
                         Width: =42.18
-                        X: =43.57
+                        X: =28
                         Y: =37
                   - LogoText_7:
                       Control: Label@2.5.1
@@ -92,12 +92,13 @@ Screens:
                         PaddingTop: =7.01
                         Size: =14.25
                         Text: ="SETRAG" & Char(10) & "   ERAMET"
-                        Width: =321.83
-                        X: =98.4
+                        Width: =220
+                        X: =80
                         Y: =9
                   - AppTitle_5:
                       Control: Label@2.5.1
                       Properties:
+                        Visible: =Parent.Width >= 1500
                         Align: =Align.Center
                         Color: =RGBA(255, 255, 255, 1)
                         Font: =Font.'Segoe UI'
@@ -107,37 +108,40 @@ Screens:
                         PaddingTop: =7.01
                         Size: =25.3
                         Text: ="PERMANENCE ÉQUIPEMENT"
-                        Width: =674.67
-                        X: =622.66
+                        Width: =Min(674.67, Parent.Width - 1200)
+                        X: =(Parent.Width - Self.Width) / 2
                   - ProfileIcon_5:
                       Control: Classic/Icon@2.5.0
                       Properties:
+                        Visible: =Parent.Width >= 1000
                         Color: =RGBA(255, 255, 255, 1)
                         Height: =37
                         Icon: =Icon.Person
                         Width: =52.01
-                        X: =1553.13
+                        X: =Parent.Width - 360
                         Y: =9
                   - ProfileEmailRight_5:
                       Control: Label@2.5.1
                       Properties:
+                        Visible: =Parent.Width >= 1000
                         Color: =RGBA(255, 255, 255, 1)
                         Font: =Font.'Segoe UI'
                         PaddingRight: =7.01
                         PaddingTop: =7.01
                         Size: =15.46
                         Text: =Coalesce(varAgentPermanentNom, User().Email)
-                        Width: =248.78
-                        X: =1605.15
+                        Width: =220
+                        X: =Parent.Width - 310
                         Y: =9
                   - ProfileChevron_5:
                       Control: Classic/Icon@2.5.0
                       Properties:
+                        Visible: =Parent.Width >= 1000
                         Color: =RGBA(255, 255, 255, 1)
                         Height: =20
                         Icon: =Icon.ChevronDown
                         Width: =28.11
-                        X: =1866.59
+                        X: =Parent.Width - 76
                         Y: =22
                   - BtnChangerAgent_6:
                       Control: Classic/Button@2.2.0
@@ -177,14 +181,14 @@ Screens:
                         Text: ="Changer d'agent"
                         Tooltip: ="Revenir à l'identification pour sélectionner un autre permanent"
                         Width: =150
-                        X: =1390
+                        X: =If(Parent.Width < 1000, Parent.Width - 170, Parent.Width - 530)
                         Y: =15
             - Welcome_5:
                 Control: GroupContainer@1.5.0
                 Variant: ManualLayout
                 Properties:
-                  Height: =298
-                  Width: =1771.01
+                  Height: =If(Parent.Width < 900, 134 + 3 * 156 + 16, 298)
+                  Width: =Parent.Width
                   X: =75.89
                   Y: =62
                 Children:
@@ -242,9 +246,9 @@ Screens:
                         BorderThickness: =If(varQuart = "P1", 2, 1)
                         Fill: =RGBA(255, 255, 255, 1)
                         Height: =146
-                        Width: =452
-                        X: =64
-                        Y: =134
+                        Width: =If(Parent.Width < 900, Parent.Width - 32, (Parent.Width - 64) / 3)
+                        X: =If(Parent.Width < 900, 16, 16 + 0 * ((Parent.Width - 64) / 3 + 16))
+                        Y: =If(Parent.Width < 900, 134, 134)
                       Children:
                         - Image1_9:
                             Control: Image@2.2.3
@@ -272,7 +276,7 @@ Screens:
                               PressedBorderColor: =RGBA(0, 0, 0, 0)
                               PressedFill: =RGBA(0, 0, 0, 0)
                               Width: =64.66
-                              X: =207.67
+                              X: =(Parent.Width - Self.Width) / 2
                         - P1Title_5:
                             Control: Label@2.5.1
                             Properties:
@@ -285,7 +289,7 @@ Screens:
                               PaddingTop: =7.01
                               Size: =33.73
                               Text: ="P1"
-                              Width: =452
+                              Width: =Parent.Width
                               Y: =61
                         - P1Hours_5:
                             Control: Label@2.5.1
@@ -299,7 +303,7 @@ Screens:
                               PaddingTop: =7.01
                               Size: =19.68
                               Text: ="06h - 14h"
-                              Width: =452
+                              Width: =Parent.Width
                               Y: =100
                         - P1Select_5:
                             Control: Classic/Button@2.2.0
@@ -308,7 +312,7 @@ Screens:
                               Color: =RGBA(0, 0, 0, 0)
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
-                              Height: =70
+                              Height: =Parent.Height
                               HoverFill: =RGBA(0, 0, 0, 0)
                               OnSelect: =Set(varQuart, "P1")
                               PaddingRight: =7.01
@@ -316,7 +320,7 @@ Screens:
                               PressedFill: =RGBA(0, 0, 0, 0)
                               Size: =21.08
                               Text: ="Sélectionner le poste P1, de 06h à 14h"
-                              Width: =452
+                              Width: =Parent.Width
                   - P2Card_5:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
@@ -325,9 +329,9 @@ Screens:
                         BorderThickness: =If(varQuart = "P2", 2, 1)
                         Fill: =RGBA(255, 255, 255, 1)
                         Height: =146
-                        Width: =506
-                        X: =578
-                        Y: =135
+                        Width: =If(Parent.Width < 900, Parent.Width - 32, (Parent.Width - 64) / 3)
+                        X: =If(Parent.Width < 900, 16, 16 + 1 * ((Parent.Width - 64) / 3 + 16))
+                        Y: =If(Parent.Width < 900, 290, 135)
                       Children:
                         - Image1_10:
                             Control: Image@2.2.3
@@ -359,7 +363,7 @@ Screens:
                               PressedBorderColor: =RGBA(0, 0, 0, 0)
                               PressedFill: =RGBA(0, 0, 0, 0)
                               Width: =64.66
-                              X: =207.67
+                              X: =(Parent.Width - Self.Width) / 2
                               Y: =4
                         - P2Select_5:
                             Control: Classic/Button@2.2.0
@@ -368,7 +372,7 @@ Screens:
                               Color: =RGBA(0, 0, 0, 0)
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
-                              Height: =165
+                              Height: =Parent.Height
                               HoverFill: =RGBA(0, 0, 0, 0)
                               OnSelect: =Set(varQuart, "P2")
                               PaddingRight: =7.01
@@ -376,7 +380,7 @@ Screens:
                               PressedFill: =RGBA(0, 0, 0, 0)
                               Size: =21.08
                               Text: =""
-                              Width: =480
+                              Width: =Parent.Width
                         - P2Title_5:
                             Control: Label@2.5.1
                             Properties:
@@ -389,7 +393,7 @@ Screens:
                               PaddingTop: =7.01
                               Size: =32.82
                               Text: ="P2"
-                              Width: =480
+                              Width: =Parent.Width
                               Y: =66
                         - P2Hours_5:
                             Control: Label@2.5.1
@@ -403,7 +407,7 @@ Screens:
                               PaddingTop: =7.01
                               Size: =19.68
                               Text: ="14h - 22h"
-                              Width: =480
+                              Width: =Parent.Width
                               Y: =100
                   - P3Card_5:
                       Control: GroupContainer@1.5.0
@@ -413,9 +417,9 @@ Screens:
                         BorderThickness: =If(varQuart = "P3", 2, 1)
                         Fill: =RGBA(255, 255, 255, 1)
                         Height: =146
-                        Width: =506
-                        X: =1150
-                        Y: =134
+                        Width: =If(Parent.Width < 900, Parent.Width - 32, (Parent.Width - 64) / 3)
+                        X: =If(Parent.Width < 900, 16, 16 + 2 * ((Parent.Width - 64) / 3 + 16))
+                        Y: =If(Parent.Width < 900, 446, 134)
                       Children:
                         - Image1_12:
                             Control: Image@2.2.3
@@ -439,7 +443,7 @@ Screens:
                               PressedBorderColor: =RGBA(0, 0, 0, 0)
                               PressedFill: =RGBA(0, 0, 0, 0)
                               Width: =64.66
-                              X: =207.67
+                              X: =(Parent.Width - Self.Width) / 2
                               Y: =4
                         - P3Select_5:
                             Control: Classic/Button@2.2.0
@@ -448,7 +452,7 @@ Screens:
                               Color: =RGBA(0, 0, 0, 0)
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
-                              Height: =165
+                              Height: =Parent.Height
                               HoverFill: =RGBA(0, 0, 0, 0)
                               OnSelect: =Set(varQuart, "P3")
                               PaddingRight: =7.01
@@ -456,7 +460,7 @@ Screens:
                               PressedFill: =RGBA(0, 0, 0, 0)
                               Size: =21.08
                               Text: ="Sélectionner le poste P3, de 22h à 06h"
-                              Width: =480
+                              Width: =Parent.Width
                         - P3Title_5:
                             Control: Label@2.5.1
                             Properties:
@@ -469,7 +473,7 @@ Screens:
                               PaddingTop: =7.01
                               Size: =32.82
                               Text: ="P3"
-                              Width: =480
+                              Width: =Parent.Width
                               Y: =66
                         - P3Hours_5:
                             Control: Label@2.5.1
@@ -483,7 +487,7 @@ Screens:
                               PaddingTop: =7.01
                               Size: =19.68
                               Text: ="22h - 06h"
-                              Width: =480
+                              Width: =Parent.Width
                               Y: =100
             - HandoverSection_5:
                 Control: GroupContainer@1.5.0
@@ -491,7 +495,7 @@ Screens:
                 Properties:
                   Fill: =RGBA(248, 249, 251, 1)
                   Height: =655
-                  Width: =1771.01
+                  Width: =Parent.Width
                   X: =75.89
                   Y: =374
                 Children:
@@ -506,8 +510,8 @@ Screens:
                         PaddingTop: =7.01
                         Size: =22.47
                         Text: ="2. Éléments à reprendre (P-1)"
-                        Width: =843.35
-                        X: =37.95
+                        Width: =Parent.Width - 48
+                        X: =24
                         Y: =7
                   - TravauxSubHeading_4:
                       Control: Label@2.5.1
@@ -520,8 +524,8 @@ Screens:
                         PaddingTop: =7.01
                         Size: =16.87
                         Text: ="CHANTIERS & TRAVAUX en cours"
-                        Width: =843.35
-                        X: =37.95
+                        Width: =Parent.Width - 48
+                        X: =24
                         Y: =48
                   - TravauxHandoverGallery_4:
                       Control: Gallery@2.15.0
@@ -546,8 +550,8 @@ Screens:
                         TemplateFill: =RGBA(255, 255, 255, 1)
                         TemplatePadding: =6
                         TemplateSize: =54
-                        Width: =1695.11
-                        X: =37.95
+                        Width: =Parent.Width - 48
+                        X: =24
                         Y: =76
                       Children:
                         - TravauxStatusBar_4:
@@ -582,8 +586,8 @@ Screens:
                               PaddingTop: =7.01
                               Size: =16.87
                               Text: =ThisItem.Title
-                              Width: =1068.23
-                              X: =137.75
+                              Width: =Parent.TemplateWidth - 390
+                              X: =90
                               Y: =3
                         - TravauxCantonText_4:
                             Control: Label@2.5.1
@@ -598,8 +602,8 @@ Screens:
                               Size: =14.06
                               Text: |-
                                 ="Mise à jour : " & Text(ThisItem.Datetravaux, "[$-fr-FR]dd/mm/yyyy")
-                              Width: =1068.23
-                              X: =137.75
+                              Width: =Parent.TemplateWidth - 390
+                              X: =90
                               Y: =25
                         - TravauxLocationIcon_4:
                             Control: Classic/Icon@2.5.0
@@ -609,7 +613,7 @@ Screens:
                               Icon: =Icon.Location
                               OnSelect: =Select(Parent)
                               Width: =30.92
-                              X: =1424.45
+                              X: =Parent.TemplateWidth - 310
                               Y: =15
                         - TravauxPKText_4:
                             Control: Label@2.5.1
@@ -623,8 +627,8 @@ Screens:
                               PaddingTop: =7.01
                               Size: =15.46
                               Text: =Coalesce(LookUp(Ref_Cantons, ID = ThisItem.CantonID).Titre, LookUp(Ref_Cantons, ID = ThisItem.'CantonID ').Titre, "Canton à renseigner")
-                              Width: =263.3
-                              X: =1413.49
+                              Width: =260
+                              X: =Parent.TemplateWidth - 290
                               Y: =10
                   - LtvSubHeading_4:
                       Control: Label@2.5.1
@@ -637,8 +641,8 @@ Screens:
                         PaddingTop: =7.01
                         Size: =16.87
                         Text: ="LTV / RAL actifs"
-                        Width: =843.35
-                        X: =37.49
+                        Width: =Parent.Width - 48
+                        X: =24
                         Y: =257
                   - LtvHandoverGallery_4:
                       Control: Gallery@2.15.0
@@ -659,8 +663,8 @@ Screens:
                         TemplateFill: =RGBA(255, 255, 255, 1)
                         TemplatePadding: =6
                         TemplateSize: =54
-                        Width: =1695.11
-                        X: =37.49
+                        Width: =Parent.Width - 48
+                        X: =24
                         Y: =285
                       Children:
                         - LtvStatusBar_4:
@@ -693,8 +697,8 @@ Screens:
                               PaddingTop: =7.01
                               Size: =16.87
                               Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "") & " - " & Coalesce(ThisItem.Motif_Ralentissement.Value, Text(ThisItem.Motif_Ralentissement.Value), "")
-                              Width: =1068.23
-                              X: =137.75
+                              Width: =Parent.TemplateWidth - 390
+                              X: =90
                               Y: =3
                         - LtvCantonText_4:
                             Control: Label@2.5.1
@@ -709,8 +713,8 @@ Screens:
                               Size: =14.06
                               Text: |-
                                 ="Imposée le : " & Text(ThisItem.'Date_imposition ', "[$-fr-FR]dd/mm/yyyy") & "  |  Taux : " & ThisItem.Taux & " km/h"
-                              Width: =1068.23
-                              X: =137.75
+                              Width: =Parent.TemplateWidth - 390
+                              X: =90
                               Y: =25
                         - LtvLocationIcon_4:
                             Control: Classic/Icon@2.5.0
@@ -719,7 +723,7 @@ Screens:
                               Height: =22
                               Icon: =Icon.Location
                               Width: =30.92
-                              X: =1436.35
+                              X: =Parent.TemplateWidth - 310
                               Y: =16
                         - LtvPKText_4:
                             Control: Label@2.5.1
@@ -733,8 +737,8 @@ Screens:
                               PaddingTop: =7.01
                               Size: =15.46
                               Text: =Coalesce("PK " & ThisItem.PK_Debut & "-" & ThisItem.'PK_Fin ', "PK à renseigner")
-                              Width: =210.83
-                              X: =1467.41
+                              Width: =260
+                              X: =Parent.TemplateWidth - 290
                               Y: =12
                   - IncidentsSubHeading_4:
                       Control: Label@2.5.1
@@ -747,8 +751,8 @@ Screens:
                         PaddingTop: =7.01
                         Size: =16.87
                         Text: ="INCIDENTS & RUPTURES en cours"
-                        Width: =843.35
-                        X: =37.49
+                        Width: =Parent.Width - 48
+                        X: =24
                         Y: =484
                   - IncidentsHandoverGallery_4:
                       Control: Gallery@2.15.0
@@ -775,8 +779,8 @@ Screens:
                         TemplateFill: =RGBA(255, 255, 255, 1)
                         TemplatePadding: =6
                         TemplateSize: =54
-                        Width: =1695.11
-                        X: =37.49
+                        Width: =Parent.Width - 48
+                        X: =24
                         Y: =524
                       Children:
                         - IncStatusBar_4:
@@ -809,8 +813,8 @@ Screens:
                               PaddingTop: =7.01
                               Size: =16.87
                               Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "Incident")
-                              Width: =1068.23
-                              X: =137.75
+                              Width: =Parent.TemplateWidth - 390
+                              X: =90
                               Y: =3
                         - IncCantonText_4:
                             Control: Label@2.5.1
@@ -825,8 +829,8 @@ Screens:
                               Size: =14.06
                               Text: |-
                                 ="PK : " & Coalesce(ThisItem.PK, "-") & "  |  " & Coalesce(ThisItem.CantonID.Value, LookUp(Ref_Cantons, ID = ThisItem.CantonID.Id, Titre), LookUp(Ref_Cantons, ID = ThisItem.CantonID0.Id, Titre), "-")
-                              Width: =1068.23
-                              X: =137.75
+                              Width: =Parent.TemplateWidth - 390
+                              X: =90
                               Y: =25
                         - IncLocationIcon_4:
                             Control: Classic/Icon@2.5.0
@@ -835,7 +839,7 @@ Screens:
                               Height: =22
                               Icon: =Icon.Location
                               Width: =30.92
-                              X: =1424.45
+                              X: =Parent.TemplateWidth - 310
                               Y: =15
                         - IncEtatText_4:
                             Control: Label@2.5.1
@@ -850,8 +854,8 @@ Screens:
                               PaddingTop: =7.01
                               Size: =15.46
                               Text: =Coalesce(ThisItem.Etat.Value, "En cours")
-                              Width: =263.3
-                              X: =1413.49
+                              Width: =260
+                              X: =Parent.TemplateWidth - 290
                               Y: =10
             - StartButton_5:
                 Control: Classic/Button@2.2.0
@@ -893,7 +897,7 @@ Screens:
                   RadiusTopRight: =25
                   Size: =18.29
                   Text: ="COMMENCER LE SERVICE    →"
-                  Width: =393.54
-                  X: =1503
-                  Y: =1041
+                  Width: =Min(Parent.Width - 48, 393.54)
+                  X: =0
+                  Y: =0
       
