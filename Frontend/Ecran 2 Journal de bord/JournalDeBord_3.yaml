@@ -1,0 +1,2862 @@
+Screens:
+  JournalDeBord_3:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
+      OnVisible: |-
+        =If(varActionEnCours <> "Modifier", Set(varOngletJournal, "Travaux"));
+        Set(varAttemptedSave, false);
+        Refresh(Ref_Cantons);
+        Refresh(Ref_Acteurs);
+        Refresh(Ref_Permanents);
+        Refresh(Tx_Travaux);
+        Refresh(Tx_LTV);
+        Refresh(Tx_incidents_Ruptures);
+        Refresh(Tx_Feedbacks);
+        If(IsBlank(varActionEnCours), Set(varActionEnCours, "Créer"))
+    Children:
+      - Header_26:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 120, 1)
+            Height: =76
+            Width: =1920
+          Children:
+            - LogoMark_25:
+                Control: Rectangle@2.3.0
+                Properties:
+                  AccessibleLabel: ="Logo SETRAG"
+                  Fill: =RGBA(255, 184, 0, 1)
+                  Height: =5
+                  TabIndex: =0
+                  Width: =59.03
+                  X: =35.14
+                  Y: =25
+            - LogoText_29:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =76
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =19.4
+                  TabIndex: =0
+                  Text: ="SETRAG" & Char(10) & "   ERAMET"
+                  Width: =338.29
+                  X: =109.63
+            - ScreenTitle_22:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =76
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =26.71
+                  TabIndex: =0
+                  Text: ="JOURNAL DE BORD OPÉRATIONNEL"
+                  Width: =843.35
+                  X: =462
+            - SessionInfo_22:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(255, 255, 255, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =15.46
+                  TabIndex: =0
+                  Text: |-
+                    ="Poste : " &
+                    Coalesce(varQuart, "Non défini") &
+                    "   |   Agent : " &
+                    Coalesce(varAgentPermanentNom, "Aucun agent sélectionné")
+                  Width: =517
+                  X: =1391.51
+                  Y: =20
+            - BtnChangerAgent_22:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(255, 255, 255, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(255, 255, 255, 1)
+                  Fill: =RGBA(8, 49, 120, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  Height: =36
+                  OnSelect: |-
+                    =If(
+                        !IsBlank(varAgentPermanentID),
+                        Patch(
+                            Ref_Permanents,
+                            LookUp(Ref_Permanents, ID = varAgentPermanentID),
+                            {Actif: {Value: "Non"}}
+                        )
+                    );
+                    Set(varAgentPermanent, Blank());
+                    Set(varAgentPermanentID, Blank());
+                    Set(varAgentPermanentNom, Blank());
+                    Refresh(Ref_Permanents);
+                    Navigate(scrIdentificationAgent, ScreenTransition.Fade)
+                  PaddingRight: =4.57
+                  PaddingTop: =4.57
+                  Size: =12
+                  Text: ="Changer d'agent"
+                  Tooltip: ="Revenir à l'identification pour sélectionner un autre permanent"
+                  X: =1208
+                  Y: =20
+            - HomeFromDashboard_22:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =2
+                  Height: =76
+                  OnSelect: =Navigate(PrisePoste_2, ScreenTransition.Fade)
+                  PaddingRight: =4.57
+                  PaddingTop: =4.57
+                  Size: =13.7
+                  Text: ="Retour à la prise de poste"
+                  Tooltip: ="Retour à la prise de poste"
+                  Width: =393.14
+                  X: =18.29
+      - Tabs_22:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Height: =70
+            Width: =1920
+            Y: =76
+          Children:
+            - TabTravaux_22:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =If(varOngletJournal = "Travaux", RGBA(255, 174, 0, 1), RGBA(230, 230, 230, 1))
+                  BorderThickness: =If(varOngletJournal = "Travaux", 2, 1)
+                  Color: =If(varOngletJournal = "Travaux", RGBA(255, 255, 255, 1), RGBA(68, 73, 87, 1))
+                  Fill: =If(varOngletJournal = "Travaux", RGBA(8, 49, 120, 1), RGBA(248, 249, 251, 1))
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  Height: =62
+                  OnSelect: |-
+                    =Set(varOngletJournal, "Travaux");
+                    Set(varAttemptedSave, false)
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =19.68
+                  Text: ="1. Chantiers & Travaux"
+                  Width: =531.3
+                  X: =28.11
+                  Y: =8
+            - TabIncidents_22:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =If(varOngletJournal = "Incidents", RGBA(255, 174, 0, 1), RGBA(230, 230, 230, 1))
+                  BorderThickness: =If(varOngletJournal = "Incidents", 2, 1)
+                  Color: =If(varOngletJournal = "Incidents", RGBA(255, 255, 255, 1), RGBA(68, 73, 87, 1))
+                  Fill: =If(varOngletJournal = "Incidents", RGBA(8, 49, 120, 1), RGBA(248, 249, 251, 1))
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  Height: =62
+                  OnSelect: |-
+                    =Set(varOngletJournal, "Incidents");
+                    Set(varAttemptedSave, false)
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =19.68
+                  Text: ="2. Incidents & Ruptures"
+                  Width: =531.3
+                  X: =559.41
+                  Y: =8
+            - TabLTV_22:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =If(varOngletJournal = "LTV", RGBA(255, 174, 0, 1), RGBA(230, 230, 230, 1))
+                  BorderThickness: =If(varOngletJournal = "LTV", 2, 1)
+                  Color: =If(varOngletJournal = "LTV", RGBA(255, 255, 255, 1), RGBA(68, 73, 87, 1))
+                  Fill: =If(varOngletJournal = "LTV", RGBA(8, 49, 120, 1), RGBA(248, 249, 251, 1))
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  Height: =62
+                  OnSelect: |-
+                    =Set(varOngletJournal, "LTV");
+                    Set(varAttemptedSave, false)
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =19.68
+                  Text: ="3. LTV / RAL (Ralentissements)"
+                  Width: =531.3
+                  X: =1090.72
+                  Y: =8
+      - Workspace_22:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(248, 249, 251, 1)
+            Height: =1054
+            Width: =1920
+            Y: =146
+          Children:
+            - FormPanel_22:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =1022
+                  Width: =1012.01
+                  X: =22.47
+                  Y: =21
+                Children:
+                  - FormTitle_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =21.08
+                        TabIndex: =0
+                        Text: =If(varOngletJournal = "Travaux", "SAISIE D’UN CHANTIER / TRAVAUX", If(varOngletJournal = "LTV", "SAISIE LTV / RAL", "SAISIE INCIDENT / RUPTURE"))
+                        Width: =885.51
+                        X: =35.14
+                        Y: =15
+                  - FormRule_22:
+                      Control: Rectangle@2.3.0
+                      Properties:
+                        AccessibleLabel: ="Separateur du formulaire"
+                        Fill: =If(varOngletJournal = "Incidents", RGBA(238, 32, 35, 1), If(varOngletJournal = "LTV", RGBA(255, 174, 0, 1), RGBA(8, 49, 120, 1)))
+                        Height: =2
+                        TabIndex: =0
+                        Width: =885.51
+                        X: =35.14
+                        Y: =55
+                  - LocationHeading_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =13.87
+                        TabIndex: =0
+                        Text: ="1. LOCALISATION"
+                        Width: =421.67
+                        X: =35.14
+                        Y: =57
+                  - DivisionLabel_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =11.06
+                        TabIndex: =0
+                        Text: ="Division"
+                        Width: =393.54
+                        X: =34.75
+                        Y: =87
+                  - DivisionInput_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Sélectionner une division"
+                        BorderColor: =If(varAttemptedSave && IsBlank(DivisionInput_22.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier",
+                              With(
+                                  {_cantonId: If(
+                                      varOngletJournal = "Travaux", varTravauxToEdit.'CantonID ',
+                                      varOngletJournal = "LTV", varLtvToEdit.CantonID_.Id,
+                                      varIncidentToEdit.CantonID.Id
+                                  )},
+                                  Filter(
+                                      Choices(Ref_Cantons.Division),
+                                      Value in Coalesce(LookUp(Ref_Cantons, ID = _cantonId, Division.Value), Blank())
+                                  )
+                              ),
+                              Blank()
+                          )
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Choices(Ref_Cantons.Division)
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Width: =407.61
+                        X: =34.75
+                        Y: =110
+                  - CantonLabel_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =11.06
+                        TabIndex: =0
+                        Text: ="Canton"
+                        Width: =393.54
+                        X: =484.57
+                        Y: =87
+                  - CantonInput_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Sélectionner un canton"
+                        BorderColor: =If(varAttemptedSave && IsBlank(CantonInput_22.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier",
+                              Filter(
+                                  Ref_Cantons,
+                                  ID = If(
+                                      varOngletJournal = "Travaux", varTravauxToEdit.'CantonID ',
+                                      varOngletJournal = "LTV", varLtvToEdit.CantonID_.Id,
+                                      varIncidentToEdit.CantonID.Id
+                                  )
+                              ),
+                              Blank()
+                          )
+                        DisplayFields: =["Title"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Sélectionner un canton"
+                        IsSearchable: =false
+                        Items: |-
+                          =Filter(
+                              Ref_Cantons,
+                              DivisionInput_22.Selected.Value in Division.Value
+                          )
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        SearchFields: =["Title"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Width: =407.61
+                        X: =484.57
+                        Y: =110
+                  - RegimeLabel_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =11.06
+                        TabIndex: =0
+                        Text: =Switch(varOngletJournal, "Travaux", "Régime de travaux", "LTV", "Motif ralentissement", "Incidents", "Localisation type")
+                        Width: =393.54
+                        X: =34.75
+                        Y: =160
+                  - RegimeInput_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Sélectionner le régime de travaux"
+                        BorderColor: =If(varAttemptedSave && IsBlank(RegimeInput_22.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier",
+                              Filter(
+                                  Switch(
+                                      varOngletJournal,
+                                      "Travaux", Choices(Tx_Travaux.Regime_travaux),
+                                      "LTV", Choices(Tx_LTV.Motif_Ralentissement),
+                                      Choices(Tx_incidents_Ruptures.Localisation_Type)
+                                  ),
+                                  Value = Switch(
+                                      varOngletJournal,
+                                      "Travaux", varTravauxToEdit.Regime_travaux.Value,
+                                      "LTV", Coalesce(varLtvToEdit.Motif_Ralentissement.Value, varLtvToEdit.Motif_Ralentissement.Value),
+                                      varIncidentToEdit.Localisation_Type.Value
+                                  )
+                              ),
+                              Blank()
+                          )
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: |-
+                          =Switch(
+                              varOngletJournal,
+                              "Travaux", SortByColumns(Choices(Tx_Travaux.Regime_travaux), "Value", SortOrder.Ascending),
+                              "LTV", SortByColumns(Choices(Tx_LTV.Motif_Ralentissement), "Value", SortOrder.Ascending),
+                              "Incidents", SortByColumns(Choices(Tx_incidents_Ruptures.Localisation_Type), "Value", SortOrder.Ascending),
+                              SortByColumns(Choices(Tx_Travaux.Regime_travaux), "Value", SortOrder.Ascending)
+                          )
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Width: =407.61
+                        X: =34.75
+                        Y: =196
+                  - ActorLabel_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =11.06
+                        TabIndex: =0
+                        Text: ="Responsable intervenant"
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
+                        Width: =393.54
+                        X: =489
+                        Y: =144
+                  - ActorInput_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Sélectionner le responsable intervenant (CDT, CDI, CBA)"
+                        BorderColor: =If(varAttemptedSave && (varOngletJournal = "Travaux" || varOngletJournal = "LTV") && IsBlank(ActorInput_22.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier" && (varOngletJournal = "Travaux" || varOngletJournal = "LTV"),
+                              Filter(
+                                  Ref_Acteurs,
+                                  ID = If(
+                                      varOngletJournal = "Travaux", varTravauxToEdit.'ActeurID ',
+                                      varLtvToEdit.ActeurID0.Id
+                                  )
+                              ),
+                              Blank()
+                          )
+                        DisplayFields: =["Title"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="CDT / CDI / CBA (terrain)"
+                        IsSearchable: =false
+                        Items: =Ref_Acteurs
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        SearchFields: =["Title"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
+                        Width: =407.61
+                        X: =489
+                        Y: =171
+                  - PermanentLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =7.01
+                        PaddingTop: =4.57
+                        Size: =11.06
+                        TabIndex: =0
+                        Text: ="Permanent au poste"
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
+                        Width: =393.54
+                        X: =484.57
+                        Y: =219
+                  - PermanentInput_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Sélectionner le permanent au poste"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: |-
+                          =If(
+                              !IsBlank(varAgentPermanentID),
+                              Filter(
+                                  Ref_Permanents,
+                                  ID = varAgentPermanentID
+                              ),
+                              Blank()
+                          )
+                        DisplayFields: =["Title"]
+                        DisplayMode: =DisplayMode.View
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Agent de permanence"
+                        Items: |-
+                          =SortByColumns(
+                              Filter(
+                                  Ref_Permanents,
+                                  Actif.Value = "Oui"
+                              ),
+                              "Title",
+                              SortOrder.Ascending
+                          )
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        SearchFields: =["Title"]
+                        SelectMultiple: =false
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
+                        Width: =407.61
+                        X: =484.57
+                        Y: =239
+                  - DetailsHeading_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =13.87
+                        TabIndex: =0
+                        Text: ="2. DÉTAILS SPÉCIFIQUES"
+                        Width: =463.84
+                        X: =35
+                        Y: =240
+                  - PKDebutLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =11.06
+                        TabIndex: =0
+                        Text: =Switch(varOngletJournal, "LTV", "PK Début", "Incidents", "PK (Point Kilométrique)", "PK Début")
+                        Width: =393.54
+                        X: =35
+                        Y: =294
+                  - PKDebutInput_21:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        AccessibleLabel: ="Saisir le PK début"
+                        BorderColor: =If(Or("," in PKDebutInput_21.Text, "." in PKDebutInput_21.Text) || (varAttemptedSave && IsBlank(PKDebutInput_21.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                        Default: |-
+                          =If(varActionEnCours = "Modifier", Switch(varOngletJournal, "Travaux", With({_v: varTravauxToEdit.PK_Debut}, If(IsBlank(_v), Blank(), Text(RoundDown(_v, 0), "0") & "+" & Text(Round(Mod(_v, 1) * 1000, 0), "000"))), "LTV", With({_v: varLtvToEdit.PK_Debut}, If(IsBlank(_v), Blank(), Text(RoundDown(_v, 0), "0") & "+" & Text(Round(Mod(_v, 1) * 1000, 0), "000"))), "Incidents", varIncidentToEdit.PK), Blank())
+                        FocusedBorderThickness: =2
+                        HintText: |-
+                          ="PK début (ex: 12+400) uniquement le signe +"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.29
+                        Width: =407.61
+                        X: =35
+                        Y: =320
+                  - PKFinLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =11.06
+                        TabIndex: =0
+                        Text: =Switch(varOngletJournal, "LTV", "PK Fin", "Travaux", "PK Fin", "Incidents", "Heure Fin")
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
+                        Width: =393.54
+                        X: =489
+                        Y: =352
+                  - PKFinInput_21:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        AccessibleLabel: ="Saisir le PK fin ou l'heure de fin"
+                        BorderColor: =If(Or("," in PKFinInput_21.Text, "." in PKFinInput_21.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                        Default: |-
+                          =If(varActionEnCours = "Modifier", Switch(varOngletJournal, "Travaux", With({_v: varTravauxToEdit.PK_Fin}, If(IsBlank(_v), Blank(), Text(RoundDown(_v, 0), "0") & "+" & Text(Round(Mod(_v, 1) * 1000, 0), "000"))), "LTV", With({_v: varLtvToEdit.'PK_Fin '}, If(IsBlank(_v), Blank(), Text(RoundDown(_v, 0), "0") & "+" & Text(Round(Mod(_v, 1) * 1000, 0), "000")))), Blank())
+                        FocusedBorderThickness: =2
+                        HintText: |-
+                          ="PK fin (ex: 15+800) uniquement le signe +"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =15.29
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
+                        Width: =407.61
+                        X: =489
+                        Y: =378
+                  - HeureFinIncidentLabel_19:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Heure Fin"
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =393.54
+                        X: =484.93
+                        Y: =302
+                  - HeureFinIncidentInput_19:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Date de fin de l'incident"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit), DateValue(varIncidentToEdit.Heure_Fin), Blank())
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =18.29
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =201.14
+                        X: =484.93
+                        Y: =328
+                  - DateIncidentLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: =Switch(varOngletJournal, "Incidents", "Date incident", "LTV", "Date d’imposition")
+                        Visible: =varOngletJournal = "Incidents" || varOngletJournal = "LTV"
+                        Width: =393.54
+                        X: =484.57
+                        Y: =437
+                  - DateIncidentInput_21:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Saisir la date de l incident"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =If(varActionEnCours = "Modifier", DateValue(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.DateIncident)), Blank())
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =18.29
+                        Visible: =varOngletJournal = "Incidents" || varOngletJournal = "LTV"
+                        Width: =201.14
+                        X: =484.57
+                        Y: =464
+                  - DateIncidentHour_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir la date de l incident - heure"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier", Filter(Sequence(24, 0, 1), Value = Hour(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.Heure_Début))), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =11.89
+                        Visible: =varOngletJournal = "Incidents" || varOngletJournal = "LTV"
+                        Width: =96
+                        X: =696.7
+                        Y: =464
+                  - DateIncidentMinute_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir la date de l incident - minutes"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier", Filter(Sequence(60, 0, 1), Value = Minute(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.Heure_Début))), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =11.89
+                        Visible: =varOngletJournal = "Incidents" || varOngletJournal = "LTV"
+                        Width: =96
+                        X: =800
+                        Y: =464
+                  - TimeHeading_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =13.87
+                        TabIndex: =0
+                        Text: =Switch(varOngletJournal, "Travaux", "3. HORODATAGES — Planifié / Réalisé", "Incidents", "3. HORODATAGES", "LTV", "3. DATE D'IMPOSITION")
+                        Width: =463.84
+                        X: =35
+                        Y: =365
+                  - RequestInput_22:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l'heure de demande"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: |-
+                          =If(
+                              varActionEnCours = "Modifier",
+                              DateValue(If(
+                                  varOngletJournal = "Travaux", varTravauxToEdit.Heure_demande,
+                                  varOngletJournal = "Incidents", varIncidentToEdit.Heure_Début,
+                                  Blank()
+                              )),
+                              Today()
+                          )
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyyy"
+                        Height: =36
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "Incidents"
+                        Width: =201.14
+                        X: =36
+                        Y: =440
+                  - RequestHour_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Heure de demande ou de debut d'incident"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier",
+                              Filter(
+                                  Sequence(24, 0, 1),
+                                  Value = Hour(If(
+                                      varOngletJournal = "Travaux", varTravauxToEdit.Heure_demande,
+                                      varOngletJournal = "Incidents", varIncidentToEdit.Heure_Début,
+                                      Blank()
+                                  ))
+                              ),
+                              Blank()
+                          )
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "Incidents"
+                        Width: =96
+                        X: =249
+                        Y: =440
+                  - RequestMinute_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Minute de demande ou de debut d'incident"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier",
+                              Filter(
+                                  Sequence(60, 0, 1),
+                                  Value = Minute(If(
+                                      varOngletJournal = "Travaux", varTravauxToEdit.Heure_demande,
+                                      varOngletJournal = "Incidents", varIncidentToEdit.Heure_Début,
+                                      Blank()
+                                  ))
+                              ),
+                              Blank()
+                          )
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "Incidents"
+                        Width: =96
+                        X: =353
+                        Y: =440
+                  - TauxLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Taux (km/h)"
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =393.54
+                        X: =37
+                        Y: =430
+                  - TauxInput_21:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        AccessibleLabel: ="Saisir le taux d'avancement"
+                        BorderColor: =If(varAttemptedSave && varOngletJournal = "LTV" && IsBlank(TauxInput_21.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                        Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Text(varLtvToEdit.Taux), Blank())
+                        FocusedBorderThickness: =2
+                        Format: =TextFormat.Number
+                        HintText: |-
+                          ="Ex: 30"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =18.29
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =407.61
+                        X: =36
+                        Y: =459
+                  - StatutLTVLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Statut LTV"
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =393.54
+                        X: =36
+                        Y: =508
+                  - StatutLTVInput_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Statut de la LTV"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit.Statut_LTV),
+                              [{Value: varLtvToEdit.Statut_LTV.Value}],
+                              [{Value: "Imposée"}]
+                          )
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Imposée ou Supprimée"
+                        IsSearchable: =false
+                        Items: |-
+                          =Table(
+                              {Value: "Imposée"},
+                              {Value: "Supprimée"}
+                          )
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =407.61
+                        X: =36
+                        Y: =533
+                  - DateSuppressionLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Date de suppression (si levée)"
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =393.54
+                        X: =484
+                        Y: =557
+                  - DateSuppressionInput_21:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Saisir la date de suppression"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), DateValue(varLtvToEdit.'Date_Suppression '), Blank())
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =18.29
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =201.14
+                        X: =484
+                        Y: =594
+                  - DateSuppressionHour_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir la date de suppression - heure"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varLtvToEdit.'Date_Suppression ')), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =11.89
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =96
+                        X: =696
+                        Y: =594
+                  - DateSuppressionMinute_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir la date de suppression - minutes"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varLtvToEdit.'Date_Suppression ')), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =11.89
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =96
+                        X: =800
+                        Y: =594
+                  - MotifEngTardifInput_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Motif de l'engagement tardif"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit.'Motifs_Engagement_Tardif '),
+                              [{Value: varTravauxToEdit.'Motifs_Engagement_Tardif '}],
+                              [{Value: ""}]
+                          )
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Choisir un motif"
+                        IsSearchable: =false
+                        Items: |-
+                          =Table(
+                              {Value: "Affaissement de la voie"},
+                              {Value: "Attente Ballastage + Joints Multiples"},
+                              {Value: "Attente Complément Ballast"},
+                              {Value: "Attente de soudures"},
+                              {Value: "Attente Stabilisation"},
+                              {Value: "Attente travaux RVB"},
+                              {Value: "Cœur de l'ADV 14 Défectueux"},
+                              {Value: "Cœur de l'aiguille avarié"},
+                              {Value: "Défaut de Nivellement"},
+                              {Value: "Défaut d'écartement"},
+                              {Value: "Défaut Géométrique de la Voie"},
+                              {Value: "Défaut géométrique de la voie + joints de raccords"},
+                              {Value: "Défaut Géométrique de la Voie + Rupture de Rail"},
+                              {Value: "Défaut Géométrique de la voie + Insuffisance de ballast"},
+                              {Value: "Empreintes de Patinage"},
+                              {Value: "Gauche Hors Tolérence"},
+                              {Value: "Insuffisance de Ballast"},
+                              {Value: "Joints de raccord"},
+                              {Value: "Lame de l'ADV défectueuse"},
+                              {Value: "Plancher Pourri"},
+                              {Value: "Pose de traverses en béton"},
+                              {Value: "Présence Joint multiple"},
+                              {Value: "Profil de Ballast non Conforme"},
+                              {Value: "Protection du Pont + Travaux Déraillement en cours"},
+                              {Value: "Protection PN"},
+                              {Value: "Protection PN + Empreintes de Patinage"},
+                              {Value: "Remontée de glaise"},
+                              {Value: "Remontée de Glaise + Attente des Soudures"},
+                              {Value: "Remplacement de rail en cours"},
+                              {Value: "Remplacement des traverses"},
+                              {Value: "Risque d'éboulement"},
+                              {Value: "Rupture de Rail"},
+                              {Value: "Rupture du contre-aiguille ADV 14 Booué"},
+                              {Value: "Soudure Rompue"},
+                              {Value: "Soudure Rompue sur OA"},
+                              {Value: "Sous écartement de la voie"},
+                              {Value: "Succession de Ruptures de Rail"},
+                              {Value: "Succession de TB pourries"},
+                              {Value: "Succession des Défauts géométriques de la voie"},
+                              {Value: "Succession des joints"},
+                              {Value: "Sur écartement de la voie"},
+                              {Value: "Travaux de Prolongement de la Voie en cours"},
+                              {Value: "Travaux de Renouvellement de la Voie"},
+                              {Value: "Travaux en Cours après Déraillement"},
+                              {Value: "Travaux en Cours après Déraillement + Rupture de Rail"},
+                              {Value: "Travaux en Cours après Déraillement + Défaut géométrique de la voie"},
+                              {Value: "Travaux portique en cours"},
+                              {Value: "Travaux RVB en Cours"},
+                              {Value: "Travaux RVB en Cours + Rupture de Rail"},
+                              {Value: "Usure des rails"},
+                              {Value: "Usure Latérale de la Lame Courbe"},
+                              {Value: "Usure Latérale du Rail"},
+                              {Value: "Usure latérale du rail + Empreintes de patinage"},
+                              {Value: "Usure Latérale du Rail + Plancher Pourri"},
+                              {Value: "Zone de Déraillement"},
+                              {Value: "Zone d'éboulement"},
+                              {Value: "Zone instable"},
+                              {Value: "Autre"}
+                          )
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =331
+                        X: =125
+                        Y: =912
+                  - CommentairesLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =20
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Commentaires / Observations"
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =857.39
+                        X: =48
+                        Y: =548
+                  - FinPrevueInput_21:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de fin prévue"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heure_Fin_Prevue), Today())
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =201.14
+                        X: =484.57
+                        Y: =510
+                  - FinPrevueHour_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de fin prévue - heure"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heure_Fin_Prevue)), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =696.7
+                        Y: =510
+                  - FinPrevueMinute_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de fin prévue - minutes"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heure_Fin_Prevue)), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =800
+                        Y: =510
+                  - DegagementInput_21:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de dégagement"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heures_Degagement), Today())
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =201.14
+                        X: =36
+                        Y: =601
+                  - DegagementHour_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de dégagement - heure"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heures_Degagement)), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =248
+                        Y: =601
+                  - DegagementMinute_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de dégagement - minutes"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heures_Degagement)), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =352
+                        Y: =601
+                  - VoieRetablieInput_21:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de voie rétablie"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.'Heures_Voie_Retablie '), Today())
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =201.14
+                        X: =484
+                        Y: =601
+                  - VoieRetablieHour_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de voie rétablie - heure"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.'Heures_Voie_Retablie ')), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =696
+                        Y: =601
+                  - VoieRetablieMinute_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l heure de voie rétablie - minutes"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.'Heures_Voie_Retablie ')), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =800
+                        Y: =601
+                  - ProlongationLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =7.01
+                        PaddingTop: =4.57
+                        Size: =10.4
+                        TabIndex: =0
+                        Text: ="Prolongation (fin après)"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =280
+                        X: =36
+                        Y: =647
+                  - ProlongationInput_21:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Heure de fin après prolongation"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =180
+                        X: =34
+                        Y: =671
+                  - ProlongationHour_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Prolongation - heure"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =Blank()
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="H"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =12.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =80
+                        X: =220
+                        Y: =671
+                  - ProlongationMinute_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Prolongation - minutes"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =Blank()
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="M"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =12.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =80
+                        X: =305
+                        Y: =671
+                  - CalculCard_22:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(220, 224, 230, 1)
+                        BorderThickness: =1
+                        Height: =139
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =948.11
+                        X: =35.14
+                        Y: =740
+                      Children:
+                        - CalculTitle_22:
+                            Control: Label@2.5.1
+                            Properties:
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =33
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =13.46
+                              TabIndex: =0
+                              Text: ="CALCULS AUTO (retard aut. + durée eng. + retard dég. - base = Prolongation si renseignée)"
+                              Width: =915.2
+                              X: =21.08
+                              Y: =3
+                        - RetardValue_22:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(237, 108, 20, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.92
+                              TabIndex: =0
+                              Text: |-
+                                =IfError(
+                                    With(
+                                        {
+                                            _demande: If(
+                                                !IsBlank(RequestHour_22.Selected),
+                                                DateTime(Year(RequestInput_22.SelectedDate), Month(RequestInput_22.SelectedDate), Day(RequestInput_22.SelectedDate), Value(RequestHour_22.Selected.Value), If(IsBlank(RequestMinute_22.Selected), 0, Value(RequestMinute_22.Selected.Value)), 0),
+                                                Blank()
+                                            ),
+                                            _autorisee: If(
+                                                !IsBlank(AuthorizationHour_22.Selected),
+                                                DateTime(Year(AuthorizationInput_22.SelectedDate), Month(AuthorizationInput_22.SelectedDate), Day(AuthorizationInput_22.SelectedDate), Value(AuthorizationHour_22.Selected.Value), If(IsBlank(AuthorizationMinute_22.Selected), 0, Value(AuthorizationMinute_22.Selected.Value)), 0),
+                                                Blank()
+                                            )
+                                        },
+                                        If(
+                                            !IsBlank(_demande) && !IsBlank(_autorisee) && DateDiff(_demande, _autorisee, TimeUnit.Minutes) >= 0,
+                                            "Retard aut. : " & RoundDown(DateDiff(_demande, _autorisee, TimeUnit.Minutes) / 60, 0) & "h" & Mod(DateDiff(_demande, _autorisee, TimeUnit.Minutes), 60),
+                                            "Retard aut. : --h--"
+                                        )
+                                    ),
+                                    "Retard aut. : --h--"
+                                )
+                              Width: =267.06
+                              X: =21.08
+                              Y: =45
+                        - DurationValue_22:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(18, 135, 43, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.92
+                              TabIndex: =0
+                              Text: |-
+                                =IfError(If(!IsBlank(AuthorizationHour_22.Selected) && !IsBlank(EngagementHour_22.Selected) && DateDiff(DateTime(Year(AuthorizationInput_22.SelectedDate), Month(AuthorizationInput_22.SelectedDate), Day(AuthorizationInput_22.SelectedDate), Value(AuthorizationHour_22.Selected.Value), Value(AuthorizationMinute_22.Selected.Value), 0), DateTime(Year(EngagementInput_22.SelectedDate), Month(EngagementInput_22.SelectedDate), Day(EngagementInput_22.SelectedDate), Value(EngagementHour_22.Selected.Value), Value(EngagementMinute_22.Selected.Value), 0), TimeUnit.Minutes) >= 0, "Durée eng. : " & RoundDown(DateDiff(DateTime(Year(AuthorizationInput_22.SelectedDate), Month(AuthorizationInput_22.SelectedDate), Day(AuthorizationInput_22.SelectedDate), Value(AuthorizationHour_22.Selected.Value), Value(AuthorizationMinute_22.Selected.Value), 0), DateTime(Year(EngagementInput_22.SelectedDate), Month(EngagementInput_22.SelectedDate), Day(EngagementInput_22.SelectedDate), Value(EngagementHour_22.Selected.Value), Value(EngagementMinute_22.Selected.Value), 0), TimeUnit.Minutes) / 60, 0) & "h" & Mod(DateDiff(DateTime(Year(AuthorizationInput_22.SelectedDate), Month(AuthorizationInput_22.SelectedDate), Day(AuthorizationInput_22.SelectedDate), Value(AuthorizationHour_22.Selected.Value), Value(AuthorizationMinute_22.Selected.Value), 0), DateTime(Year(EngagementInput_22.SelectedDate), Month(EngagementInput_22.SelectedDate), Day(EngagementInput_22.SelectedDate), Value(EngagementHour_22.Selected.Value), Value(EngagementMinute_22.Selected.Value), 0), TimeUnit.Minutes), 60), "Durée eng. : --h--"), "Durée eng. : --h--")
+                              Width: =281.11
+                              X: =301.7
+                              Y: =45
+                        - RetardDegValue_21:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(238, 32, 35, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.92
+                              TabIndex: =0
+                              Text: |-
+                                =IfError(
+                                    With(
+                                        {
+                                            _finRef: If(
+                                                Year(ProlongationInput_21.SelectedDate) >= 2020 && !IsBlank(ProlongationHour_21.Selected),
+                                                DateTime(Year(ProlongationInput_21.SelectedDate), Month(ProlongationInput_21.SelectedDate), Day(ProlongationInput_21.SelectedDate), Value(ProlongationHour_21.Selected.Value), If(IsBlank(ProlongationMinute_21.Selected), 0, Value(ProlongationMinute_21.Selected.Value)), 0),
+                                                If(
+                                                    Year(FinPrevueInput_21.SelectedDate) >= 2020 && !IsBlank(FinPrevueHour_21.Selected),
+                                                    DateTime(Year(FinPrevueInput_21.SelectedDate), Month(FinPrevueInput_21.SelectedDate), Day(FinPrevueInput_21.SelectedDate), Value(FinPrevueHour_21.Selected.Value), If(IsBlank(FinPrevueMinute_21.Selected), 0, Value(FinPrevueMinute_21.Selected.Value)), 0),
+                                                    Blank()
+                                                )
+                                            ),
+                                            _deg: If(
+                                                Year(DegagementInput_21.SelectedDate) >= 2020 && !IsBlank(DegagementHour_21.Selected),
+                                                DateTime(Year(DegagementInput_21.SelectedDate), Month(DegagementInput_21.SelectedDate), Day(DegagementInput_21.SelectedDate), Value(DegagementHour_21.Selected.Value), If(IsBlank(DegagementMinute_21.Selected), 0, Value(DegagementMinute_21.Selected.Value)), 0),
+                                                Blank()
+                                            )
+                                        },
+                                        If(
+                                            !IsBlank(_finRef) && !IsBlank(_deg) && DateDiff(_finRef, _deg, TimeUnit.Minutes) >= 0,
+                                            "Retard dég. : " & RoundDown(DateDiff(_finRef, _deg, TimeUnit.Minutes) / 60, 0) & "h" & Mod(DateDiff(_finRef, _deg, TimeUnit.Minutes), 60),
+                                            "Retard dég. : --h--"
+                                        )
+                                    ),
+                                    "Retard dég. : --h--"
+                                )
+                              Width: =267.06
+                              X: =583.31
+                              Y: =45
+                        - MotifEngLabel_21:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(8, 49, 120, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =11.65
+                              TabIndex: =0
+                              Text: |-
+                                ="Motifs : Engagement / Eng. Tardif / Dégag. Tardif (facultatif)"
+                              Width: =815.23
+                              X: =21.03
+                              Y: =85
+                  - MotifDegTardifInput_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Motif du dégagement tardif"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: |-
+                          =If(
+                              varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit.Motif_Degagement_Tardif),
+                              [{Value: varTravauxToEdit.Motif_Degagement_Tardif}],
+                              [{Value: ""}]
+                          )
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Choisir un motif"
+                        IsSearchable: =false
+                        Items: |-
+                          =Table(
+                              {Value: "Affaissement de la voie"},
+                              {Value: "Attente Ballastage + Joints Multiples"},
+                              {Value: "Attente Complément Ballast"},
+                              {Value: "Attente de soudures"},
+                              {Value: "Attente Stabilisation"},
+                              {Value: "Attente travaux RVB"},
+                              {Value: "Cœur de l'ADV 14 Défectueux"},
+                              {Value: "Cœur de l'aiguille avarié"},
+                              {Value: "Défaut de Nivellement"},
+                              {Value: "Défaut d'écartement"},
+                              {Value: "Défaut Géométrique de la Voie"},
+                              {Value: "Défaut géométrique de la voie + joints de raccords"},
+                              {Value: "Défaut Géométrique de la Voie + Rupture de Rail"},
+                              {Value: "Défaut Géométrique de la voie + Insuffisance de ballast"},
+                              {Value: "Empreintes de Patinage"},
+                              {Value: "Gauche Hors Tolérence"},
+                              {Value: "Insuffisance de Ballast"},
+                              {Value: "Joints de raccord"},
+                              {Value: "Lame de l'ADV défectueuse"},
+                              {Value: "Plancher Pourri"},
+                              {Value: "Pose de traverses en béton"},
+                              {Value: "Présence Joint multiple"},
+                              {Value: "Profil de Ballast non Conforme"},
+                              {Value: "Protection du Pont + Travaux Déraillement en cours"},
+                              {Value: "Protection PN"},
+                              {Value: "Protection PN + Empreintes de Patinage"},
+                              {Value: "Remontée de glaise"},
+                              {Value: "Remontée de Glaise + Attente des Soudures"},
+                              {Value: "Remplacement de rail en cours"},
+                              {Value: "Remplacement des traverses"},
+                              {Value: "Risque d'éboulement"},
+                              {Value: "Rupture de Rail"},
+                              {Value: "Rupture du contre-aiguille ADV 14 Booué"},
+                              {Value: "Soudure Rompue"},
+                              {Value: "Soudure Rompue sur OA"},
+                              {Value: "Sous écartement de la voie"},
+                              {Value: "Succession de Ruptures de Rail"},
+                              {Value: "Succession de TB pourries"},
+                              {Value: "Succession des Défauts géométriques de la voie"},
+                              {Value: "Succession des joints"},
+                              {Value: "Sur écartement de la voie"},
+                              {Value: "Travaux de Prolongement de la Voie en cours"},
+                              {Value: "Travaux de Renouvellement de la Voie"},
+                              {Value: "Travaux en Cours après Déraillement"},
+                              {Value: "Travaux en Cours après Déraillement + Rupture de Rail"},
+                              {Value: "Travaux en Cours après Déraillement + Défaut géométrique de la voie"},
+                              {Value: "Travaux portique en cours"},
+                              {Value: "Travaux RVB en Cours"},
+                              {Value: "Travaux RVB en Cours + Rupture de Rail"},
+                              {Value: "Usure des rails"},
+                              {Value: "Usure Latérale de la Lame Courbe"},
+                              {Value: "Usure Latérale du Rail"},
+                              {Value: "Usure latérale du rail + Empreintes de patinage"},
+                              {Value: "Usure Latérale du Rail + Plancher Pourri"},
+                              {Value: "Zone de Déraillement"},
+                              {Value: "Zone d'éboulement"},
+                              {Value: "Zone instable"},
+                              {Value: "Autre"}
+                          )
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =330
+                        X: =547
+                        Y: =912
+                  - CommentairesInput_21:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        AccessibleLabel: ="Saisir les commentaires"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit), varIncidentToEdit.Commentaires, Blank())
+                        FocusedBorderThickness: =2
+                        Height: =251
+                        HintText: ="Saisissez les commentaires sur la rupture/incident"
+                        MaxLength: =500
+                        Mode: =TextMode.MultiLine
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =18.29
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =857.39
+                        X: =48
+                        Y: =582
+                  - SaveButton_22:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        Fill: =RGBA(255, 174, 0, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =43
+                        OnSelect: |-
+                          =UpdateContext({_journalSaveSucceeded: false});
+                          Set(varAttemptedSave, true);
+                          If(
+                              If(
+                                  varActionEnCours = "Modifier",
+                                  Switch(
+                                      varOngletJournal,
+                                      "Travaux", IsBlank(LookUp(Tx_Travaux, ID = varTravauxToEdit.ID, ID)),
+                                      "LTV", IsBlank(LookUp(Tx_LTV, ID = varLtvToEdit.ID, ID)),
+                                      "Incidents", IsBlank(LookUp(Tx_incidents_Ruptures, ID = varIncidentToEdit.ID, ID)),
+                                      true
+                                  ),
+                                  false
+                              ),
+                              Notify("Reprise impossible : enregistrement introuvable. Rouvrez l'element existant.", NotificationType.Error),
+                              Or("," in PKDebutInput_21.Text, "." in PKDebutInput_21.Text, (varOngletJournal <> "Incidents" && Or("," in PKFinInput_21.Text, "." in PKFinInput_21.Text))),
+                              Notify("Format PK invalide. Utilisez uniquement le format 12+400 (pas de virgule ni de point).", NotificationType.Error),
+                              IsBlank(DivisionInput_22.Selected),
+                              Notify("Division obligatoire.", NotificationType.Error),
+                              IsBlank(CantonInput_22.Selected),
+                              Notify("Canton obligatoire.", NotificationType.Error),
+                              If(
+                              varOngletJournal = "Travaux",
+                              If(
+                                  IsBlank(Trim(TitreChantierInput_22.Text)),
+                                  Notify("Travaux : la Nature des travaux est obligatoire.", NotificationType.Error),
+                                  IsBlank(PKDebutInput_21.Text),
+                                  Notify("Travaux : le PK début est obligatoire.", NotificationType.Error),
+                                  IsBlank(RegimeInput_22.Selected),
+                                  Notify("Travaux : le Régime de travaux est obligatoire.", NotificationType.Error),
+                                  IsBlank(ActorInput_22.Selected),
+                                  Notify("Travaux : l'Intervenant est obligatoire.", NotificationType.Error),
+                                  IsBlank(RequestHour_22.Selected) || IsBlank(RequestMinute_22.Selected) || Year(RequestInput_22.SelectedDate) < 2020,
+                                  Notify("Travaux : l'heure de Demande est obligatoire (date + heure + minute).", NotificationType.Error),
+                                  IsBlank(AuthorizationHour_22.Selected) || IsBlank(AuthorizationMinute_22.Selected) || Year(AuthorizationInput_22.SelectedDate) < 2020,
+                                  Notify("Travaux : l'heure d'Autorisation est obligatoire (date + heure + minute).", NotificationType.Error),
+                                  IsBlank(EngagementHour_22.Selected) || IsBlank(EngagementMinute_22.Selected) || Year(EngagementInput_22.SelectedDate) < 2020,
+                                  Notify("Travaux : l'heure d'Engagement est obligatoire (date + heure + minute).", NotificationType.Error),
+                                  IfError(DateTime(Year(AuthorizationInput_22.SelectedDate), Month(AuthorizationInput_22.SelectedDate), Day(AuthorizationInput_22.SelectedDate), Value(AuthorizationHour_22.Selected.Value), Value(AuthorizationMinute_22.Selected.Value), 0) < DateTime(Year(RequestInput_22.SelectedDate), Month(RequestInput_22.SelectedDate), Day(RequestInput_22.SelectedDate), Value(RequestHour_22.Selected.Value), Value(RequestMinute_22.Selected.Value), 0), true),
+                                  Notify("Travaux : l'Autorisation doit etre posterieure ou egale a la Demande.", NotificationType.Error),
+                                  IfError(DateTime(Year(EngagementInput_22.SelectedDate), Month(EngagementInput_22.SelectedDate), Day(EngagementInput_22.SelectedDate), Value(EngagementHour_22.Selected.Value), Value(EngagementMinute_22.Selected.Value), 0) < DateTime(Year(AuthorizationInput_22.SelectedDate), Month(AuthorizationInput_22.SelectedDate), Day(AuthorizationInput_22.SelectedDate), Value(AuthorizationHour_22.Selected.Value), Value(AuthorizationMinute_22.Selected.Value), 0), true),
+                                  Notify("Travaux : l'Engagement doit etre posterieur ou egal a l'Autorisation.", NotificationType.Error),
+                                   IfError(
+                                     Patch(
+                                        Tx_Travaux,
+                                        If(varActionEnCours = "Modifier" && !IsBlank(varTravauxToEdit), LookUp(Tx_Travaux, ID = varTravauxToEdit.ID), Defaults(Tx_Travaux)),
+                                        {
+                                            Title: If(!IsBlank(Trim(TitreChantierInput_22.Text)), Trim(TitreChantierInput_22.Text), If(varActionEnCours = "Modifier" && !IsBlank(varTravauxToEdit), Coalesce(varTravauxToEdit.Title, "Chantier - " & Text(Now(), "yyyymmdd-hhmm")), "Chantier - " & Text(Now(), "yyyymmdd-hhmm"))),
+                                            Date_travaux: Today(),
+                                            'CantonID ': CantonInput_22.Selected.ID,
+                                            Regime_travaux: {Value: RegimeInput_22.Selected.Value},
+                                            'ActeurID ': ActorInput_22.Selected.ID,
+                                            Heure_demande: If(Year(RequestInput_22.SelectedDate) < 2020, Blank(), DateTime(Year(RequestInput_22.SelectedDate), Month(RequestInput_22.SelectedDate), Day(RequestInput_22.SelectedDate), Value(RequestHour_22.Selected.Value), Value(RequestMinute_22.Selected.Value), 0)),
+                                            Heure_Fin_Prevue: If(Year(FinPrevueInput_21.SelectedDate) < 2020 || IsBlank(FinPrevueHour_21.Selected) || IsBlank(FinPrevueMinute_21.Selected), Blank(), DateTime(Year(FinPrevueInput_21.SelectedDate), Month(FinPrevueInput_21.SelectedDate), Day(FinPrevueInput_21.SelectedDate), Value(FinPrevueHour_21.Selected.Value), Value(FinPrevueMinute_21.Selected.Value), 0)),
+                                            Heures_Autorisee: If(Year(AuthorizationInput_22.SelectedDate) < 2020, Blank(), DateTime(Year(AuthorizationInput_22.SelectedDate), Month(AuthorizationInput_22.SelectedDate), Day(AuthorizationInput_22.SelectedDate), Value(AuthorizationHour_22.Selected.Value), Value(AuthorizationMinute_22.Selected.Value), 0)),
+                                            Heure_engagement: If(Year(EngagementInput_22.SelectedDate) < 2020, Blank(), DateTime(Year(EngagementInput_22.SelectedDate), Month(EngagementInput_22.SelectedDate), Day(EngagementInput_22.SelectedDate), Value(EngagementHour_22.Selected.Value), Value(EngagementMinute_22.Selected.Value), 0)),
+                                            Heures_Degagement: If(Year(DegagementInput_21.SelectedDate) < 2020 || IsBlank(DegagementHour_21.Selected) || IsBlank(DegagementMinute_21.Selected), Blank(), DateTime(Year(DegagementInput_21.SelectedDate), Month(DegagementInput_21.SelectedDate), Day(DegagementInput_21.SelectedDate), Value(DegagementHour_21.Selected.Value), Value(DegagementMinute_21.Selected.Value), 0)),
+                                            'Heures_Voie_Retablie ': If(Year(VoieRetablieInput_21.SelectedDate) < 2020 || IsBlank(VoieRetablieHour_21.Selected) || IsBlank(VoieRetablieMinute_21.Selected), Blank(), DateTime(Year(VoieRetablieInput_21.SelectedDate), Month(VoieRetablieInput_21.SelectedDate), Day(VoieRetablieInput_21.SelectedDate), Value(VoieRetablieHour_21.Selected.Value), Value(VoieRetablieMinute_21.Selected.Value), 0)),
+                                            PK_Debut: With({_s: Split(PKDebutInput_21.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKDebutInput_21.Text), Blank()))),
+                                            PK_Fin: With({_s: Split(PKFinInput_21.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKFinInput_21.Text), Blank()))),
+                                            'Motifs_Engagement_Tardif ': If(IsBlank(MotifEngTardifInput_21.Selected) || MotifEngTardifInput_21.Selected.Value = "(Aucun)", Blank(), MotifEngTardifInput_21.Selected.Value),
+                                            Motif_Degagement_Tardif: If(IsBlank(MotifDegTardifInput_21.Selected) || MotifDegTardifInput_21.Selected.Value = "(Aucun)", Blank(), MotifDegTardifInput_21.Selected.Value),
+                                            Poste: {Value: varQuart},
+                                            AgentSaisie: {Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            DateSaisie: Now()
+                                        }
+                                  ),
+                                  Notify("Erreur écriture Tx_Travaux : " & FirstError.Message, NotificationType.Error),
+                                  Notify("Chantier enregistré dans Tx_Travaux", NotificationType.Success);
+                                  UpdateContext({_journalSaveSucceeded: true, varAttemptedSave: false})
+                                          )
+                              ),
+                              varOngletJournal = "LTV",
+                              If(
+                                  IsBlank(RegimeInput_22.Selected),
+                                  Notify("LTV : le Motif de ralentissement est obligatoire.", NotificationType.Error),
+                                  IsBlank(ActorInput_22.Selected),
+                                  Notify("LTV : l'Intervenant est obligatoire.", NotificationType.Error),
+                                  IsBlank(PKDebutInput_21.Text),
+                                  Notify("LTV : le PK début est obligatoire.", NotificationType.Error),
+                                  IsBlank(TauxInput_21.Text),
+                                  Notify("LTV : le Taux (vitesse) est obligatoire.", NotificationType.Error),
+                                  IsBlank(DateIncidentHour_21.Selected) || IsBlank(DateIncidentMinute_21.Selected) || Year(DateIncidentInput_21.SelectedDate) < 2020,
+                                  Notify("LTV : la date d'imposition est obligatoire (date + heure + minute).", NotificationType.Error),
+                                   IfError(
+                                    Patch(
+                                        Tx_LTV,
+                                        If(varActionEnCours = "Modifier" && !IsBlank(varLtvToEdit), LookUp(Tx_LTV, ID = varLtvToEdit.ID), Defaults(Tx_LTV)),
+                                        {
+                                            Title: "LTV - " & Text(Now(), "yyyymmdd-hhmm"),
+                                            Motif_Ralentissement:{Value: RegimeInput_22.Selected.Value},
+                                            CantonID_: {Id: CantonInput_22.Selected.ID, Value: CantonInput_22.Selected.Titre},
+                                            PK_Debut: With({_s: Split(PKDebutInput_21.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKDebutInput_21.Text), Blank()))),
+                                            'PK_Fin ': With({_s: Split(PKFinInput_21.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKFinInput_21.Text), Blank()))),
+                                            Taux: IfError(Value(TauxInput_21.Text), Blank()),
+                                            ActeurID0: {Id: ActorInput_22.Selected.ID, Value: ActorInput_22.Selected.Title},
+                                            Statut_LTV: {Value: Coalesce(StatutLTVInput_21.Selected.Value, If(IsBlank(If(Year(DateSuppressionInput_21.SelectedDate) < 2020 || IsBlank(DateSuppressionHour_21.Selected) || IsBlank(DateSuppressionMinute_21.Selected), Blank(), DateTime(Year(DateSuppressionInput_21.SelectedDate), Month(DateSuppressionInput_21.SelectedDate), Day(DateSuppressionInput_21.SelectedDate), Value(DateSuppressionHour_21.Selected.Value), Value(DateSuppressionMinute_21.Selected.Value), 0))), "Imposée", "Supprimée"))},
+                                            'Date_imposition ': If(Year(DateIncidentInput_21.SelectedDate) < 2020 || IsBlank(DateIncidentHour_21.Selected) || IsBlank(DateIncidentMinute_21.Selected), Blank(), DateTime(Year(DateIncidentInput_21.SelectedDate), Month(DateIncidentInput_21.SelectedDate), Day(DateIncidentInput_21.SelectedDate), Value(DateIncidentHour_21.Selected.Value), Value(DateIncidentMinute_21.Selected.Value), 0)),
+                                            'Date_Suppression ': If(Year(DateSuppressionInput_21.SelectedDate) < 2020 || IsBlank(DateSuppressionHour_21.Selected) || IsBlank(DateSuppressionMinute_21.Selected), Blank(), DateTime(Year(DateSuppressionInput_21.SelectedDate), Month(DateSuppressionInput_21.SelectedDate), Day(DateSuppressionInput_21.SelectedDate), Value(DateSuppressionHour_21.Selected.Value), Value(DateSuppressionMinute_21.Selected.Value), 0)),
+                                            'Poste ': {Value: varQuart},
+                                            AgentSaisie: {Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            DateSaisie: Now()
+                                        }
+                                  ),
+                                  Notify("Erreur écriture Tx_LTV : " & FirstError.Message, NotificationType.Error),
+                                  Notify("LTV enregistrée dans Tx_LTV", NotificationType.Success);
+                                  UpdateContext({_journalSaveSucceeded: true, varAttemptedSave: false})
+                                  )
+                              ),
+                              If(
+                                  IsBlank(RegimeInput_22.Selected),
+                                  Notify("Incidents : le type de Localisation est obligatoire.", NotificationType.Error),
+                                  IsBlank(PKDebutInput_21.Text),
+                                  Notify("Incidents : le PK est obligatoire.", NotificationType.Error),
+                                  IsBlank(DateIncidentHour_21.Selected) || IsBlank(DateIncidentMinute_21.Selected) || Year(DateIncidentInput_21.SelectedDate) < 2020,
+                                  Notify("Incidents : la date de declaration est obligatoire (date + heure + minute).", NotificationType.Error),
+                                  !(IsBlank(HeureFinIncidentInput_19.SelectedDate) && IsBlank(HeureFinIncidentHour_19.Selected.Value) && IsBlank(HeureFinIncidentMinute_19.Selected.Value)) &&
+                                  (IsBlank(HeureFinIncidentInput_19.SelectedDate) || IsBlank(HeureFinIncidentHour_19.Selected.Value) || IsBlank(HeureFinIncidentMinute_19.Selected.Value)),
+                                  Notify("Fin d'incident : renseignez la date, l'heure et la minute, ou laissez les trois champs vides.", NotificationType.Error),
+                                  IfError(
+                                  Patch(
+                                      Tx_incidents_Ruptures,
+                                      If(varActionEnCours = "Modifier" && !IsBlank(varIncidentToEdit), LookUp(Tx_incidents_Ruptures, ID = varIncidentToEdit.ID), Defaults(Tx_incidents_Ruptures)),
+                                      {
+                                          Title: "Incident - " & Text(Now(), "yyyymmdd-hhmm"),
+                                          DateIncident: If(Year(DateIncidentInput_21.SelectedDate) < 2020, Blank(), DateIncidentInput_21.SelectedDate),
+                                          CantonID: {Id: CantonInput_22.Selected.ID, Value: CantonInput_22.Selected.Titre},
+                                          PK: PKDebutInput_21.Text,
+                                          Localisation_Type: {Value: RegimeInput_22.Selected.Value},
+                                          Heure_Début: If(Year(RequestInput_22.SelectedDate) < 2020, Blank(), DateTime(Year(RequestInput_22.SelectedDate), Month(RequestInput_22.SelectedDate), Day(RequestInput_22.SelectedDate), Value(RequestHour_22.Selected.Value), Value(RequestMinute_22.Selected.Value), 0)),
+                                          Heure_Fin: If(IsBlank(HeureFinIncidentInput_19.SelectedDate), Blank(), DateTime(Year(HeureFinIncidentInput_19.SelectedDate), Month(HeureFinIncidentInput_19.SelectedDate), Day(HeureFinIncidentInput_19.SelectedDate), Value(HeureFinIncidentHour_19.Selected.Value), Value(HeureFinIncidentMinute_19.Selected.Value), 0)),
+                                          Etat: {Value: If(varActionEnCours = "Modifier" && HeureFinIncidentInput_19.SelectedDate = DateValue(varIncidentToEdit.Heure_Fin), varIncidentToEdit.Etat.Value, If(IsBlank(HeureFinIncidentInput_19.SelectedDate), "En cours", "Traitée"))},
+                                          Commentaires: CommentairesInput_21.Text,
+                                          Poste: {Value: varQuart},
+                                          AgentSaisie: {Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                          DateSaisie: Now()
+                                      }
+                                  ),
+                                  Notify("Erreur écriture Tx_incidents : " & FirstError.Message, NotificationType.Error),
+                                  Notify("Incident enregistré dans Tx_incidents_Ruptures", NotificationType.Success);
+                                  UpdateContext({_journalSaveSucceeded: true, varAttemptedSave: false})
+                                  )
+                              )
+                            )
+                          );
+                          Refresh(Tx_Travaux);
+                          Refresh(Tx_LTV);
+                          Refresh(Tx_incidents_Ruptures);
+                          Refresh(Tx_Feedbacks);
+                          If(_journalSaveSucceeded,
+                          Set(varActionEnCours, Blank());
+                          Set(varTravauxToEdit, Blank());
+                          Set(varLtvToEdit, Blank());
+                          Set(varIncidentToEdit, Blank());
+                          Reset(DivisionInput_22);
+                          Reset(CantonInput_22);
+                          Reset(RegimeInput_22);
+                          Reset(ActorInput_22);
+                          Reset(PermanentInput_21);
+                          Reset(TitreChantierInput_22);
+                          Reset(PKDebutInput_21);
+                          Reset(PKFinInput_21);
+                          Reset(TauxInput_21);
+                          Reset(DateIncidentInput_21);
+                          Reset(DateIncidentHour_21);
+                          Reset(DateIncidentMinute_21);
+                          Reset(StatutLTVInput_21);
+                          Reset(DateSuppressionInput_21);
+                          Reset(DateSuppressionHour_21);
+                          Reset(DateSuppressionMinute_21);
+                          Reset(RequestInput_22);
+                          Reset(RequestHour_22);
+                          Reset(RequestMinute_22);
+                          Reset(AuthorizationInput_22);
+                          Reset(AuthorizationHour_22);
+                          Reset(AuthorizationMinute_22);
+                          Reset(EngagementInput_22);
+                          Reset(EngagementHour_22);
+                          Reset(EngagementMinute_22);
+                          Reset(HeureFinIncidentInput_19);
+                          Reset(HeureFinIncidentHour_19);
+                          Reset(HeureFinIncidentMinute_19);
+                          Reset(FinPrevueInput_21);
+                          Reset(FinPrevueHour_21);
+                          Reset(FinPrevueMinute_21);
+                          Reset(ProlongationInput_21);
+                          Reset(ProlongationHour_21);
+                          Reset(ProlongationMinute_21);
+                          Reset(DegagementInput_21);
+                          Reset(DegagementHour_21);
+                          Reset(DegagementMinute_21);
+                          Reset(VoieRetablieInput_21);
+                          Reset(VoieRetablieHour_21);
+                          Reset(VoieRetablieMinute_21);
+                          Reset(MotifEngTardifInput_21);
+                          Reset(MotifDegTardifInput_21);
+                          Reset(CommentairesInput_21)
+                          )
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        RadiusBottomLeft: =5
+                        RadiusBottomRight: =5
+                        RadiusTopLeft: =5
+                        RadiusTopRight: =5
+                        Size: =16.52
+                        Text: =If(varOngletJournal = "Travaux", "ENREGISTRER LE CHANTIER", If(varOngletJournal = "LTV", "ENREGISTRER LTV / RAL", "ENREGISTRER L'INCIDENT"))
+                        Width: =305
+                        X: =685
+                        Y: =971
+                  - AuthorizationInput_22:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l'heure d'autorisation"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heures_Autorisee), Today())
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyyy"
+                        Height: =36
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =201.14
+                        X: =484.57
+                        Y: =440
+                  - AuthorizationHour_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Heure autorisee"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heures_Autorisee)), Blank())
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =696.7
+                        Y: =440
+                  - AuthorizationMinute_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Minute autorisee"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heures_Autorisee)), Blank())
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =800
+                        Y: =440
+                  - EngagementInput_22:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Saisir l'heure d'engagement"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heure_engagement), Today())
+                        FocusedBorderThickness: =2
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =201.14
+                        X: =36
+                        Y: =510
+                  - EngagementHour_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Heure d'engagement"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heure_engagement)), Blank())
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =248
+                        Y: =510
+                  - EngagementMinute_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Minute d'engagement"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heure_engagement)), Blank())
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="Find items"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =14.89
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =96
+                        X: =352
+                        Y: =510
+                  - BlocPlanifieLabel_18:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =7.01
+                        PaddingTop: =2
+                        Size: =12.5
+                        TabIndex: =0
+                        Text: ="▸ PLANIFIÉ"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =900
+                        X: =34
+                        Y: =403
+                  - Heuredemande_13:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =10.4
+                        TabIndex: =0
+                        Text: ="Heure demande "
+                        Visible: =varOngletJournal = "Travaux" || varOngletJournal = "Incidents"
+                        Width: =393.54
+                        X: =40
+                        Y: =416
+                  - Heureautorise_13:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =10.4
+                        TabIndex: =0
+                        Text: ="Heure autorisée"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =393.54
+                        X: =489
+                        Y: =416
+                  - Heurefinprevue_13:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =10.4
+                        TabIndex: =0
+                        Text: ="Heure fin prévue"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =393.54
+                        X: =488
+                        Y: =486
+                  - Heurevoieretablie_13:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =10.4
+                        TabIndex: =0
+                        Text: ="Voie rétablie "
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =393.54
+                        X: =488
+                        Y: =577
+                  - BlocRealiseLabel_18:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =7.01
+                        PaddingTop: =2
+                        Size: =12.5
+                        TabIndex: =0
+                        Text: ="▸ RÉALISÉ"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =900
+                        X: =40
+                        Y: =560
+                  - HeureDegaggement_13:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =10.4
+                        TabIndex: =0
+                        Text: ="Heure dégagement"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =393.54
+                        X: =40
+                        Y: =577
+                  - Heureengagment_13:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =10.4
+                        TabIndex: =0
+                        Text: ="Heure engagement"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =393.54
+                        X: =40
+                        Y: =486
+                  - HeureFinIncidentHour_19:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Heure de fin de l'incident"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit.Heure_Fin), Filter(Sequence(24, 0, 1), Value = Hour(varIncidentToEdit.Heure_Fin)), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Heure"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =11.89
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =96
+                        X: =696.7
+                        Y: =328
+                  - HeureFinIncidentMinute_19:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Minute de fin de l'incident"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit.Heure_Fin), Filter(Sequence(60, 0, 1), Value = Minute(varIncidentToEdit.Heure_Fin)), Blank())
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Minute"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =[""]
+                        SelectMultiple: =false
+                        Size: =11.89
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =96
+                        X: =800
+                        Y: =328
+                  - TitreChantierLabel_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =11.06
+                        TabIndex: =0
+                        Text: ="Nature des travaux"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =393.54
+                        X: =489
+                        Y: =282
+                  - TitreChantierInput_22:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        AccessibleLabel: ="Nature des travaux"
+                        BorderColor: =If(varAttemptedSave && varOngletJournal = "Travaux" && IsBlank(Trim(TitreChantierInput_22.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                        Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Coalesce(varTravauxToEdit.Title, ""), Blank())
+                        FocusedBorderThickness: =2
+                        Height: =32
+                        HintText: |-
+                          ="Saisir la nature des travaux (ex: SMD, portiques...)"
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =14.29
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =407.61
+                        X: =489
+                        Y: =305
+            - JournalPanel_22:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =977
+                  Width: =832.09
+                  X: =1052.77
+                  Y: =21
+                Children:
+                  - JournalTitle_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =19.68
+                        TabIndex: =0
+                        Text: ="JOURNAL DU QUART EN COURS (" & varQuart & ")"
+                        Width: =730.89
+                        X: =35.14
+                        Y: =15
+                  - BtnRefreshJournal_23:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(8, 49, 120, 1)
+                        BorderThickness: =1
+                        Color: =RGBA(8, 49, 120, 1)
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        Height: =32
+                        OnSelect: |-
+                          =Refresh(Tx_Travaux);
+                          Refresh(Tx_LTV);
+                          Refresh(Tx_incidents_Ruptures);
+                          Refresh(Tx_Feedbacks);
+                          Refresh(Ref_Cantons);
+                          Refresh(Ref_Acteurs);
+                          Notify("Journal actualisé", NotificationType.Success)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =12
+                        Text: ="Actualiser"
+                        Tooltip: ="Rafraîchir le journal sans quitter l'écran"
+                        Width: =110
+                        X: =698
+                        Y: =62
+                  - EventCount_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        BorderColor: =RGBA(8, 49, 120, 1)
+                        BorderThickness: =1
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Height: =32
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: |-
+                          =Switch(
+                              varOngletJournal,
+                              "Travaux",
+                              CountRows(
+                                  Filter(
+                                      Tx_Travaux,
+                                      (
+                                          Poste.Value = varQuart ||
+                                          IsBlank(Heures_Degagement)
+                                      ) &&
+                                      If(
+                                          IsBlank(FiltreDateTravaux_21.SelectedDate) || Year(FiltreDateTravaux_21.SelectedDate) < 2020,
+                                          Date_travaux = Today(),
+                                          Date_travaux >= FiltreDateTravaux_21.SelectedDate
+                                      )
+                                  )
+                              ),
+                              "LTV",
+                              With(
+                                  {
+                                      _base: Filter(
+                                          Tx_LTV,
+                                          (
+                                              Coalesce(FiltrePerimetreLTV_21.Selected.Value, "Mon poste") = "Journée complète" ||
+                                              'Poste '.Value = varQuart ||
+                                              Statut_LTV.Value = "Imposée"
+                                          ) &&
+                                          (
+                                              IsBlank(FiltreStatutLTV_22.Selected) ||
+                                              FiltreStatutLTV_22.Selected.Value = "Tous" ||
+                                              Statut_LTV.Value = FiltreStatutLTV_22.Selected.Value
+                                          ) &&
+                                          (
+                                              IsBlank(FiltreCantonLTV_22.Selected) ||
+                                              CantonID_.Id = FiltreCantonLTV_22.Selected.ID
+                                          ) &&
+                                          If(
+                                              IsBlank(FiltreDateLTV_22.SelectedDate) || Year(FiltreDateLTV_22.SelectedDate) < 2020,
+                                              DateSaisie >= Today() && DateSaisie < DateAdd(Today(), 1, TimeUnit.Days),
+                                              DateSaisie >= FiltreDateLTV_22.SelectedDate
+                                          )
+                                      )
+                                  },
+                                  CountRows(_base) & " | Imp " & CountRows(Filter(_base, Statut_LTV.Value = "Imposée")) & " | Sup " & CountRows(Filter(_base, Statut_LTV.Value = "Supprimée"))
+                              ),
+                              "Incidents",
+                              CountRows(
+                                  Filter(
+                                      Tx_incidents_Ruptures,
+                                      Poste.Value = varQuart &&
+                                      If(
+                                          IsBlank(FiltreDateIncidents_21.SelectedDate) || Year(FiltreDateIncidents_21.SelectedDate) < 2020,
+                                          DateIncident = Today(),
+                                          DateIncident >= FiltreDateIncidents_21.SelectedDate
+                                      )
+                                  )
+                              )
+                          ) & " événements"
+                        Width: =240
+                        X: =568
+                        Y: =16
+                  - FiltreTravauxLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =12.65
+                        TabIndex: =0
+                        Text: ="Historique"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =98.74
+                        X: =6.4
+                        Y: =68
+                  - FiltreDateTravaux_21:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Filtrer travaux à partir d'une date"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =Blank()
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =4.57
+                        Size: =12.8
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =146.29
+                        X: =244.1
+                        Y: =71
+                  - FiltreDateTravauxHint_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(83, 87, 99, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        Height: =34
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =10.06
+                        TabIndex: =0
+                        Text: ="Depuis (vide = aujourd'hui)"
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =201.14
+                        X: =423.31
+                        Y: =71
+                  - GalleryTravaux_15:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        AccessibleLabel: ="Liste des chantiers et travaux"
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =2
+                        Height: =846
+                        Items: |-
+                          =SortByColumns(
+                              Filter(
+                                  Tx_Travaux,
+                                  (
+                                      Poste.Value = varQuart ||
+                                      IsBlank(Heures_Degagement)
+                                  ) &&
+                                  (
+                                      IsBlank(Heures_Degagement) ||
+                                      If(
+                                          IsBlank(FiltreDateTravaux_21.SelectedDate) || Year(FiltreDateTravaux_21.SelectedDate) < 2020,
+                                          Date_travaux = Today(),
+                                          Date_travaux >= FiltreDateTravaux_21.SelectedDate
+                                      )
+                                  )
+                              ),
+                              "Created",
+                              SortOrder.Descending
+                          )
+                        TabIndex: =0
+                        TemplateSize: =72
+                        Visible: =varOngletJournal = "Travaux"
+                        Width: =801.17
+                        X: =30.16
+                        Y: =122
+                      Children:
+                        - TravBar_20:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              AccessibleLabel: ="Repere du chantier"
+                              Fill: =RGBA(8, 49, 120, 1)
+                              Height: =Parent.TemplateHeight - 6
+                              TabIndex: =0
+                              Width: =8.43
+                              Y: =3
+                        - TravIcon_20:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              AccessibleLabel: ="Reprendre ce chantier"
+                              Color: =RGBA(255, 255, 255, 1)
+                              Fill: =RGBA(8, 49, 120, 1)
+                              Height: =42
+                              Icon: =Icon.Tools
+                              OnSelect: |-
+                                =Set(varOngletJournal, "Travaux");
+                                Set(varActionEnCours, "Modifier");
+                                Set(varTravauxToEdit, ThisItem);
+                                Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                              TabIndex: =0
+                              Width: =59.03
+                              X: =25.3
+                              Y: =15
+                        - TravName_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =28
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =16.87
+                              TabIndex: =0
+                              Text: =Coalesce(LookUp(Ref_Cantons, ID = ThisItem.'CantonID ', Titre), "Canton à renseigner")
+                              Width: =421.67
+                              X: =105.42
+                              Y: =11
+                        - TravDetails_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              Height: =25
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.06
+                              TabIndex: =0
+                              Text: =Coalesce(ThisItem.Title, "Sans titre")
+                              Width: =448
+                              X: =105.42
+                              Y: =37
+                        - TravStatus_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(117, 182, 119, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(18, 110, 35, 1)
+                              FocusedBorderThickness: =2
+                              Height: =28
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =12.65
+                              TabIndex: =0
+                              Text: =Coalesce(If(IsBlank(ThisItem.Heures_Degagement), "En cours", "Dégagé"), "Travaux")
+                              Width: =140.56
+                              X: =611.42
+                              Y: =11
+                        - TravMessageIcon_20:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              AccessibleLabel: ="Ajouter un feedback a ce chantier"
+                              Color: =RGBA(8, 49, 120, 1)
+                              Height: =25
+                              Icon: =Icon.Message
+                              OnSelect: =Set(varFeedbackEvent, ThisItem); Navigate(scrFeedback, ScreenTransition.Fade)
+                              TabIndex: =0
+                              Width: =35.14
+                              X: =632.5
+                              Y: =40
+                  - FiltreLTVLabel_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =34
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =12.65
+                        TabIndex: =0
+                        Text: ="Filtres LTV"
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =70
+                        X: =6.4
+                        Y: =68
+                  - FiltrePerimetreLTV_21:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Perimetre LTV mon poste ou journee complete"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: |-
+                          =[{Value: "Mon poste"}]
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Perimetre"
+                        IsSearchable: =false
+                        Items: |-
+                          =Table(
+                              {Value: "Mon poste"},
+                              {Value: "Journée complète"}
+                          )
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =12.8
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =140
+                        X: =78
+                        Y: =65
+                  - FiltreStatutLTV_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Filtrer par statut LTV"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: |-
+                          =[{Value: "Tous"}]
+                        DisplayFields: =["Value"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Statut"
+                        IsSearchable: =false
+                        Items: |-
+                          =Table(
+                              {Value: "Tous"},
+                              {Value: "Imposée"},
+                              {Value: "Supprimée"}
+                          )
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =12.8
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =110
+                        X: =226
+                        Y: =65
+                  - FiltreCantonLTV_22:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Filtrer par canton"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultSelectedItems: =Blank()
+                        DisplayFields: =["Title"]
+                        FocusedBorderThickness: =2
+                        InputTextPlaceholder: ="Tous les cantons"
+                        IsSearchable: =false
+                        Items: =Ref_Cantons
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =["Title"]
+                        SelectMultiple: =false
+                        Size: =12.8
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =160
+                        X: =344
+                        Y: =65
+                  - FiltreDateLTV_22:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Filtrer à partir d'une date"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =Blank()
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =4.57
+                        Size: =12.8
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =130
+                        X: =512
+                        Y: =65
+                  - FiltreDateLTVHint_22:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(83, 87, 99, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        Height: =34
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =10.06
+                        TabIndex: =0
+                        Text: ="Depuis (vide = aujourd'hui)"
+                        Visible: =varOngletJournal = "LTV"
+                        X: =650
+                        Y: =68
+                  - GalleryLTV_15:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        AccessibleLabel: ="Liste des ralentissements"
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =2
+                        Height: =736
+                        Items: |-
+                          =SortByColumns(
+                              Filter(
+                                  Tx_LTV,
+                                  (
+                                      Coalesce(FiltrePerimetreLTV_21.Selected.Value, "Mon poste") = "Journée complète" ||
+                                      'Poste '.Value = varQuart ||
+                                      Statut_LTV.Value = "Imposée"
+                                  ) &&
+                                  (
+                                      IsBlank(FiltreStatutLTV_22.Selected) ||
+                                      FiltreStatutLTV_22.Selected.Value = "Tous" ||
+                                      Statut_LTV.Value = FiltreStatutLTV_22.Selected.Value
+                                  ) &&
+                                  (
+                                      IsBlank(FiltreCantonLTV_22.Selected) ||
+                                      CantonID_.Id = FiltreCantonLTV_22.Selected.ID
+                                  ) &&
+                                  If(
+                                      IsBlank(FiltreDateLTV_22.SelectedDate) || Year(FiltreDateLTV_22.SelectedDate) < 2020,
+                                      DateSaisie >= Today() && DateSaisie < DateAdd(Today(), 1, TimeUnit.Days),
+                                      DateSaisie >= FiltreDateLTV_22.SelectedDate
+                                  )
+                              ),
+                              "Created",
+                              SortOrder.Descending
+                          )
+                        TabIndex: =0
+                        TemplateSize: =72
+                        Visible: =varOngletJournal = "LTV"
+                        Width: =801.17
+                        X: =30.16
+                        Y: =122
+                      Children:
+                        - LTVBar_20:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              AccessibleLabel: ="Repere de la LTV"
+                              Fill: =RGBA(255, 174, 0, 1)
+                              Height: =Parent.TemplateHeight - 6
+                              TabIndex: =0
+                              Width: =8.43
+                              Y: =3
+                        - LTVIcon_20:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              AccessibleLabel: ="Reprendre cette LTV"
+                              Color: =RGBA(255, 255, 255, 1)
+                              Fill: =RGBA(255, 174, 0, 1)
+                              Height: =42
+                              Icon: =Icon.Warning
+                              OnSelect: |-
+                                =Set(varOngletJournal, "LTV");
+                                Set(varActionEnCours, "Modifier");
+                                Set(varLtvToEdit, ThisItem);
+                                Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                              TabIndex: =0
+                              Width: =59.03
+                              X: =25.3
+                              Y: =15
+                        - LTVName_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =28
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =16.87
+                              TabIndex: =0
+                              Text: =Coalesce(ThisItem.CantonID_.Value, LookUp(Ref_Cantons, ID = ThisItem.CantonID_.Id, Titre), "-")
+                              Width: =421.67
+                              X: =105.42
+                              Y: =11
+                        - LTVDetails_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              Height: =25
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.06
+                              TabIndex: =0
+                              Text: =Coalesce(ThisItem.CantonID_.Value, LookUp(Ref_Cantons, ID = ThisItem.CantonID_.Id, Titre), "-")
+                              Visible: =false
+                              Width: =205.7
+                              X: =105.42
+                              Y: =37
+                        - LTVStatus_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =If(Coalesce(ThisItem.Statut_LTV.Value, "") = "Supprimée", RGBA(117, 182, 119, 1), RGBA(238, 32, 35, 1))
+                              BorderThickness: =1
+                              Color: =If(Coalesce(ThisItem.Statut_LTV.Value, "") = "Supprimée", RGBA(18, 110, 35, 1), RGBA(238, 32, 35, 1))
+                              FocusedBorderThickness: =2
+                              Height: =28
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =12.65
+                              TabIndex: =0
+                              Text: =Coalesce(ThisItem.Statut_LTV.Value, "LTV")
+                              Width: =140.56
+                              X: =561.37
+                              Y: =9
+                        - LTVMessageIcon_20:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              AccessibleLabel: ="Feedback LTV indisponible"
+                              Color: =RGBA(8, 49, 120, 1)
+                              DisplayMode: =DisplayMode.Disabled
+                              Height: =25
+                              Icon: =Icon.Message
+                              TabIndex: =0
+                              Width: =35.14
+                              X: =613.49
+                              Y: =39
+                        - LTVId_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              Height: =25
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.06
+                              TabIndex: =0
+                              Text: =Coalesce(ThisItem.Title, "Sans titre")
+                              Width: =329.14
+                              X: =224
+                              Y: =37
+                        - LTVRate_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: |-
+                                =
+                                If(ThisItem.Taux = 10, RGBA(238, 32, 35, 1), RGBA(83, 87, 99, 1))
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              Height: =25
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.06
+                              TabIndex: =0
+                              Text: =If(IsBlank(ThisItem.Taux), "-", Text(ThisItem.Taux, "0") & " km/h")
+                              Width: =109.7
+                              X: =105.14
+                              Y: =37
+                  - FiltreIncidentsLabel_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =37
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =12.65
+                        TabIndex: =0
+                        Text: ="Historique"
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =107.89
+                        X: =14.63
+                        Y: =65
+                  - FiltreDateIncidents_21:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Filtrer incidents à partir d'une date"
+                        BorderColor: =RGBA(180, 185, 195, 1)
+                        DefaultDate: =Blank()
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =4.57
+                        Size: =12.8
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =146.29
+                        X: =242.29
+                        Y: =62
+                  - FiltreDateIncidentsHint_21:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(83, 87, 99, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        Height: =34
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        Size: =10.06
+                        TabIndex: =0
+                        Text: ="Depuis (vide = aujourd'hui)"
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =201.14
+                        X: =397.7
+                        Y: =65
+                  - GalleryIncidents_15:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        AccessibleLabel: ="Liste des incidents et ruptures"
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =2
+                        Height: =736
+                        Items: |-
+                          =SortByColumns(
+                              Filter(
+                                  Tx_incidents_Ruptures,
+                                  (
+                                      Poste.Value = varQuart ||
+                                      Etat.Value = "En cours" ||
+                                      IsBlank(Heure_Fin)
+                                  ) &&
+                                  (
+                                      Etat.Value = "En cours" ||
+                                      IsBlank(Heure_Fin) ||
+                                      If(
+                                          IsBlank(FiltreDateIncidents_21.SelectedDate) || Year(FiltreDateIncidents_21.SelectedDate) < 2020,
+                                          DateIncident = Today(),
+                                          DateIncident >= FiltreDateIncidents_21.SelectedDate
+                                      )
+                                  )
+                              ),
+                              "Created",
+                              SortOrder.Descending
+                          )
+                        TabIndex: =0
+                        TemplateSize: =72
+                        Visible: =varOngletJournal = "Incidents"
+                        Width: =801.17
+                        X: =30.16
+                        Y: =122
+                      Children:
+                        - IncBar_20:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              AccessibleLabel: ="Repere de l'incident"
+                              Fill: =RGBA(238, 32, 35, 1)
+                              Height: =Parent.TemplateHeight - 6
+                              TabIndex: =0
+                              Width: =8.43
+                              Y: =3
+                        - IncIcon_20:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              AccessibleLabel: ="Reprendre cet incident"
+                              Color: =RGBA(255, 255, 255, 1)
+                              Fill: =RGBA(238, 32, 35, 1)
+                              Height: =42
+                              Icon: =Icon.Error
+                              OnSelect: |-
+                                =Set(varOngletJournal, "Incidents");
+                                Set(varActionEnCours, "Modifier");
+                                Set(varIncidentToEdit, ThisItem);
+                                Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                              TabIndex: =0
+                              Width: =59.03
+                              X: =25.3
+                              Y: =15
+                        - IncName_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =28
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =16.87
+                              TabIndex: =0
+                              Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "")
+                              Width: =421.67
+                              X: =105.42
+                              Y: =11
+                        - IncDetails_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              Height: =25
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.06
+                              TabIndex: =0
+                              Text: |-
+                                ="PK : " & Coalesce(ThisItem.PK, "-") & "  |  Canton : " & Coalesce(ThisItem.CantonID.Value, LookUp(Ref_Cantons, ID = ThisItem.CantonID.Id, Titre), "-")
+                              Width: =421.67
+                              X: =105.42
+                              Y: =37
+                        - IncStatus_20:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(117, 182, 119, 1)
+                              BorderThickness: =1
+                              Color: =RGBA(18, 110, 35, 1)
+                              FocusedBorderThickness: =2
+                              Height: =28
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =12.65
+                              TabIndex: =0
+                              Text: =Coalesce(ThisItem.Etat.Value, "Incident")
+                              Width: =140.56
+                              X: =611.42
+                              Y: =11
+                        - IncMessageIcon_20:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              AccessibleLabel: ="Feedback incident indisponible"
+                              Color: =RGBA(8, 49, 120, 1)
+                              DisplayMode: =DisplayMode.Disabled
+                              Height: =25
+                              Icon: =Icon.Message
+                              TabIndex: =0
+                              Width: =35.14
+                              X: =632.5
+                              Y: =40
+      - ActionFeedback_22:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(8, 49, 120, 1)
+            BorderThickness: =1
+            Color: =RGBA(8, 49, 120, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            FocusedBorderThickness: =2
+            Font: =Font.'Segoe UI'
+            Height: =36
+            OnSelect: =Navigate(scrFeedback, ScreenTransition.Fade)
+            PaddingRight: =7.01
+            PaddingTop: =7.01
+            Size: =16.52
+            Text: ="NOUVEAU POINTAGE TERRAIN"
+            Width: =337
+            X: =81
+            Y: =1140
+      - CloseShiftButton_22:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Fill: =RGBA(255, 174, 0, 1)
+            FocusedBorderThickness: =2
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Bold
+            Height: =48
+            OnSelect: =Navigate(scrCloture_2, ScreenTransition.Fade)
+            PaddingRight: =7.01
+            PaddingTop: =7.01
+            Size: =16.52
+            Text: ="TERMINER LE POSTE & BILAN    →"
+            Width: =347
+            X: =1527
+            Y: =1152
+      - EngagementTardif_5:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            FocusedBorderThickness: =2
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Semibold
+            Height: =22
+            PaddingRight: =7.01
+            PaddingTop: =4.57
+            Size: =10.4
+            TabIndex: =0
+            Text: ="Motif d'engagement tardif"
+            Visible: =varOngletJournal = "Travaux"
+            Width: =280
+            X: =165
+            Y: =1053
+      - DegagementTardif_5:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            FocusedBorderThickness: =2
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Semibold
+            Height: =22
+            PaddingRight: =7.01
+            PaddingTop: =4.57
+            Size: =10.4
+            TabIndex: =0
+            Text: ="Motif de dégagement tardif"
+            Visible: =varOngletJournal = "Travaux"
+            Width: =280
+            X: =571
+            Y: =1053
