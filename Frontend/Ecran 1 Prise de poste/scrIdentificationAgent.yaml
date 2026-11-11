@@ -1,0 +1,296 @@
+Screens:
+  scrIdentificationAgent:
+    Properties:
+      Fill: =RGBA(248, 249, 251, 1)
+      LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
+      OnVisible: |-
+        =Refresh(Ref_Permanents);
+        Set(varIDShowError, false);
+        Set(varAgentAuthentifie, Blank());
+        Reset(PinInput_ID_5);
+        If(
+            !IsBlank(varAgentPermanent),
+            Set(
+                varAgentPreselect,
+                Filter(
+                    Ref_Permanents,
+                    ID = varAgentPermanent.ID
+                )
+            ),
+            Set(varAgentPreselect, Blank())
+        )
+    Children:
+      - Header_ID_6:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 120, 1)
+            Height: =90
+            Width: =1920
+          Children:
+            - ScreenTitle_ID_6:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =90
+                  Size: =26
+                  Text: ="IDENTIFICATION AGENT"
+                  Width: =800
+                  X: =560
+            - Image2:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =4
+                  Height: =90
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  Image: ='id-uWjB6m6_logos'
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  Width: =394
+      - Card_ID_6:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =922
+            Width: =1634
+            X: =159
+            Y: =150
+          Children:
+            - Rectangle2:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 69, 120, 1)
+                  BorderThickness: =5
+                  DisabledFill: =RGBA(204, 228, 246, 1)
+                  DisplayMode: =DisplayMode.Disabled
+                  Fill: =RGBA(207, 226, 242, 1)
+                  FocusedBorderThickness: =4
+                  Height: =491
+                  HoverFill: =RGBA(0, 120, 212, 1)
+                  PressedFill: =RGBA(0, 120, 212, 1)
+                  Width: =630
+                  X: =966
+                  Y: =249
+            - CardTitle_ID_6:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(8, 49, 120, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Size: =22
+                  Text: ="Permanence Équipement"
+                  Width: =560
+                  X: =999
+                  Y: =267
+            - CardRule_ID_6:
+                Control: Rectangle@2.3.0
+                Properties:
+                  Fill: =RGBA(255, 174, 0, 1)
+                  Height: =3
+                  Width: =560
+                  X: =999
+                  Y: =312
+            - CardHint_ID_6:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(83, 87, 99, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =50
+                  Size: =15
+                  Text: ="Sélectionnez votre nom et saisissez votre code PIN personnel pour accéder à la permanence."
+                  Width: =560
+                  X: =999
+                  Y: =332
+            - AgentLabel_ID_6:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(8, 49, 120, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =28
+                  Size: =14
+                  Text: ="Agent de permanence"
+                  Width: =560
+                  X: =999
+                  Y: =397
+            - AgentCombo_ID_6:
+                Control: Classic/ComboBox@2.4.0
+                Properties:
+                  AccessibleLabel: ="Sélectionner votre nom"
+                  BorderColor: =RGBA(180, 185, 195, 1)
+                  DefaultSelectedItems: =varAgentPreselect
+                  DisplayFields: =["Title"]
+                  InputTextPlaceholder: ="Choisir votre nom..."
+                  Items: |+
+                    =SortByColumns(
+                        Ref_Permanents,
+                        "Title",
+                        SortOrder.Ascending
+                    )
+
+                  SearchFields: =["CodePIN"]
+                  SelectMultiple: =false
+                  Size: =18
+                  Width: =560
+                  X: =999
+                  Y: =427
+            - PinLabel_ID_5:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(8, 49, 120, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =28
+                  Size: =14
+                  Text: ="Code PIN personnel"
+                  Width: =560
+                  X: =999
+                  Y: =487
+            - PinInput_ID_5:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  AccessibleLabel: ="Saisir votre code PIN personnel"
+                  BorderColor: =RGBA(180, 185, 195, 1)
+                  Default: =""
+                  HintText: ="Saisir votre code PIN..."
+                  MaxLength: =4
+                  Mode: =TextMode.Password
+                  Size: =18
+                  Width: =560
+                  X: =999
+                  Y: =517
+            - ErrorLabel_ID_6:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(238, 32, 35, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =35
+                  Size: =12
+                  Text: ="Nom ou code PIN incorrect. Vérifiez vos informations."
+                  Visible: =varIDShowError
+                  Width: =560
+                  X: =999
+                  Y: =567
+            - BtnValider_ID_6:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  Fill: =RGBA(255, 174, 0, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =52
+                  OnSelect: |-
+                    =Set(varIDShowError, false);
+                    If(
+                        IsBlank(AgentCombo_ID_6.Selected.ID) ||
+                        IsBlank(Trim(PinInput_ID_5.Text)),
+                        Set(varIDShowError, true),
+                        Set(
+                            varAgentAuthentifie,
+                            LookUp(
+                                Ref_Permanents,
+                                ID = AgentCombo_ID_6.Selected.ID &&
+                                CodePIN = Trim(PinInput_ID_5.Text)
+                            )
+                        );
+                        If(
+                            IsBlank(varAgentAuthentifie.ID),
+                            Set(varIDShowError, true),
+                            UpdateIf(
+                                Ref_Permanents,
+                                'Actif '.Value = "Oui" &&
+                                ID <> varAgentAuthentifie.ID,
+                                {'Actif ': {Value: "Non"}}
+                            );
+                            Set(
+                                varAgentPermanent,
+                                Patch(
+                                    Ref_Permanents,
+                                    LookUp(
+                                        Ref_Permanents,
+                                        ID = varAgentAuthentifie.ID
+                                    ),
+                                    {'Actif ': {Value: "Oui"}}
+                                )
+                            );
+                            Set(
+                                varAgentPermanentNom,
+                                varAgentPermanent.Titre
+                            );
+                            Set(
+                                varAgentPermanentID,
+                                varAgentPermanent.ID
+                            );
+                            Set(varIDShowError, false);
+                            Reset(PinInput_ID_5);
+                            Refresh(Ref_Permanents);
+                            Navigate(
+                                PrisePoste_2,
+                                ScreenTransition.Fade
+                            )
+                        )
+                    )
+                  Size: =17
+                  Text: ="VALIDER ET PRENDRE LE POSTE"
+                  Width: =560
+                  X: =999
+                  Y: =617
+            - SessionHint_ID_6:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(140, 145, 155, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =30
+                  Size: =11
+                  Text: |-
+                    ="Session technique : " & User().Email
+                  Width: =560
+                  X: =999
+                  Y: =687
+            - Image2_1:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =4
+                  Height: =90
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  Image: ='id-uWjB6m6_logos'
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  Width: =592
+                  X: =983
+                  Y: =38
+      - Image1:
+          Control: Image@2.2.3
+          Properties:
+            BorderColor: =RGBA(0, 48, 84, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =3
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =4
+            Height: =922
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            Image: =Transgabonais_LUnion
+            ImagePosition: =ImagePosition.Fill
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Width: =941
+            X: =159
+            Y: =150
