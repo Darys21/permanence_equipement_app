@@ -1,98 +1,77 @@
+# PERMANENCE ÉQUIPEMENT — SETRAG
 
-# PERMANENCE EQUIPEMENT - SETRAG
+## Présentation
 
-## Description du projet
-Application Power Apps pour la gestion de la permanence DMI (Direction de la Maintenance de l'Infrastructure) de SETRAG.
+Application Power Apps destinée à la gestion de la permanence DMI (Direction de la Maintenance de l'Infrastructure) de SETRAG.
 
-L'objectif est de :
-- Remplacer le fichier Excel de permanence par une interface unique et sécurisée
-- Automatiser le suivi des chantiers, LTV (Limitations Temporaires de Vitesse) et incidents de la voie
-- Fiabiliser la donnée opérationnelle
-- Accélérer la prise de décision
+Objectifs :
+- Remplacer les saisies dispersées par un parcours opérationnel centralisé.
+- Suivre les travaux, LTV/RAL, incidents/ruptures et feedbacks terrain.
+- Fiabiliser les données SharePoint et la continuité entre les postes.
+- Préparer les rapports de fin de poste et l'exploitation analytique.
 
----
+## Stack
 
-## Stack technique
-- **Frontend** : Power Apps
-- **Backend** : Listes SharePoint
-- **Automatisation** : Power Automate
-- **Analytics** : Power BI
+- **Frontend :** Microsoft Power Apps Canvas.
+- **Données :** listes SharePoint.
+- **Automatisation cible :** Power Automate.
+- **Analyse cible :** Power BI.
 
----
+## Structure
 
-## Structure du projet
-```
-PERMANANCE EQUIPEMENT/
-├── Backend/                             # Contrats, alignements et schémas SharePoint
-│   └── schemas_export/                  # Schémas de colonnes exportés
-├── Frontend/                            # Sources YAML des écrans Power Apps
-│   ├── Ecran 1 Prise de poste/
-│   ├── Ecran 2 Journal de bord/
-│   ├── Ecran 4 Cloture et releve/
-│   └── Ecran Feedback/
-├── Documentation/                       # Documentation fonctionnelle et processus
-├── script/                              # Scripts d'analyse et d'extraction
-├── skills/                              # Skills et conventions du projet
-├── BACKLOG.md
-├── PROJET_ANALYSE.md
-├── RAPPORT_REVUE_POWER_APPS.md
+```text
+.
+├── Backend/                 # Schéma SharePoint, dictionnaire et alignement
+├── Documentation/           # Spécifications, décisions et état du projet
+├── Frontend/                # Documentation et YAML des écrans Power Apps
+├── script/                  # Scripts d'analyse et d'extraction
+├── skills/                  # Conventions et ressources de développement
+├── BACKLOG.md               # Suivi consolidé des tâches
+├── PROJET_ANALYSE.md        # Analyse et architecture fonctionnelle
 └── README.md
 ```
 
----
+## Écrans de l'application
+
+1. **Identification agent** — sélection du permanent et validation par PIN.
+2. **Prise de poste** — choix P1/P2/P3, suggestion horaire et consultation des événements à reprendre.
+3. **Journal de bord** — gestion des Travaux, LTV/RAL et Incidents/Ruptures.
+4. **Feedback terrain** — pointage terrain rattaché à un chantier.
+5. **Clôture et relève** — synthèse, commentaire, confirmation et préparation de la transmission.
+
+Les sources YAML synchronisées et leur provenance sont décrites dans [Frontend/README.md](Frontend/README.md). L'état fonctionnel des écrans est décrit dans [Documentation/ETAT_AVANCEMENT_2026-11-11.md](Documentation/ETAT_AVANCEMENT_2026-11-11.md).
 
 ## Documentation principale
-- [Analyse complète du projet](PROJET_ANALYSE.md)
-- [Backlog du projet](BACKLOG.md)
-- [Revue Power Apps](RAPPORT_REVUE_POWER_APPS.md)
-- [Spécification de l'écran 1](Frontend/Ecran%201%20Prise%20de%20poste/Ecran1.md)
-- [Spécification de l'écran 2](Frontend/Ecran%202%20Journal%20de%20bord/Ecran2.md)
-- [Spécification de l'écran Feedback](Frontend/Ecran%20Feedback/EcranFeedback.md)
 
----
+- [Backlog](BACKLOG.md)
+- [Analyse du projet](PROJET_ANALYSE.md)
+- [Dictionnaire de données SharePoint](Backend/contextBD.md)
+- [Retours métier et décisions](Documentation/RETOURS_METIER_ET_DECISIONS.md)
+- [État d'avancement](Documentation/ETAT_AVANCEMENT_2026-11-11.md)
+- [Sources Power Apps](Frontend/README.md)
 
-## User stories principales
-### Écran 1 - Prise de poste
-- US1.1 : Auto-identification via compte M365
-- US1.2 : Sélection du quart
-- US1.3 : Aspiration des "En Cours"
-(plus de détails dans [Ecran1.md](Frontend/Ecran%201%20Prise%20de%20poste/Ecran1.md))
+## Sources SharePoint
 
----
+Référentiels :
+- `Ref_Permanents`
+- `Ref_Cantons`
+- `Ref_Acteurs`
 
-## Listes SharePoint
-- **Master Data**
-  - Ref_Cantons
-  - Ref_Acteurs
-- **Transactionnelles**
-  - Tx_Travaux
-  - Tx_Feedbacks
-  - Tx_Incidents_Ruptures
-  - Tx_LTV
+Listes opérationnelles :
+- `Tx_Travaux`
+- `Tx_LTV`
+- `Tx_incidents_Ruptures`
+- `Tx_Feedbacks`
 
-(plus de détails dans [PROJET_ANALYSE.md](PROJET_ANALYSE.md) et [Backend/contextBD.md](Backend/contextBD.md))
+Le schéma exact des colonnes, types, noms internes et relations est décrit dans [Backend/contextBD.md](Backend/contextBD.md). Toujours vérifier ce schéma dans l'environnement Power Apps cible avant une modification.
 
----
+## Source de vérité et synchronisation
 
-## Préparer le dépôt Git privé
+- Dépôt de documentation et de suivi : `Darys21/permanence_equipement_app`.
+- Dépôt source des exports YAML actuels au moment de la synchronisation : `Darys21/PERMANENCE-EQUIPEMENT`, dossier `pa_yaml_script`.
+- Les fichiers synchronisés sont des snapshots datés. À chaque évolution d'écran, exporter le YAML et synchroniser le fichier correspondant.
+- Les anciens YAML déjà présents dans les dossiers Frontend peuvent être historiques. Se référer à [Frontend/README.md](Frontend/README.md) pour identifier les fichiers canoniques.
 
-Le dépôt contient les sources lisibles, la documentation, les scripts et les schémas nécessaires à la maintenance. Les données opérationnelles, les exports bruts, les environnements locaux, les outils installés et le fichier binaire `.msapp` ne sont pas destinés à Git.
+## Sécurité et données
 
-Le fichier [.gitignore](.gitignore) formalise cette séparation. En particulier, il exclut :
-- les environnements Python et caches locaux ;
-- les secrets et fichiers `.env` ;
-- `BASE/`, `Data brute/` et les exports transactionnels de `Backend/` ;
-- `.agents/`, `copilot/` et les fichiers temporaires ou générés ;
-- les fichiers `.msapp`, dont les sources de travail sont représentées ici par les YAML de `Frontend/`.
-
-Avant le premier commit, vérifier les fichiers qui seront suivis :
-
-```powershell
-git init
-git status --short --ignored
-git add .
-git status --short
-```
-
-Ne jamais ajouter de secret, de donnée personnelle ou d'export opérationnel. Les identifiants Microsoft Graph doivent rester dans des variables d'environnement locales, conformément aux exemples de `skills/sharepoint-graph-schema/references/`.
-
+Ne jamais versionner de PIN réels, mots de passe, jetons, secrets, exports de données personnelles ou données opérationnelles réelles. Les identifiants techniques et URLs internes SharePoint ne doivent être partagés que si nécessaires et autorisés. Le dépôt doit rester privé tant qu'il contient des informations internes.

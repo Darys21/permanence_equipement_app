@@ -402,3 +402,17 @@ Refresh(Tx_incidents_Ruptures);
 - Skills pour manipulation: `skills/sharepoint-graph-schema/`, `skills/powerapps-backend-alignment/`, `skills/powerapps-llm-yaml/`
 - Documentation métier PDF: `Documentation/PERMANANCE EQUIPEMENT.pdf`
 - YAMLs écrans: `Concept pages/Ecran */*.yaml`
+
+
+---
+
+## Addendum — référentiel agent (11/11/2026)
+
+Les écrans synchronisés utilisent également la liste SharePoint `Ref_Permanents` pour l'identification des permanents.
+
+Les informations confirmées dans le code et les échanges :
+- une colonne de nom affiché (à confirmer sous son nom interne exact) ;
+- `CodePIN`, utilisé pour la validation du permanent ;
+- `Actif`, colonne de type Choix avec les valeurs `Oui` et `Non`.
+
+**Important :** le dictionnaire détaillé de `Ref_Permanents` n'est pas encore présent dans ce document. Ne pas inventer les noms internes, types ou règles obligatoires manquants. Exporter le schéma de la liste depuis SharePoint/Graph et compléter ce référentiel avant de modifier les formules liées à l'identification.
