@@ -54,7 +54,9 @@ Les notes évoquent plusieurs cycles de transmission, dont P1 → P2 → P3 → 
 - Épurer la vue de la partie Travaux.
 - Clarifier la demande « finaliser la partie » présente dans les notes brèves : le périmètre n'est pas explicite.
 - Revoir l'appellation « ATTACHEMENT » dans les choix du régime de travaux. Le schéma backend documente encore cette valeur ; toute suppression nécessite une décision métier et une mise à jour SharePoint coordonnée.
-- Vérifier les champs Date/Heure et leur conversion entre contrôles Power Apps et colonnes SharePoint.
+- Vérifier les champs Date/Heure et leur conversion entre contrôles Power Apps et colonnes SharePoint. Une réunion a signalé un problème de format et demandé de reconstruire la valeur DateTime à partir de la date, de l'heure et des minutes.
+- Ajouter des points de contrôle dans les formulaires pour réduire les erreurs de saisie.
+- Vérifier les sources de données des environnements de test et de production avant publication : le basculement des listes SharePoint ne se fait pas automatiquement.
 - Maintenir la séparation entre environnement de test et production ; ne pas modifier les sources de données de production sans validation.
 
 ## 5. Éléments non repris volontairement
