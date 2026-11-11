@@ -51,10 +51,10 @@ Screens:
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutJustifyContent: =LayoutJustifyContent.Start
             LayoutGap: =12
-            LayoutPaddingTop: =12
-            LayoutPaddingBottom: =12
-            LayoutPaddingLeft: =If(App.Width < 760, 12, 24)
-            LayoutPaddingRight: =If(App.Width < 760, 12, 24)
+            PaddingTop: =12
+            PaddingBottom: =12
+            PaddingLeft: =If(App.Width < 760, 12, 24)
+            PaddingRight: =If(App.Width < 760, 12, 24)
             LayoutOverflowY: =LayoutOverflow.Scroll
           Children:
             - Header_7:
