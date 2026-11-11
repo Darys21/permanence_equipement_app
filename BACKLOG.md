@@ -75,6 +75,17 @@
 - Après chaque opération : contrôler `IfError`, le résultat de sauvegarde, l'ID conservé et le rafraîchissement de la source.
 - Ne jamais utiliser `Defaults()` dans le chemin de modification.
 
+### Quick wins UI rapportés comme réalisés le 05/10/2026
+
+| ID | Action | Statut | Notes |
+|---|---|---|---|
+| JOUR-18 | Normaliser les titres `Title` dans Travaux, LTV et Incidents | Réalisé selon note du 05/10 / à contrôler | Vérifier la non-régression. |
+| JOUR-19 | Ajouter le champ « Titre de chantier » | Réalisé selon note du 05/10 / à contrôler | Champ et écriture SharePoint indiqués comme livrés. |
+| JOUR-20 | Afficher le canton avant le titre dans la galerie Travaux | Réalisé selon note du 05/10 / à contrôler | Vérifier l'ordre actuel des colonnes. |
+| JOUR-21 | Afficher canton, taux puis titre dans la galerie LTV | Réalisé selon note du 05/10 / à contrôler | Vérifier l'ordre actuel des colonnes. |
+| JOUR-22 | Colorer les LTV imposées en rouge et supprimées en vert ; mettre en évidence 10 km/h | Réalisé selon note du 05/10 / à contrôler | Vérifier les couleurs et les valeurs Choice. |
+| JOUR-23 | Clarifier le message de validation LTV et conserver le motif en texte simple | Réalisé selon note du 05/10 / à contrôler | Rejouer le parcours LTV après correction de la sauvegarde. |
+
 ## 4. Feedback terrain — `scrFeedback`
 
 | ID | Action | Statut | Notes |
@@ -111,6 +122,15 @@
 | SP-05 | Vérifier les relations Lookup et clés étrangères | À valider | En particulier LTV et Incidents. |
 | SP-06 | Vérifier les champs audit (poste, agent, date de saisie) | À valider | Cohérence entre listes et écrans. |
 | SP-07 | Décider du retrait de l'appellation « ATTACHEMENT » | À clarifier | Valeur actuellement documentée dans le choix Régime travaux ; vérifier l'impact métier et SharePoint avant modification. |
+
+### Qualité des saisies et environnements
+
+| ID | Action | Statut | Notes |
+|---|---|---|---|
+| SP-08 | Contrôler le format Date/Heure avant Patch | À valider | Une réunion a identifié un problème de format ; la solution proposée consiste à reconstruire la valeur DateTime à partir de la date, de l'heure et des minutes. |
+| SP-09 | Vérifier les sources SharePoint des environnements de test et de production | À faire | Power Apps ne bascule pas automatiquement toutes les sources ; vérifier chaque connexion avant publication. |
+| UX-01 | Ajouter des points de contrôle dans les formulaires | À faire | Demande issue des notes de réunion ; préciser les contrôles métier et les messages attendus. |
+| UX-02 | Revoir les paramètres de recherche des contrôles de données | À clarifier | Note ancienne évoquant la désactivation de l'autorisation de recherche ; clarifier le besoin exact avant modification. |
 
 ## 7. Demandes complémentaires et continuité d'activité
 
