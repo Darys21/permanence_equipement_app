@@ -108,7 +108,7 @@ Screens:
                         PaddingTop: =7.01
                         Size: =25.3
                         Text: ="PERMANENCE ÉQUIPEMENT"
-                        Width: =674.67
+                        Width: =Min(674.67, Parent.Width - 1200)
                         X: =(Parent.Width - Self.Width) / 2
                   - ProfileIcon_5:
                       Control: Classic/Icon@2.5.0
