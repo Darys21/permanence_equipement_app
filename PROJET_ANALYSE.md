@@ -164,3 +164,32 @@ User Stories extraites du PDF :
 - Mises à jour régulières de l'application et des listes
 - Évolution du dashboard Power BI
 
+ 
+
+---
+
+## Addendum — état réel des écrans au 11/11/2026
+
+Cet addendum actualise les hypothèses historiques ci-dessus. En cas de contradiction, le présent addendum, le backlog et les exports YAML synchronisés font foi.
+
+### Parcours actuel
+
+1. **Identification agent — `scrIdentificationAgent`** : sélection du permanent dans `Ref_Permanents`, saisie d'un PIN, contrôle et mise à jour du statut actif.
+2. **Prise de poste — `PrisePoste_2`** : suggestion horaire et choix manuel P1/P2/P3 ; consultation des travaux, LTV et incidents à reprendre.
+3. **Journal — `JournalDeBord_3`** : onglets Travaux, Incidents/Ruptures et LTV/RAL.
+4. **Feedback — `scrFeedback`** : pointage terrain rattaché à un événement Travaux.
+5. **Clôture — `scrCloture_2`** : synthèse, commentaire, transmission et confirmation.
+
+### Corrections de conception par rapport à l'analyse initiale
+
+- L'auto-identification M365 décrite dans la première version n'est plus le parcours retenu : le parcours courant utilise sélection du permanent + PIN.
+- P1, P2 et P3 sont conservés. Les notes historiques demandant la suppression de P3 sont obsolètes au regard de la version actuelle.
+- Le deuxième permanent est facultatif.
+- L'écran de feedback est un écran distinct.
+- Les écrans et leurs exports YAML sont documentés dans `Frontend/`.
+
+### État fonctionnel prudent
+
+La création Travaux a été confirmée fonctionnelle lors des tests précédents. La modification Travaux doit préserver l'ID SharePoint et reste à corriger/ret tester selon les anomalies signalées ensuite. La création et la reprise LTV restent à fiabiliser. Les incidents doivent être audités. La clôture et la transmission automatique ne sont pas considérées comme terminées tant que le transfert SharePoint et le rapport automatisé n'ont pas été testés.
+
+Voir `BACKLOG.md` et `Documentation/ETAT_AVANCEMENT_2026-11-11.md` pour le suivi opérationnel.
