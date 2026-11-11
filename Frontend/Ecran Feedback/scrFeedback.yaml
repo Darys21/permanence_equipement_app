@@ -1,0 +1,745 @@
+Screens:
+  scrFeedback:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
+      OnVisible: |-
+        =Refresh(Tx_Travaux);
+        Refresh(Tx_Feedbacks);
+        Refresh(Ref_Cantons);
+        Refresh(Ref_Acteurs);
+        If(
+            IsBlank(varFeedbackEvent),
+            Set(
+                varFeedbackEvent,
+                First(
+                    SortByColumns(
+                        Filter(Tx_Travaux, Poste.Value = varQuart && Date_travaux = Today()),
+                        "Created",
+                        SortOrder.Descending
+                    )
+                )
+            )
+        )
+    Children:
+      - FeedbackHeader_2:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 120, 1)
+            Height: =76
+            Width: =1920
+          Children:
+            - FeedbackTitle_2:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =28.11
+                  TabIndex: =0
+                  Text: ="NOUVEAU POINTAGE TERRAIN"
+                  Width: =843.35
+                  X: =538.33
+                  Y: =8
+            - FeedbackSubtitle_2:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  Height: =27
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =15.46
+                  TabIndex: =0
+                  Text: ="Ajouter un pointage terrain"
+                  Width: =843.35
+                  X: =538.33
+                  Y: =43
+            - FeedbackSession_2:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  BorderColor: =RGBA(255, 255, 255, 1)
+                  BorderThickness: =1
+                  Color: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  Height: =43
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =15.46
+                  TabIndex: =0
+                  Text: |-
+                    ="Poste : " &
+                    Coalesce(varQuart, "Non défini") &
+                    "   |   Agent : " &
+                    Coalesce(varAgentPermanentNom, "Aucun agent sélectionné")
+                  Width: =520.06
+                  X: =1377.45
+                  Y: =16
+            - LogoMark_15:
+                Control: Rectangle@2.3.0
+                Properties:
+                  AccessibleLabel: ="Logo SETRAG"
+                  Fill: =RGBA(255, 184, 0, 1)
+                  Height: =4
+                  TabIndex: =0
+                  Width: =47.54
+                  X: =45.71
+                  Y: =25
+            - LogoText_19:
+                Control: Label@2.5.1
+                Properties:
+                  Color: =RGBA(255, 255, 255, 1)
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =68
+                  PaddingRight: =7.01
+                  PaddingTop: =7.01
+                  Size: =19.4
+                  TabIndex: =0
+                  Text: ="SETRAG" & Char(10) & "   ERAMET"
+                  Width: =274.3
+                  X: =98.74
+                  Y: =8
+            - HomeFromFeedback_2:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderThickness: =0
+                  Color: =RGBA(255, 255, 255, 0)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderThickness: =2
+                  Height: =76
+                  OnSelect: =Navigate(PrisePoste_2, ScreenTransition.Fade)
+                  PaddingRight: =4.57
+                  PaddingTop: =4.57
+                  Size: =13.7
+                  Text: ="Retour à la prise de poste"
+                  Tooltip: ="Retour à la prise de poste"
+                  Width: =356.56
+                  X: =18.29
+      - FeedbackWorkspace_2:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(248, 249, 251, 1)
+            Height: =590
+            Width: =1855.34
+            X: =30.92
+            Y: =91
+          Children:
+            - InputPanel_2:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =565
+                  Width: =983.89
+                  X: =22.47
+                  Y: =12
+                Children:
+                  - EventHeading_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =19.68
+                        TabIndex: =0
+                        Text: ="1. SÉLECTION DU CHANTIER CONCERNÉ"
+                        Width: =871.45
+                        X: =35.14
+                        Y: =16
+                  - EventLabel_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =25
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Chantier concerné (poste en cours)"
+                        Width: =702.77
+                        X: =35.14
+                        Y: =55
+                  - EventSelector_2:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Chantier auquel rattacher le feedback"
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        DefaultSelectedItems: |-
+                          =If(
+                              !IsBlank(varFeedbackEvent),
+                              Filter(Tx_Travaux, ID = varFeedbackEvent.ID),
+                              Blank()
+                          )
+                        DisplayFields: =["Title"]
+                        InputTextPlaceholder: ="Sélectionner un chantier"
+                        IsSearchable: =false
+                        Items: |-
+                          =SortByColumns(
+                              Filter(
+                                  Tx_Travaux,
+                                  Poste.Value = varQuart &&
+                                  (
+                                      Date_travaux = Today() ||
+                                      IsBlank(Heures_Degagement)
+                                  )
+                              ),
+                              "Created",
+                              SortOrder.Descending
+                          )
+                        OnChange: =Set(varFeedbackEvent, EventSelector_2.Selected)
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        SearchFields: =["Title"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Width: =899.57
+                        X: =35.14
+                        Y: =78
+                  - EventContext_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        Fill: =RGBA(239, 245, 255, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        Height: =43
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: |-
+                          ="Type : Chantier    |    Date : " & Text(varFeedbackEvent.Date_travaux, "dd/mm/yyyy") &
+                          "    |    Resp. : " & Coalesce(
+                              LookUp(Ref_Acteurs, ID = varFeedbackEvent.'ActeurID ', Title),
+                              LookUp(Ref_Acteurs, ID = varFeedbackEvent.ActeurID, Title),
+                              "—"
+                          )
+                        Width: =899.57
+                        X: =35.14
+                        Y: =128
+                  - PointageHeading_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.87
+                        TabIndex: =0
+                        Text: ="2. INFORMATIONS DU POINTAGE"
+                        Width: =562.23
+                        X: =35.14
+                        Y: =190
+                  - ContactTimeLabel_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Heure du pointage *"
+                        Width: =421.67
+                        X: =35.14
+                        Y: =225
+                  - ContactTime_2:
+                      Control: Classic/DatePicker@2.6.0
+                      Properties:
+                        AccessibleLabel: ="Date du pointage"
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Format: ="dd/mm/yyyy"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =18.29
+                        Width: =201.14
+                        X: =35.14
+                        Y: =247
+                  - ContactHour_2:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Heure du pointage"
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="hh"
+                        IsSearchable: =false
+                        Items: =Sequence(24, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Width: =96
+                        X: =246.86
+                        Y: =247
+                  - ContactMinute_2:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Minute du pointage"
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="mm"
+                        IsSearchable: =false
+                        Items: =Sequence(60, 0, 1)
+                        PaddingRight: =4.57
+                        PaddingTop: =4.57
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Width: =96
+                        X: =350.17
+                        Y: =247
+                  - ContactModeLabel_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Mode de contact *"
+                        Width: =421.67
+                        X: =484.93
+                        Y: =225
+                  - ContactMode_2:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: ="Moyen de contact du pointage"
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        DisplayFields: =["Value"]
+                        InputTextPlaceholder: ="Mode de contact"
+                        IsSearchable: =false
+                        Items: =["Sur place", "WhatsApp", "Téléphone", "Thuraya"]
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        Size: =18.29
+                        Width: =407.61
+                        X: =484.93
+                        Y: =247
+                  - PKLabel_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Localisation exacte (PK)"
+                        Width: =421.67
+                        X: =35.14
+                        Y: =300
+                  - PKInput_2:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        AccessibleLabel: ="Localisation exacte du pointage en PK"
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Default: =Blank()
+                        HintText: |-
+                          ="ex: 12+400"
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =18.29
+                        Width: =407.61
+                        X: =35.14
+                        Y: =322
+                  - ContactStatusLabel_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =22
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =14.06
+                        TabIndex: =0
+                        Text: ="Statut du contact *"
+                        Width: =421.67
+                        X: =484.93
+                        Y: =300
+                  - ContactStatus_2:
+                      Control: Classic/Radio@2.3.0
+                      Properties:
+                        AccessibleLabel: ="Contact etabli (oui ou non)"
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Height: =53
+                        Items: =["OUI", "NON"]
+                        Items.Value: =Value
+                        Layout: =Layout.Horizontal
+                        PaddingTop: =14.06
+                        Size: =18.29
+                        Width: =407.61
+                        X: =484.93
+                        Y: =322
+                  - ObservationHeading_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        Height: =30
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.87
+                        TabIndex: =0
+                        Text: ="3. OBSERVATIONS TERRAIN"
+                        Width: =562.23
+                        X: =35.14
+                        Y: =375
+                  - ObservationInput_2:
+                      Control: Classic/TextInput@2.3.2
+                      Properties:
+                        AccessibleLabel: ="Observations du pointage terrain"
+                        BorderColor: =RGBA(155, 163, 178, 1)
+                        Default: =Blank()
+                        Height: =78
+                        HintText: ="Saisissez vos observations terrain..."
+                        MaxLength: =1000
+                        Mode: =TextMode.MultiLine
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =18.29
+                        Width: =899.57
+                        X: =35.14
+                        Y: =408
+                  - CharacterCount_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Right
+                        Color: =RGBA(83, 87, 99, 1)
+                        FocusedBorderThickness: =2
+                        Height: =20
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =12.65
+                        TabIndex: =0
+                        Text: =Len(ObservationInput_2.Text) & " / 1000"
+                        Width: =168.67
+                        X: =759
+                        Y: =486
+                  - SaveFeedback_2:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        Fill: =RGBA(255, 174, 0, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =44
+                        OnSelect: |-
+                          =If(
+                              IsBlank(EventSelector_2.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_2.Selected) || IsBlank(ContactStatus_2.Selected),
+                              Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
+                              Patch(
+                                  Tx_Feedbacks,
+                                  Defaults(Tx_Feedbacks),
+                                  {
+                                      TravailID: varFeedbackEvent.ID,
+                                      HeureContact: If(
+                                          Year(ContactTime_2.SelectedDate) < 2020 || IsBlank(ContactHour_2.Selected) || IsBlank(ContactMinute_2.Selected),
+                                          Blank(),
+                                          DateTime(
+                                              Year(ContactTime_2.SelectedDate),
+                                              Month(ContactTime_2.SelectedDate),
+                                              Day(ContactTime_2.SelectedDate),
+                                              Value(ContactHour_2.Selected.Value),
+                                              Value(ContactMinute_2.Selected.Value),
+                                              0
+                                          )
+                                      ),
+                                      MoyenCom: {Value: ContactMode_2.Selected.Value},
+                                      StatutContact: ContactStatus_2.Selected.Value = "OUI",
+                                      'Commentaire ': ObservationInput_2.Text,
+                                      PK: PKInput_2.Text,
+                                      Poste: {Value: varQuart},
+                                      AgentSaisie: {
+                                          Claims: "i:0#.f|membership|" & Lower(User().Email),
+                                          DisplayName: User().FullName,
+                                          Email: User().Email,
+                                          Department: "",
+                                          JobTitle: "",
+                                          Picture: ""
+                                      },
+                                      DateSaisie: Now()
+                                  }
+                              );
+                              Refresh(Tx_Feedbacks);
+                              Notify("Pointage ajouté avec succès", NotificationType.Success)
+                          )
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =21.08
+                        Text: ="AJOUTER LE POINTAGE"
+                        Width: =421.67
+                        X: =281.11
+                        Y: =510
+            - SummaryPanel_6:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =565
+                  Width: =801.17
+                  X: =1034.49
+                  Y: =12
+                Children:
+                  - SummaryHeading_6:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =19.68
+                        TabIndex: =0
+                        Text: ="RÉSUMÉ DU CHANTIER"
+                        Width: =702.77
+                        X: =35.14
+                        Y: =18
+                  - SummaryCard_2:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderColor: =RGBA(220, 224, 230, 1)
+                        BorderThickness: =1
+                        Height: =175
+                        Width: =730.89
+                        X: =35.14
+                        Y: =60
+                      Children:
+                        - SummaryTitle_2:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(25, 28, 38, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =32
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =19.68
+                              TabIndex: =0
+                              Text: =Coalesce(varFeedbackEvent.Title, "Aucun chantier sélectionné")
+                              Width: =658.3
+                              X: =35.14
+                              Y: =16
+                        - SummaryDetails_2:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              Height: =50
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.06
+                              TabIndex: =0
+                              Text: |-
+                                ="Canton : " & Coalesce(
+                                    LookUp(Ref_Cantons, ID = varFeedbackEvent.'CantonID ', Titre),
+                                    LookUp(Ref_Cantons, ID = varFeedbackEvent.CantonID, Titre),
+                                    "—"
+                                ) & Char(10) &
+                                "Date : " & Text(varFeedbackEvent.Date_travaux, "dd/mm/yyyy") &
+                                "    |    PK : " & Coalesce(Text(varFeedbackEvent.PK_Debut), "—")
+                              Width: =658.3
+                              X: =35.14
+                              Y: =52
+                        - SummaryStatus_2:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =If(IsBlank(varFeedbackEvent.Heures_Degagement), RGBA(237, 108, 20, 1), RGBA(18, 135, 43, 1))
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =30
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =16.87
+                              TabIndex: =0
+                              Text: =If(IsBlank(varFeedbackEvent), "—", If(IsBlank(varFeedbackEvent.Heures_Degagement), "En cours", "Dégagé"))
+                              Width: =210.83
+                              X: =35.14
+                              Y: =120
+                  - HistoryHeading_2:
+                      Control: Label@2.5.1
+                      Properties:
+                        Color: =RGBA(8, 49, 120, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =35
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =19.68
+                        TabIndex: =0
+                        Text: ="HISTORIQUE DES POINTAGES"
+                        Width: =632.5
+                        X: =35.14
+                        Y: =255
+                  - HistoryGallery_2:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        AccessibleLabel: ="Historique des feedbacks"
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =2
+                        Height: =230
+                        Items: =SortByColumns(Filter(Tx_Feedbacks, TravailID = varFeedbackEvent.ID), "HeureContact", SortOrder.Descending)
+                        TabIndex: =0
+                        TemplateSize: =100
+                        Width: =730.89
+                        X: =35.14
+                        Y: =295
+                      Children:
+                        - HistoryTime_2:
+                            Control: Label@2.5.1
+                            Properties:
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =28
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =15.46
+                              TabIndex: =0
+                              Text: =Text(ThisItem.HeureContact, "dd/mm/yyyy hh:mm")
+                              Width: =309.22
+                              X: =21.08
+                              Y: =12
+                        - HistoryComment_2:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(83, 87, 99, 1)
+                              FocusedBorderThickness: =2
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.06
+                              TabIndex: =0
+                              Text: =Left(ThisItem.'Commentaire ', 70)
+                              Width: =421.67
+                              X: =253
+                              Y: =25
+                        - HistoryMode_2:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(8, 49, 120, 1)
+                              FocusedBorderThickness: =2
+                              Height: =28
+                              PaddingRight: =7.01
+                              PaddingTop: =7.01
+                              Size: =14.06
+                              TabIndex: =0
+                              Text: =ThisItem.MoyenCom.Value
+                              Width: =210.83
+                              X: =21.08
+                              Y: =42
+      - BackToJournal_2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(8, 49, 120, 1)
+            BorderThickness: =1
+            Color: =RGBA(8, 49, 120, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            FocusedBorderThickness: =2
+            Font: =Font.'Segoe UI'
+            Height: =48
+            OnSelect: =Navigate(JournalDeBord_3, ScreenTransition.Fade)
+            PaddingRight: =7.01
+            PaddingTop: =7.01
+            Size: =19.26
+            Text: ="←   RETOUR AU JOURNAL DE BORD"
+            Width: =435.72
+            X: =30.92
+            Y: =695
+      - SaveAndClose_2:
+          Control: Classic/Button@2.2.0
+          Properties:
+            Fill: =RGBA(255, 174, 0, 1)
+            FocusedBorderThickness: =2
+            Font: =Font.'Segoe UI'
+            FontWeight: =FontWeight.Bold
+            Height: =48
+            OnSelect: |-
+              =If(
+                  IsBlank(EventSelector_2.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_2.Selected) || IsBlank(ContactStatus_2.Selected),
+                  Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
+                  Patch(
+                      Tx_Feedbacks,
+                      Defaults(Tx_Feedbacks),
+                      {
+                          TravailID: varFeedbackEvent.ID,
+                          HeureContact: If(
+                              Year(ContactTime_2.SelectedDate) < 2020 || IsBlank(ContactHour_2.Selected) || IsBlank(ContactMinute_2.Selected),
+                              Blank(),
+                              DateTime(
+                                  Year(ContactTime_2.SelectedDate),
+                                  Month(ContactTime_2.SelectedDate),
+                                  Day(ContactTime_2.SelectedDate),
+                                  Value(ContactHour_2.Selected.Value),
+                                  Value(ContactMinute_2.Selected.Value),
+                                  0
+                              )
+                          ),
+                          MoyenCom: {Value: ContactMode_2.Selected.Value},
+                          StatutContact: ContactStatus_2.Selected.Value = "OUI",
+                          'Commentaire ': ObservationInput_2.Text,
+                          PK: PKInput_2.Text,
+                          Poste: {Value: varQuart},
+                          AgentSaisie: {
+                              Claims: "i:0#.f|membership|" & Lower(User().Email),
+                              DisplayName: User().FullName,
+                              Email: User().Email,
+                              Department: "",
+                              JobTitle: "",
+                              Picture: ""
+                          },
+                          DateSaisie: Now()
+                      }
+                  );
+                  Refresh(Tx_Feedbacks);
+                  Notify("Pointage enregistré", NotificationType.Success);
+                  Navigate(JournalDeBord_3, ScreenTransition.Fade)
+              )
+            PaddingRight: =7.01
+            PaddingTop: =7.01
+            Size: =18.34
+            Text: ="ENREGISTRER ET RETOUR JOURNAL"
+            Width: =477.89
+            X: =1411.19
+            Y: =695
