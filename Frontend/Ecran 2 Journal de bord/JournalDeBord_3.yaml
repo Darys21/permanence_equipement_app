@@ -226,6 +226,7 @@ Screens:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  FillPortions: =1
                   LayoutOverflowY: =LayoutOverflow.Scroll
                   LayoutMinHeight: =700
                   LayoutGap: =12
@@ -2099,7 +2100,7 @@ Screens:
                               Visible: =varOngletJournal = "Travaux"
                               Width: =280
                               X: =165
-                              Y: =1053
+                              Y: =Parent.Height - Self.Height - 8
                         - DegagementTardif_5:
                             Control: Label@2.5.1
                             Properties:
@@ -2116,7 +2117,7 @@ Screens:
                               Visible: =varOngletJournal = "Travaux"
                               Width: =280
                               X: =571
-                              Y: =1053
+                              Y: =Parent.Height - Self.Height - 8
 
                   - JournalPanel_22:
                       Control: GroupContainer@1.5.0
