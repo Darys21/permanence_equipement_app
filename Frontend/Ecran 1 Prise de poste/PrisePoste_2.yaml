@@ -1,5 +1,5 @@
 Screens:
-  PrisePoste_2:
+  PrisePoste_3:
     Properties:
       Fill: =RGBA(255, 255, 255, 1)
       LoadingSpinnerColor: =RGBA(11, 56, 126, 1)
@@ -45,114 +45,97 @@ Screens:
           Variant: AutoLayout
           Properties:
             Fill: =RGBA(255, 255, 255, 1)
-            Height: =Parent.Height
-            Width: =Parent.Width
+            Height: =App.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Vertical
-            LayoutAlignItems: =LayoutAlignItems.Center
-            LayoutJustifyContent: =LayoutJustifyContent.Start
             LayoutGap: =12
-            PaddingTop: =12
+            LayoutOverflowY: =LayoutOverflow.Scroll
             PaddingBottom: =12
             PaddingLeft: =If(App.Width < 760, 12, 24)
             PaddingRight: =If(App.Width < 760, 12, 24)
-            LayoutOverflowY: =LayoutOverflow.Scroll
+            PaddingTop: =8
+            Width: =App.Width
           Children:
-            - Header_7:
+            - Header_8:
                 Control: GroupContainer@1.5.0
-                Variant: ManualLayout
+                Variant: AutoLayout
                 Properties:
                   Fill: =RGBA(8, 49, 120, 1)
+                  FillPortions: =0
                   Height: =62
-                  Width: =Parent.Width
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =12
+                  LayoutMinHeight: =62
+                  PaddingLeft: =16
+                  PaddingRight: =16
                 Children:
-                  - LogoMark1_5:
-                      Control: Rectangle@2.3.0
+                  - LogoMarks_8:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
                       Properties:
-                        Fill: =RGBA(255, 184, 0, 1)
-                        Height: =5
-                        Width: =53.41
-                        X: =20
-                        Y: =28
-                  - LogoMark2_5:
-                      Control: Rectangle@2.3.0
-                      Properties:
-                        Fill: =RGBA(255, 184, 0, 1)
-                        Height: =5
-                        Width: =42.18
-                        X: =28
-                        Y: =37
-                  - LogoText_7:
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FillPortions: =0
+                        Height: =14
+                        LayoutMinHeight: =14
+                        LayoutMinWidth: =36
+                        Width: =36
+                      Children:
+                        - LogoMark1_6:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              Fill: =RGBA(255, 184, 0, 1)
+                              Height: =5
+                              Width: =34.35
+                        - LogoMark2_6:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              Fill: =RGBA(255, 184, 0, 1)
+                              Height: =5
+                              Width: =27.13
+                              X: =5.42
+                              Y: =9
+                  - LogoText_8:
                       Control: Label@2.5.1
                       Properties:
                         Color: =RGBA(255, 255, 255, 1)
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
+                        FillPortions: =0
                         Height: =45
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =14.25
+                        LayoutMinWidth: =80
+                        PaddingRight: =4.51
+                        PaddingTop: =4.51
+                        Size: =9.17
                         Text: ="SETRAG" & Char(10) & "   ERAMET"
-                        Width: =220
-                        X: =80
-                        Y: =9
-                  - AppTitle_5:
+                        VerticalAlign: =VerticalAlign.Middle
+                        Width: =80
+                  - AppTitle_6:
                       Control: Label@2.5.1
                       Properties:
-                        Visible: =Parent.Width >= 1500
                         Align: =Align.Center
                         Color: =RGBA(255, 255, 255, 1)
+                        FillPortions: =1
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =62
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =25.3
+                        PaddingRight: =4.51
+                        PaddingTop: =4.51
+                        Size: =If(App.Width < 760, 11, 16.27)
                         Text: ="PERMANENCE ÉQUIPEMENT"
-                        Width: =Min(674.67, Parent.Width - 1200)
-                        X: =(Parent.Width - Self.Width) / 2
-                  - ProfileIcon_5:
-                      Control: Classic/Icon@2.5.0
-                      Properties:
-                        Visible: =Parent.Width >= 1000
-                        Color: =RGBA(255, 255, 255, 1)
-                        Height: =37
-                        Icon: =Icon.Person
-                        Width: =52.01
-                        X: =Parent.Width - 360
-                        Y: =9
-                  - ProfileEmailRight_5:
-                      Control: Label@2.5.1
-                      Properties:
-                        Visible: =Parent.Width >= 1000
-                        Color: =RGBA(255, 255, 255, 1)
-                        Font: =Font.'Segoe UI'
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =15.46
-                        Text: =Coalesce(varAgentPermanentNom, User().Email)
-                        Width: =220
-                        X: =Parent.Width - 310
-                        Y: =9
-                  - ProfileChevron_5:
-                      Control: Classic/Icon@2.5.0
-                      Properties:
-                        Visible: =Parent.Width >= 1000
-                        Color: =RGBA(255, 255, 255, 1)
-                        Height: =20
-                        Icon: =Icon.ChevronDown
-                        Width: =28.11
-                        X: =Parent.Width - 76
-                        Y: =22
-                  - BtnChangerAgent_6:
+                        VerticalAlign: =VerticalAlign.Middle
+                  - BtnChangerAgent_7:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =RGBA(255, 255, 255, 1)
                         BorderThickness: =1
                         Color: =RGBA(255, 255, 255, 1)
                         Fill: =RGBA(8, 49, 120, 1)
+                        FillPortions: =0
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =32
+                        LayoutMinWidth: =96
                         OnSelect: |-
                           =If(
                               !IsBlank(varAgentPermanentID),
@@ -175,701 +158,791 @@ Screens:
                               scrIdentificationAgent,
                               ScreenTransition.Fade
                           )
-                        PaddingRight: =4.57
-                        PaddingTop: =4.57
-                        Size: =11
+                        PaddingRight: =2.94
+                        PaddingTop: =2.94
+                        Size: =7.07
                         Text: ="Changer d'agent"
                         Tooltip: ="Revenir à l'identification pour sélectionner un autre permanent"
-                        Width: =150
-                        X: =If(Parent.Width < 1000, Parent.Width - 170, Parent.Width - 530)
-                        Y: =15
-            - Welcome_5:
-                Control: GroupContainer@1.5.0
-                Variant: ManualLayout
-                Properties:
-                  Height: =If(Parent.Width < 900, 134 + 3 * 156 + 16, 298)
-                  Width: =Parent.Width
-                  X: =75.89
-                  Y: =62
-                Children:
-                  - WelcomeIconBackground_5:
+                        Width: =96
+                  - ProfileIcon_6:
                       Control: Classic/Icon@2.5.0
                       Properties:
-                        Color: =RGBA(8, 49, 120, 1)
-                        Fill: =RGBA(239, 245, 255, 1)
-                        Height: =45
+                        Color: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =37
                         Icon: =Icon.Person
-                        Width: =63.25
-                        X: =16.87
-                        Y: =10
-                  - WelcomeText_5:
+                        LayoutMinWidth: =33
+                        Width: =33
+                  - ProfileEmailRight_6:
                       Control: Label@2.5.1
                       Properties:
-                        Color: =RGBA(8, 49, 120, 1)
+                        Color: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
                         Font: =Font.'Segoe UI'
-                        FontWeight: =FontWeight.Bold
+                        Height: =37
+                        LayoutMinWidth: =190
+                        PaddingRight: =4.51
+                        PaddingTop: =4.51
+                        Size: =9.94
+                        Text: =Coalesce(varAgentPermanentNom, User().Email)
+                        VerticalAlign: =VerticalAlign.Middle
+                        Visible: =App.Width >= 1000
+                        Width: =190
+            - Welcome_6:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(255, 255, 255, 1)
+                  FillPortions: =0
+                  Height: =270
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  LayoutMinHeight: =270
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =16
+                Children:
+                  - WelcomeRow_6:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FillPortions: =0
                         Height: =52
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =30.92
-                        Text: ="Bonjour, " & Coalesce(varAgentPermanentNom, User().FullName)
-                        Width: =1068.23
-                        X: =95
-                        Y: =6
-                  - WelcomeDivider_5:
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutMinHeight: =52
+                      Children:
+                        - WelcomeIconBackground_6:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              Color: =RGBA(8, 49, 120, 1)
+                              Fill: =RGBA(239, 245, 255, 1)
+                              FillPortions: =0
+                              Height: =45
+                              Icon: =Icon.Person
+                              LayoutMinWidth: =41
+                              Width: =41
+                        - WelcomeText_6:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(8, 49, 120, 1)
+                              FillPortions: =1
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Bold
+                              Height: =52
+                              PaddingRight: =4.51
+                              PaddingTop: =4.51
+                              Size: =If(App.Width < 760, 15, 19.88)
+                              Text: ="Bonjour, " & Coalesce(varAgentPermanentNom, User().FullName)
+                              VerticalAlign: =VerticalAlign.Middle
+                  - WelcomeDivider_6:
                       Control: Rectangle@2.3.0
                       Properties:
                         Fill: =RGBA(230, 232, 236, 1)
+                        FillPortions: =0
                         Height: =1
-                        Width: =1771.01
-                        Y: =69
-                  - ShiftHeading_5:
+                        LayoutMinHeight: =1
+                  - ShiftHeading_6:
                       Control: Label@2.5.1
                       Properties:
                         Color: =RGBA(82, 87, 100, 1)
+                        FillPortions: =0
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Semibold
-                        Height: =46
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =22.47
+                        Height: =30
+                        LayoutMinHeight: =30
+                        PaddingRight: =4.51
+                        PaddingTop: =4.51
+                        Size: =If(App.Width < 760, 12, 14.45)
                         Text: |-
-                          ="1. Votre Poste de Travail : " & varQuartSuggere
-                        Width: =702.77
-                        X: =64
-                        Y: =79
-                  - P1Card_5:
+                          ="1. Votre Poste de Travail : " & varQuart
+                        VerticalAlign: =VerticalAlign.Middle
+                  - ShiftCards_6:
                       Control: GroupContainer@1.5.0
-                      Variant: ManualLayout
+                      Variant: AutoLayout
                       Properties:
-                        BorderColor: =If(varQuart = "P1", RGBA(255, 174, 0, 1), RGBA(222, 224, 228, 1))
-                        BorderThickness: =If(varQuart = "P1", 2, 1)
-                        Fill: =RGBA(255, 255, 255, 1)
-                        Height: =146
-                        Width: =If(Parent.Width < 900, Parent.Width - 32, (Parent.Width - 64) / 3)
-                        X: =If(Parent.Width < 900, 16, 16 + 0 * ((Parent.Width - 64) / 3 + 16))
-                        Y: =If(Parent.Width < 900, 134, 134)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FillPortions: =0
+                        Height: =124
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =If(App.Width < 760, 8, 16)
+                        LayoutMinHeight: =124
                       Children:
-                        - Image1_9:
-                            Control: Image@2.2.3
+                        - P1Card_6:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
                             Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              BorderStyle: =BorderStyle.None
-                              BorderThickness: =2
-                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
-                              DisabledFill: =RGBA(0, 0, 0, 0)
-                              FocusedBorderThickness: =4
-                              Height: =62
-                              HoverBorderColor: =RGBA(0, 0, 0, 0)
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              Image: |-
-                                ="data:image/svg+xml;utf8," &
-                                EncodeUrl(
-                                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#FFA500' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-                                  <path d='M17 18a5 5 0 0 0-10 0'/>
-                                  <line x1='12' y1='2' x2='12' y2='6'/>
-                                  <line x1='4.93' y1='10.93' x2='6.34' y2='12.34'/>
-                                  <line x1='19.07' y1='10.93' x2='17.66' y2='12.34'/>
-                                  <line x1='2' y1='18' x2='22' y2='18'/>
-                                </svg>"
-                                )
-                              PressedBorderColor: =RGBA(0, 0, 0, 0)
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              Width: =64.66
-                              X: =(Parent.Width - Self.Width) / 2
-                        - P1Title_5:
-                            Control: Label@2.5.1
+                              BorderColor: =If(varQuart = "P1", RGBA(255, 174, 0, 1), RGBA(222, 224, 228, 1))
+                              BorderThickness: =If(varQuart = "P1", 2, 1)
+                              Fill: =If(varQuart = "P1", RGBA(255, 248, 230, 1), RGBA(255, 255, 255, 1))
+                              FillPortions: =1
+                              LayoutMinHeight: =124
+                              LayoutMinWidth: =80
+                            Children:
+                              - P1Select_6:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Color: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =2
+                                    Height: =Parent.Height
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    OnSelect: =Set(varQuart, "P1")
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Size: =13.56
+                                    Text: ="Sélectionner le poste P1, de 06h à 14h"
+                                    Width: =Parent.Width
+                              - Image1_11:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =44
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Image: |-
+                                      ="data:image/svg+xml;utf8," &
+                                      EncodeUrl(
+                                      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#FFA500' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                        <path d='M17 18a5 5 0 0 0-10 0'/>
+                                        <line x1='12' y1='2' x2='12' y2='6'/>
+                                        <line x1='4.93' y1='10.93' x2='6.34' y2='12.34'/>
+                                        <line x1='19.07' y1='10.93' x2='17.66' y2='12.34'/>
+                                        <line x1='2' y1='18' x2='22' y2='18'/>
+                                      </svg>"
+                                      )
+                                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Width: =44
+                                    X: =(Parent.Width - Self.Width) / 2
+                                    Y: =10
+                              - P1Title_6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =36
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =21.69
+                                    Text: ="P1"
+                                    Width: =Parent.Width
+                                    Y: =56
+                              - P1Hours_6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =28
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =If(App.Width < 760, 10, 12.66)
+                                    Text: ="06h - 14h"
+                                    Width: =Parent.Width
+                                    Y: =92
+                        - P2Card_6:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
                             Properties:
-                              Align: =Align.Center
-                              Color: =RGBA(8, 49, 120, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Bold
-                              Height: =39
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =33.73
-                              Text: ="P1"
-                              Width: =Parent.Width
-                              Y: =61
-                        - P1Hours_5:
-                            Control: Label@2.5.1
+                              BorderColor: =If(varQuart = "P2", RGBA(255, 174, 0, 1), RGBA(222, 224, 228, 1))
+                              BorderThickness: =If(varQuart = "P2", 2, 1)
+                              Fill: =If(varQuart = "P2", RGBA(255, 248, 230, 1), RGBA(255, 255, 255, 1))
+                              FillPortions: =1
+                              LayoutMinHeight: =124
+                              LayoutMinWidth: =80
+                            Children:
+                              - P2Select_6:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Color: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =2
+                                    Height: =Parent.Height
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    OnSelect: =Set(varQuart, "P2")
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Size: =13.56
+                                    Text: ="Sélectionner le poste P2, de 14h à 22h"
+                                    Width: =Parent.Width
+                              - Image1_13:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =44
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Image: |-
+                                      ="data:image/svg+xml;utf8," &
+                                      EncodeUrl(
+                                      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#FFD700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                      <circle cx='12' cy='12' r='5'/>
+                                      <line x1='12' y1='1' x2='12' y2='3'/>
+                                      <line x1='12' y1='21' x2='12' y2='23'/>
+                                      <line x1='4.22' y1='4.22' x2='5.64' y2='5.64'/>
+                                      <line x1='18.36' y1='18.36' x2='19.78' y2='19.78'/>
+                                      <line x1='1' y1='12' x2='3' y2='12'/>
+                                      <line x1='21' y1='12' x2='23' y2='12'/>
+                                      <line x1='4.22' y1='19.78' x2='5.64' y2='18.36'/>
+                                      <line x1='18.36' y1='5.64' x2='19.78' y2='4.22'/>
+                                      </svg>"
+                                      )
+                                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Width: =44
+                                    X: =(Parent.Width - Self.Width) / 2
+                                    Y: =10
+                              - P2Title_6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =36
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =21.11
+                                    Text: ="P2"
+                                    Width: =Parent.Width
+                                    Y: =56
+                              - P2Hours_6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =28
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =If(App.Width < 760, 10, 12.66)
+                                    Text: ="14h - 22h"
+                                    Width: =Parent.Width
+                                    Y: =92
+                        - P3Card_6:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
                             Properties:
-                              Align: =Align.Center
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Semibold
-                              Height: =35
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =19.68
-                              Text: ="06h - 14h"
-                              Width: =Parent.Width
-                              Y: =100
-                        - P1Select_5:
-                            Control: Classic/Button@2.2.0
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              Color: =RGBA(0, 0, 0, 0)
-                              Fill: =RGBA(0, 0, 0, 0)
-                              FocusedBorderThickness: =2
-                              Height: =Parent.Height
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              OnSelect: =Set(varQuart, "P1")
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              Size: =21.08
-                              Text: ="Sélectionner le poste P1, de 06h à 14h"
-                              Width: =Parent.Width
-                  - P2Card_5:
-                      Control: GroupContainer@1.5.0
-                      Variant: ManualLayout
-                      Properties:
-                        BorderColor: =If(varQuart = "P2", RGBA(255, 174, 0, 1), RGBA(222, 224, 228, 1))
-                        BorderThickness: =If(varQuart = "P2", 2, 1)
-                        Fill: =RGBA(255, 255, 255, 1)
-                        Height: =146
-                        Width: =If(Parent.Width < 900, Parent.Width - 32, (Parent.Width - 64) / 3)
-                        X: =If(Parent.Width < 900, 16, 16 + 1 * ((Parent.Width - 64) / 3 + 16))
-                        Y: =If(Parent.Width < 900, 290, 135)
-                      Children:
-                        - Image1_10:
-                            Control: Image@2.2.3
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              BorderStyle: =BorderStyle.None
-                              BorderThickness: =2
-                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
-                              DisabledFill: =RGBA(0, 0, 0, 0)
-                              FocusedBorderThickness: =4
-                              Height: =62
-                              HoverBorderColor: =RGBA(0, 0, 0, 0)
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              Image: |-
-                                ="data:image/svg+xml;utf8," &
-                                EncodeUrl(
-                                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#FFD700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-                                <circle cx='12' cy='12' r='5'/>
-                                <line x1='12' y1='1' x2='12' y2='3'/>
-                                <line x1='12' y1='21' x2='12' y2='23'/>
-                                <line x1='4.22' y1='4.22' x2='5.64' y2='5.64'/>
-                                <line x1='18.36' y1='18.36' x2='19.78' y2='19.78'/>
-                                <line x1='1' y1='12' x2='3' y2='12'/>
-                                <line x1='21' y1='12' x2='23' y2='12'/>
-                                <line x1='4.22' y1='19.78' x2='5.64' y2='18.36'/>
-                                <line x1='18.36' y1='5.64' x2='19.78' y2='4.22'/>
-                                </svg>"
-                                )
-                              PressedBorderColor: =RGBA(0, 0, 0, 0)
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              Width: =64.66
-                              X: =(Parent.Width - Self.Width) / 2
-                              Y: =4
-                        - P2Select_5:
-                            Control: Classic/Button@2.2.0
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              Color: =RGBA(0, 0, 0, 0)
-                              Fill: =RGBA(0, 0, 0, 0)
-                              FocusedBorderThickness: =2
-                              Height: =Parent.Height
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              OnSelect: =Set(varQuart, "P2")
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              Size: =21.08
-                              Text: =""
-                              Width: =Parent.Width
-                        - P2Title_5:
-                            Control: Label@2.5.1
-                            Properties:
-                              Align: =Align.Center
-                              Color: =RGBA(8, 49, 120, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Bold
-                              Height: =46
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =32.82
-                              Text: ="P2"
-                              Width: =Parent.Width
-                              Y: =66
-                        - P2Hours_5:
-                            Control: Label@2.5.1
-                            Properties:
-                              Align: =Align.Center
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Semibold
-                              Height: =35
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =19.68
-                              Text: ="14h - 22h"
-                              Width: =Parent.Width
-                              Y: =100
-                  - P3Card_5:
-                      Control: GroupContainer@1.5.0
-                      Variant: ManualLayout
-                      Properties:
-                        BorderColor: =If(varQuart = "P3", RGBA(255, 174, 0, 1), RGBA(222, 224, 228, 1))
-                        BorderThickness: =If(varQuart = "P3", 2, 1)
-                        Fill: =RGBA(255, 255, 255, 1)
-                        Height: =146
-                        Width: =If(Parent.Width < 900, Parent.Width - 32, (Parent.Width - 64) / 3)
-                        X: =If(Parent.Width < 900, 16, 16 + 2 * ((Parent.Width - 64) / 3 + 16))
-                        Y: =If(Parent.Width < 900, 446, 134)
-                      Children:
-                        - Image1_12:
-                            Control: Image@2.2.3
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              BorderStyle: =BorderStyle.None
-                              BorderThickness: =2
-                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
-                              DisabledFill: =RGBA(0, 0, 0, 0)
-                              FocusedBorderThickness: =4
-                              Height: =62
-                              HoverBorderColor: =RGBA(0, 0, 0, 0)
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              Image: |-
-                                ="data:image/svg+xml;utf8," &
-                                EncodeUrl(
-                                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#4A6FA5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-                                <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/>
-                                </svg>"
-                                )
-                              PressedBorderColor: =RGBA(0, 0, 0, 0)
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              Width: =64.66
-                              X: =(Parent.Width - Self.Width) / 2
-                              Y: =4
-                        - P3Select_5:
-                            Control: Classic/Button@2.2.0
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              Color: =RGBA(0, 0, 0, 0)
-                              Fill: =RGBA(0, 0, 0, 0)
-                              FocusedBorderThickness: =2
-                              Height: =Parent.Height
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              OnSelect: =Set(varQuart, "P3")
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              Size: =21.08
-                              Text: ="Sélectionner le poste P3, de 22h à 06h"
-                              Width: =Parent.Width
-                        - P3Title_5:
-                            Control: Label@2.5.1
-                            Properties:
-                              Align: =Align.Center
-                              Color: =RGBA(8, 49, 120, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Bold
-                              Height: =46
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =32.82
-                              Text: ="P3"
-                              Width: =Parent.Width
-                              Y: =66
-                        - P3Hours_5:
-                            Control: Label@2.5.1
-                            Properties:
-                              Align: =Align.Center
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Semibold
-                              Height: =35
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =19.68
-                              Text: ="22h - 06h"
-                              Width: =Parent.Width
-                              Y: =100
-            - HandoverSection_5:
+                              BorderColor: =If(varQuart = "P3", RGBA(255, 174, 0, 1), RGBA(222, 224, 228, 1))
+                              BorderThickness: =If(varQuart = "P3", 2, 1)
+                              Fill: =If(varQuart = "P3", RGBA(255, 248, 230, 1), RGBA(255, 255, 255, 1))
+                              FillPortions: =1
+                              LayoutMinHeight: =124
+                              LayoutMinWidth: =80
+                            Children:
+                              - P3Select_6:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Color: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =2
+                                    Height: =Parent.Height
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    OnSelect: =Set(varQuart, "P3")
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Size: =13.56
+                                    Text: ="Sélectionner le poste P3, de 22h à 06h"
+                                    Width: =Parent.Width
+                              - Image1_14:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =44
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Image: |-
+                                      ="data:image/svg+xml;utf8," &
+                                      EncodeUrl(
+                                      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#4A6FA5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                      <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/>
+                                      </svg>"
+                                      )
+                                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Width: =44
+                                    X: =(Parent.Width - Self.Width) / 2
+                                    Y: =10
+                              - P3Title_6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =36
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =21.11
+                                    Text: ="P3"
+                                    Width: =Parent.Width
+                                    Y: =56
+                              - P3Hours_6:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =28
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =If(App.Width < 760, 10, 12.66)
+                                    Text: ="22h - 06h"
+                                    Width: =Parent.Width
+                                    Y: =92
+            - HandoverSection_6:
                 Control: GroupContainer@1.5.0
-                Variant: ManualLayout
+                Variant: AutoLayout
                 Properties:
                   Fill: =RGBA(248, 249, 251, 1)
-                  Height: =655
-                  Width: =Parent.Width
-                  X: =75.89
-                  Y: =374
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  LayoutMinHeight: =500
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =8
                 Children:
-                  - HandoverHeading_5:
+                  - HandoverHeading_6:
                       Control: Label@2.5.1
                       Properties:
                         Color: =RGBA(82, 87, 100, 1)
+                        FillPortions: =0
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Semibold
-                        Height: =48
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =22.47
+                        Height: =30
+                        LayoutMinHeight: =30
+                        PaddingRight: =4.51
+                        PaddingTop: =4.51
+                        Size: =If(App.Width < 760, 12, 14.45)
                         Text: ="2. Éléments à reprendre (P-1)"
-                        Width: =Parent.Width - 48
-                        X: =24
-                        Y: =7
-                  - TravauxSubHeading_4:
-                      Control: Label@2.5.1
+                        VerticalAlign: =VerticalAlign.Middle
+                  - TravauxBlock_5:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
                       Properties:
-                        Color: =RGBA(18, 135, 43, 1)
-                        Font: =Font.'Segoe UI'
-                        FontWeight: =FontWeight.Semibold
-                        Height: =28
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =16.87
-                        Text: ="CHANTIERS & TRAVAUX en cours"
-                        Width: =Parent.Width - 48
-                        X: =24
-                        Y: =48
-                  - TravauxHandoverGallery_4:
-                      Control: Gallery@2.15.0
-                      Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
-                      Properties:
-                        AccessibleLabel: ="Liste des chantiers et travaux en cours"
-                        BorderColor: =RGBA(220, 224, 230, 1)
-                        Fill: =RGBA(248, 249, 251, 1)
-                        FocusedBorderThickness: =2
-                        Height: =181
-                        Items: |-
-                          =Filter(
-                              Tx_Travaux,
-                              IsBlank(Heures_Degagement)
-                          )
-                        OnSelect: |-
-                          =Set(varOngletJournal, "Travaux");
-                          Set(varActionEnCours, "Modifier");
-                          Set(varTravauxToEdit, ThisItem);
-                          Set(varRecordToEdit, ThisItem);
-                          Navigate(JournalDeBord_3, ScreenTransition.Fade)
-                        TemplateFill: =RGBA(255, 255, 255, 1)
-                        TemplatePadding: =6
-                        TemplateSize: =54
-                        Width: =Parent.Width - 48
-                        X: =24
-                        Y: =76
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FillPortions: =1
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutMinHeight: =130
                       Children:
-                        - TravauxStatusBar_4:
-                            Control: Rectangle@2.3.0
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              Fill: =RGBA(18, 135, 43, 1)
-                              Height: =Parent.TemplateHeight - 8
-                              OnSelect: =Select(Parent)
-                              Width: =9.84
-                              Y: =3
-                        - TravauxWorkIcon_4:
-                            Control: Classic/Icon@2.5.0
+                        - TravauxSubHeading_5:
+                            Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(18, 135, 43, 1)
-                              Height: =28
-                              Icon: =Icon.Tools
-                              OnSelect: =Select(Parent)
-                              Width: =39.36
-                              X: =36.54
-                              Y: =10
-                        - TravauxWorkTitle_4:
-                            Control: Label@2.5.1
-                            Properties:
-                              Color: =RGBA(25, 28, 38, 1)
+                              FillPortions: =0
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Semibold
                               Height: =28
-                              OnSelect: =Select(Parent)
-                              PaddingLeft: =0
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =16.87
-                              Text: =ThisItem.Title
-                              Width: =Parent.TemplateWidth - 390
-                              X: =90
-                              Y: =3
-                        - TravauxCantonText_4:
-                            Control: Label@2.5.1
+                              LayoutMinHeight: =28
+                              PaddingRight: =4.51
+                              PaddingTop: =4.51
+                              Size: =10.85
+                              Text: ="CHANTIERS & TRAVAUX en cours"
+                              VerticalAlign: =VerticalAlign.Middle
+                        - TravauxHandoverGallery_5:
+                            Control: Gallery@2.15.0
+                            Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
                             Properties:
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              Height: =24
-                              OnSelect: =Select(Parent)
-                              PaddingLeft: =0
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =14.06
-                              Text: |-
-                                ="Mise à jour : " & Text(ThisItem.Datetravaux, "[$-fr-FR]dd/mm/yyyy")
-                              Width: =Parent.TemplateWidth - 390
-                              X: =90
-                              Y: =25
-                        - TravauxLocationIcon_4:
-                            Control: Classic/Icon@2.5.0
-                            Properties:
-                              Color: =RGBA(8, 49, 120, 1)
-                              Height: =22
-                              Icon: =Icon.Location
-                              OnSelect: =Select(Parent)
-                              Width: =30.92
-                              X: =Parent.TemplateWidth - 310
-                              Y: =15
-                        - TravauxPKText_4:
-                            Control: Label@2.5.1
-                            Properties:
-                              Align: =Align.Right
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              Height: =39
-                              OnSelect: =Select(Parent)
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =15.46
-                              Text: =Coalesce(LookUp(Ref_Cantons, ID = ThisItem.CantonID).Titre, LookUp(Ref_Cantons, ID = ThisItem.'CantonID ').Titre, "Canton à renseigner")
-                              Width: =260
-                              X: =Parent.TemplateWidth - 290
-                              Y: =10
-                  - LtvSubHeading_4:
-                      Control: Label@2.5.1
+                              AccessibleLabel: ="Liste des chantiers et travaux en cours"
+                              BorderColor: =RGBA(220, 224, 230, 1)
+                              Fill: =RGBA(248, 249, 251, 1)
+                              FillPortions: =1
+                              FocusedBorderThickness: =2
+                              Items: |-
+                                =Filter(
+                                    Tx_Travaux,
+                                    IsBlank(Heures_Degagement)
+                                )
+                              LayoutMinHeight: =98
+                              OnSelect: |-
+                                =Set(varOngletJournal, "Travaux");
+                                Set(varActionEnCours, "Modifier");
+                                Set(varTravauxToEdit, ThisItem);
+                                Set(varRecordToEdit, ThisItem);
+                                Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                              TemplateFill: =RGBA(255, 255, 255, 1)
+                              TemplatePadding: =6
+                              TemplateSize: =54
+                            Children:
+                              - TravauxStatusBar_5:
+                                  Control: Rectangle@2.3.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(18, 135, 43, 1)
+                                    Height: =Parent.TemplateHeight - 8
+                                    OnSelect: =Select(Parent)
+                                    Width: =6.32
+                                    Y: =3
+                              - TravauxWorkIcon_5:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    Color: =RGBA(18, 135, 43, 1)
+                                    Height: =28
+                                    Icon: =Icon.Tools
+                                    OnSelect: =Select(Parent)
+                                    Width: =25.31
+                                    X: =20
+                                    Y: =10
+                              - TravauxWorkTitle_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(25, 28, 38, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =28
+                                    OnSelect: =Select(Parent)
+                                    PaddingLeft: =0
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =10.85
+                                    Text: =ThisItem.Title
+                                    Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
+                                    X: =64
+                                    Y: =3
+                              - TravauxCantonText_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =24
+                                    OnSelect: =Select(Parent)
+                                    PaddingLeft: =0
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =9.04
+                                    Text: |-
+                                      ="Mise à jour : " & Text(ThisItem.Datetravaux, "[$-fr-FR]dd/mm/yyyy")
+                                    Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
+                                    X: =64
+                                    Y: =25
+                              - TravauxLocationIcon_5:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Height: =22
+                                    Icon: =Icon.Location
+                                    OnSelect: =Select(Parent)
+                                    Visible: =Parent.TemplateWidth >= 520
+                                    Width: =19.88
+                                    X: =Parent.TemplateWidth - 196
+                                    Y: =15
+                              - TravauxPKText_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Right
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =30
+                                    OnSelect: =Select(Parent)
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =9.94
+                                    Text: =Coalesce(LookUp(Ref_Cantons, ID = ThisItem.CantonID).Titre, LookUp(Ref_Cantons, ID = ThisItem.'CantonID ').Titre, "Canton à renseigner")
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Width: =If(Parent.TemplateWidth < 520, 112, 168)
+                                    X: =Parent.TemplateWidth - Self.Width - 8
+                                    Y: =12
+                  - LtvBlock_5:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
                       Properties:
-                        Color: =RGBA(237, 108, 20, 1)
-                        Font: =Font.'Segoe UI'
-                        FontWeight: =FontWeight.Semibold
-                        Height: =28
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =16.87
-                        Text: ="LTV / RAL actifs"
-                        Width: =Parent.Width - 48
-                        X: =24
-                        Y: =257
-                  - LtvHandoverGallery_4:
-                      Control: Gallery@2.15.0
-                      Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
-                      Properties:
-                        AccessibleLabel: ="Liste des ralentissements actifs"
-                        BorderColor: =RGBA(220, 224, 230, 1)
-                        Fill: =RGBA(248, 249, 251, 1)
-                        FocusedBorderThickness: =2
-                        Height: =182
-                        Items: =Filter(Tx_LTV, Statut_LTV.Value = "Imposée" || Statut_LTV.Value = "Imposée (Active)")
-                        OnSelect: |-
-                          =Set(varOngletJournal, "LTV");
-                          Set(varActionEnCours, "Modifier");
-                          Set(varLtvToEdit, ThisItem);
-                          Set(varRecordToEdit, ThisItem);
-                          Navigate(JournalDeBord_3, ScreenTransition.Fade)
-                        TemplateFill: =RGBA(255, 255, 255, 1)
-                        TemplatePadding: =6
-                        TemplateSize: =54
-                        Width: =Parent.Width - 48
-                        X: =24
-                        Y: =285
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FillPortions: =1
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutMinHeight: =130
                       Children:
-                        - LtvStatusBar_4:
-                            Control: Rectangle@2.3.0
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              Fill: =RGBA(240, 43, 35, 1)
-                              Height: =Parent.TemplateHeight - 8
-                              Width: =9.84
-                              Y: =3
-                        - LtvWorkIcon_4:
-                            Control: Classic/Icon@2.5.0
-                            Properties:
-                              Color: =RGBA(240, 43, 35, 1)
-                              Height: =28
-                              Icon: =Icon.Warning
-                              Width: =39.36
-                              X: =36.54
-                              Y: =10
-                        - LtvWorkTitle_4:
+                        - LtvSubHeading_5:
                             Control: Label@2.5.1
                             Properties:
-                              Color: =RGBA(25, 28, 38, 1)
+                              Color: =RGBA(237, 108, 20, 1)
+                              FillPortions: =0
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Semibold
                               Height: =28
-                              OnSelect: =Select(Parent)
-                              PaddingLeft: =0
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =16.87
-                              Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "") & " - " & Coalesce(ThisItem.Motif_Ralentissement.Value, Text(ThisItem.Motif_Ralentissement.Value), "")
-                              Width: =Parent.TemplateWidth - 390
-                              X: =90
-                              Y: =3
-                        - LtvCantonText_4:
-                            Control: Label@2.5.1
+                              LayoutMinHeight: =28
+                              PaddingRight: =4.51
+                              PaddingTop: =4.51
+                              Size: =10.85
+                              Text: ="LTV / RAL actifs"
+                              VerticalAlign: =VerticalAlign.Middle
+                        - LtvHandoverGallery_5:
+                            Control: Gallery@2.15.0
+                            Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
                             Properties:
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              Height: =24
-                              OnSelect: =Select(Parent)
-                              PaddingLeft: =0
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =14.06
-                              Text: |-
-                                ="Imposée le : " & Text(ThisItem.'Date_imposition ', "[$-fr-FR]dd/mm/yyyy") & "  |  Taux : " & ThisItem.Taux & " km/h"
-                              Width: =Parent.TemplateWidth - 390
-                              X: =90
-                              Y: =25
-                        - LtvLocationIcon_4:
-                            Control: Classic/Icon@2.5.0
-                            Properties:
-                              Color: =RGBA(8, 49, 120, 1)
-                              Height: =22
-                              Icon: =Icon.Location
-                              Width: =30.92
-                              X: =Parent.TemplateWidth - 310
-                              Y: =16
-                        - LtvPKText_4:
-                            Control: Label@2.5.1
-                            Properties:
-                              Align: =Align.Right
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              Height: =28
-                              OnSelect: =Select(Parent)
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =15.46
-                              Text: =Coalesce("PK " & ThisItem.PK_Debut & "-" & ThisItem.'PK_Fin ', "PK à renseigner")
-                              Width: =260
-                              X: =Parent.TemplateWidth - 290
-                              Y: =12
-                  - IncidentsSubHeading_4:
-                      Control: Label@2.5.1
+                              AccessibleLabel: ="Liste des ralentissements actifs"
+                              BorderColor: =RGBA(220, 224, 230, 1)
+                              Fill: =RGBA(248, 249, 251, 1)
+                              FillPortions: =1
+                              FocusedBorderThickness: =2
+                              Items: =Filter(Tx_LTV, Statut_LTV.Value = "Imposée" || Statut_LTV.Value = "Imposée (Active)")
+                              LayoutMinHeight: =98
+                              OnSelect: |-
+                                =Set(varOngletJournal, "LTV");
+                                Set(varActionEnCours, "Modifier");
+                                Set(varLtvToEdit, ThisItem);
+                                Set(varRecordToEdit, ThisItem);
+                                Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                              TemplateFill: =RGBA(255, 255, 255, 1)
+                              TemplatePadding: =6
+                              TemplateSize: =54
+                            Children:
+                              - LtvStatusBar_5:
+                                  Control: Rectangle@2.3.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(240, 43, 35, 1)
+                                    Height: =Parent.TemplateHeight - 8
+                                    OnSelect: =Select(Parent)
+                                    Width: =6.32
+                                    Y: =3
+                              - LtvWorkIcon_5:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    Color: =RGBA(240, 43, 35, 1)
+                                    Height: =28
+                                    Icon: =Icon.Warning
+                                    OnSelect: =Select(Parent)
+                                    Width: =25.31
+                                    X: =20
+                                    Y: =10
+                              - LtvWorkTitle_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(25, 28, 38, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =28
+                                    OnSelect: =Select(Parent)
+                                    PaddingLeft: =0
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =10.85
+                                    Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "") & " - " & Coalesce(ThisItem.Motif_Ralentissement.Value, "")
+                                    Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
+                                    X: =64
+                                    Y: =3
+                              - LtvCantonText_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =24
+                                    OnSelect: =Select(Parent)
+                                    PaddingLeft: =0
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =9.04
+                                    Text: |-
+                                      ="Imposée le : " & Text(ThisItem.'Date_imposition ', "[$-fr-FR]dd/mm/yyyy") & "  |  Taux : " & ThisItem.Taux & " km/h"
+                                    Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
+                                    X: =64
+                                    Y: =25
+                              - LtvLocationIcon_5:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Height: =22
+                                    Icon: =Icon.Location
+                                    OnSelect: =Select(Parent)
+                                    Visible: =Parent.TemplateWidth >= 520
+                                    Width: =19.88
+                                    X: =Parent.TemplateWidth - 196
+                                    Y: =16
+                              - LtvPKText_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Right
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =30
+                                    OnSelect: =Select(Parent)
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =9.94
+                                    Text: =Coalesce("PK " & ThisItem.PK_Debut & "-" & ThisItem.'PK_Fin ', "PK à renseigner")
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Width: =If(Parent.TemplateWidth < 520, 112, 168)
+                                    X: =Parent.TemplateWidth - Self.Width - 8
+                                    Y: =12
+                  - IncidentsBlock_5:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
                       Properties:
-                        Color: =RGBA(238, 32, 35, 1)
-                        Font: =Font.'Segoe UI'
-                        FontWeight: =FontWeight.Semibold
-                        Height: =28
-                        PaddingRight: =7.01
-                        PaddingTop: =7.01
-                        Size: =16.87
-                        Text: ="INCIDENTS & RUPTURES en cours"
-                        Width: =Parent.Width - 48
-                        X: =24
-                        Y: =484
-                  - IncidentsHandoverGallery_4:
-                      Control: Gallery@2.15.0
-                      Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
-                      Properties:
-                        AccessibleLabel: ="Liste des incidents et ruptures en cours"
-                        BorderColor: =RGBA(220, 224, 230, 1)
-                        Fill: =RGBA(248, 249, 251, 1)
-                        FocusedBorderThickness: =2
-                        Height: =131
-                        Items: |-
-                          =Filter(
-                              Tx_incidents_Ruptures,
-                              IsBlank(Heure_Fin) ||
-                              Etat.Value = "En cours" ||
-                              IsBlank(Etat)
-                          )
-                        OnSelect: |-
-                          =Set(varOngletJournal, "Incidents");
-                          Set(varActionEnCours, "Modifier");
-                          Set(varIncidentToEdit, ThisItem);
-                          Set(varRecordToEdit, ThisItem);
-                          Navigate(JournalDeBord_3, ScreenTransition.Fade)
-                        TemplateFill: =RGBA(255, 255, 255, 1)
-                        TemplatePadding: =6
-                        TemplateSize: =54
-                        Width: =Parent.Width - 48
-                        X: =24
-                        Y: =524
+                        Fill: =RGBA(0, 0, 0, 0)
+                        FillPortions: =1
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =4
+                        LayoutMinHeight: =130
                       Children:
-                        - IncStatusBar_4:
-                            Control: Rectangle@2.3.0
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              Fill: =RGBA(238, 32, 35, 1)
-                              Height: =Parent.TemplateHeight - 8
-                              Width: =9.84
-                              Y: =3
-                        - IncWorkIcon_4:
-                            Control: Classic/Icon@2.5.0
+                        - IncidentsSubHeading_5:
+                            Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(238, 32, 35, 1)
-                              Height: =28
-                              Icon: =Icon.Error
-                              Width: =39.36
-                              X: =36.54
-                              Y: =10
-                        - IncWorkTitle_4:
-                            Control: Label@2.5.1
-                            Properties:
-                              Color: =RGBA(25, 28, 38, 1)
+                              FillPortions: =0
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Semibold
                               Height: =28
-                              OnSelect: =Select(Parent)
-                              PaddingLeft: =0
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =16.87
-                              Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "Incident")
-                              Width: =Parent.TemplateWidth - 390
-                              X: =90
-                              Y: =3
-                        - IncCantonText_4:
-                            Control: Label@2.5.1
+                              LayoutMinHeight: =28
+                              PaddingRight: =4.51
+                              PaddingTop: =4.51
+                              Size: =10.85
+                              Text: ="INCIDENTS & RUPTURES en cours"
+                              VerticalAlign: =VerticalAlign.Middle
+                        - IncidentsHandoverGallery_5:
+                            Control: Gallery@2.15.0
+                            Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
                             Properties:
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              Height: =24
-                              OnSelect: =Select(Parent)
-                              PaddingLeft: =0
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =14.06
-                              Text: |-
-                                ="PK : " & Coalesce(ThisItem.PK, "-") & "  |  " & Coalesce(ThisItem.CantonID.Value, LookUp(Ref_Cantons, ID = ThisItem.CantonID.Id, Titre), LookUp(Ref_Cantons, ID = ThisItem.CantonID0.Id, Titre), "-")
-                              Width: =Parent.TemplateWidth - 390
-                              X: =90
-                              Y: =25
-                        - IncLocationIcon_4:
-                            Control: Classic/Icon@2.5.0
-                            Properties:
-                              Color: =RGBA(8, 49, 120, 1)
-                              Height: =22
-                              Icon: =Icon.Location
-                              Width: =30.92
-                              X: =Parent.TemplateWidth - 310
-                              Y: =15
-                        - IncEtatText_4:
-                            Control: Label@2.5.1
-                            Properties:
-                              Align: =Align.Right
-                              Color: =RGBA(238, 32, 35, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Semibold
-                              Height: =39
-                              OnSelect: =Select(Parent)
-                              PaddingRight: =7.01
-                              PaddingTop: =7.01
-                              Size: =15.46
-                              Text: =Coalesce(ThisItem.Etat.Value, "En cours")
-                              Width: =260
-                              X: =Parent.TemplateWidth - 290
-                              Y: =10
-            - StartButton_5:
+                              AccessibleLabel: ="Liste des incidents et ruptures en cours"
+                              BorderColor: =RGBA(220, 224, 230, 1)
+                              Fill: =RGBA(248, 249, 251, 1)
+                              FillPortions: =1
+                              FocusedBorderThickness: =2
+                              Items: |-
+                                =Filter(
+                                    Tx_incidents_Ruptures,
+                                    IsBlank(Heure_Fin) ||
+                                    Etat.Value = "En cours" ||
+                                    IsBlank(Etat)
+                                )
+                              LayoutMinHeight: =98
+                              OnSelect: |-
+                                =Set(varOngletJournal, "Incidents");
+                                Set(varActionEnCours, "Modifier");
+                                Set(varIncidentToEdit, ThisItem);
+                                Set(varRecordToEdit, ThisItem);
+                                Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                              TemplateFill: =RGBA(255, 255, 255, 1)
+                              TemplatePadding: =6
+                              TemplateSize: =54
+                            Children:
+                              - IncStatusBar_5:
+                                  Control: Rectangle@2.3.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Fill: =RGBA(238, 32, 35, 1)
+                                    Height: =Parent.TemplateHeight - 8
+                                    OnSelect: =Select(Parent)
+                                    Width: =6.32
+                                    Y: =3
+                              - IncWorkIcon_5:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    Color: =RGBA(238, 32, 35, 1)
+                                    Height: =28
+                                    Icon: =Icon.Error
+                                    OnSelect: =Select(Parent)
+                                    Width: =25.31
+                                    X: =20
+                                    Y: =10
+                              - IncWorkTitle_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(25, 28, 38, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =28
+                                    OnSelect: =Select(Parent)
+                                    PaddingLeft: =0
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =10.85
+                                    Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "Incident")
+                                    Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
+                                    X: =64
+                                    Y: =3
+                              - IncCantonText_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =24
+                                    OnSelect: =Select(Parent)
+                                    PaddingLeft: =0
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =9.04
+                                    Text: |-
+                                      ="PK : " & Coalesce(ThisItem.PK, "-") & "  |  " & Coalesce(ThisItem.CantonID.Value, LookUp(Ref_Cantons, ID = ThisItem.CantonID.Id, Titre), LookUp(Ref_Cantons, ID = ThisItem.CantonID0.Id, Titre), "-")
+                                    Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
+                                    X: =64
+                                    Y: =25
+                              - IncLocationIcon_5:
+                                  Control: Classic/Icon@2.5.0
+                                  Properties:
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Height: =22
+                                    Icon: =Icon.Location
+                                    OnSelect: =Select(Parent)
+                                    Visible: =Parent.TemplateWidth >= 520
+                                    Width: =19.88
+                                    X: =Parent.TemplateWidth - 196
+                                    Y: =15
+                              - IncEtatText_5:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Right
+                                    Color: =RGBA(238, 32, 35, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =30
+                                    OnSelect: =Select(Parent)
+                                    PaddingRight: =4.51
+                                    PaddingTop: =4.51
+                                    Size: =9.94
+                                    Text: =Coalesce(ThisItem.Etat.Value, "En cours")
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Width: =If(Parent.TemplateWidth < 520, 112, 168)
+                                    X: =Parent.TemplateWidth - Self.Width - 8
+                                    Y: =12
+            - StartButton_6:
                 Control: Classic/Button@2.2.0
                 Properties:
                   BorderColor: =RGBA(255, 174, 0, 1)
                   BorderThickness: =1
                   Color: =RGBA(255, 255, 255, 1)
                   Fill: =RGBA(255, 174, 0, 1)
+                  FillPortions: =0
                   FocusedBorderThickness: =2
                   Font: =Font.'Segoe UI'
                   FontWeight: =FontWeight.Bold
                   Height: =51
                   HoverBorderColor: =RGBA(227, 143, 0, 1)
                   HoverFill: =RGBA(227, 143, 0, 1)
+                  LayoutMinHeight: =51
                   OnSelect: |-
                     =If(
                         IsBlank(varAgentPermanentID),
@@ -889,15 +962,11 @@ Screens:
                             )
                         )
                     )
-                  PaddingRight: =7.01
-                  PaddingTop: =7.01
+                  PaddingRight: =4.51
+                  PaddingTop: =4.51
                   RadiusBottomLeft: =25
                   RadiusBottomRight: =25
                   RadiusTopLeft: =25
                   RadiusTopRight: =25
-                  Size: =18.29
+                  Size: =11.76
                   Text: ="COMMENCER LE SERVICE    →"
-                  Width: =Min(Parent.Width - 48, 393.54)
-                  X: =0
-                  Y: =0
-      
