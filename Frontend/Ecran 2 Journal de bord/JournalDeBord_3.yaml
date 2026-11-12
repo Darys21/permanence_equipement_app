@@ -25,7 +25,7 @@ Screens:
             LayoutDirection: =LayoutDirection.Vertical
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutJustifyContent: =LayoutJustifyContent.Start
-            LayoutGap: =12
+            LayoutGap: =10
             PaddingTop: =12
             PaddingBottom: =12
             PaddingLeft: =If(App.Width < 760, 12, 24)
@@ -38,7 +38,7 @@ Screens:
                 Properties:
                   Fill: =RGBA(8, 49, 120, 1)
                   Height: =76
-                  Width: =1920
+                  Width: =Parent.Width
                 Children:
                   - LogoMark_25:
                       Control: Rectangle@2.3.0
@@ -80,7 +80,7 @@ Screens:
                         TabIndex: =0
                         Text: ="JOURNAL DE BORD OPÉRATIONNEL"
                         Width: =843.35
-                        X: =462
+                        X: =(Parent.Width - Self.Width) / 2
                   - SessionInfo_22:
                       Control: Label@2.5.1
                       Properties:
@@ -131,7 +131,7 @@ Screens:
                         Size: =12
                         Text: ="Changer d'agent"
                         Tooltip: ="Revenir à l'identification pour sélectionner un autre permanent"
-                        X: =1208
+                        X: =Parent.Width - Self.Width - 250
                         Y: =20
                   - HomeFromDashboard_22:
                       Control: Classic/Button@2.2.0
@@ -149,13 +149,17 @@ Screens:
                         Text: ="Retour à la prise de poste"
                         Tooltip: ="Retour à la prise de poste"
                         Width: =393.14
-                        X: =18.29
+                        X: =Parent.Width - Self.Width - 70
             - Tabs_22:
                 Control: GroupContainer@1.5.0
-                Variant: ManualLayout
+                Variant: AutoLayout
                 Properties:
+                  LayoutGap: =0
+                  LayoutJustifyContent: =LayoutJustifyContent.Start
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Horizontal
                   Height: =70
-                  Width: =1920
+                  Width: =Parent.Width
                   Y: =76
                 Children:
                   - TabTravaux_22:
@@ -167,7 +171,7 @@ Screens:
                         Fill: =If(varOngletJournal = "Travaux", RGBA(8, 49, 120, 1), RGBA(248, 249, 251, 1))
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
-                        Height: =62
+                        Height: =Parent.Height
                         OnSelect: |-
                           =Set(varOngletJournal, "Travaux");
                           Set(varAttemptedSave, false)
@@ -175,9 +179,9 @@ Screens:
                         PaddingTop: =7.01
                         Size: =19.68
                         Text: ="1. Chantiers & Travaux"
-                        Width: =531.3
-                        X: =28.11
-                        Y: =8
+                        Width: =Parent.Width / 3
+                        X: =0
+                        Y: =0
                   - TabIncidents_22:
                       Control: Classic/Button@2.2.0
                       Properties:
@@ -187,7 +191,7 @@ Screens:
                         Fill: =If(varOngletJournal = "Incidents", RGBA(8, 49, 120, 1), RGBA(248, 249, 251, 1))
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
-                        Height: =62
+                        Height: =Parent.Height
                         OnSelect: |-
                           =Set(varOngletJournal, "Incidents");
                           Set(varAttemptedSave, false)
@@ -195,9 +199,9 @@ Screens:
                         PaddingTop: =7.01
                         Size: =19.68
                         Text: ="2. Incidents & Ruptures"
-                        Width: =531.3
-                        X: =559.41
-                        Y: =8
+                        Width: =Parent.Width / 3
+                        X: =0
+                        Y: =0
                   - TabLTV_22:
                       Control: Classic/Button@2.2.0
                       Properties:
@@ -207,7 +211,7 @@ Screens:
                         Fill: =If(varOngletJournal = "LTV", RGBA(8, 49, 120, 1), RGBA(248, 249, 251, 1))
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
-                        Height: =62
+                        Height: =Parent.Height
                         OnSelect: |-
                           =Set(varOngletJournal, "LTV");
                           Set(varAttemptedSave, false)
@@ -215,27 +219,35 @@ Screens:
                         PaddingTop: =7.01
                         Size: =19.68
                         Text: ="3. LTV / RAL (Ralentissements)"
-                        Width: =531.3
-                        X: =1090.72
-                        Y: =8
+                        Width: =Parent.Width / 3
+                        X: =0
+                        Y: =0
             - Workspace_22:
                 Control: GroupContainer@1.5.0
-                Variant: ManualLayout
+                Variant: AutoLayout
                 Properties:
+                  FillPortions: =1
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  LayoutMinHeight: =700
+                  LayoutGap: =12
+                  LayoutJustifyContent: =LayoutJustifyContent.Start
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =If(App.Width < 1500, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                   Fill: =RGBA(248, 249, 251, 1)
-                  Height: =1054
-                  Width: =1920
+                  Height: =Parent.Height
+                  Width: =Parent.Width
                   Y: =146
                 Children:
                   - FormPanel_22:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
+                        FillPortions: =If(App.Width < 1500, 0, 55)
                         Fill: =RGBA(255, 255, 255, 1)
-                        Height: =1022
-                        Width: =1012.01
-                        X: =22.47
-                        Y: =21
+                        Height: =If(App.Width < 1500, 900, Parent.Height)
+                        Width: =If(App.Width < 1500, Parent.Width, Parent.Width * 0.55)
+                        X: =0
+                        Y: =0
                       Children:
                         - FormTitle_22:
                             Control: Label@2.5.1
@@ -2072,15 +2084,51 @@ Screens:
                               Width: =407.61
                               X: =489
                               Y: =305
+                        - EngagementTardif_5:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              PaddingRight: =7.01
+                              PaddingTop: =4.57
+                              Size: =10.4
+                              TabIndex: =0
+                              Text: ="Motif d'engagement tardif"
+                              Visible: =varOngletJournal = "Travaux"
+                              Width: =280
+                              X: =165
+                              Y: =Parent.Height - Self.Height - 8
+                        - DegagementTardif_5:
+                            Control: Label@2.5.1
+                            Properties:
+                              Align: =Align.Center
+                              FocusedBorderThickness: =2
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =22
+                              PaddingRight: =7.01
+                              PaddingTop: =4.57
+                              Size: =10.4
+                              TabIndex: =0
+                              Text: ="Motif de dégagement tardif"
+                              Visible: =varOngletJournal = "Travaux"
+                              Width: =280
+                              X: =571
+                              Y: =Parent.Height - Self.Height - 8
+
                   - JournalPanel_22:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
+                        FillPortions: =If(App.Width < 1500, 0, 45)
                         Fill: =RGBA(255, 255, 255, 1)
-                        Height: =977
-                        Width: =832.09
-                        X: =1052.77
-                        Y: =21
+                        Height: =If(App.Width < 1500, 850, Parent.Height)
+                        Width: =If(App.Width < 1500, Parent.Width, Parent.Width * 0.45)
+                        X: =0
+                        Y: =0
                       Children:
                         - JournalTitle_22:
                             Control: Label@2.5.1
@@ -2809,71 +2857,52 @@ Screens:
                                     Width: =35.14
                                     X: =632.5
                                     Y: =40
-            - ActionFeedback_22:
-                Control: Classic/Button@2.2.0
+            - Footer_22:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
                 Properties:
-                  BorderColor: =RGBA(8, 49, 120, 1)
-                  BorderThickness: =1
-                  Color: =RGBA(8, 49, 120, 1)
                   Fill: =RGBA(255, 255, 255, 1)
-                  FocusedBorderThickness: =2
-                  Font: =Font.'Segoe UI'
-                  Height: =36
-                  OnSelect: =Navigate(scrFeedback, ScreenTransition.Fade)
-                  PaddingRight: =7.01
-                  PaddingTop: =7.01
-                  Size: =16.52
-                  Text: ="NOUVEAU POINTAGE TERRAIN"
-                  Width: =337
-                  X: =81
-                  Y: =1140
-            - CloseShiftButton_22:
-                Control: Classic/Button@2.2.0
-                Properties:
-                  Fill: =RGBA(255, 174, 0, 1)
-                  FocusedBorderThickness: =2
-                  Font: =Font.'Segoe UI'
-                  FontWeight: =FontWeight.Bold
-                  Height: =48
-                  OnSelect: =Navigate(scrCloture_2, ScreenTransition.Fade)
-                  PaddingRight: =7.01
-                  PaddingTop: =7.01
-                  Size: =16.52
-                  Text: ="TERMINER LE POSTE & BILAN    →"
-                  Width: =347
-                  X: =1527
-                  Y: =1152
-            - EngagementTardif_5:
-                Control: Label@2.5.1
-                Properties:
-                  Align: =Align.Center
-                  FocusedBorderThickness: =2
-                  Font: =Font.'Segoe UI'
-                  FontWeight: =FontWeight.Semibold
-                  Height: =22
-                  PaddingRight: =7.01
-                  PaddingTop: =4.57
-                  Size: =10.4
-                  TabIndex: =0
-                  Text: ="Motif d'engagement tardif"
-                  Visible: =varOngletJournal = "Travaux"
-                  Width: =280
-                  X: =165
-                  Y: =1053
-            - DegagementTardif_5:
-                Control: Label@2.5.1
-                Properties:
-                  Align: =Align.Center
-                  FocusedBorderThickness: =2
-                  Font: =Font.'Segoe UI'
-                  FontWeight: =FontWeight.Semibold
-                  Height: =22
-                  PaddingRight: =7.01
-                  PaddingTop: =4.57
-                  Size: =10.4
-                  TabIndex: =0
-                  Text: ="Motif de dégagement tardif"
-                  Visible: =varOngletJournal = "Travaux"
-                  Width: =280
-                  X: =571
-                  Y: =1053
+                  Height: =56
+                  Width: =Parent.Width
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.End
+                  LayoutGap: =12
+                  PaddingLeft: =8
+                  PaddingRight: =8
+                  FillPortions: =0
+                Children:
+                  - ActionFeedback_22:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(8, 49, 120, 1)
+                        BorderThickness: =1
+                        Color: =RGBA(8, 49, 120, 1)
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        Height: =36
+                        OnSelect: =Navigate(scrFeedback, ScreenTransition.Fade)
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.52
+                        Text: ="NOUVEAU POINTAGE TERRAIN"
+                        Width: =337
+                        X: =81
+                        Y: =1140
+                  - CloseShiftButton_22:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        Fill: =RGBA(255, 174, 0, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =48
+                        OnSelect: =Navigate(scrCloture_2, ScreenTransition.Fade)
+                        PaddingRight: =7.01
+                        PaddingTop: =7.01
+                        Size: =16.52
+                        Text: ="TERMINER LE POSTE & BILAN    →"
+                        Width: =347
+                        X: =1527
+                        Y: =1152
