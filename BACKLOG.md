@@ -1,6 +1,6 @@
 # Backlog du projet — Permanence Équipement
 
-**Dernière consolidation : 11/11/2026**  
+**Dernière consolidation : 13/11/2026**  
 **Dépôt de référence :** `Darys21/permanence_equipement_app`  
 **Sources de synchronisation :** YAML Power Apps de `Darys21/PERMANENCE-EQUIPEMENT/pa_yaml_script`, retours des permanents et historique des corrections réalisées.
 
@@ -175,3 +175,51 @@
 - La succession est une suggestion/parcours à clarifier, pas un blocage arbitraire.
 - Une modification ne doit jamais créer un nouvel ID SharePoint.
 - Les écrans présents dans le YAML ne sont pas automatiquement considérés comme testés ni validés.
+
+
+---
+
+## 11. Mise à jour du suivi — 13/11/2026
+
+Cette section complète le backlog à partir des derniers échanges du projet. Les statuts historiques ci-dessus sont conservés ; les éléments ci-dessous précisent les dernières demandes et validations connues.
+
+### 11.1 Identification et connexion
+
+| ID | Action | Statut | Notes |
+|---|---|---|---|
+| AUTH-09 | Revoir visuellement la page de connexion/identification avec une interface plus moderne | Maquette réalisée | Une proposition graphique a été générée et appréciée. |
+| AUTH-10 | Fournir l'illustration de fond seule, sans le bloc de connexion | À faire | Conserver le visuel validé ; livrer une version exploitable comme image de fond Power Apps. |
+| AUTH-11 | Intégrer la nouvelle maquette dans Power Apps avec des contrôles natifs | À faire | Respecter les limites de mise en page et de composants Power Apps. |
+
+### 11.2 Prise de poste
+
+| ID | Action | Statut | Notes |
+|---|---|---|---|
+| POSTE-10 | Corriger le YAML de l'écran de prise de poste dans le fichier `PrisePoste_3.pa.yaml` | Terminé (import accepté) | Le YAML corrigé a été importé sans erreur selon le dernier retour. |
+| POSTE-11 | Vérifier le comportement fonctionnel de l'écran après import | À valider | L'acceptation du YAML ne prouve pas le bon fonctionnement des formules et des données. |
+
+### 11.3 Journal de bord
+
+| ID | Action | Statut | Notes |
+|---|---|---|---|
+| JOUR-24 | Reprendre la correction du YAML de l'écran Journal de bord | À confirmer | Une demande de correction a été formulée ; ne pas déclarer la correction livrée sans vérifier le commit et le fichier final dans le dépôt. |
+| JOUR-25 | Rejouer les scénarios CRUD après correction du YAML | À faire | Tester séparément Travaux, LTV et Incidents/Ruptures : création, modification, suppression et conservation de l'ID SharePoint. |
+| JOUR-26 | Valider spécifiquement la sauvegarde et la reprise des LTV | Bloquant / à corriger | Le dernier problème fonctionnel connu reste l'échec de sauvegarde et la reprise impossible d'un LTV. |
+
+### 11.4 Règles de mise à jour du backlog
+
+- Cocher ou passer une tâche à « Terminé (code) » uniquement lorsqu'une modification est effectivement présente dans le dépôt.
+- Passer une tâche à « À valider » lorsque le code est modifié mais que le scénario Power Apps/SharePoint n'a pas été testé.
+- Conserver « Bloquant » tant qu'un défaut reproductible empêche le parcours métier.
+- Ajouter une note de test (scénario, résultat, date) lors de chaque validation.
+- Ne pas assimiler un YAML importé sans erreur à une fonctionnalité métier validée.
+- Lorsqu'une demande est corrigée, mettre à jour la ligne existante plutôt que créer un doublon ; conserver les identifiants historiques.
+
+### 11.5 Prochaine séquence de travail
+
+1. Confirmer la version du YAML Journal de bord présente dans le dépôt.
+2. Corriger et tester la création, la modification et la reprise des LTV.
+3. Vérifier que les modifications Travaux conservent leur ID SharePoint.
+4. Exécuter les tests CRUD des incidents et ruptures.
+5. Tester le parcours complet identification → prise de poste → journal → clôture.
+6. Préparer l'image de fond seule et intégrer la nouvelle interface de connexion.
