@@ -1,13 +1,15 @@
 Screens:
   scrIdentificationAgent:
     Properties:
+      BackgroundImage: ='Bannière ferroviaire corporate Setrag'
       Fill: =RGBA(248, 249, 251, 1)
+      ImagePosition: =ImagePosition.Stretch
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
       OnVisible: |-
         =Refresh(Ref_Permanents);
         Set(varIDShowError, false);
         Set(varAgentAuthentifie, Blank());
-        Reset(PinInput_ID_5);
+        Reset(PinInput_ID_7);
         If(
             !IsBlank(varAgentPermanent),
             Set(
@@ -20,42 +22,41 @@ Screens:
             Set(varAgentPreselect, Blank())
         )
     Children:
-      - conRoot_ID:
+      - BgImage_ID:
+          Control: Image@2.2.3
+          Properties:
+            AccessibleLabel: ="Fond Transgabonais"
+            BorderStyle: =BorderStyle.None
+            Height: =App.Height
+            Image: =Fond_Identification
+            ImagePosition: =ImagePosition.Fill
+            Visible: =App.Width >= 760
+            Width: =App.Width
+      - conRoot_ID_1:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
             Height: =App.Height
-            Width: =App.Width
-            X: =0
-            Y: =0
-            Fill: =RGBA(248, 249, 251, 1)
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Vertical
-            LayoutGap: =0
-            LayoutJustifyContent: =LayoutJustifyContent.Start
-            LayoutMinHeight: =16
-            LayoutMinWidth: =16
+            Width: =App.Width
           Children:
-            - Header_ID_6:
+            - Header_ID_8:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
-                  Fill: =RGBA(8, 49, 120, 1)
+                  Fill: =If(App.Width < 760, RGBA(8, 49, 120, 1), RGBA(0, 0, 0, 0))
                   FillPortions: =0
-                  Height: =If(App.Width < 600, 68, 90)
-                  Width: =Parent.Width
+                  Height: |-
+                    =If(App.Width < 760, 68, With({_s: Max(App.Width / 1672, App.Height / 941)}, Max(56, 110 * _s - Max(0, (941 * _s - App.Height) / 2))))
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Horizontal
-                  LayoutGap: =16
-                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
-                  LayoutMinHeight: =60
-                  LayoutMinWidth: =16
-                  PaddingBottom: =8
-                  PaddingLeft: =If(App.Width < 600, 12, 24)
-                  PaddingRight: =If(App.Width < 600, 12, 24)
-                  PaddingTop: =8
+                  LayoutGap: =12
+                  LayoutMinHeight: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
                 Children:
-                  - Image2:
+                  - Image2_4:
                       Control: Image@2.2.3
                       Properties:
                         BorderColor: =RGBA(0, 0, 0, 0)
@@ -64,46 +65,37 @@ Screens:
                         DisabledBorderColor: =RGBA(0, 0, 0, 0)
                         DisabledFill: =RGBA(0, 0, 0, 0)
                         FocusedBorderThickness: =4
-                        Height: =If(App.Width < 600, 48, 72)
+                        Height: =48
                         Image: ='id-uWjB6m6_logos'
-                        ImagePosition: =ImagePosition.Fit
-                        LayoutMinHeight: =40
-                        LayoutMinWidth: =72
-                        Width: =If(App.Width < 600, 150, 240)
-                  - ScreenTitle_ID_6:
+                        Visible: =App.Width < 760
+                        Width: =120
+                  - ScreenTitle_ID_8:
                       Control: Label@2.5.1
                       Properties:
-                        Align: =Align.Center
                         Color: =RGBA(255, 255, 255, 1)
                         FillPortions: =1
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
-                        Height: =Parent.Height
-                        LayoutMinHeight: =40
-                        LayoutMinWidth: =100
-                        Size: =If(App.Width < 600, 16, If(App.Width < 900, 20, 26))
+                        Height: =48
+                        LayoutMinWidth: =0
+                        Size: =14
                         Text: ="IDENTIFICATION AGENT"
-                        Width: =Parent.Width
-            - conMain_ID:
+                        Visible: =App.Width < 760
+            - conMain_ID_1:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
-                  Fill: =RGBA(248, 249, 251, 1)
-                  FillPortions: =1
-                  Height: =Parent.Height - Header_ID_6.Height
-                  Width: =Parent.Width
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =If(App.Width < 760, LayoutDirection.Vertical, LayoutDirection.Horizontal)
-                  LayoutGap: =If(App.Width < 760, 8, 24)
-                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutGap: =If(App.Width < 760, 0, 24)
                   LayoutMinHeight: =16
                   LayoutMinWidth: =16
-                  PaddingBottom: =If(App.Width < 600, 12, 24)
-                  PaddingLeft: =If(App.Width < 600, 12, 24)
-                  PaddingRight: =If(App.Width < 600, 12, 24)
-                  PaddingTop: =If(App.Width < 600, 12, 24)
+                  PaddingBottom: =If(App.Width < 760, 0, 24)
+                  PaddingLeft: =If(App.Width < 760, 0, 32)
+                  PaddingRight: =If(App.Width < 760, 0, 32)
+                  PaddingTop: =If(App.Width < 760, 0, 16)
                 Children:
-                  - Image1:
+                  - Image1_2:
                       Control: Image@2.2.3
                       Properties:
                         BorderColor: =RGBA(0, 48, 84, 1)
@@ -112,8 +104,7 @@ Screens:
                         DisabledBorderColor: =RGBA(0, 0, 0, 0)
                         DisabledFill: =RGBA(0, 0, 0, 0)
                         FocusedBorderThickness: =4
-                        FillPortions: =If(App.Width < 760, 0, 1)
-                        Height: =If(App.Width < 760, 0, Parent.Height)
+                        Height: =150
                         HoverBorderColor: =RGBA(0, 0, 0, 0)
                         HoverFill: =RGBA(0, 0, 0, 0)
                         Image: =Transgabonais_LUnion
@@ -122,215 +113,332 @@ Screens:
                         LayoutMinWidth: =0
                         PressedBorderColor: =RGBA(0, 0, 0, 0)
                         PressedFill: =RGBA(0, 0, 0, 0)
-                        Visible: =App.Width >= 760
-                        Width: =Parent.Width
-                  - Card_ID_6:
+                        Visible: =App.Width < 760
+                  - LeftPane_ID:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
-                        Fill: =RGBA(255, 255, 255, 1)
-                        FillPortions: =If(App.Width < 760, 1, 1)
-                        Height: =Parent.Height
-                        Width: =If(App.Width < 760, Parent.Width, Parent.Width * 0.48)
+                        AlignInContainer: =AlignInContainer.SetByContainer
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGap: =If(App.Width < 600, 10, 14)
-                        LayoutJustifyContent: =LayoutJustifyContent.Center
-                        LayoutMinHeight: =400
-                        LayoutMinWidth: =280
-                        PaddingBottom: =If(App.Width < 600, 16, 32)
-                        PaddingLeft: =If(App.Width < 600, 16, 40)
-                        PaddingRight: =If(App.Width < 600, 16, 40)
-                        PaddingTop: =If(App.Width < 600, 16, 32)
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                        LayoutMinWidth: =0
+                        PaddingBottom: =40
+                        PaddingLeft: =16
+                        Visible: =App.Width >= 760
                       Children:
-                        - Image2_1:
-                            Control: Image@2.2.3
-                            Properties:
-                              BorderColor: =RGBA(0, 0, 0, 0)
-                              BorderStyle: =BorderStyle.None
-                              BorderThickness: =2
-                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
-                              DisabledFill: =RGBA(0, 0, 0, 0)
-                              FocusedBorderThickness: =4
-                              Height: =If(App.Width < 600, 48, 64)
-                              Image: ='id-uWjB6m6_logos'
-                              ImagePosition: =ImagePosition.Fit
-                              LayoutMinHeight: =40
-                              LayoutMinWidth: =100
-                              Width: =Parent.Width
-                        - CardTitle_ID_6:
+                        - Tagline1_ID:
                             Control: Label@2.5.1
                             Properties:
-                              Color: =RGBA(8, 49, 120, 1)
+                              Color: =RGBA(255, 255, 255, 1)
+                              Font: =Font.'Segoe UI'
+                              Height: =If(App.Width < 1000, 56, 84)
+                              Italic: =true
+                              Size: =If(App.Width < 1000, 20, 30)
+                              Text: ="Ensemble pour une exploitation"
+                        - Tagline2_ID:
+                            Control: Label@2.5.1
+                            Properties:
+                              Color: =RGBA(255, 174, 0, 1)
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
-                              Height: =36
-                              LayoutMinHeight: =32
-                              LayoutMinWidth: =100
-                              Size: =If(App.Width < 600, 18, 22)
-                              Text: ="Permanence Équipement"
-                              Width: =Parent.Width
-                        - CardRule_ID_6:
-                            Control: Rectangle@2.3.0
+                              Height: =If(App.Width < 1000, 32, 44)
+                              Italic: =true
+                              Size: =If(App.Width < 1000, 20, 30)
+                              Text: ="sûre et performante"
+                        - TagRuleRow_ID:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
                             Properties:
-                              Fill: =RGBA(255, 174, 0, 1)
-                              Height: =3
-                              LayoutMinHeight: =3
-                              LayoutMinWidth: =16
-                              Width: =Parent.Width
-                        - CardHint_ID_6:
-                            Control: Label@2.5.1
+                              FillPortions: =0
+                              Height: =4
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMinHeight: =4
+                            Children:
+                              - TagRule_ID:
+                                  Control: Rectangle@2.3.0
+                                  Properties:
+                                    Fill: =RGBA(255, 174, 0, 1)
+                                    Height: =4
+                                    LayoutMinWidth: =200
+                                    Width: =200
+                  - RightPane_ID:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        FillPortions: =If(App.Width < 760, 1, 0)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinWidth: =300
+                        Width: =If(App.Width < 760, Parent.Width, Max(340, Min(560, App.Width * 0.42)))
+                      Children:
+                        - Card_ID_8:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
                             Properties:
-                              Color: =RGBA(83, 87, 99, 1)
-                              Font: =Font.'Segoe UI'
-                              Height: =If(App.Width < 600, 64, 50)
-                              LayoutMinHeight: =48
-                              LayoutMinWidth: =100
-                              Size: =If(App.Width < 600, 12, 15)
-                              Text: ="Sélectionnez votre nom et saisissez votre code PIN personnel pour accéder à la permanence."
-                              Width: =Parent.Width
-                        - AgentLabel_ID_6:
-                            Control: Label@2.5.1
-                            Properties:
-                              Color: =RGBA(8, 49, 120, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Semibold
-                              Height: =28
-                              LayoutMinHeight: =24
-                              LayoutMinWidth: =100
-                              Size: =14
-                              Text: ="Agent de permanence"
-                              Width: =Parent.Width
-                        - AgentCombo_ID_6:
-                            Control: Classic/ComboBox@2.4.0
-                            Properties:
-                              AccessibleLabel: ="Sélectionner votre nom"
-                              BorderColor: =RGBA(180, 185, 195, 1)
-                              DefaultSelectedItems: =varAgentPreselect
-                              DisplayFields: =["Title"]
-                              InputTextPlaceholder: ="Choisir votre nom..."
-                              Items: |+
-                                =SortByColumns(
-                                    Ref_Permanents,
-                                    "Title",
-                                    SortOrder.Ascending
-                                )
-                              SearchFields: =["CodePIN"]
-                              SelectMultiple: =false
-                              Size: =If(App.Width < 600, 14, 18)
-                              LayoutMinHeight: =44
-                              LayoutMinWidth: =100
-                              Width: =Parent.Width
-                        - PinLabel_ID_5:
-                            Control: Label@2.5.1
-                            Properties:
-                              Color: =RGBA(8, 49, 120, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Semibold
-                              Height: =28
-                              LayoutMinHeight: =24
-                              LayoutMinWidth: =100
-                              Size: =14
-                              Text: ="Code PIN personnel"
-                              Width: =Parent.Width
-                        - PinInput_ID_5:
-                            Control: Classic/TextInput@2.3.2
-                            Properties:
-                              AccessibleLabel: ="Saisir votre code PIN personnel"
-                              BorderColor: =RGBA(180, 185, 195, 1)
-                              Default: =""
-                              HintText: ="Saisir votre code PIN..."
-                              MaxLength: =4
-                              Mode: =TextMode.Password
-                              Size: =If(App.Width < 600, 14, 18)
-                              LayoutMinHeight: =44
-                              LayoutMinWidth: =100
-                              Width: =Parent.Width
-                        - ErrorLabel_ID_6:
-                            Control: Label@2.5.1
-                            Properties:
-                              Color: =RGBA(238, 32, 35, 1)
-                              Font: =Font.'Segoe UI'
-                              Height: =If(varIDShowError, 35, 0)
-                              LayoutMinHeight: =0
-                              LayoutMinWidth: =100
-                              Size: =12
-                              Text: ="Nom ou code PIN incorrect. Vérifiez vos informations."
-                              Visible: =varIDShowError
-                              Width: =Parent.Width
-                        - BtnValider_ID_6:
-                            Control: Classic/Button@2.2.0
-                            Properties:
-                              Fill: =RGBA(255, 174, 0, 1)
-                              Font: =Font.'Segoe UI'
-                              FontWeight: =FontWeight.Bold
-                              Height: =52
-                              LayoutMinHeight: =48
-                              LayoutMinWidth: =100
-                              OnSelect: |-
-                                =Set(varIDShowError, false);
-                                If(
-                                    IsBlank(AgentCombo_ID_6.Selected.ID) ||
-                                    IsBlank(Trim(PinInput_ID_5.Text)),
-                                    Set(varIDShowError, true),
-                                    Set(
-                                        varAgentAuthentifie,
-                                        LookUp(
-                                            Ref_Permanents,
-                                            ID = AgentCombo_ID_6.Selected.ID &&
-                                            CodePIN = Trim(PinInput_ID_5.Text)
-                                        )
-                                    );
-                                    If(
-                                        IsBlank(varAgentAuthentifie.ID),
-                                        Set(varIDShowError, true),
-                                        UpdateIf(
-                                            Ref_Permanents,
-                                            'Actif '.Value = "Oui" &&
-                                            ID <> varAgentAuthentifie.ID,
-                                            {'Actif ': {Value: "Non"}}
-                                        );
-                                        Set(
-                                            varAgentPermanent,
-                                            Patch(
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =If(App.Width < 760, 1, 0)
+                              Height: =If(App.Width < 760, Parent.Height, Min(Parent.Height, 600))
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =If(App.Width < 600, 8, 10)
+                              LayoutJustifyContent: =LayoutJustifyContent.Center
+                              LayoutMinHeight: =400
+                              LayoutMinWidth: =280
+                              LayoutOverflowY: =LayoutOverflow.Scroll
+                              PaddingBottom: =If(App.Width < 600, 16, 24)
+                              PaddingLeft: =If(App.Width < 600, 16, 40)
+                              PaddingRight: =If(App.Width < 600, 16, 40)
+                              PaddingTop: =If(App.Width < 600, 16, 20)
+                              RadiusBottomLeft: =If(App.Width < 760, 0, 16)
+                              RadiusBottomRight: =If(App.Width < 760, 0, 16)
+                              RadiusTopLeft: =If(App.Width < 760, 0, 16)
+                              RadiusTopRight: =If(App.Width < 760, 0, 16)
+                            Children:
+                              - Image2_5:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =If(App.Width < 600, 48, 60)
+                                    Image: ='id-uWjB6m6_logos'
+                              - CardTitle_ID_8:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =If(App.Width < 760, 40, 48)
+                                    Size: =If(App.Width < 760, 26, 34)
+                                    Text: ="Bienvenue"
+                              - CardHint_ID_8:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(83, 87, 99, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =If(App.Width < 600, 64, 56)
+                                    Size: =14
+                                    Text: ="Identifiez-vous pour accéder à l'application Permanence Équipement."
+                              - RuleRow_ID:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =4
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
+                                    LayoutMinHeight: =4
+                                  Children:
+                                    - CardRule_ID_8:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          Fill: =RGBA(255, 174, 0, 1)
+                                          Height: =4
+                                          LayoutMinWidth: =70
+                                          Width: =70
+                              - AgentLabel_ID_8:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =24
+                                    Text: ="Agent de permanence"
+                              - AgentField_ID:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                  Children:
+                                    - AgentCombo_ID_8:
+                                        Control: Classic/ComboBox@2.4.0
+                                        Properties:
+                                          AccessibleLabel: ="Sélectionner votre nom"
+                                          BorderColor: =RGBA(180, 185, 195, 1)
+                                          ChevronBackground: =RGBA(8, 49, 120, 1)
+                                          ChevronFill: =RGBA(255, 255, 255, 1)
+                                          ChevronHoverBackground: =RGBA(5, 36, 92, 1)
+                                          ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                                          DefaultSelectedItems: =varAgentPreselect
+                                          DisplayFields: =["Title"]
+                                          Height: =Parent.Height
+                                          InputTextPlaceholder: ="Choisir votre nom..."
+                                          Items: |
+                                            =SortByColumns(
                                                 Ref_Permanents,
-                                                LookUp(
-                                                    Ref_Permanents,
-                                                    ID = varAgentAuthentifie.ID
-                                                ),
-                                                {'Actif ': {Value: "Oui"}}
+                                                "Title",
+                                                SortOrder.Ascending
                                             )
-                                        );
-                                        Set(
-                                            varAgentPermanentNom,
-                                            varAgentPermanent.Titre
-                                        );
-                                        Set(
-                                            varAgentPermanentID,
-                                            varAgentPermanent.ID
-                                        );
-                                        Set(varIDShowError, false);
-                                        Reset(PinInput_ID_5);
-                                        Refresh(Ref_Permanents);
-                                        Navigate(
-                                            PrisePoste_2,
-                                            ScreenTransition.Fade
-                                        )
-                                    )
-                                )
-                              Size: =If(App.Width < 600, 13, 17)
-                              Text: ="VALIDER ET PRENDRE LE POSTE"
-                              Width: =Parent.Width
-                        - SessionHint_ID_6:
-                            Control: Label@2.5.1
-                            Properties:
-                              Align: =Align.Center
-                              Color: =RGBA(140, 145, 155, 1)
-                              Font: =Font.'Segoe UI'
-                              Height: =30
-                              LayoutMinHeight: =24
-                              LayoutMinWidth: =100
-                              Size: =11
-                              Text: |-
-                                ="Session technique : " & User().Email
-                              Width: =Parent.Width
+                                          PaddingLeft: =44
+                                          SearchFields: =["CodePIN"]
+                                          SelectMultiple: =false
+                                          Size: =15
+                                          Width: =Parent.Width
+                                    - AgentIcon_ID:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          AccessibleLabel: ="Icône"
+                                          Color: =RGBA(8, 49, 120, 1)
+                                          Height: =24
+                                          Icon: =Icon.Person
+                                          OnSelect: =Select(AgentCombo_ID_8)
+                                          Width: =24
+                                          X: =12
+                                          Y: =12
+                              - PinLabel_ID_7:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =24
+                                    Text: ="Code PIN personnel"
+                              - PinField_ID:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                  Children:
+                                    - PinInput_ID_7:
+                                        Control: Classic/TextInput@2.3.2
+                                        Properties:
+                                          AccessibleLabel: ="Saisir votre code PIN personnel"
+                                          BorderColor: =RGBA(180, 185, 195, 1)
+                                          Default: =""
+                                          Height: =Parent.Height
+                                          HintText: ="Saisir votre code PIN..."
+                                          MaxLength: =4
+                                          Mode: =TextMode.Password
+                                          PaddingLeft: =44
+                                          Size: =15
+                                          Width: =Parent.Width
+                                    - PinIcon_ID:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          AccessibleLabel: ="Icône"
+                                          Color: =RGBA(8, 49, 120, 1)
+                                          Height: =24
+                                          Icon: =Icon.Lock
+                                          OnSelect: =Select(PinInput_ID_7)
+                                          Width: =24
+                                          X: =12
+                                          Y: =12
+                              - ErrorLabel_ID_8:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(238, 32, 35, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =If(varIDShowError, 32, 0)
+                                    LayoutMinHeight: =0
+                                    Size: =12
+                                    Text: ="Nom ou code PIN incorrect. Vérifiez vos informations."
+                                    Visible: =varIDShowError
+                              - BtnValider_ID_8:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Fill: =RGBA(255, 174, 0, 1)
+                                    Font: =Font.'Segoe UI'
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =52
+                                    HoverFill: =RGBA(255, 196, 43, 1)
+                                    LayoutMinHeight: =48
+                                    OnSelect: |-
+                                      =Set(varIDShowError, false);
+
+                                      // 1. Validation des champs obligatoires
+                                      If(
+                                          IsBlank(AgentCombo_ID_8.Selected.ID) ||
+                                          IsBlank(Trim(PinInput_ID_7.Text)),
+
+                                          Set(varIDShowError, true),
+
+                                          // 2. Recherche de l'agent
+                                          Set(
+                                              varAgentAuthentifie,
+                                              LookUp(
+                                                  Ref_Permanents,
+                                                  ID = AgentCombo_ID_8.Selected.ID
+                                              )
+                                          );
+
+                                          // 3. Vérification de l'existence et du PIN
+                                          If(
+                                              IsBlank(varAgentAuthentifie) ||
+                                              varAgentAuthentifie.CodePIN <> Trim(PinInput_ID_7.Text),
+
+                                              Set(varIDShowError, true),
+
+                                              // 4. Désactivation des autres agents actifs
+                                              UpdateIf(
+                                                  Ref_Permanents,
+                                                  'Actif '.Value = "Oui" &&
+                                                  ID <> varAgentAuthentifie.ID,
+                                                  {'Actif ': {Value: "Non"}}
+                                              );
+
+                                              // 5. Activation de l'agent authentifié
+                                              Set(
+                                                  varAgentPermanent,
+                                                  Patch(
+                                                      Ref_Permanents,
+                                                      varAgentAuthentifie,
+                                                      {'Actif ': {Value: "Oui"}}
+                                                  )
+                                              );
+
+                                              // 6. Mise à jour des variables globales
+                                              Set(varAgentPermanentNom, varAgentPermanent.Titre);
+                                              Set(varAgentPermanentID, varAgentPermanent.ID);
+
+                                              // 7. Nettoyage et navigation
+                                              Reset(PinInput_ID_7);
+                                              Navigate(
+                                                  PrisePoste_2,
+                                                  ScreenTransition.Fade
+                                              )
+                                          )
+                                      )
+                                    RadiusBottomLeft: =12
+                                    RadiusBottomRight: =12
+                                    RadiusTopLeft: =12
+                                    RadiusTopRight: =12
+                                    Size: =14
+                                    Text: ="VALIDER ET PRENDRE LE POSTE"
+                              - AssistHint_ID:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(8, 49, 120, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =26
+                                    Italic: =true
+                                    Size: =10
+                                    Text: ="Besoin d'assistance ? Contactez votre référent du bureau methode DMI"
+                              - SessionHint_ID_8:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    Align: =Align.Center
+                                    Color: =RGBA(140, 145, 155, 1)
+                                    Font: =Font.'Segoe UI'
+                                    Height: =24
+                                    Size: =10
+                                    Text: |-
+                                      ="Session technique : " & User().Email
