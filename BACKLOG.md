@@ -223,3 +223,14 @@ Cette section complète le backlog à partir des derniers échanges du projet. L
 4. Exécuter les tests CRUD des incidents et ruptures.
 5. Tester le parcours complet identification → prise de poste → journal → clôture.
 6. Préparer l'image de fond seule et intégrer la nouvelle interface de connexion.
+
+
+## 11. Standard de développement `.pa.yaml` adopté — 16/11/2026
+
+Le workflow contraint est désormais documenté dans [`docs/PA_YAML_WORKFLOW.md`](docs/PA_YAML_WORKFLOW.md).
+
+À appliquer à toute intervention YAML : découverte du périmètre et des dépendances, plan par écran, vérification des contrôles/propriétés, génération minimale, audit statique, validation YAML/import/compilation, QA visuelle et fonctionnelle, contrôle SharePoint, puis compte rendu avec preuves.
+
+**Limite d'outillage constatée :** les outils `list_controls`, `describe_control`, `compile_canvas` et les QAChecks Canvas ne sont pas exposés dans la session connectée. Ne jamais prétendre les avoir exécutés. Tant qu'ils ne sont pas disponibles, vérifier les contrôles à partir du YAML existant et de Power Apps Studio, et signaler les validations qui restent manuelles.
+
+**Prochaine application :** reprendre `JournalDeBord_3.pa.yaml` depuis sa source de vérité, cartographier les opérations CRUD, puis traiter en priorité la sauvegarde/reprise LTV et la modification Travaux avec conservation de l'ID. Aucun statut du backlog métier n'est automatiquement changé par l'adoption de ce workflow.
