@@ -1135,8 +1135,7 @@ Screens:
                   FontWeight: =FontWeight.Bold
                   Height: =48
                   OnSelect: |-
-                    =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
-                    Set(
+                    =Set(
                         varPermanentAutoriseDeverrouillage,
                         LookUp(
                             Ref_Permanents,
