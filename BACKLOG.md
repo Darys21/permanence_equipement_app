@@ -234,3 +234,24 @@ Le workflow contraint est désormais documenté dans [`docs/PA_YAML_WORKFLOW.md`
 **Limite d'outillage constatée :** les outils `list_controls`, `describe_control`, `compile_canvas` et les QAChecks Canvas ne sont pas exposés dans la session connectée. Ne jamais prétendre les avoir exécutés. Tant qu'ils ne sont pas disponibles, vérifier les contrôles à partir du YAML existant et de Power Apps Studio, et signaler les validations qui restent manuelles.
 
 **Prochaine application :** reprendre `JournalDeBord_3.pa.yaml` depuis sa source de vérité, cartographier les opérations CRUD, puis traiter en priorité la sauvegarde/reprise LTV et la modification Travaux avec conservation de l'ID. Aucun statut du backlog métier n'est automatiquement changé par l'adoption de ce workflow.
+
+
+## 12. Audit P0 — versions actives confirmées et première correction — 16/11/2026
+
+Versions confirmées par l'utilisateur dans Power Apps Studio :
+- Prise de poste : `PrisePoste_2`.
+- Journal de bord : `JournalDeBord_3`.
+
+### P0.1 — Cohérence des noms d'écrans
+
+Audit des cinq fichiers présents dans `Darys21/PERMANENCE-EQUIPEMENT/pa_yaml_script` : les navigations observées ciblent `JournalDeBord_3`, `PrisePoste_2`, `scrIdentificationAgent`, `scrFeedback` et `scrCloture_2`. Aucune référence à `JournalDeBord_4` n'a été trouvée dans ces sources. Les noms de navigation du dépôt sont donc cohérents avec les versions actives confirmées ; aucune renommage n'a été effectué. À recontrôler dans l'application complète si d'autres fichiers/sources existent hors de ce dépôt.
+
+### P0.2 — Diagnostic création / modification / reprise LTV
+
+Le YAML contient un chemin de création/modification via `Patch(Tx_LTV, LookUp(...), ...)` ou `Defaults(Tx_LTV)`, ainsi que des champs Lookup/Choice. Le code seul ne permet pas d'identifier la cause de l'échec. Le diagnostic reste ouvert dans l'attente du message exact affiché au clic sur « ENREGISTRER LTV » et du schéma réel de `Tx_LTV` (noms internes et types, notamment colonnes avec espaces finaux). La chaîne `Imposée (Active)` n'est pas présente dans le fichier audité ; les filtres utilisent `Imposée` et `Supprimée`.
+
+### P0.3 — Préserver le Title lors de la modification LTV
+
+Correction appliquée dans `pa_yaml_script/JournalDeBord_3.yaml` : lors d'une modification, `Title` reprend désormais `varLtvToEdit.Title` (avec valeur de repli uniquement si le titre existant est vide). À la création, le titre généré reste inchangé. Commit source : `df6c1494d62b256ff74c1ab4f798b9f0cff0ab8b`.
+
+**Statut :** correction présente dans le dépôt source ; import Power Apps Studio et test de modification LTV encore à effectuer. Aucun statut fonctionnel n'est déclaré terminé.
