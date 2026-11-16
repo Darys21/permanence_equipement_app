@@ -162,17 +162,18 @@ Screens:
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =34
-                        LayoutMinWidth: =If(App.Width < 760, 84, 104)
+                        AccessibleLabel: ="Verrouiller le poste"
+                        LayoutMinWidth: =40
                         OnSelect: |-
                           =Set(varSessionVerrouillee, true);
                           Set(varLockSource, "Manuel");
                           Set(LockPinInvalid_FB, false);
                           Reset(LockPin_FB)
-                        Size: =If(App.Width < 760, 9, 11)
-                        Text: =If(App.Width < 760, "VERROUILLER", "VERROUILLER LE POSTE")
+                        Size: =16
+                        Text: ="🔒"
                         Tooltip: ="Verrouiller la session sans la fermer"
                         Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
-                        Width: =If(App.Width < 760, 84, 112)
+                        Width: =40
             - FeedbackWorkspace_4:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
