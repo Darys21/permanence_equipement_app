@@ -171,7 +171,7 @@
 ## 10. Décisions à ne pas perdre
 
 - P1, P2 et P3 sont conservés dans la version actuelle ; ne pas supprimer P3 sur la base des notes historiques du 05/10.
-- Le deuxième permanent est facultatif.
+- Le deuxième permanent est obligatoire les mardis et vendredis (journées de grands travaux) ; il reste facultatif les autres jours.
 - La succession est une suggestion/parcours à clarifier, pas un blocage arbitraire.
 - Une modification ne doit jamais créer un nouvel ID SharePoint.
 - Les écrans présents dans le YAML ne sont pas automatiquement considérés comme testés ni validés.
@@ -270,15 +270,15 @@ Correction appliquée dans `pa_yaml_script/JournalDeBord_3.yaml` : lors d'une mo
 | ID | Action | Statut | Vérification |
 |---|---|---|---|
 | AUTH-12 | Identifier l'agent par son nom et son code PIN personnel | Présent dans le code / test à confirmer | `scrIdentificationAgent` contient une sélection d'agent, un champ PIN masqué et une vérification du PIN dans `Ref_Permanents`. |
-| AUTH-13 | Permettre à l'utilisateur de verrouiller son poste avec son mot de passe/PIN, puis de reprendre sa session | À faire | Aucun mécanisme de verrouillage/déverrouillage de session n'a été repéré dans les écrans actifs audités. Le bouton « Changer d'agent » revient à l'identification et remet l'agent actif à Non ; ce n'est pas un verrouillage temporaire. |
-| AUTH-14 | Définir les règles de sécurité de session (expiration, déverrouillage, protection contre les modifications par un autre agent) | Décision métier prise / conception à faire | Option B validée le 16/11/2026 : le permanent initial ou le deuxième permanent déclaré peut déverrouiller le poste. Le verrouillage ne doit pas modifier le statut Actif, ni perdre le poste ou les données en cours. Définir les contrôles d'identité, les états de session et les cas d'erreur avant implémentation. |
+| AUTH-13 | Permettre à l'utilisateur de verrouiller son poste avec son mot de passe/PIN, puis de reprendre sa session | Implémenté dans la branche / à valider | Aucun mécanisme de verrouillage/déverrouillage de session n'a été repéré dans les écrans actifs audités. Le bouton « Changer d'agent » revient à l'identification et remet l'agent actif à Non ; ce n'est pas un verrouillage temporaire. |
+| AUTH-14 | Définir les règles de sécurité de session (expiration, déverrouillage, protection contre les modifications par un autre agent) | Règle de déverrouillage codée / à valider | Option B validée le 16/11/2026 : le permanent initial ou le deuxième permanent déclaré peut déverrouiller le poste. Le verrouillage ne doit pas modifier le statut Actif, ni perdre le poste ou les données en cours. Définir les contrôles d'identité, les états de session et les cas d'erreur avant implémentation. |
 
 ### 13.3 Poste pluri-personnel — deux permanents en activité
 
 | ID | Action | Statut | Vérification |
 |---|---|---|---|
-| POSTE-12 | Ajouter un menu déroulant pour sélectionner un deuxième permanent sur un même poste | À faire | `PrisePoste_2` affiche le permanent connecté et permet de choisir P1/P2/P3 ; aucun second sélecteur de permanent n'a été repéré dans le YAML audité. |
-| POSTE-13 | Exiger deux permanents actifs pour les journées de grands travaux | À faire | La validation actuelle vérifie l'identité du premier permanent et le choix du poste, mais aucun contrôle n'impose deux permanents pour un cas « grands travaux ». |
+| POSTE-12 | Ajouter un menu déroulant pour sélectionner un deuxième permanent sur un même poste | Implémenté dans la branche / à valider | `PrisePoste_2` affiche le permanent connecté et permet de choisir P1/P2/P3 ; aucun second sélecteur de permanent n'a été repéré dans le YAML audité. |
+| POSTE-13 | Exiger deux permanents actifs pour les journées de grands travaux | Implémenté dans la branche / à valider | La validation actuelle vérifie l'identité du premier permanent et le choix du poste, mais aucun contrôle n'impose deux permanents pour un cas « grands travaux ». |
 | POSTE-14 | Définir les règles de présence du deuxième permanent selon le type de journée/poste | À cadrer | Confirmer si le deuxième permanent est obligatoire uniquement pour les journées de grands travaux ou également dans d'autres situations. |
 
 ### 13.4 Anomalie d'affichage LTV non bloquante
@@ -295,3 +295,22 @@ Correction appliquée dans `pa_yaml_script/JournalDeBord_3.yaml` : lors d'une mo
 - **À faire :** image métier en arrière-plan ; verrouillage/déverrouillage temporaire par PIN ; sélection d'un deuxième permanent ; règle conditionnelle imposant deux permanents pour les journées de grands travaux.
 - **Anomalie non bloquante :** erreur de conversion du compteur LTV, conservée au backlog. La sauvegarde LTV est confirmée fonctionnelle par le test utilisateur du 16/11/2026.
 - Les statuts « présent dans le code » ne valent pas validation métier complète.
+
+
+## 14. Implémentation initiale — deuxième permanent et verrouillage PIN — 16/11/2026
+
+Travail réalisé dans la branche `feature/permanents-lock-session` du dépôt source `Darys21/PERMANENCE-EQUIPEMENT` ; aucune fusion dans `main` ni import Power Apps Studio n'a encore été effectué.
+
+- `PrisePoste_2.yaml` : ajout d'un ComboBox pour sélectionner un deuxième permanent depuis `Ref_Permanents`, en excluant le permanent initial.
+- Règle calendrier : le deuxième permanent est obligatoire lorsque `Weekday(Today(), StartOfWeek.Monday)` vaut 2 (mardi) ou 5 (vendredi) ; il reste facultatif les autres jours.
+- Démarrage du service : association des deux enregistrements et du poste dans les variables de session `varPermanentPrincipalSession`, `varPermanentSecondaireSession` et `varSessionPoste`. Le statut SharePoint `Actif` du deuxième permanent passe à Oui au démarrage, puis à Non lors du changement d'agent ou de la clôture.
+- Verrouillage manuel : bouton ajouté au journal, au feedback et à la clôture ; un écran de verrouillage est présent sur Prise de poste, Journal, Feedback et Clôture.
+- Déverrouillage : le PIN doit correspondre au permanent initial (`varAgentPermanentID`) ou au deuxième permanent déclaré (`varPermanentSecondaireSession.ID`). Le verrouillage ne modifie pas le champ SharePoint `Actif`.
+- Changement d'agent : remise à zéro des variables de session pour éviter de conserver le deuxième permanent d'une session précédente.
+
+**Limites et validations restantes :**
+- L'association des permanents est actuellement conservée dans les variables globales Power Apps ; elle n'est pas persistée dans une liste SharePoint de sessions. Elle ne constitue donc pas un journal de session durable après fermeture/rechargement de l'application.
+- Aucun verrouillage automatique après inactivité n'a été ajouté ; le verrouillage est manuel.
+- Vérifier l'import des quatre YAML dans Power Apps Studio, les propriétés de contrôle, la visibilité de l'overlay, les PIN valides/invalides des deux permanents, le comportement mardi/vendredi et les autres jours.
+- Vérifier l'affichage du ComboBox dans la zone de prise de poste et la compatibilité réelle de la colonne `Title` dans `Ref_Permanents`.
+- Ne passer les tâches à « Terminé » qu'après recette fonctionnelle dans Power Apps et contrôle des données SharePoint.
