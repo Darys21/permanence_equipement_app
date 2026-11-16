@@ -5,6 +5,13 @@ Screens:
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
       OnVisible: |-
         =Reset(LockTimer_JB);
+        Set(varLockInputSnapshot_JB, Concatenate(
+                      Coalesce(TitreChantierInput_24.Text, ""), Char(10),
+                      Coalesce(PKDebutInput_23.Text, ""), Char(10),
+                      Coalesce(PKFinInput_23.Text, ""), Char(10),
+                      Coalesce(TauxInput_23.Text, ""), Char(10),
+                      Coalesce(CommentairesInput_23.Text, "")
+                  ));
         If(varActionEnCours <> "Modifier", Set(varOngletJournal, "Travaux"));
         Set(varAttemptedSave, false);
         Refresh(Ref_Cantons);
@@ -3013,6 +3020,35 @@ Screens:
                   Reset(LockPin_JB)
               )
             Repeat: =false
+            Reset: =false
+            Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
+            Visible: =false
+            Height: =1
+            Width: =1
+      - LockInputPoll_JB:
+          Control: Timer@2.1.0
+          Properties:
+            AutoPause: =true
+            Duration: =1000
+            OnTimerEnd: |-
+              =If(
+                  varLockInputSnapshot_JB <> Concatenate(
+                                        Coalesce(TitreChantierInput_24.Text, ""), Char(10),
+                                        Coalesce(PKDebutInput_23.Text, ""), Char(10),
+                                        Coalesce(PKFinInput_23.Text, ""), Char(10),
+                                        Coalesce(TauxInput_23.Text, ""), Char(10),
+                                        Coalesce(CommentairesInput_23.Text, "")
+                                    ),
+                  Set(varLockInputSnapshot_JB, Concatenate(
+                                        Coalesce(TitreChantierInput_24.Text, ""), Char(10),
+                                        Coalesce(PKDebutInput_23.Text, ""), Char(10),
+                                        Coalesce(PKFinInput_23.Text, ""), Char(10),
+                                        Coalesce(TauxInput_23.Text, ""), Char(10),
+                                        Coalesce(CommentairesInput_23.Text, "")
+                                    ));
+                  Reset(LockTimer_JB)
+              )
+            Repeat: =true
             Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false

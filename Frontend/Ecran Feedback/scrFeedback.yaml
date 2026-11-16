@@ -5,6 +5,10 @@ Screens:
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
       OnVisible: |-
         =Reset(LockTimer_FB);
+        Set(varLockInputSnapshot_FB, Concatenate(
+                      Coalesce(PKInput_4.Text, ""), Char(10),
+                      Coalesce(ObservationInput_4.Text, "")
+                  ));
         Refresh(Tx_Travaux);
         Refresh(Tx_Feedbacks);
         Refresh(Ref_Cantons);
@@ -845,6 +849,29 @@ Screens:
                   Reset(LockPin_FB)
               )
             Repeat: =false
+            Reset: =false
+            Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
+            Visible: =false
+            Height: =1
+            Width: =1
+      - LockInputPoll_FB:
+          Control: Timer@2.1.0
+          Properties:
+            AutoPause: =true
+            Duration: =1000
+            OnTimerEnd: |-
+              =If(
+                  varLockInputSnapshot_FB <> Concatenate(
+                                        Coalesce(PKInput_4.Text, ""), Char(10),
+                                        Coalesce(ObservationInput_4.Text, "")
+                                    ),
+                  Set(varLockInputSnapshot_FB, Concatenate(
+                                        Coalesce(PKInput_4.Text, ""), Char(10),
+                                        Coalesce(ObservationInput_4.Text, "")
+                                    ));
+                  Reset(LockTimer_FB)
+              )
+            Repeat: =true
             Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
