@@ -338,6 +338,7 @@ Screens:
                                     - DivisionInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner une division"
                                           BorderColor: =If(varAttemptedSave && IsBlank(DivisionInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
@@ -388,6 +389,7 @@ Screens:
                                     - CantonInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner un canton"
                                           BorderColor: =If(varAttemptedSave && IsBlank(CantonInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
@@ -451,6 +453,7 @@ Screens:
                                     - RegimeInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le régime de travaux"
                                           BorderColor: =If(varAttemptedSave && IsBlank(RegimeInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
@@ -512,6 +515,7 @@ Screens:
                                     - ActorInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le responsable intervenant (CDT, CDI, CBA)"
                                           BorderColor: =If(varAttemptedSave && (varOngletJournal = "Travaux" || varOngletJournal = "LTV") && IsBlank(ActorInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
@@ -559,6 +563,7 @@ Screens:
                                     - PermanentInput_23:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le permanent au poste"
                                           BorderColor: =RGBA(180, 185, 195, 1)
@@ -611,6 +616,7 @@ Screens:
                                     - TitreChantierInput_24:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Nature des travaux"
                                           BorderColor: =If(varAttemptedSave && varOngletJournal = "Travaux" && IsBlank(Trim(TitreChantierInput_24.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
@@ -642,6 +648,7 @@ Screens:
                                     - PKDebutInput_23:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le PK début"
                                           BorderColor: =If(Or("," in PKDebutInput_23.Text, "." in PKDebutInput_23.Text) || (varAttemptedSave && IsBlank(PKDebutInput_23.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
@@ -675,6 +682,7 @@ Screens:
                                     - PKFinInput_23:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le PK fin ou l'heure de fin"
                                           BorderColor: =If(Or("," in PKFinInput_23.Text, "." in PKFinInput_23.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
@@ -708,6 +716,7 @@ Screens:
                                     - TauxInput_23:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le taux d'avancement"
                                           BorderColor: =If(varAttemptedSave && varOngletJournal = "LTV" && IsBlank(TauxInput_23.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
@@ -741,6 +750,7 @@ Screens:
                                     - StatutLTVInput_23:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Statut de la LTV"
                                           BorderColor: =RGBA(180, 185, 195, 1)
@@ -822,6 +832,7 @@ Screens:
                                           - RequestInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure de demande"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -844,6 +855,7 @@ Screens:
                                           - RequestHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de demande ou de debut d'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -871,6 +883,7 @@ Screens:
                                           - RequestMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute de demande ou de debut d'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -929,6 +942,7 @@ Screens:
                                           - AuthorizationInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure d'autorisation"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -942,6 +956,7 @@ Screens:
                                           - AuthorizationHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure autorisee"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -957,6 +972,7 @@ Screens:
                                           - AuthorizationMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute autorisee"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1003,6 +1019,7 @@ Screens:
                                           - EngagementInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1016,6 +1033,7 @@ Screens:
                                           - EngagementHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1031,6 +1049,7 @@ Screens:
                                           - EngagementMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1077,6 +1096,7 @@ Screens:
                                           - FinPrevueInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1090,6 +1110,7 @@ Screens:
                                           - FinPrevueHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1106,6 +1127,7 @@ Screens:
                                           - FinPrevueMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1167,6 +1189,7 @@ Screens:
                                           - DegagementInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1180,6 +1203,7 @@ Screens:
                                           - DegagementHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1196,6 +1220,7 @@ Screens:
                                           - DegagementMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1243,6 +1268,7 @@ Screens:
                                           - VoieRetablieInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1256,6 +1282,7 @@ Screens:
                                           - VoieRetablieHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1272,6 +1299,7 @@ Screens:
                                           - VoieRetablieMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1319,6 +1347,7 @@ Screens:
                                           - ProlongationInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de fin après prolongation"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1331,6 +1360,7 @@ Screens:
                                           - ProlongationHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Prolongation - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1347,6 +1377,7 @@ Screens:
                                           - ProlongationMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Prolongation - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1394,6 +1425,7 @@ Screens:
                                           - DateIncidentInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1407,6 +1439,7 @@ Screens:
                                           - DateIncidentHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1423,6 +1456,7 @@ Screens:
                                           - DateIncidentMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1470,6 +1504,7 @@ Screens:
                                           - HeureFinIncidentInput_21:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Date de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1482,6 +1517,7 @@ Screens:
                                           - HeureFinIncidentHour_21:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1498,6 +1534,7 @@ Screens:
                                           - HeureFinIncidentMinute_21:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1545,6 +1582,7 @@ Screens:
                                           - DateSuppressionInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1558,6 +1596,7 @@ Screens:
                                           - DateSuppressionHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1574,6 +1613,7 @@ Screens:
                                           - DateSuppressionMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
@@ -1756,6 +1796,7 @@ Screens:
                                     - MotifEngTardifInput_23:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Motif de l'engagement tardif"
                                           BorderColor: =RGBA(180, 185, 195, 1)
@@ -1857,6 +1898,7 @@ Screens:
                                     - MotifDegTardifInput_23:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Motif du dégagement tardif"
                                           BorderColor: =RGBA(180, 185, 195, 1)
@@ -1958,6 +2000,7 @@ Screens:
                                     - CommentairesInput_23:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
                                           OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir les commentaires"
                                           BorderColor: =RGBA(180, 185, 195, 1)
@@ -2368,6 +2411,7 @@ Screens:
                               - FiltreDateTravaux_23:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
                                     OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer travaux à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
@@ -2405,6 +2449,7 @@ Screens:
                               - FiltrePerimetreLTV_23:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
                                     OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Perimetre LTV mon poste ou journee complete"
                                     BorderColor: =RGBA(180, 185, 195, 1)
@@ -2428,6 +2473,7 @@ Screens:
                               - FiltreStatutLTV_24:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
                                     OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer par statut LTV"
                                     BorderColor: =RGBA(180, 185, 195, 1)
@@ -2452,6 +2498,7 @@ Screens:
                               - FiltreCantonLTV_24:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
                                     OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer par canton"
                                     BorderColor: =RGBA(180, 185, 195, 1)
@@ -2470,6 +2517,7 @@ Screens:
                               - FiltreDateLTV_24:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
                                     OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
@@ -2507,6 +2555,7 @@ Screens:
                               - FiltreDateIncidents_23:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
                                     OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer incidents à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
@@ -3006,6 +3055,7 @@ Screens:
             - LockPin_JB:
                 Control: Classic/TextInput@2.3.2
                 Properties:
+                  OnSelect: =Reset(LockTimer_JB)
                   AccessibleLabel: ="PIN de déverrouillage"
                   BorderColor: =RGBA(180, 185, 195, 1)
                   Default: =""
