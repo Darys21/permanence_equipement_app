@@ -134,17 +134,18 @@ Screens:
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =34
-                        LayoutMinWidth: =If(App.Width < 760, 84, 104)
+                        AccessibleLabel: ="Verrouiller le poste"
+                        LayoutMinWidth: =40
                         OnSelect: |-
                           =Set(varSessionVerrouillee, true);
                           Set(varLockSource, "Manuel");
                           Set(LockPinInvalid_JB, false);
                           Reset(LockPin_JB)
-                        Size: =If(App.Width < 760, 9, 11)
-                        Text: =If(App.Width < 760, "VERROUILLER", "VERROUILLER LE POSTE")
+                        Size: =16
+                        Text: ="🔒"
                         Tooltip: ="Verrouiller la session sans la fermer"
                         Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
-                        Width: =If(App.Width < 760, 84, 112)
+                        Width: =40
                   - BtnChangerAgent_24:
                       Control: Classic/Button@2.2.0
                       Properties:
