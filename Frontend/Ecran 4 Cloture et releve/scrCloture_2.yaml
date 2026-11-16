@@ -21,7 +21,7 @@ Screens:
             PaddingTop: =12
             Width: =App.Width
           Children:
-            - ClosureHeader_4:
+            - ClosureHeader_5:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -39,35 +39,31 @@ Screens:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
-                        Fill: =RGBA(0, 0, 0, 0)
                         FillPortions: =0
                         Height: =60
                         LayoutMinWidth: =If(App.Width < 760, 70, 200)
                         Width: =If(App.Width < 760, 70, 200)
                       Children:
-                        - LogoMark_16:
+                        - LogoMark_17:
                             Control: Rectangle@2.3.0
                             Properties:
                               Fill: =RGBA(255, 184, 0, 1)
                               Height: =5
                               Width: =59
-                              X: =0
                               Y: =22
-                        - LogoText_20:
+                        - LogoText_21:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(255, 255, 255, 1)
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
                               Height: =44
-                              Size: =13
                               Text: ="SETRAG" & Char(10) & "   ERAMET"
-                              VerticalAlign: =VerticalAlign.Middle
                               Visible: =App.Width >= 760
                               Width: =130
                               X: =66
                               Y: =8
-                        - HomeFromClosure_2:
+                        - HomeFromClosure_3:
                             Control: Classic/Button@2.2.0
                             Properties:
                               BorderColor: =RGBA(0, 0, 0, 0)
@@ -81,53 +77,43 @@ Screens:
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
                               Width: =Parent.Width
-                              X: =0
-                              Y: =0
                   - ClTitleBlock_4:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
-                        Fill: =RGBA(0, 0, 0, 0)
-                        FillPortions: =1
                         Height: =76
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGap: =0
                         LayoutJustifyContent: =LayoutJustifyContent.Center
                         LayoutMinWidth: =0
                       Children:
-                        - ClosureTitle_4:
+                        - ClosureTitle_5:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
                               Color: =RGBA(255, 255, 255, 1)
-                              FillPortions: =0
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
                               Height: =If(App.Width < 760, 44, 34)
                               Size: =If(App.Width < 760, 12, 20)
                               Text: ="CLÔTURE DU POSTE & RELÈVE"
-                              VerticalAlign: =VerticalAlign.Middle
-                        - ClosureSubtitle_4:
+                        - ClosureSubtitle_5:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
                               Color: =RGBA(255, 255, 255, 1)
-                              FillPortions: =0
                               Font: =Font.'Segoe UI'
                               Height: =24
                               Size: =12
                               Text: ="Synthèse et validation de fin de service"
-                              VerticalAlign: =VerticalAlign.Middle
                               Visible: =App.Width >= 760
-                  - ClosureSession_4:
+                  - ClosureSession_5:
                       Control: Label@2.5.1
                       Properties:
                         Align: =Align.Center
                         BorderColor: =RGBA(255, 255, 255, 1)
                         BorderThickness: =1
                         Color: =RGBA(255, 255, 255, 1)
-                        FillPortions: =0
                         Font: =Font.'Segoe UI'
                         Height: =44
                         Size: =If(App.Width < 760, 9, 13)
@@ -136,13 +122,11 @@ Screens:
                           Coalesce(varQuart, "Non défini") &
                           "   |   Agent : " &
                           Coalesce(varAgentPermanentNom, "Aucun agent sélectionné")
-                        VerticalAlign: =VerticalAlign.Middle
                         Width: =If(App.Width < 760, 140, 340)
-            - ClosureSteps_4:
+            - ClosureSteps_5:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
-                  Fill: =RGBA(0, 0, 0, 0)
                   FillPortions: =0
                   Height: =56
                   LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -150,7 +134,7 @@ Screens:
                   LayoutGap: =8
                   LayoutMinHeight: =56
                 Children:
-                  - StepOne_4:
+                  - StepOne_5:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varEtapeCloture = 1, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
@@ -165,7 +149,7 @@ Screens:
                         OnSelect: =Set(varEtapeCloture, 1)
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "1  Synthèse", "1   Synthèse & points ouverts")
-                  - StepTwo_4:
+                  - StepTwo_5:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varEtapeCloture = 2, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
@@ -180,7 +164,7 @@ Screens:
                         OnSelect: =If(varEtapeCloture >= 1, Set(varEtapeCloture, 2))
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "2  Transmission", "2   Commentaire & transmission")
-                  - StepThree_4:
+                  - StepThree_5:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varEtapeCloture = 3, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
@@ -195,12 +179,11 @@ Screens:
                         OnSelect: =If(varEtapeCloture >= 2, Set(varEtapeCloture, 3))
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "3  Confirmer", "3   Confirmation")
-            - ClosureWorkspace_4:
+            - ClosureWorkspace_5:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   Fill: =RGBA(248, 249, 251, 1)
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =12
@@ -210,14 +193,13 @@ Screens:
                   PaddingRight: =12
                   PaddingTop: =12
                 Children:
-                  - SummaryPanel_7:
+                  - SummaryPanel_8:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
                         BorderColor: =RGBA(230, 232, 236, 1)
                         BorderThickness: =1
                         Fill: =RGBA(255, 255, 255, 1)
-                        FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =8
@@ -232,11 +214,10 @@ Screens:
                         RadiusTopRight: =6
                         Visible: =varEtapeCloture = 1
                       Children:
-                        - SummaryHeading_7:
+                        - SummaryHeading_8:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
-                              FillPortions: =0
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
                               Height: =30
@@ -244,12 +225,10 @@ Screens:
                               Text: |-
                                 ="RÉSUMÉ DU POSTE " & varQuart & " (" &
                                 Switch(varQuart, "P1", "06H - 14H", "P2", "14H - 22H", "P3", "22H - 06H", "—") & ")"
-                              VerticalAlign: =VerticalAlign.Middle
-                        - SummaryPeriod_4:
+                        - SummaryPeriod_5:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(83, 87, 99, 1)
-                              FillPortions: =0
                               Height: =24
                               Size: =12
                               Text: |-
@@ -261,32 +240,27 @@ Screens:
                                     "P3", Text(Today(), "dd/mm/yyyy") & " 22:00 → " & Text(DateAdd(Today(), 1, TimeUnit.Days), "dd/mm/yyyy") & " 06:00",
                                     Text(Today(), "dd/mm/yyyy")
                                 )
-                              VerticalAlign: =VerticalAlign.Middle
                         - KpiRow_4:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
-                              Fill: =RGBA(0, 0, 0, 0)
                               FillPortions: =0
                               Height: =If(App.Width < 632, 204, 96)
-                              LayoutAlignItems: =LayoutAlignItems.Start
                               LayoutDirection: =LayoutDirection.Horizontal
                               LayoutGap: =10
                               LayoutMinHeight: =96
                               LayoutWrap: =true
                             Children:
-                              - WorkKpi_4:
+                              - WorkKpi_5:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     BorderColor: =RGBA(225, 228, 235, 1)
                                     BorderThickness: =1
                                     Fill: =RGBA(255, 255, 255, 1)
-                                    FillPortions: =1
                                     Height: =96
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutGap: =0
                                     LayoutMinWidth: =130
                                     PaddingBottom: =6
                                     PaddingTop: =6
@@ -295,49 +269,41 @@ Screens:
                                     RadiusTopLeft: =6
                                     RadiusTopRight: =6
                                   Children:
-                                    - WorkKpiLabel_4:
+                                    - WorkKpiLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(68, 73, 87, 1)
-                                          FillPortions: =0
                                           Height: =26
                                           Size: =11
                                           Text: ="Chantiers & Travaux"
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - WorkKpiValue_4:
+                                    - WorkKpiValue_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(8, 49, 120, 1)
-                                          FillPortions: =0
                                           FontWeight: =FontWeight.Bold
                                           Height: =34
                                           Size: =22
                                           Text: =CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && Date_travaux = Today()))
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - WorkKpiNote_4:
+                                    - WorkKpiNote_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(237, 108, 20, 1)
-                                          FillPortions: =0
                                           Height: =20
                                           Size: =11
                                           Text: =CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && Date_travaux = Today() && IsBlank(Heures_Degagement))) & " en cours"
-                                          VerticalAlign: =VerticalAlign.Middle
-                              - LtvKpi_4:
+                              - LtvKpi_5:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     BorderColor: =RGBA(225, 228, 235, 1)
                                     BorderThickness: =1
                                     Fill: =RGBA(255, 255, 255, 1)
-                                    FillPortions: =1
                                     Height: =96
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutGap: =0
                                     LayoutMinWidth: =130
                                     PaddingBottom: =6
                                     PaddingTop: =6
@@ -346,49 +312,41 @@ Screens:
                                     RadiusTopLeft: =6
                                     RadiusTopRight: =6
                                   Children:
-                                    - LtvKpiLabel_4:
+                                    - LtvKpiLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(68, 73, 87, 1)
-                                          FillPortions: =0
                                           Height: =26
                                           Size: =11
                                           Text: ="LTV / RAL"
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - LtvKpiValue_4:
+                                    - LtvKpiValue_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(237, 145, 0, 1)
-                                          FillPortions: =0
                                           FontWeight: =FontWeight.Bold
                                           Height: =34
                                           Size: =22
                                           Text: =CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && 'Date_imposition ' >= Today() && 'Date_imposition ' < DateAdd(Today(), 1, TimeUnit.Days)))
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - LtvKpiNote_4:
+                                    - LtvKpiNote_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(238, 32, 35, 1)
-                                          FillPortions: =0
                                           Height: =20
                                           Size: =11
                                           Text: =CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && Statut_LTV.Value = "Imposée")) & " actives"
-                                          VerticalAlign: =VerticalAlign.Middle
-                              - IncidentKpi_4:
+                              - IncidentKpi_5:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     BorderColor: =RGBA(225, 228, 235, 1)
                                     BorderThickness: =1
                                     Fill: =RGBA(255, 255, 255, 1)
-                                    FillPortions: =1
                                     Height: =96
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutGap: =0
                                     LayoutMinWidth: =130
                                     PaddingBottom: =6
                                     PaddingTop: =6
@@ -397,49 +355,41 @@ Screens:
                                     RadiusTopLeft: =6
                                     RadiusTopRight: =6
                                   Children:
-                                    - IncidentKpiLabel_4:
+                                    - IncidentKpiLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(68, 73, 87, 1)
-                                          FillPortions: =0
                                           Height: =26
                                           Size: =11
                                           Text: ="Ruptures / Incidents"
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - IncidentKpiValue_4:
+                                    - IncidentKpiValue_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(238, 32, 35, 1)
-                                          FillPortions: =0
                                           FontWeight: =FontWeight.Bold
                                           Height: =34
                                           Size: =22
                                           Text: =CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && DateIncident >= Today() && DateIncident < DateAdd(Today(), 1, TimeUnit.Days)))
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - IncidentKpiNote_4:
+                                    - IncidentKpiNote_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(238, 32, 35, 1)
-                                          FillPortions: =0
                                           Height: =20
                                           Size: =11
                                           Text: =CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && DateIncident >= Today() && DateIncident < DateAdd(Today(), 1, TimeUnit.Days) && (Etat.Value = "En cours" || IsBlank(Heure_Fin)))) & " en cours"
-                                          VerticalAlign: =VerticalAlign.Middle
-                              - FeedbackKpi_4:
+                              - FeedbackKpi_5:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
                                     BorderColor: =RGBA(225, 228, 235, 1)
                                     BorderThickness: =1
                                     Fill: =RGBA(255, 255, 255, 1)
-                                    FillPortions: =1
                                     Height: =96
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutGap: =0
                                     LayoutMinWidth: =130
                                     PaddingBottom: =6
                                     PaddingTop: =6
@@ -448,91 +398,77 @@ Screens:
                                     RadiusTopLeft: =6
                                     RadiusTopRight: =6
                                   Children:
-                                    - FeedbackKpiLabel_4:
+                                    - FeedbackKpiLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(68, 73, 87, 1)
-                                          FillPortions: =0
                                           Height: =26
                                           Size: =11
                                           Text: ="Feedbacks Terrain"
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - FeedbackKpiValue_4:
+                                    - FeedbackKpiValue_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(18, 135, 43, 1)
-                                          FillPortions: =0
                                           FontWeight: =FontWeight.Bold
                                           Height: =34
                                           Size: =22
                                           Text: =CountRows(Filter(Tx_Feedbacks, Poste.Value = varQuart && HeureContact >= Today() && HeureContact < DateAdd(Today(), 1, TimeUnit.Days)))
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - FeedbackKpiNote_4:
+                                    - FeedbackKpiNote_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
                                           Color: =RGBA(68, 73, 87, 1)
-                                          FillPortions: =0
                                           Height: =20
                                           Size: =11
                                           Text: ="Points de contact"
-                                          VerticalAlign: =VerticalAlign.Middle
-                        - DetailHeading_4:
+                        - DetailHeading_5:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
-                              FillPortions: =0
                               FontWeight: =FontWeight.Semibold
                               Height: =28
-                              Size: =13
                               Text: ="DÉTAIL DES ÉVÉNEMENTS DU POSTE"
-                              VerticalAlign: =VerticalAlign.Middle
-                        - EventGallery_4:
+                        - EventGallery_5:
                             Control: Gallery@2.15.0
                             Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
                             Properties:
                               AccessibleLabel: ="Détail des événements du poste"
                               BorderColor: =RGBA(220, 224, 230, 1)
-                              FillPortions: =1
                               FocusedBorderThickness: =2
                               Items: =SortByColumns(Filter(Tx_Travaux, Poste.Value = varQuart && Date_travaux = Today()), "Created", SortOrder.Descending)
                               LayoutMinHeight: =180
                               TemplatePadding: =2
                               TemplateSize: =48
                             Children:
-                              - EventColorBar_4:
+                              - EventColorBar_5:
                                   Control: Rectangle@2.3.0
                                   Properties:
                                     Fill: =RGBA(8, 75, 180, 1)
                                     Height: =Parent.TemplateHeight
                                     Width: =5
-                                    X: =0
-                                    Y: =0
-                              - EventWork_4:
+                              - EventWork_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     FontWeight: =FontWeight.Semibold
                                     Height: =24
                                     Size: =12
                                     Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "Sans titre")
-                                    VerticalAlign: =VerticalAlign.Middle
                                     Width: =Parent.TemplateWidth - 14 - 92
                                     X: =14
                                     Y: =2
-                              - EventDate_4:
+                              - EventDate_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
                                     Height: =20
                                     Size: =11
                                     Text: =Text(ThisItem.Date_travaux, "dd/mm") & " " & If(!IsBlank(ThisItem.Heure_demande), Text(ThisItem.Heure_demande, "hh:mm"), "--:--")
-                                    VerticalAlign: =VerticalAlign.Middle
                                     Width: =140
                                     X: =14
                                     Y: =24
-                              - EventStatus_4:
+                              - EventStatus_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -540,16 +476,14 @@ Screens:
                                     Height: =28
                                     Size: =11
                                     Text: =If(IsBlank(ThisItem.Heures_Degagement), "En cours", "Dégagé")
-                                    VerticalAlign: =VerticalAlign.Middle
                                     Width: =80
                                     X: =Parent.TemplateWidth - Self.Width - 8
                                     Y: =10
-                        - HandoverNotice_4:
+                        - HandoverNotice_5:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(125, 78, 0, 1)
                               Fill: =RGBA(255, 248, 232, 1)
-                              FillPortions: =0
                               Height: =If(App.Width < 760, 120, 84)
                               PaddingLeft: =8
                               Size: =12
@@ -559,15 +493,13 @@ Screens:
                                 "   • LTV actives : " & CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && Statut_LTV.Value = "Imposée")) &
                                 "   • Incidents ouverts : " & CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && (Etat.Value = "En cours" || IsBlank(Heure_Fin)))) & Char(10) &
                                 "• Feedbacks terrain saisis : " & CountRows(Filter(Tx_Feedbacks, Poste.Value = varQuart && HeureContact >= Today() && HeureContact < DateAdd(Today(), 1, TimeUnit.Days)))
-                              VerticalAlign: =VerticalAlign.Middle
-                  - TransmissionPanel_3:
+                  - TransmissionPanel_4:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
                         BorderColor: =RGBA(230, 232, 236, 1)
                         BorderThickness: =1
                         Fill: =RGBA(255, 255, 255, 1)
-                        FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =If(App.Width < 1000, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                         LayoutGap: =16
@@ -586,57 +518,45 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
-                              Fill: =RGBA(0, 0, 0, 0)
-                              FillPortions: =1
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =8
                               LayoutMinWidth: =260
                             Children:
-                              - CommentHeading_4:
+                              - CommentHeading_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
-                                    FillPortions: =0
                                     FontWeight: =FontWeight.Bold
                                     Height: =28
-                                    Size: =13
                                     Text: ="COMMENTAIRE DE FIN DE POSTE"
-                                    VerticalAlign: =VerticalAlign.Middle
-                              - ClosureComment_4:
+                              - ClosureComment_5:
                                   Control: Classic/TextInput@2.3.2
                                   Properties:
                                     AccessibleLabel: ="Commentaire de fin de poste"
                                     BorderColor: =RGBA(155, 163, 178, 1)
                                     Default: =
-                                    FillPortions: =0
                                     FocusedBorderThickness: =2
                                     Height: =120
                                     HintText: ="Observations, consignes pour le poste suivant (intégré au rapport)..."
                                     MaxLength: =1000
                                     Mode: =TextMode.MultiLine
-                                    Size: =13
-                              - ClosureCount_4:
+                              - ClosureCount_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Right
                                     Color: =RGBA(83, 87, 99, 1)
-                                    FillPortions: =0
                                     Height: =20
                                     Size: =10
-                                    Text: =Len(ClosureComment_4.Text) & " / 1000 caractères"
-                                    VerticalAlign: =VerticalAlign.Middle
-                              - TransmissionHeading_4:
+                                    Text: =Len(ClosureComment_5.Text) & " / 1000 caractères"
+                              - TransmissionHeading_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
-                                    FillPortions: =0
                                     FontWeight: =FontWeight.Bold
                                     Height: =28
-                                    Size: =13
                                     Text: ="TRANSMISSION AU POSTE SUIVANT"
-                                    VerticalAlign: =VerticalAlign.Middle
-                              - NextShift_4:
+                              - NextShift_5:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
                                     AccessibleLabel: ="Sélectionner le poste suivant"
@@ -650,62 +570,51 @@ Screens:
                                           ["P1 (06h - 14h)"]
                                       )
                                     DisplayFields: =["Value"]
-                                    FillPortions: =0
                                     FocusedBorderThickness: =2
                                     Height: =42
                                     IsSearchable: =false
                                     Items: =["P1 (06h - 14h)", "P2 (14h - 22h)", "P3 (22h - 06h)"]
                                     SearchFields: =["Value"]
                                     SelectMultiple: =false
-                                    Size: =13
-                              - MiniRecapTransmission_3:
+                              - MiniRecapTransmission_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(68, 73, 87, 1)
                                     Fill: =RGBA(248, 249, 251, 1)
-                                    FillPortions: =0
                                     Height: =100
                                     PaddingLeft: =8
                                     Size: =12
                                     Text: |-
-                                      ="À reprendre par " & Coalesce(NextShift_4.Selected.Value, "—") & " :" & Char(10) &
+                                      ="À reprendre par " & Coalesce(NextShift_5.Selected.Value, "—") & " :" & Char(10) &
                                       "• Travaux en cours : " & CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && IsBlank(Heures_Degagement))) & Char(10) &
                                       "• LTV actives : " & CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && Statut_LTV.Value = "Imposée")) & Char(10) &
                                       "• Incidents ouverts : " & CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && (Etat.Value = "En cours" || IsBlank(Heure_Fin))))
-                                    VerticalAlign: =VerticalAlign.Middle
-                              - LockNotice_4:
+                              - LockNotice_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 75, 180, 1)
                                     Fill: =RGBA(239, 245, 255, 1)
-                                    FillPortions: =0
                                     Height: =If(App.Width < 760, 84, 60)
                                     PaddingLeft: =8
                                     Size: =11
                                     Text: ="Après clôture, les événements en cours seront rattachés au poste suivant. Les feedbacks pourront encore être consultés."
-                                    VerticalAlign: =VerticalAlign.Middle
                         - TxRight_3:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
-                              Fill: =RGBA(0, 0, 0, 0)
-                              FillPortions: =1
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =8
                               LayoutMinWidth: =260
                             Children:
-                              - ReportHeading_3:
+                              - ReportHeading_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
-                                    FillPortions: =0
                                     FontWeight: =FontWeight.Bold
                                     Height: =28
-                                    Size: =13
                                     Text: ="APERÇU DU RAPPORT DE FIN DE POSTE"
-                                    VerticalAlign: =VerticalAlign.Middle
-                              - ReportPreview_3:
+                              - ReportPreview_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     BorderColor: =RGBA(220, 224, 230, 1)
@@ -797,22 +706,21 @@ Screens:
                                       "2. TRANSMISSION AU POSTE SUIVANT" & Char(10) &
                                       "────────────────────────────────────────" & Char(10) &
                                       "Poste destinataire : " &
-                                      Coalesce(NextShift_4.Selected.Value, "Non renseigné") & Char(10) &
+                                      Coalesce(NextShift_5.Selected.Value, "Non renseigné") & Char(10) &
                                       Char(10) &
                                       "3. COMMENTAIRES ET CONSIGNES" & Char(10) &
                                       "────────────────────────────────────────" & Char(10) &
-                                      Coalesce(ClosureComment_4.Text, "(Aucun commentaire renseigné)") & Char(10) &
+                                      Coalesce(ClosureComment_5.Text, "(Aucun commentaire renseigné)") & Char(10) &
                                       Char(10) &
                                       "════════════════════════════════════════" & Char(10) &
                                       "Fin du rapport de poste"
-                  - ConfirmationPanel_4:
+                  - ConfirmationPanel_5:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
                         BorderColor: =RGBA(230, 232, 236, 1)
                         BorderThickness: =1
                         Fill: =RGBA(255, 255, 255, 1)
-                        FillPortions: =1
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =8
@@ -827,24 +735,21 @@ Screens:
                         RadiusTopRight: =6
                         Visible: =varEtapeCloture = 3
                       Children:
-                        - ConfirmationTitle_4:
+                        - ConfirmationTitle_5:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
-                              FillPortions: =0
                               FontWeight: =FontWeight.Bold
                               Height: =34
                               Size: =16
                               Text: ="CONFIRMATION DE LA CLÔTURE"
-                              VerticalAlign: =VerticalAlign.Middle
-                        - ConfirmationSummary_4:
+                        - ConfirmationSummary_5:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(68, 73, 87, 1)
                               FillPortions: =1
                               LayoutMinHeight: =260
                               PaddingLeft: =8
-                              Size: =13
                               Text: |-
                                 ="Poste : " & varQuart & Char(10) &
                                 "Agent : " & Coalesce(varAgentPermanentNom, "Aucun agent sélectionné") & Char(10) &
@@ -853,20 +758,18 @@ Screens:
                                 "LTV actives : " & CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && Statut_LTV.Value = "Imposée")) & Char(10) &
                                 "Incidents ouverts : " & CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && (Etat.Value = "En cours" || IsBlank(Heure_Fin)))) & Char(10) &
                                 "Feedbacks terrain : " & CountRows(Filter(Tx_Feedbacks, Poste.Value = varQuart && HeureContact >= Today() && HeureContact < DateAdd(Today(), 1, TimeUnit.Days))) & Char(10) &
-                                "Poste suivant : " & Coalesce(NextShift_4.Selected.Value, "Non renseigné") & Char(10) &
+                                "Poste suivant : " & Coalesce(NextShift_5.Selected.Value, "Non renseigné") & Char(10) &
                                 Char(10) &
-                                "Commentaire : " & Coalesce(ClosureComment_4.Text, "Aucun commentaire")
-                        - ConfirmationNotice_4:
+                                "Commentaire : " & Coalesce(ClosureComment_5.Text, "Aucun commentaire")
+                        - ConfirmationNotice_5:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(125, 78, 0, 1)
                               Fill: =RGBA(255, 248, 232, 1)
-                              FillPortions: =0
                               Height: =If(App.Width < 760, 100, 70)
                               PaddingLeft: =8
                               Size: =12
                               Text: ="Vérifiez ces informations avant de cliquer sur « VALIDER & CLÔTURER LE POSTE ». Les événements en cours seront transmis au poste suivant."
-                              VerticalAlign: =VerticalAlign.Middle
             - Footer_CL:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
@@ -884,14 +787,13 @@ Screens:
                   PaddingRight: =8
                   PaddingTop: =8
                 Children:
-                  - ClosureBack_4:
+                  - ClosureBack_5:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =RGBA(8, 49, 120, 1)
                         BorderThickness: =1
                         Color: =RGBA(8, 49, 120, 1)
                         Fill: =RGBA(255, 255, 255, 1)
-                        FillPortions: =0
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =48
@@ -899,11 +801,10 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="←   RETOUR AU JOURNAL DE BORD"
                         Width: =If(App.Width < 760, 300, 340)
-                  - ValidateClosure_4:
+                  - ValidateClosure_5:
                       Control: Classic/Button@2.2.0
                       Properties:
                         Fill: =RGBA(255, 174, 0, 1)
-                        FillPortions: =0
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
@@ -921,13 +822,13 @@ Screens:
                                   With(
                                       {
                                           _nextPoste: If(
-                                              !IsBlank(NextShift_4.Selected) && StartsWith(Text(NextShift_4.Selected.Value), "P3"),
+                                              !IsBlank(NextShift_5.Selected) && StartsWith(Text(NextShift_5.Selected.Value), "P3"),
                                               "P3",
                                               If(
-                                                  !IsBlank(NextShift_4.Selected) && StartsWith(Text(NextShift_4.Selected.Value), "P2"),
+                                                  !IsBlank(NextShift_5.Selected) && StartsWith(Text(NextShift_5.Selected.Value), "P2"),
                                                   "P2",
                                                   If(
-                                                      !IsBlank(NextShift_4.Selected) && StartsWith(Text(NextShift_4.Selected.Value), "P1"),
+                                                      !IsBlank(NextShift_5.Selected) && StartsWith(Text(NextShift_5.Selected.Value), "P1"),
                                                       "P1",
                                                       Switch(varQuart, "P1", "P2", "P2", "P3", "P3", "P1", "P1")
                                                   )

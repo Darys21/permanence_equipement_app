@@ -38,7 +38,7 @@ Screens:
             PaddingTop: =12
             Width: =App.Width
           Children:
-            - FeedbackHeader_2:
+            - FeedbackHeader_4:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -56,13 +56,12 @@ Screens:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
-                        Fill: =RGBA(0, 0, 0, 0)
                         FillPortions: =0
                         Height: =60
                         LayoutMinWidth: =If(App.Width < 760, 70, 200)
                         Width: =If(App.Width < 760, 70, 200)
                       Children:
-                        - LogoMark_15:
+                        - LogoMark_18:
                             Control: Rectangle@2.3.0
                             Properties:
                               AccessibleLabel: ="Logo SETRAG"
@@ -70,9 +69,8 @@ Screens:
                               Height: =5
                               TabIndex: =0
                               Width: =59
-                              X: =0
                               Y: =22
-                        - LogoText_19:
+                        - LogoText_22:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(255, 255, 255, 1)
@@ -80,15 +78,13 @@ Screens:
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
                               Height: =44
-                              Size: =13
                               TabIndex: =0
                               Text: ="SETRAG" & Char(10) & "   ERAMET"
-                              VerticalAlign: =VerticalAlign.Middle
                               Visible: =App.Width >= 760
                               Width: =130
                               X: =66
                               Y: =8
-                        - HomeFromFeedback_2:
+                        - HomeFromFeedback_4:
                             Control: Classic/Button@2.2.0
                             Properties:
                               BorderColor: =RGBA(0, 0, 0, 0)
@@ -102,27 +98,21 @@ Screens:
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
                               Width: =Parent.Width
-                              X: =0
-                              Y: =0
                   - FbTitleBlock_2:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
-                        Fill: =RGBA(0, 0, 0, 0)
-                        FillPortions: =1
                         Height: =76
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
-                        LayoutGap: =0
                         LayoutJustifyContent: =LayoutJustifyContent.Center
                         LayoutMinWidth: =0
                       Children:
-                        - FeedbackTitle_2:
+                        - FeedbackTitle_4:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
                               Color: =RGBA(255, 255, 255, 1)
-                              FillPortions: =0
                               FocusedBorderThickness: =2
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
@@ -130,29 +120,25 @@ Screens:
                               Size: =If(App.Width < 760, 12, 20)
                               TabIndex: =0
                               Text: ="NOUVEAU POINTAGE TERRAIN"
-                              VerticalAlign: =VerticalAlign.Middle
-                        - FeedbackSubtitle_2:
+                        - FeedbackSubtitle_4:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
                               Color: =RGBA(255, 255, 255, 1)
-                              FillPortions: =0
                               FocusedBorderThickness: =2
                               Font: =Font.'Segoe UI'
                               Height: =24
                               Size: =12
                               TabIndex: =0
                               Text: ="Ajouter un pointage terrain"
-                              VerticalAlign: =VerticalAlign.Middle
                               Visible: =App.Width >= 760
-                  - FeedbackSession_2:
+                  - FeedbackSession_4:
                       Control: Label@2.5.1
                       Properties:
                         Align: =Align.Center
                         BorderColor: =RGBA(255, 255, 255, 1)
                         BorderThickness: =1
                         Color: =RGBA(255, 255, 255, 1)
-                        FillPortions: =0
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =44
@@ -163,14 +149,12 @@ Screens:
                           Coalesce(varQuart, "Non défini") &
                           "   |   Agent : " &
                           Coalesce(varAgentPermanentNom, "Aucun agent sélectionné")
-                        VerticalAlign: =VerticalAlign.Middle
                         Width: =If(App.Width < 760, 140, 340)
-            - FeedbackWorkspace_2:
+            - FeedbackWorkspace_4:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   Fill: =RGBA(248, 249, 251, 1)
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =If(App.Width < 1000, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                   LayoutGap: =12
@@ -180,7 +164,7 @@ Screens:
                   PaddingRight: =12
                   PaddingTop: =12
                 Children:
-                  - InputPanel_2:
+                  - InputPanel_4:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -205,16 +189,13 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
-                              Fill: =RGBA(0, 0, 0, 0)
-                              FillPortions: =1
-                              LayoutAlignItems: =LayoutAlignItems.Start
                               LayoutDirection: =LayoutDirection.Horizontal
                               LayoutGap: =10
                               LayoutOverflowY: =LayoutOverflow.Scroll
                               LayoutWrap: =true
                               PaddingRight: =8
                             Children:
-                              - EventHeading_2:
+                              - EventHeading_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -224,26 +205,21 @@ Screens:
                                     FontWeight: =FontWeight.Bold
                                     Height: =28
                                     LayoutMinWidth: =Parent.Width - 24
-                                    Size: =13
                                     TabIndex: =0
                                     Text: ="1. SÉLECTION DU CHANTIER CONCERNÉ"
-                                    VerticalAlign: =VerticalAlign.Middle
                               - FldEvent_2:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    FillPortions: =1
                                     Height: =64
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =2
                                     LayoutMinWidth: =Parent.Width - 24
                                   Children:
-                                    - EventLabel_2:
+                                    - EventLabel_4:
                                         Control: Label@2.5.1
                                         Properties:
-                                          FillPortions: =0
                                           FocusedBorderThickness: =2
                                           Font: =Font.'Segoe UI'
                                           FontWeight: =FontWeight.Semibold
@@ -251,8 +227,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Chantier concerné (poste en cours)"
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - EventSelector_2:
+                                    - EventSelector_4:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
                                           AccessibleLabel: ="Chantier auquel rattacher le feedback"
@@ -264,7 +239,6 @@ Screens:
                                                 Blank()
                                             )
                                           DisplayFields: =["Title"]
-                                          FillPortions: =0
                                           Height: =38
                                           InputTextPlaceholder: ="Sélectionner un chantier"
                                           IsSearchable: =false
@@ -281,11 +255,10 @@ Screens:
                                                 "Created",
                                                 SortOrder.Descending
                                             )
-                                          OnChange: =Set(varFeedbackEvent, EventSelector_2.Selected)
+                                          OnChange: =Set(varFeedbackEvent, EventSelector_4.Selected)
                                           SearchFields: =["Title"]
                                           SelectMultiple: =false
-                                          Size: =13
-                              - EventContext_2:
+                              - EventContext_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -305,8 +278,7 @@ Screens:
                                           LookUp(Ref_Acteurs, ID = varFeedbackEvent.ActeurID, Title),
                                           "—"
                                       )
-                                    VerticalAlign: =VerticalAlign.Middle
-                              - PointageHeading_2:
+                              - PointageHeading_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -316,26 +288,21 @@ Screens:
                                     FontWeight: =FontWeight.Semibold
                                     Height: =28
                                     LayoutMinWidth: =Parent.Width - 24
-                                    Size: =13
                                     TabIndex: =0
                                     Text: ="2. INFORMATIONS DU POINTAGE"
-                                    VerticalAlign: =VerticalAlign.Middle
                               - FldContactTime_2:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    FillPortions: =1
                                     Height: =64
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =2
                                     LayoutMinWidth: =290
                                   Children:
-                                    - ContactTimeLabel_2:
+                                    - ContactTimeLabel_4:
                                         Control: Label@2.5.1
                                         Properties:
-                                          FillPortions: =0
                                           FocusedBorderThickness: =2
                                           Font: =Font.'Segoe UI'
                                           FontWeight: =FontWeight.Semibold
@@ -343,19 +310,17 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Heure du pointage *"
-                                          VerticalAlign: =VerticalAlign.Middle
                                     - RowContactTime_2:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
-                                          Fill: =RGBA(0, 0, 0, 0)
                                           FillPortions: =0
                                           Height: =38
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - ContactTime_2:
+                                          - ContactTime_4:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
                                                 AccessibleLabel: ="Date du pointage"
@@ -365,52 +330,45 @@ Screens:
                                                 Height: =38
                                                 LayoutMinWidth: =130
                                                 Size: =13
-                                          - ContactHour_2:
+                                          - ContactHour_4:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
                                                 AccessibleLabel: ="Heure du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 DisplayFields: =["Value"]
-                                                FillPortions: =0
                                                 Height: =38
                                                 InputTextPlaceholder: ="hh"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
                                                 SearchFields: =["Value"]
                                                 SelectMultiple: =false
-                                                Size: =13
                                                 Width: =70
-                                          - ContactMinute_2:
+                                          - ContactMinute_4:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
                                                 AccessibleLabel: ="Minute du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 DisplayFields: =["Value"]
-                                                FillPortions: =0
                                                 Height: =38
                                                 InputTextPlaceholder: ="mm"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
                                                 SearchFields: =["Value"]
                                                 SelectMultiple: =false
-                                                Size: =13
                                                 Width: =70
                               - FldContactMode_2:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    FillPortions: =1
                                     Height: =64
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - ContactModeLabel_2:
+                                    - ContactModeLabel_4:
                                         Control: Label@2.5.1
                                         Properties:
-                                          FillPortions: =0
                                           FocusedBorderThickness: =2
                                           Font: =Font.'Segoe UI'
                                           FontWeight: =FontWeight.Semibold
@@ -418,37 +376,31 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Mode de contact *"
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - ContactMode_2:
+                                    - ContactMode_4:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
                                           AccessibleLabel: ="Moyen de contact du pointage"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           DisplayFields: =["Value"]
-                                          FillPortions: =0
                                           Height: =38
                                           InputTextPlaceholder: ="Mode de contact"
                                           IsSearchable: =false
                                           Items: =["Sur place", "WhatsApp", "Téléphone", "Thuraya"]
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
-                                          Size: =13
                               - FldPK_2:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    FillPortions: =1
                                     Height: =64
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - PKLabel_2:
+                                    - PKLabel_4:
                                         Control: Label@2.5.1
                                         Properties:
-                                          FillPortions: =0
                                           FocusedBorderThickness: =2
                                           Font: =Font.'Segoe UI'
                                           FontWeight: =FontWeight.Semibold
@@ -456,34 +408,28 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Localisation exacte (PK)"
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - PKInput_2:
+                                    - PKInput_4:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
                                           AccessibleLabel: ="Localisation exacte du pointage en PK"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Default: =Blank()
-                                          FillPortions: =0
                                           Height: =38
                                           HintText: |-
                                             ="ex: 12+400"
-                                          Size: =13
                               - FldContactStatus_2:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    FillPortions: =1
                                     Height: =68
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - ContactStatusLabel_2:
+                                    - ContactStatusLabel_4:
                                         Control: Label@2.5.1
                                         Properties:
-                                          FillPortions: =0
                                           FocusedBorderThickness: =2
                                           Font: =Font.'Segoe UI'
                                           FontWeight: =FontWeight.Semibold
@@ -491,19 +437,16 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Statut du contact *"
-                                          VerticalAlign: =VerticalAlign.Middle
-                                    - ContactStatus_2:
+                                    - ContactStatus_4:
                                         Control: Classic/Radio@2.3.0
                                         Properties:
                                           AccessibleLabel: ="Contact etabli (oui ou non)"
                                           BorderColor: =RGBA(155, 163, 178, 1)
-                                          FillPortions: =0
                                           Height: =40
                                           Items: =["OUI", "NON"]
                                           Items.Value: =Value
                                           Layout: =Layout.Horizontal
-                                          Size: =13
-                              - ObservationHeading_2:
+                              - ObservationHeading_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -513,51 +456,42 @@ Screens:
                                     FontWeight: =FontWeight.Semibold
                                     Height: =28
                                     LayoutMinWidth: =Parent.Width - 24
-                                    Size: =13
                                     TabIndex: =0
                                     Text: ="3. OBSERVATIONS TERRAIN"
-                                    VerticalAlign: =VerticalAlign.Middle
                               - FldObservation_2:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    FillPortions: =1
                                     Height: =150
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =2
                                     LayoutMinWidth: =Parent.Width - 24
                                   Children:
-                                    - ObservationInput_2:
+                                    - ObservationInput_4:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
                                           AccessibleLabel: ="Observations du pointage terrain"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Default: =Blank()
-                                          FillPortions: =0
                                           Height: =112
                                           HintText: ="Saisissez vos observations terrain..."
                                           MaxLength: =1000
                                           Mode: =TextMode.MultiLine
-                                          Size: =13
-                                    - CharacterCount_2:
+                                    - CharacterCount_4:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Right
                                           Color: =RGBA(83, 87, 99, 1)
-                                          FillPortions: =0
                                           FocusedBorderThickness: =2
                                           Height: =20
                                           Size: =10
                                           TabIndex: =0
-                                          Text: =Len(ObservationInput_2.Text) & " / 1000"
-                                          VerticalAlign: =VerticalAlign.Middle
+                                          Text: =Len(ObservationInput_4.Text) & " / 1000"
                         - SaveRow_2:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
-                              Fill: =RGBA(0, 0, 0, 0)
                               FillPortions: =0
                               Height: =60
                               LayoutAlignItems: =LayoutAlignItems.Center
@@ -565,7 +499,7 @@ Screens:
                               LayoutJustifyContent: =LayoutJustifyContent.Center
                               PaddingTop: =8
                             Children:
-                              - SaveFeedback_2:
+                              - SaveFeedback_4:
                                   Control: Classic/Button@2.2.0
                                   Properties:
                                     Fill: =RGBA(255, 174, 0, 1)
@@ -576,7 +510,7 @@ Screens:
                                     Height: =44
                                     OnSelect: |-
                                       =If(
-                                          IsBlank(EventSelector_2.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_2.Selected) || IsBlank(ContactStatus_2.Selected),
+                                          IsBlank(EventSelector_4.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_4.Selected) || IsBlank(ContactStatus_4.Selected),
                                           Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
                                           Patch(
                                               Tx_Feedbacks,
@@ -584,21 +518,21 @@ Screens:
                                               {
                                                   TravailID: varFeedbackEvent.ID,
                                                   HeureContact: If(
-                                                      Year(ContactTime_2.SelectedDate) < 2020 || IsBlank(ContactHour_2.Selected) || IsBlank(ContactMinute_2.Selected),
+                                                      Year(ContactTime_4.SelectedDate) < 2020 || IsBlank(ContactHour_4.Selected) || IsBlank(ContactMinute_4.Selected),
                                                       Blank(),
                                                       DateTime(
-                                                          Year(ContactTime_2.SelectedDate),
-                                                          Month(ContactTime_2.SelectedDate),
-                                                          Day(ContactTime_2.SelectedDate),
-                                                          Value(ContactHour_2.Selected.Value),
-                                                          Value(ContactMinute_2.Selected.Value),
+                                                          Year(ContactTime_4.SelectedDate),
+                                                          Month(ContactTime_4.SelectedDate),
+                                                          Day(ContactTime_4.SelectedDate),
+                                                          Value(ContactHour_4.Selected.Value),
+                                                          Value(ContactMinute_4.Selected.Value),
                                                           0
                                                       )
                                                   ),
-                                                  MoyenCom: {Value: ContactMode_2.Selected.Value},
-                                                  StatutContact: ContactStatus_2.Selected.Value = "OUI",
-                                                  'Commentaire ': ObservationInput_2.Text,
-                                                  PK: PKInput_2.Text,
+                                                  MoyenCom: {Value: ContactMode_4.Selected.Value},
+                                                  StatutContact: ContactStatus_4.Selected.Value = "OUI",
+                                                  'Commentaire ': ObservationInput_4.Text,
+                                                  PK: PKInput_4.Text,
                                                   Poste: {Value: varQuart},
                                                   AgentSaisie: {
                                                       Claims: "i:0#.f|membership|" & Lower(User().Email),
@@ -617,7 +551,7 @@ Screens:
                                     Size: =14
                                     Text: ="AJOUTER LE POINTAGE"
                                     Width: =280
-                  - SummaryPanel_6:
+                  - SummaryPanel_9:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -638,21 +572,18 @@ Screens:
                         RadiusTopLeft: =6
                         RadiusTopRight: =6
                       Children:
-                        - SummaryHeading_6:
+                        - SummaryHeading_9:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
-                              FillPortions: =0
                               FocusedBorderThickness: =2
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
                               Height: =28
                               LayoutMinWidth: =0
-                              Size: =13
                               TabIndex: =0
                               Text: ="RÉSUMÉ DU CHANTIER"
-                              VerticalAlign: =VerticalAlign.Middle
-                        - SummaryCard_2:
+                        - SummaryCard_4:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -674,11 +605,10 @@ Screens:
                               RadiusTopLeft: =6
                               RadiusTopRight: =6
                             Children:
-                              - SummaryTitle_2:
+                              - SummaryTitle_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(25, 28, 38, 1)
-                                    FillPortions: =0
                                     FocusedBorderThickness: =2
                                     Font: =Font.'Segoe UI'
                                     FontWeight: =FontWeight.Bold
@@ -686,12 +616,10 @@ Screens:
                                     Size: =14
                                     TabIndex: =0
                                     Text: =Coalesce(varFeedbackEvent.Title, "Aucun chantier sélectionné")
-                                    VerticalAlign: =VerticalAlign.Middle
-                              - SummaryDetails_2:
+                              - SummaryDetails_3:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
-                                    FillPortions: =0
                                     FocusedBorderThickness: =2
                                     Font: =Font.'Segoe UI'
                                     Height: =48
@@ -705,12 +633,10 @@ Screens:
                                       ) & Char(10) &
                                       "Date : " & Text(varFeedbackEvent.Date_travaux, "dd/mm/yyyy") &
                                       "    |    PK : " & Coalesce(Text(varFeedbackEvent.PK_Debut), "—")
-                                    VerticalAlign: =VerticalAlign.Middle
-                              - SummaryStatus_2:
+                              - SummaryStatus_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =If(IsBlank(varFeedbackEvent.Heures_Degagement), RGBA(237, 108, 20, 1), RGBA(18, 135, 43, 1))
-                                    FillPortions: =0
                                     FocusedBorderThickness: =2
                                     Font: =Font.'Segoe UI'
                                     FontWeight: =FontWeight.Semibold
@@ -718,28 +644,23 @@ Screens:
                                     Size: =12
                                     TabIndex: =0
                                     Text: =If(IsBlank(varFeedbackEvent), "—", If(IsBlank(varFeedbackEvent.Heures_Degagement), "En cours", "Dégagé"))
-                                    VerticalAlign: =VerticalAlign.Middle
-                        - HistoryHeading_2:
+                        - HistoryHeading_3:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
-                              FillPortions: =0
                               FocusedBorderThickness: =2
                               Font: =Font.'Segoe UI'
                               FontWeight: =FontWeight.Bold
                               Height: =28
                               LayoutMinWidth: =0
-                              Size: =13
                               TabIndex: =0
                               Text: ="HISTORIQUE DES POINTAGES"
-                              VerticalAlign: =VerticalAlign.Middle
-                        - HistoryGallery_2:
+                        - HistoryGallery_4:
                             Control: Gallery@2.15.0
                             Variant: Vertical
                             Properties:
                               AccessibleLabel: ="Historique des feedbacks"
                               BorderColor: =RGBA(0, 0, 0, 0)
-                              FillPortions: =1
                               FocusedBorderThickness: =2
                               Items: =SortByColumns(Filter(Tx_Feedbacks, TravailID = varFeedbackEvent.ID), "HeureContact", SortOrder.Descending)
                               LayoutMinHeight: =220
@@ -747,7 +668,7 @@ Screens:
                               TemplatePadding: =4
                               TemplateSize: =84
                             Children:
-                              - HistoryTime_2:
+                              - HistoryTime_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     FocusedBorderThickness: =2
@@ -757,11 +678,10 @@ Screens:
                                     Size: =12
                                     TabIndex: =0
                                     Text: =Text(ThisItem.HeureContact, "dd/mm/yyyy hh:mm")
-                                    VerticalAlign: =VerticalAlign.Middle
                                     Width: =Parent.TemplateWidth - 144
                                     X: =12
                                     Y: =6
-                              - HistoryMode_2:
+                              - HistoryMode_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Right
@@ -771,11 +691,10 @@ Screens:
                                     Size: =11
                                     TabIndex: =0
                                     Text: =ThisItem.MoyenCom.Value
-                                    VerticalAlign: =VerticalAlign.Middle
                                     Width: =120
                                     X: =Parent.TemplateWidth - Self.Width - 12
                                     Y: =6
-                              - HistoryComment_2:
+                              - HistoryComment_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -804,14 +723,13 @@ Screens:
                   PaddingRight: =8
                   PaddingTop: =8
                 Children:
-                  - BackToJournal_2:
+                  - BackToJournal_4:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =RGBA(8, 49, 120, 1)
                         BorderThickness: =1
                         Color: =RGBA(8, 49, 120, 1)
                         Fill: =RGBA(255, 255, 255, 1)
-                        FillPortions: =0
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =48
@@ -819,18 +737,17 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="←   RETOUR AU JOURNAL DE BORD"
                         Width: =If(App.Width < 760, 300, 340)
-                  - SaveAndClose_2:
+                  - SaveAndClose_3:
                       Control: Classic/Button@2.2.0
                       Properties:
                         Fill: =RGBA(255, 174, 0, 1)
-                        FillPortions: =0
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =48
                         OnSelect: |-
                           =If(
-                              IsBlank(EventSelector_2.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_2.Selected) || IsBlank(ContactStatus_2.Selected),
+                              IsBlank(EventSelector_4.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_4.Selected) || IsBlank(ContactStatus_4.Selected),
                               Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
                               Patch(
                                   Tx_Feedbacks,
@@ -838,21 +755,21 @@ Screens:
                                   {
                                       TravailID: varFeedbackEvent.ID,
                                       HeureContact: If(
-                                          Year(ContactTime_2.SelectedDate) < 2020 || IsBlank(ContactHour_2.Selected) || IsBlank(ContactMinute_2.Selected),
+                                          Year(ContactTime_4.SelectedDate) < 2020 || IsBlank(ContactHour_4.Selected) || IsBlank(ContactMinute_4.Selected),
                                           Blank(),
                                           DateTime(
-                                              Year(ContactTime_2.SelectedDate),
-                                              Month(ContactTime_2.SelectedDate),
-                                              Day(ContactTime_2.SelectedDate),
-                                              Value(ContactHour_2.Selected.Value),
-                                              Value(ContactMinute_2.Selected.Value),
+                                              Year(ContactTime_4.SelectedDate),
+                                              Month(ContactTime_4.SelectedDate),
+                                              Day(ContactTime_4.SelectedDate),
+                                              Value(ContactHour_4.Selected.Value),
+                                              Value(ContactMinute_4.Selected.Value),
                                               0
                                           )
                                       ),
-                                      MoyenCom: {Value: ContactMode_2.Selected.Value},
-                                      StatutContact: ContactStatus_2.Selected.Value = "OUI",
-                                      'Commentaire ': ObservationInput_2.Text,
-                                      PK: PKInput_2.Text,
+                                      MoyenCom: {Value: ContactMode_4.Selected.Value},
+                                      StatutContact: ContactStatus_4.Selected.Value = "OUI",
+                                      'Commentaire ': ObservationInput_4.Text,
+                                      PK: PKInput_4.Text,
                                       Poste: {Value: varQuart},
                                       AgentSaisie: {
                                           Claims: "i:0#.f|membership|" & Lower(User().Email),
