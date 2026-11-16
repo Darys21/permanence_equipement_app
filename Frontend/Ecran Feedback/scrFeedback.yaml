@@ -4,7 +4,7 @@ Screens:
       Fill: =RGBA(255, 255, 255, 1)
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
       OnVisible: |-
-        =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+        =Reset(LockTimer_FB);
         Refresh(Tx_Travaux);
         Refresh(Tx_Feedbacks);
         Refresh(Ref_Cantons);
@@ -94,7 +94,7 @@ Screens:
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
                               Height: =Parent.Height
-                              OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Navigate(PrisePoste_2, ScreenTransition.Fade)
+                              OnSelect: =Reset(LockTimer_FB); Navigate(PrisePoste_2, ScreenTransition.Fade)
                               Size: =4.01
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
@@ -278,7 +278,7 @@ Screens:
                                                 "Created",
                                                 SortOrder.Descending
                                             )
-                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Set(varFeedbackEvent, EventSelector_4.Selected)
+                                          OnChange: =Reset(LockTimer_FB); Set(varFeedbackEvent, EventSelector_4.Selected)
                                           SearchFields: =["Title"]
                                           SelectMultiple: =false
                               - EventContext_4:
@@ -346,7 +346,7 @@ Screens:
                                           - ContactTime_4:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                                OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Date du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 FillPortions: =1
@@ -357,7 +357,7 @@ Screens:
                                           - ContactHour_4:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                                OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Heure du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 DisplayFields: =["Value"]
@@ -371,7 +371,7 @@ Screens:
                                           - ContactMinute_4:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                                OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Minute du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 DisplayFields: =["Value"]
@@ -405,7 +405,7 @@ Screens:
                                     - ContactMode_4:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                          OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Moyen de contact du pointage"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           DisplayFields: =["Value"]
@@ -438,7 +438,7 @@ Screens:
                                     - PKInput_4:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                          OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Localisation exacte du pointage en PK"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Default: =Blank()
@@ -468,7 +468,7 @@ Screens:
                                     - ContactStatus_4:
                                         Control: Classic/Radio@2.3.0
                                         Properties:
-                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                          OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Contact etabli (oui ou non)"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Height: =40
@@ -500,7 +500,7 @@ Screens:
                                     - ObservationInput_4:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                          OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Observations du pointage terrain"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Default: =Blank()
@@ -539,7 +539,7 @@ Screens:
                                     FontWeight: =FontWeight.Bold
                                     Height: =44
                                     OnSelect: |-
-                                      =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+                                      =Reset(LockTimer_FB);
                                       If(
                                           IsBlank(EventSelector_4.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_4.Selected) || IsBlank(ContactStatus_4.Selected),
                                           Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
@@ -764,7 +764,7 @@ Screens:
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =48
-                        OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                        OnSelect: =Reset(LockTimer_FB); Navigate(JournalDeBord_3, ScreenTransition.Fade)
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="←   RETOUR AU JOURNAL DE BORD"
                         Width: =If(App.Width < 760, 300, 340)
@@ -777,7 +777,7 @@ Screens:
                         FontWeight: =FontWeight.Bold
                         Height: =48
                         OnSelect: |-
-                          =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+                          =Reset(LockTimer_FB);
                           If(
                               IsBlank(EventSelector_4.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_4.Selected) || IsBlank(ContactStatus_4.Selected),
                               Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
@@ -836,7 +836,7 @@ Screens:
                   Reset(LockPin_FB)
               )
             Repeat: =false
-            Reset: =varLockActivityReset
+            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
             Height: =1
@@ -927,7 +927,7 @@ Screens:
                         Notify("Code PIN incorrect ou permanent non autorisé.", NotificationType.Error),
                         Set(LockPinInvalid_FB, false);
                         Set(varSessionVerrouillee, false);
-                        Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+                        Reset(LockTimer_FB);
                         Reset(LockPin_FB);
                         Notify("Poste déverrouillé. Votre session est conservée.", NotificationType.Success)
                     )
