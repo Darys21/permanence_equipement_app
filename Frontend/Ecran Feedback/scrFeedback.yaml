@@ -254,6 +254,7 @@ Screens:
                                     - EventSelector_4:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Chantier auquel rattacher le feedback"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           DefaultSelectedItems: |-
@@ -347,6 +348,7 @@ Screens:
                                           - ContactTime_4:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_FB)
                                                 OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Date du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
@@ -358,6 +360,7 @@ Screens:
                                           - ContactHour_4:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_FB)
                                                 OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Heure du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
@@ -372,6 +375,7 @@ Screens:
                                           - ContactMinute_4:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_FB)
                                                 OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Minute du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
@@ -406,6 +410,7 @@ Screens:
                                     - ContactMode_4:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_FB)
                                           OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Moyen de contact du pointage"
                                           BorderColor: =RGBA(155, 163, 178, 1)
@@ -439,6 +444,7 @@ Screens:
                                     - PKInput_4:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_FB)
                                           OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Localisation exacte du pointage en PK"
                                           BorderColor: =RGBA(155, 163, 178, 1)
@@ -469,6 +475,7 @@ Screens:
                                     - ContactStatus_4:
                                         Control: Classic/Radio@2.3.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_FB)
                                           OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Contact etabli (oui ou non)"
                                           BorderColor: =RGBA(155, 163, 178, 1)
@@ -501,6 +508,7 @@ Screens:
                                     - ObservationInput_4:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_FB)
                                           OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Observations du pointage terrain"
                                           BorderColor: =RGBA(155, 163, 178, 1)
@@ -879,6 +887,7 @@ Screens:
             - LockPin_FB:
                 Control: Classic/TextInput@2.3.2
                 Properties:
+                  OnSelect: =Reset(LockTimer_FB)
                   AccessibleLabel: ="PIN de déverrouillage"
                   BorderColor: =RGBA(180, 185, 195, 1)
                   Default: =""
