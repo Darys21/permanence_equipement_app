@@ -255,3 +255,42 @@ Le YAML contient un chemin de création/modification via `Patch(Tx_LTV, LookUp(.
 Correction appliquée dans `pa_yaml_script/JournalDeBord_3.yaml` : lors d'une modification, `Title` reprend désormais `varLtvToEdit.Title` (avec valeur de repli uniquement si le titre existant est vide). À la création, le titre généré reste inchangé. Commit source : `df6c1494d62b256ff74c1ab4f798b9f0cff0ab8b`.
 
 **Statut :** correction présente dans le dépôt source ; import Power Apps Studio et test de modification LTV encore à effectuer. Aucun statut fonctionnel n'est déclaré terminé.
+
+
+## 13. Vérification des demandes des permanents — 16/11/2026
+
+### 13.1 Interface d'accueil — arrière-plan métier DMI
+
+| ID | Action | Statut | Vérification |
+|---|---|---|---|
+| UX-03 | Ajouter un arrière-plan représentant l'activité DMI (rails, voies, données, équipements) à l'écran d'accueil/identification | À faire | Le YAML de `scrIdentificationAgent` consulté ne montre pas d'image métier intégrée comme arrière-plan. Une maquette graphique a été appréciée, mais l'intégration de l'image seule dans Power Apps reste à réaliser. |
+
+### 13.2 Accès sécuritaire — identité, mot de passe et verrouillage
+
+| ID | Action | Statut | Vérification |
+|---|---|---|---|
+| AUTH-12 | Identifier l'agent par son nom et son code PIN personnel | Présent dans le code / test à confirmer | `scrIdentificationAgent` contient une sélection d'agent, un champ PIN masqué et une vérification du PIN dans `Ref_Permanents`. |
+| AUTH-13 | Permettre à l'utilisateur de verrouiller son poste avec son mot de passe/PIN, puis de reprendre sa session | À faire | Aucun mécanisme de verrouillage/déverrouillage de session n'a été repéré dans les écrans actifs audités. Le bouton « Changer d'agent » revient à l'identification et remet l'agent actif à Non ; ce n'est pas un verrouillage temporaire. |
+| AUTH-14 | Définir les règles de sécurité de session (expiration, déverrouillage, protection contre les modifications par un autre agent) | À cadrer | Définir le comportement attendu avant implémentation, notamment conservation du poste et des données saisies pendant le verrouillage. |
+
+### 13.3 Poste pluri-personnel — deux permanents en activité
+
+| ID | Action | Statut | Vérification |
+|---|---|---|---|
+| POSTE-12 | Ajouter un menu déroulant pour sélectionner un deuxième permanent sur un même poste | À faire | `PrisePoste_2` affiche le permanent connecté et permet de choisir P1/P2/P3 ; aucun second sélecteur de permanent n'a été repéré dans le YAML audité. |
+| POSTE-13 | Exiger deux permanents actifs pour les journées de grands travaux | À faire | La validation actuelle vérifie l'identité du premier permanent et le choix du poste, mais aucun contrôle n'impose deux permanents pour un cas « grands travaux ». |
+| POSTE-14 | Définir les règles de présence du deuxième permanent selon le type de journée/poste | À cadrer | Confirmer si le deuxième permanent est obligatoire uniquement pour les journées de grands travaux ou également dans d'autres situations. |
+
+### 13.4 Anomalie d'affichage LTV non bloquante
+
+| ID | Action | Statut | Vérification |
+|---|---|---|---|
+| JOUR-27 | Corriger l'erreur de conversion affichée par le compteur LTV `EventCount_22` (« Impossible de convertir la valeur '0 | Imp 0 | Sup 0' en nombre ») | Correctif à faire — non bloquant | L'utilisateur confirme que le LTV s'enregistre correctement et que le message de succès apparaît. Le défaut concerne l'indicateur/compteur d'affichage ; ne pas modifier le chemin de sauvegarde LTV pour traiter cette anomalie. La première proposition de correction de typage n'a pas résolu le problème. |
+
+### 13.5 Résultat de la vérification
+
+- **Déjà présent dans le code :** identification par nom + PIN ; sélection du poste P1/P2/P3 ; changement d'agent.
+- **À tester dans Power Apps :** parcours complet d'identification par PIN et prise de poste, y compris PIN invalide.
+- **À faire :** image métier en arrière-plan ; verrouillage/déverrouillage temporaire par PIN ; sélection d'un deuxième permanent ; règle conditionnelle imposant deux permanents pour les journées de grands travaux.
+- **Anomalie non bloquante :** erreur de conversion du compteur LTV, conservée au backlog. La sauvegarde LTV est confirmée fonctionnelle par le test utilisateur du 16/11/2026.
+- Les statuts « présent dans le code » ne valent pas validation métier complète.
