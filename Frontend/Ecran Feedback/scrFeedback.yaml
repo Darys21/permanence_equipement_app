@@ -4,7 +4,8 @@ Screens:
       Fill: =RGBA(255, 255, 255, 1)
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
       OnVisible: |-
-        =Refresh(Tx_Travaux);
+        =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+        Refresh(Tx_Travaux);
         Refresh(Tx_Feedbacks);
         Refresh(Ref_Cantons);
         Refresh(Ref_Acteurs);
@@ -93,7 +94,7 @@ Screens:
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
                               Height: =Parent.Height
-                              OnSelect: =Navigate(PrisePoste_2, ScreenTransition.Fade)
+                              OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Navigate(PrisePoste_2, ScreenTransition.Fade)
                               Size: =4.01
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
@@ -150,6 +151,28 @@ Screens:
                           "   |   Agent : " &
                           Coalesce(varAgentPermanentNom, "Aucun agent sélectionné")
                         Width: =If(App.Width < 760, 140, 340)
+                  - BtnLock_FB:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(255, 174, 0, 1)
+                        BorderThickness: =1
+                        Color: =RGBA(8, 49, 120, 1)
+                        Fill: =RGBA(255, 174, 0, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =34
+                        LayoutMinWidth: =If(App.Width < 760, 84, 104)
+                        OnSelect: |-
+                          =Set(varSessionVerrouillee, true);
+                          Set(varLockSource, "Manuel");
+                          Set(LockPinInvalid_FB, false);
+                          Reset(LockPin_FB)
+                        Size: =If(App.Width < 760, 9, 11)
+                        Text: =If(App.Width < 760, "VERROUILLER", "VERROUILLER LE POSTE")
+                        Tooltip: ="Verrouiller la session sans la fermer"
+                        Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
+                        Width: =If(App.Width < 760, 84, 112)
             - FeedbackWorkspace_4:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
@@ -255,7 +278,7 @@ Screens:
                                                 "Created",
                                                 SortOrder.Descending
                                             )
-                                          OnChange: =Set(varFeedbackEvent, EventSelector_4.Selected)
+                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Set(varFeedbackEvent, EventSelector_4.Selected)
                                           SearchFields: =["Title"]
                                           SelectMultiple: =false
                               - EventContext_4:
@@ -323,6 +346,7 @@ Screens:
                                           - ContactTime_4:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
                                                 AccessibleLabel: ="Date du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 FillPortions: =1
@@ -333,6 +357,7 @@ Screens:
                                           - ContactHour_4:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
                                                 AccessibleLabel: ="Heure du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 DisplayFields: =["Value"]
@@ -346,6 +371,7 @@ Screens:
                                           - ContactMinute_4:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
                                                 AccessibleLabel: ="Minute du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 DisplayFields: =["Value"]
@@ -379,6 +405,7 @@ Screens:
                                     - ContactMode_4:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
                                           AccessibleLabel: ="Moyen de contact du pointage"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           DisplayFields: =["Value"]
@@ -411,6 +438,7 @@ Screens:
                                     - PKInput_4:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
                                           AccessibleLabel: ="Localisation exacte du pointage en PK"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Default: =Blank()
@@ -440,6 +468,7 @@ Screens:
                                     - ContactStatus_4:
                                         Control: Classic/Radio@2.3.0
                                         Properties:
+                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
                                           AccessibleLabel: ="Contact etabli (oui ou non)"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Height: =40
@@ -471,6 +500,7 @@ Screens:
                                     - ObservationInput_4:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
                                           AccessibleLabel: ="Observations du pointage terrain"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Default: =Blank()
@@ -509,7 +539,8 @@ Screens:
                                     FontWeight: =FontWeight.Bold
                                     Height: =44
                                     OnSelect: |-
-                                      =If(
+                                      =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+                                      If(
                                           IsBlank(EventSelector_4.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_4.Selected) || IsBlank(ContactStatus_4.Selected),
                                           Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
                                           Patch(
@@ -733,7 +764,7 @@ Screens:
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =48
-                        OnSelect: =Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                        OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Navigate(JournalDeBord_3, ScreenTransition.Fade)
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="←   RETOUR AU JOURNAL DE BORD"
                         Width: =If(App.Width < 760, 300, 340)
@@ -746,7 +777,8 @@ Screens:
                         FontWeight: =FontWeight.Bold
                         Height: =48
                         OnSelect: |-
-                          =If(
+                          =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+                          If(
                               IsBlank(EventSelector_4.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_4.Selected) || IsBlank(ContactStatus_4.Selected),
                               Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
                               Patch(
@@ -789,3 +821,118 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="ENREGISTRER ET RETOUR JOURNAL"
                         Width: =If(App.Width < 760, 300, 350)
+
+      - LockTimer_FB:
+          Control: Timer@2.1.0
+          Properties:
+            AutoPause: =true
+            Duration: =600000
+            OnTimerEnd: |-
+              =If(
+                  !varSessionVerrouillee && !IsBlank(varSessionPoste),
+                  Set(varSessionVerrouillee, true);
+                  Set(varLockSource, "Automatique");
+                  Set(LockPinInvalid_FB, false);
+                  Reset(LockPin_FB)
+              )
+            Repeat: =false
+            Reset: =varLockActivityReset
+            Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
+            Visible: =false
+            Height: =1
+            Width: =1
+      - LockOverlay_FB:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 126, 0.97)
+            Height: =App.Height
+            Visible: =varSessionVerrouillee
+            Width: =App.Width
+          Children:
+            - LockTitle_FB:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =56
+                  Size: =If(App.Width < 760, 20, 28)
+                  Text: ="POSTE VERROUILLÉ"
+                  Width: =Min(App.Width - 32, 640)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.34
+            - LockInfo_FB:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =54
+                  Size: =If(App.Width < 760, 11, 15)
+                  Text: =If(varLockSource = "Automatique", "Verrouillage automatique après 10 minutes d'inactivité. ", "Verrouillage manuel. ") & "Saisissez le PIN du permanent principal ou du deuxième permanent déclaré."
+                  Width: =Min(App.Width - 32, 720)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.43
+            - LockPin_FB:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  AccessibleLabel: ="PIN de déverrouillage"
+                  BorderColor: =RGBA(180, 185, 195, 1)
+                  Default: =""
+                  HintText: ="Code PIN"
+                  MaxLength: =4
+                  Mode: =TextMode.Password
+                  Size: =If(App.Width < 760, 14, 18)
+                  Width: =Min(App.Width - 48, 360)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.53
+            - LockError_FB:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 190, 190, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =32
+                  Size: =If(App.Width < 760, 10, 13)
+                  Text: ="Code PIN incorrect ou permanent non autorisé."
+                  Visible: =LockPinInvalid_FB
+                  Width: =Min(App.Width - 32, 600)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.61
+            - BtnUnlock_FB:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(255, 174, 0, 1)
+                  Color: =RGBA(8, 49, 120, 1)
+                  Fill: =RGBA(255, 174, 0, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =48
+                  OnSelect: |-
+                    =Set(
+                        varPermanentAutoriseDeverrouillage,
+                        LookUp(
+                            Ref_Permanents,
+                            (ID = varAgentPermanentID ||
+                             (!IsBlank(varPermanentSecondaireSession.ID) &&
+                              ID = varPermanentSecondaireSession.ID)) &&
+                            CodePIN = Trim(LockPin_FB.Text)
+                        )
+                    );
+                    If(
+                        IsBlank(varPermanentAutoriseDeverrouillage.ID),
+                        Set(LockPinInvalid_FB, true);
+                        Notify("Code PIN incorrect ou permanent non autorisé.", NotificationType.Error),
+                        Set(LockPinInvalid_FB, false);
+                        Set(varSessionVerrouillee, false);
+                        Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+                        Reset(LockPin_FB);
+                        Notify("Poste déverrouillé. Votre session est conservée.", NotificationType.Success)
+                    )
+                  Size: =If(App.Width < 760, 11, 14)
+                  Text: ="DÉVERROUILLER LE POSTE"
+                  Width: =Min(App.Width - 48, 360)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.69
