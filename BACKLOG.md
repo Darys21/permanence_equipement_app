@@ -303,7 +303,7 @@ Travail réalisé dans la branche `feature/permanents-lock-session` du dépôt s
 
 - `PrisePoste_2.yaml` : ajout d'un ComboBox pour sélectionner un deuxième permanent depuis `Ref_Permanents`, en excluant le permanent initial.
 - Règle calendrier : le deuxième permanent est obligatoire lorsque `Weekday(Today(), StartOfWeek.Monday)` vaut 2 (mardi) ou 5 (vendredi) ; il reste facultatif les autres jours.
-- Démarrage du service : association des deux enregistrements et du poste dans les variables de session `varPermanentPrincipalSession`, `varPermanentSecondaireSession` et `varSessionPoste`.
+- Démarrage du service : association des deux enregistrements et du poste dans les variables de session `varPermanentPrincipalSession`, `varPermanentSecondaireSession` et `varSessionPoste`. Le statut SharePoint `Actif` du deuxième permanent passe à Oui au démarrage, puis à Non lors du changement d'agent ou de la clôture.
 - Verrouillage manuel : bouton ajouté au journal, au feedback et à la clôture ; un écran de verrouillage est présent sur Prise de poste, Journal, Feedback et Clôture.
 - Déverrouillage : le PIN doit correspondre au permanent initial (`varAgentPermanentID`) ou au deuxième permanent déclaré (`varPermanentSecondaireSession.ID`). Le verrouillage ne modifie pas le champ SharePoint `Actif`.
 - Changement d'agent : remise à zéro des variables de session pour éviter de conserver le deuxième permanent d'une session précédente.
