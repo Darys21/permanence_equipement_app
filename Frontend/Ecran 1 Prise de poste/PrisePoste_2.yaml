@@ -41,7 +41,7 @@ Screens:
             Set(varIncidentToEdit, Blank())
         )
     Children:
-      - conRoot_PO_2:
+      - conRoot_PO_3:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
@@ -57,7 +57,7 @@ Screens:
             PaddingTop: =8
             Width: =App.Width
           Children:
-            - Header_10:
+            - Header_11:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -71,7 +71,7 @@ Screens:
                   PaddingLeft: =16
                   PaddingRight: =16
                 Children:
-                  - LogoMarks_9:
+                  - LogoMarks_10:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
@@ -81,13 +81,13 @@ Screens:
                         LayoutMinWidth: =36
                         Width: =36
                       Children:
-                        - LogoMark1_8:
+                        - LogoMark1_9:
                             Control: Rectangle@2.3.0
                             Properties:
                               Fill: =RGBA(255, 184, 0, 1)
                               Height: =5
                               Width: =34.35
-                        - LogoMark2_8:
+                        - LogoMark2_9:
                             Control: Rectangle@2.3.0
                             Properties:
                               Fill: =RGBA(255, 184, 0, 1)
@@ -95,7 +95,7 @@ Screens:
                               Width: =27.13
                               X: =5.42
                               Y: =9
-                  - LogoText_10:
+                  - LogoText_11:
                       Control: Label@2.5.1
                       Properties:
                         Color: =RGBA(255, 255, 255, 1)
@@ -108,7 +108,7 @@ Screens:
                         Size: =9.17
                         Text: ="SETRAG" & Char(10) & "   ERAMET"
                         Width: =80
-                  - AppTitle_8:
+                  - AppTitle_9:
                       Control: Label@2.5.1
                       Properties:
                         Align: =Align.Center
@@ -132,19 +132,19 @@ Screens:
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =34
-                        AccessibleLabel: ="Verrouiller le poste"
                         LayoutMinWidth: =40
                         OnSelect: |-
                           =Set(varSessionVerrouillee, true);
                           Set(varLockSource, "Manuel");
                           Set(LockPinInvalid_PO, false);
-                          Reset(LockPin_PO)
+                          Reset(LockPin_PO_1)
                         Size: =16
-                        Text: ="🔒"
+                        Text: |-
+                          ="🔒"
                         Tooltip: ="Verrouiller la session sans la fermer"
                         Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
                         Width: =40
-                  - BtnChangerAgent_9:
+                  - BtnChangerAgent_10:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =RGBA(255, 255, 255, 1)
@@ -200,7 +200,7 @@ Screens:
                         Text: ="Changer d'agent"
                         Tooltip: ="Revenir à l'identification pour sélectionner un autre permanent"
                         Width: =96
-                  - ProfileIcon_8:
+                  - ProfileIcon_9:
                       Control: Classic/Icon@2.5.0
                       Properties:
                         Color: =RGBA(255, 255, 255, 1)
@@ -208,7 +208,7 @@ Screens:
                         Icon: =Icon.Person
                         LayoutMinWidth: =33
                         Width: =33
-                  - ProfileEmailRight_8:
+                  - ProfileEmailRight_9:
                       Control: Label@2.5.1
                       Properties:
                         Color: =RGBA(255, 255, 255, 1)
@@ -221,7 +221,7 @@ Screens:
                         Text: =Coalesce(varAgentPermanentNom, User().Email)
                         Visible: =App.Width >= 1000
                         Width: =190
-            - Welcome_8:
+            - Welcome_9:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -237,7 +237,7 @@ Screens:
                   PaddingRight: =16
                   PaddingTop: =16
                 Children:
-                  - WelcomeRow_7:
+                  - WelcomeRow_8:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -248,7 +248,7 @@ Screens:
                         LayoutGap: =10
                         LayoutMinHeight: =52
                       Children:
-                        - WelcomeIconBackground_8:
+                        - WelcomeIconBackground_9:
                             Control: Classic/Icon@2.5.0
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
@@ -257,7 +257,7 @@ Screens:
                               Icon: =Icon.Person
                               LayoutMinWidth: =41
                               Width: =41
-                        - WelcomeText_8:
+                        - WelcomeText_9:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
@@ -269,13 +269,13 @@ Screens:
                               PaddingTop: =4.51
                               Size: =If(App.Width < 760, 15, 19.88)
                               Text: ="Bonjour, " & Coalesce(varAgentPermanentNom, User().FullName)
-                  - WelcomeDivider_8:
+                  - WelcomeDivider_9:
                       Control: Rectangle@2.3.0
                       Properties:
                         Fill: =RGBA(230, 232, 236, 1)
                         Height: =1
                         LayoutMinHeight: =1
-                  - ShiftHeading_8:
+                  - ShiftHeading_9:
                       Control: Label@2.5.1
                       Properties:
                         Color: =RGBA(82, 87, 100, 1)
@@ -288,7 +288,7 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14.45)
                         Text: |-
                           ="1. Votre Poste de Travail : " & varQuart
-                  - ShiftCards_7:
+                  - ShiftCards_8:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -299,7 +299,7 @@ Screens:
                         LayoutGap: =If(App.Width < 760, 8, 16)
                         LayoutMinHeight: =124
                       Children:
-                        - P1Card_8:
+                        - P1Card_9:
                             Control: GroupContainer@1.5.0
                             Variant: ManualLayout
                             Properties:
@@ -309,7 +309,7 @@ Screens:
                               LayoutMinHeight: =124
                               LayoutMinWidth: =80
                             Children:
-                              - P1Select_8:
+                              - P1Select_9:
                                   Control: Classic/Button@2.2.0
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -323,7 +323,7 @@ Screens:
                                     Size: =13.56
                                     Text: ="Sélectionner le poste P1, de 06h à 14h"
                                     Width: =Parent.Width
-                              - Image1_18:
+                              - Image1_21:
                                   Control: Image@2.2.3
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -351,7 +351,7 @@ Screens:
                                     Width: =44
                                     X: =(Parent.Width - Self.Width) / 2
                                     Y: =10
-                              - P1Title_8:
+                              - P1Title_9:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -365,7 +365,7 @@ Screens:
                                     Text: ="P1"
                                     Width: =Parent.Width
                                     Y: =56
-                              - P1Hours_8:
+                              - P1Hours_9:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -379,7 +379,7 @@ Screens:
                                     Text: ="06h - 14h"
                                     Width: =Parent.Width
                                     Y: =92
-                        - P2Card_8:
+                        - P2Card_9:
                             Control: GroupContainer@1.5.0
                             Variant: ManualLayout
                             Properties:
@@ -389,7 +389,7 @@ Screens:
                               LayoutMinHeight: =124
                               LayoutMinWidth: =80
                             Children:
-                              - P2Select_8:
+                              - P2Select_9:
                                   Control: Classic/Button@2.2.0
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -403,7 +403,7 @@ Screens:
                                     Size: =13.56
                                     Text: ="Sélectionner le poste P2, de 14h à 22h"
                                     Width: =Parent.Width
-                              - Image1_19:
+                              - Image1_22:
                                   Control: Image@2.2.3
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -435,7 +435,7 @@ Screens:
                                     Width: =44
                                     X: =(Parent.Width - Self.Width) / 2
                                     Y: =10
-                              - P2Title_8:
+                              - P2Title_9:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -449,7 +449,7 @@ Screens:
                                     Text: ="P2"
                                     Width: =Parent.Width
                                     Y: =56
-                              - P2Hours_8:
+                              - P2Hours_9:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -463,7 +463,7 @@ Screens:
                                     Text: ="14h - 22h"
                                     Width: =Parent.Width
                                     Y: =92
-                        - P3Card_8:
+                        - P3Card_9:
                             Control: GroupContainer@1.5.0
                             Variant: ManualLayout
                             Properties:
@@ -473,7 +473,7 @@ Screens:
                               LayoutMinHeight: =124
                               LayoutMinWidth: =80
                             Children:
-                              - P3Select_8:
+                              - P3Select_9:
                                   Control: Classic/Button@2.2.0
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -487,7 +487,7 @@ Screens:
                                     Size: =13.56
                                     Text: ="Sélectionner le poste P3, de 22h à 06h"
                                     Width: =Parent.Width
-                              - Image1_20:
+                              - Image1_23:
                                   Control: Image@2.2.3
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -511,7 +511,7 @@ Screens:
                                     Width: =44
                                     X: =(Parent.Width - Self.Width) / 2
                                     Y: =10
-                              - P3Title_8:
+                              - P3Title_9:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -525,7 +525,7 @@ Screens:
                                     Text: ="P3"
                                     Width: =Parent.Width
                                     Y: =56
-                              - P3Hours_8:
+                              - P3Hours_9:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -539,7 +539,7 @@ Screens:
                                     Text: ="22h - 06h"
                                     Width: =Parent.Width
                                     Y: =92
-            - HandoverSection_8:
+            - HandoverSection_9:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -553,7 +553,7 @@ Screens:
                   PaddingRight: =16
                   PaddingTop: =8
                 Children:
-                  - HandoverHeading_8:
+                  - HandoverHeading_9:
                       Control: Label@2.5.1
                       Properties:
                         Color: =RGBA(82, 87, 100, 1)
@@ -565,7 +565,7 @@ Screens:
                         PaddingTop: =4.51
                         Size: =If(App.Width < 760, 12, 14.45)
                         Text: ="2. Éléments à reprendre (P-1)"
-                  - SecondPermanentBlock_PO:
+                  - SecondPermanentBlock_PO_1:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -577,7 +577,7 @@ Screens:
                         LayoutGap: =4
                         LayoutMinHeight: =76
                       Children:
-                        - PermanentSecondaireLabel_PO:
+                        - PermanentSecondaireLabel_PO_1:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(82, 87, 100, 1)
@@ -589,10 +589,9 @@ Screens:
                               PaddingTop: =2
                               Size: =If(App.Width < 760, 11, 13)
                               Text: =If(Weekday(Today(), StartOfWeek.Monday) = 2 || Weekday(Today(), StartOfWeek.Monday) = 5, "Deuxième permanent (obligatoire aujourd'hui)", "Deuxième permanent (facultatif)")
-                        - PermanentSecondaireCombo_PO:
+                        - PermanentSecondaireCombo_PO_1:
                             Control: Classic/ComboBox@2.4.0
                             Properties:
-                              OnSelect: =Reset(LockTimer_PO)
                               AccessibleLabel: ="Sélectionner le deuxième permanent"
                               BorderColor: =RGBA(180, 185, 195, 1)
                               DefaultSelectedItems: =If(IsBlank(varPermanentSecondaireSelection.ID), [], [varPermanentSecondaireSelection])
@@ -608,11 +607,12 @@ Screens:
                                     SortOrder.Ascending
                                 )
                               OnChange: =Reset(LockTimer_PO); Set(varPermanentSecondaireSelection, Self.Selected)
+                              OnSelect: =Reset(LockTimer_PO)
                               SearchFields: =["Title"]
                               SelectMultiple: =false
                               Size: =If(App.Width < 760, 10, 12)
                               Width: =Parent.Width
-                  - TravauxBlock_6:
+                  - TravauxBlock_7:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -621,7 +621,7 @@ Screens:
                         LayoutGap: =4
                         LayoutMinHeight: =130
                       Children:
-                        - TravauxSubHeading_7:
+                        - TravauxSubHeading_8:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(18, 135, 43, 1)
@@ -633,7 +633,7 @@ Screens:
                               PaddingTop: =4.51
                               Size: =10.85
                               Text: ="CHANTIERS & TRAVAUX en cours"
-                        - TravauxHandoverGallery_7:
+                        - TravauxHandoverGallery_8:
                             Control: Gallery@2.15.0
                             Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
                             Properties:
@@ -658,7 +658,7 @@ Screens:
                               TemplatePadding: =6
                               TemplateSize: =54
                             Children:
-                              - TravauxStatusBar_7:
+                              - TravauxStatusBar_8:
                                   Control: Rectangle@2.3.0
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -667,7 +667,7 @@ Screens:
                                     OnSelect: =Reset(LockTimer_PO); Select(Parent)
                                     Width: =6.32
                                     Y: =3
-                              - TravauxWorkIcon_7:
+                              - TravauxWorkIcon_8:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     Color: =RGBA(18, 135, 43, 1)
@@ -677,7 +677,7 @@ Screens:
                                     Width: =25.31
                                     X: =20
                                     Y: =10
-                              - TravauxWorkTitle_7:
+                              - TravauxWorkTitle_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(25, 28, 38, 1)
@@ -693,7 +693,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
                                     X: =64
                                     Y: =3
-                              - TravauxCantonText_7:
+                              - TravauxCantonText_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -709,7 +709,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
                                     X: =64
                                     Y: =25
-                              - TravauxLocationIcon_7:
+                              - TravauxLocationIcon_8:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -720,7 +720,7 @@ Screens:
                                     Width: =19.88
                                     X: =Parent.TemplateWidth - 196
                                     Y: =15
-                              - TravauxPKText_7:
+                              - TravauxPKText_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Right
@@ -735,7 +735,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 112, 168)
                                     X: =Parent.TemplateWidth - Self.Width - 8
                                     Y: =12
-                  - LtvBlock_6:
+                  - LtvBlock_7:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -744,7 +744,7 @@ Screens:
                         LayoutGap: =4
                         LayoutMinHeight: =130
                       Children:
-                        - LtvSubHeading_7:
+                        - LtvSubHeading_8:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(237, 108, 20, 1)
@@ -756,7 +756,7 @@ Screens:
                               PaddingTop: =4.51
                               Size: =10.85
                               Text: ="LTV / RAL actifs"
-                        - LtvHandoverGallery_7:
+                        - LtvHandoverGallery_8:
                             Control: Gallery@2.15.0
                             Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
                             Properties:
@@ -777,7 +777,7 @@ Screens:
                               TemplatePadding: =6
                               TemplateSize: =54
                             Children:
-                              - LtvStatusBar_7:
+                              - LtvStatusBar_8:
                                   Control: Rectangle@2.3.0
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -786,7 +786,7 @@ Screens:
                                     OnSelect: =Reset(LockTimer_PO); Select(Parent)
                                     Width: =6.32
                                     Y: =3
-                              - LtvWorkIcon_7:
+                              - LtvWorkIcon_8:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     Color: =RGBA(240, 43, 35, 1)
@@ -796,7 +796,7 @@ Screens:
                                     Width: =25.31
                                     X: =20
                                     Y: =10
-                              - LtvWorkTitle_7:
+                              - LtvWorkTitle_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(25, 28, 38, 1)
@@ -812,7 +812,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
                                     X: =64
                                     Y: =3
-                              - LtvCantonText_7:
+                              - LtvCantonText_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -828,7 +828,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
                                     X: =64
                                     Y: =25
-                              - LtvLocationIcon_7:
+                              - LtvLocationIcon_8:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -839,7 +839,7 @@ Screens:
                                     Width: =19.88
                                     X: =Parent.TemplateWidth - 196
                                     Y: =16
-                              - LtvPKText_7:
+                              - LtvPKText_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Right
@@ -854,7 +854,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 112, 168)
                                     X: =Parent.TemplateWidth - Self.Width - 8
                                     Y: =12
-                  - IncidentsBlock_6:
+                  - IncidentsBlock_7:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -863,7 +863,7 @@ Screens:
                         LayoutGap: =4
                         LayoutMinHeight: =130
                       Children:
-                        - IncidentsSubHeading_7:
+                        - IncidentsSubHeading_8:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(238, 32, 35, 1)
@@ -875,7 +875,7 @@ Screens:
                               PaddingTop: =4.51
                               Size: =10.85
                               Text: ="INCIDENTS & RUPTURES en cours"
-                        - IncidentsHandoverGallery_7:
+                        - IncidentsHandoverGallery_8:
                             Control: Gallery@2.15.0
                             Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
                             Properties:
@@ -902,7 +902,7 @@ Screens:
                               TemplatePadding: =6
                               TemplateSize: =54
                             Children:
-                              - IncStatusBar_7:
+                              - IncStatusBar_8:
                                   Control: Rectangle@2.3.0
                                   Properties:
                                     BorderColor: =RGBA(0, 0, 0, 0)
@@ -911,7 +911,7 @@ Screens:
                                     OnSelect: =Reset(LockTimer_PO); Select(Parent)
                                     Width: =6.32
                                     Y: =3
-                              - IncWorkIcon_7:
+                              - IncWorkIcon_8:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     Color: =RGBA(238, 32, 35, 1)
@@ -921,7 +921,7 @@ Screens:
                                     Width: =25.31
                                     X: =20
                                     Y: =10
-                              - IncWorkTitle_7:
+                              - IncWorkTitle_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(25, 28, 38, 1)
@@ -937,7 +937,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
                                     X: =64
                                     Y: =3
-                              - IncCantonText_7:
+                              - IncCantonText_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -953,7 +953,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 64 - If(Parent.TemplateWidth < 520, 120, 200)
                                     X: =64
                                     Y: =25
-                              - IncLocationIcon_7:
+                              - IncLocationIcon_8:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -964,7 +964,7 @@ Screens:
                                     Width: =19.88
                                     X: =Parent.TemplateWidth - 196
                                     Y: =15
-                              - IncEtatText_7:
+                              - IncEtatText_8:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Right
@@ -980,7 +980,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 112, 168)
                                     X: =Parent.TemplateWidth - Self.Width - 8
                                     Y: =12
-            - StartButton_8:
+            - StartButton_9:
                 Control: Classic/Button@2.2.0
                 Properties:
                   BorderColor: =RGBA(255, 174, 0, 1)
@@ -1050,23 +1050,20 @@ Screens:
       - LockTimer_PO:
           Control: Timer@2.1.0
           Properties:
-            AutoPause: =true
             Duration: =600000
+            Height: =1
             OnTimerEnd: |-
               =If(
                   !varSessionVerrouillee && !IsBlank(varSessionPoste),
                   Set(varSessionVerrouillee, true);
                   Set(varLockSource, "Automatique");
                   Set(LockPinInvalid_PO, false);
-                  Reset(LockPin_PO)
+                  Reset(LockPin_PO_1)
               )
-            Repeat: =false
-            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
-            Height: =1
             Width: =1
-      - LockOverlay_PO:
+      - LockOverlay_PO_1:
           Control: GroupContainer@1.5.0
           Variant: ManualLayout
           Properties:
@@ -1075,7 +1072,7 @@ Screens:
             Visible: =varSessionVerrouillee
             Width: =App.Width
           Children:
-            - LockTitle_PO:
+            - LockTitle_PO_1:
                 Control: Label@2.5.1
                 Properties:
                   Align: =Align.Center
@@ -1088,7 +1085,7 @@ Screens:
                   Width: =Min(App.Width - 32, 640)
                   X: =(Parent.Width - Self.Width) / 2
                   Y: =Parent.Height * 0.34
-            - LockInfo_PO:
+            - LockInfo_PO_1:
                 Control: Label@2.5.1
                 Properties:
                   Align: =Align.Center
@@ -1100,22 +1097,22 @@ Screens:
                   Width: =Min(App.Width - 32, 720)
                   X: =(Parent.Width - Self.Width) / 2
                   Y: =Parent.Height * 0.43
-            - LockPin_PO:
+            - LockPin_PO_1:
                 Control: Classic/TextInput@2.3.2
                 Properties:
-                  OnSelect: =Reset(LockTimer_PO)
-                  OnChange: =Reset(LockTimer_PO)
                   AccessibleLabel: ="PIN de déverrouillage"
                   BorderColor: =RGBA(180, 185, 195, 1)
                   Default: =""
                   HintText: ="Code PIN"
                   MaxLength: =4
                   Mode: =TextMode.Password
+                  OnChange: =Reset(LockTimer_PO)
+                  OnSelect: =Reset(LockTimer_PO)
                   Size: =If(App.Width < 760, 14, 18)
                   Width: =Min(App.Width - 48, 360)
                   X: =(Parent.Width - Self.Width) / 2
                   Y: =Parent.Height * 0.53
-            - LockError_PO:
+            - LockError_PO_1:
                 Control: Label@2.5.1
                 Properties:
                   Align: =Align.Center
@@ -1128,7 +1125,7 @@ Screens:
                   Width: =Min(App.Width - 32, 600)
                   X: =(Parent.Width - Self.Width) / 2
                   Y: =Parent.Height * 0.61
-            - BtnUnlock_PO:
+            - BtnUnlock_PO_1:
                 Control: Classic/Button@2.2.0
                 Properties:
                   BorderColor: =RGBA(255, 174, 0, 1)
@@ -1145,7 +1142,7 @@ Screens:
                             (ID = varAgentPermanentID ||
                              (!IsBlank(varPermanentSecondaireSession.ID) &&
                               ID = varPermanentSecondaireSession.ID)) &&
-                            CodePIN = Trim(LockPin_PO.Text)
+                            CodePIN = Trim(LockPin_PO_1.Text)
                         )
                     );
                     If(
@@ -1158,7 +1155,7 @@ Screens:
                         Set(LockPinInvalid_PO, false);
                         Set(varSessionVerrouillee, false);
                         Reset(LockTimer_PO);
-                        Reset(LockPin_PO);
+                        Reset(LockPin_PO_1);
                         Notify("Poste déverrouillé.", NotificationType.Success)
                     )
                   Size: =If(App.Width < 760, 11, 14)

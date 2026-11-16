@@ -6,11 +6,11 @@ Screens:
       OnVisible: |-
         =Reset(LockTimer_JB);
         Set(varLockInputSnapshot_JB, Concatenate(
-                      Coalesce(TitreChantierInput_24.Text, ""), Char(10),
-                      Coalesce(PKDebutInput_23.Text, ""), Char(10),
-                      Coalesce(PKFinInput_23.Text, ""), Char(10),
-                      Coalesce(TauxInput_23.Text, ""), Char(10),
-                      Coalesce(CommentairesInput_23.Text, "")
+                      Coalesce(TitreChantierInput_25.Text, ""), Char(10),
+                      Coalesce(PKDebutInput_24.Text, ""), Char(10),
+                      Coalesce(PKFinInput_24.Text, ""), Char(10),
+                      Coalesce(TauxInput_24.Text, ""), Char(10),
+                      Coalesce(CommentairesInput_24.Text, "")
                   ));
         If(varActionEnCours <> "Modifier", Set(varOngletJournal, "Travaux"));
         Set(varAttemptedSave, false);
@@ -23,7 +23,7 @@ Screens:
         Refresh(Tx_Feedbacks);
         If(IsBlank(varActionEnCours), Set(varActionEnCours, "Créer"))
     Children:
-      - conRoot_Responsive_1:
+      - conRoot_Responsive_2:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
@@ -39,7 +39,7 @@ Screens:
             PaddingTop: =12
             Width: =App.Width
           Children:
-            - Header_28:
+            - Header_29:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -53,7 +53,7 @@ Screens:
                   PaddingLeft: =If(App.Width < 760, 12, 20)
                   PaddingRight: =If(App.Width < 760, 12, 20)
                 Children:
-                  - LogoMark_27:
+                  - LogoMark_28:
                       Control: Rectangle@2.3.0
                       Properties:
                         AccessibleLabel: ="Logo SETRAG"
@@ -61,7 +61,7 @@ Screens:
                         Height: =5
                         TabIndex: =0
                         Width: =59
-                  - LogoText_31:
+                  - LogoText_32:
                       Control: Label@2.5.1
                       Properties:
                         Color: =RGBA(255, 255, 255, 1)
@@ -75,7 +75,7 @@ Screens:
                         Text: ="SETRAG" & Char(10) & "   ERAMET"
                         Visible: =App.Width >= 760
                         Width: =130
-                  - ScreenTitle_24:
+                  - ScreenTitle_25:
                       Control: Label@2.5.1
                       Properties:
                         Align: =Align.Center
@@ -89,7 +89,7 @@ Screens:
                         TabIndex: =0
                         Text: ="JOURNAL DE BORD OPÉRATIONNEL"
                         Visible: =App.Width >= 900
-                  - SessionGroup_23:
+                  - SessionGroup_25:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
@@ -98,7 +98,7 @@ Screens:
                         LayoutMinWidth: =If(App.Width < 760, 110, 340)
                         Width: =If(App.Width < 1100, 340, 440)
                       Children:
-                        - HomeFromDashboard_24:
+                        - HomeFromDashboard_25:
                             Control: Classic/Button@2.2.0
                             Properties:
                               BorderColor: =RGBA(0, 0, 0, 0)
@@ -112,7 +112,7 @@ Screens:
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
                               Width: =Parent.Width
-                        - SessionInfo_24:
+                        - SessionInfo_25:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
@@ -141,7 +141,6 @@ Screens:
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =34
-                        AccessibleLabel: ="Verrouiller le poste"
                         LayoutMinWidth: =40
                         OnSelect: |-
                           =Set(varSessionVerrouillee, true);
@@ -149,11 +148,12 @@ Screens:
                           Set(LockPinInvalid_JB, false);
                           Reset(LockPin_JB)
                         Size: =16
-                        Text: ="🔒"
+                        Text: |-
+                          ="🔒"
                         Tooltip: ="Verrouiller la session sans la fermer"
                         Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
                         Width: =40
-                  - BtnChangerAgent_24:
+                  - BtnChangerAgent_25:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =RGBA(255, 255, 255, 1)
@@ -182,7 +182,7 @@ Screens:
                         Text: ="Changer d'agent"
                         Tooltip: ="Revenir à l'identification pour sélectionner un autre permanent"
                         Width: =If(App.Width < 760, 96, 130)
-            - Tabs_24:
+            - Tabs_25:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -193,7 +193,7 @@ Screens:
                   LayoutGap: =4
                   LayoutMinHeight: =56
                 Children:
-                  - TabTravaux_24:
+                  - TabTravaux_25:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varOngletJournal = "Travaux", RGBA(255, 174, 0, 1), RGBA(230, 230, 230, 1))
@@ -211,7 +211,7 @@ Screens:
                         Size: =If(App.Width < 760, 12, 16)
                         Text: =If(App.Width < 760, "1. Travaux", "1. Chantiers & Travaux")
                         Width: =340
-                  - TabLTV_24:
+                  - TabLTV_25:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varOngletJournal = "LTV", RGBA(255, 174, 0, 1), RGBA(230, 230, 230, 1))
@@ -229,7 +229,7 @@ Screens:
                         Size: =If(App.Width < 760, 12, 16)
                         Text: =If(App.Width < 760, "2. LTV / RAL", "2. LTV / RAL (Ralentissements)")
                         Width: =340
-                  - TabIncidents_24:
+                  - TabIncidents_25:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varOngletJournal = "Incidents", RGBA(255, 174, 0, 1), RGBA(230, 230, 230, 1))
@@ -247,7 +247,7 @@ Screens:
                         Size: =If(App.Width < 760, 12, 16)
                         Text: =If(App.Width < 760, "3. Incidents", "3. Incidents & Ruptures")
                         Width: =340
-            - Workspace_24:
+            - Workspace_25:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -261,7 +261,7 @@ Screens:
                   PaddingRight: =12
                   PaddingTop: =12
                 Children:
-                  - FormPanel_24:
+                  - FormPanel_25:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -282,7 +282,7 @@ Screens:
                         RadiusTopLeft: =6
                         RadiusTopRight: =6
                       Children:
-                        - FormTitle_24:
+                        - FormTitle_25:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
@@ -293,14 +293,14 @@ Screens:
                               Size: =If(App.Width < 760, 15, 18)
                               TabIndex: =0
                               Text: =If(varOngletJournal = "Travaux", "SAISIE D’UN CHANTIER / TRAVAUX", If(varOngletJournal = "LTV", "SAISIE LTV / RAL", "SAISIE INCIDENT / RUPTURE"))
-                        - FormRule_24:
+                        - FormRule_25:
                             Control: Rectangle@2.3.0
                             Properties:
                               AccessibleLabel: ="Separateur du formulaire"
                               Fill: =If(varOngletJournal = "Incidents", RGBA(238, 32, 35, 1), If(varOngletJournal = "LTV", RGBA(255, 174, 0, 1), RGBA(8, 49, 120, 1)))
                               Height: =2
                               TabIndex: =0
-                        - FormFlow_23:
+                        - FormFlow_25:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -310,7 +310,7 @@ Screens:
                               LayoutWrap: =true
                               PaddingRight: =8
                             Children:
-                              - LocationHeading_24:
+                              - LocationHeading_25:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -322,7 +322,7 @@ Screens:
                                     LayoutMinWidth: =Parent.Width - 24
                                     TabIndex: =0
                                     Text: ="1. LOCALISATION"
-                              - FldDivision_23:
+                              - FldDivision_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -332,7 +332,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - DivisionLabel_24:
+                                    - DivisionLabel_25:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -342,13 +342,11 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Division"
-                                    - DivisionInput_24:
+                                    - DivisionInput_25:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner une division"
-                                          BorderColor: =If(varAttemptedSave && IsBlank(DivisionInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                                          BorderColor: =If(varAttemptedSave && IsBlank(DivisionInput_25.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           DefaultSelectedItems: |-
                                             =If(
                                                 varActionEnCours = "Modifier",
@@ -371,9 +369,11 @@ Screens:
                                           InputTextPlaceholder: ="Find items"
                                           IsSearchable: =false
                                           Items: =Choices(Ref_Cantons.Division)
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
-                              - FldCanton_23:
+                              - FldCanton_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -383,7 +383,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - CantonLabel_24:
+                                    - CantonLabel_25:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -393,13 +393,11 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Canton"
-                                    - CantonInput_24:
+                                    - CantonInput_25:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner un canton"
-                                          BorderColor: =If(varAttemptedSave && IsBlank(CantonInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                                          BorderColor: =If(varAttemptedSave && IsBlank(CantonInput_25.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           DefaultSelectedItems: |-
                                             =If(
                                                 varActionEnCours = "Modifier",
@@ -421,11 +419,13 @@ Screens:
                                           Items: |-
                                             =Filter(
                                                 Ref_Cantons,
-                                                DivisionInput_24.Selected.Value in Division.Value
+                                                DivisionInput_25.Selected.Value in Division.Value
                                             )
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Title"]
                                           SelectMultiple: =false
-                              - DetailsHeading_23:
+                              - DetailsHeading_24:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -437,7 +437,7 @@ Screens:
                                     LayoutMinWidth: =Parent.Width - 24
                                     TabIndex: =0
                                     Text: ="2. DÉTAILS SPÉCIFIQUES"
-                              - FldRegime_23:
+                              - FldRegime_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -447,7 +447,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - RegimeLabel_24:
+                                    - RegimeLabel_25:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -457,13 +457,11 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: =Switch(varOngletJournal, "Travaux", "Régime de travaux", "LTV", "Motif ralentissement", "Incidents", "Localisation type")
-                                    - RegimeInput_24:
+                                    - RegimeInput_25:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le régime de travaux"
-                                          BorderColor: =If(varAttemptedSave && IsBlank(RegimeInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                                          BorderColor: =If(varAttemptedSave && IsBlank(RegimeInput_25.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           DefaultSelectedItems: |-
                                             =If(
                                                 varActionEnCours = "Modifier",
@@ -496,9 +494,11 @@ Screens:
                                                 "Incidents", SortByColumns(Choices(Tx_incidents_Ruptures.Localisation_Type), "Value", SortOrder.Ascending),
                                                 SortByColumns(Choices(Tx_Travaux.Regime_travaux), "Value", SortOrder.Ascending)
                                             )
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
-                              - FldActor_23:
+                              - FldActor_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -509,7 +509,7 @@ Screens:
                                     LayoutMinWidth: =220
                                     Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
                                   Children:
-                                    - ActorLabel_24:
+                                    - ActorLabel_25:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -519,13 +519,11 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Responsable intervenant"
-                                    - ActorInput_24:
+                                    - ActorInput_25:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le responsable intervenant (CDT, CDI, CBA)"
-                                          BorderColor: =If(varAttemptedSave && (varOngletJournal = "Travaux" || varOngletJournal = "LTV") && IsBlank(ActorInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                                          BorderColor: =If(varAttemptedSave && (varOngletJournal = "Travaux" || varOngletJournal = "LTV") && IsBlank(ActorInput_25.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           DefaultSelectedItems: |-
                                             =If(
                                                 varActionEnCours = "Modifier" && (varOngletJournal = "Travaux" || varOngletJournal = "LTV"),
@@ -544,9 +542,11 @@ Screens:
                                           InputTextPlaceholder: ="CDT / CDI / CBA (terrain)"
                                           IsSearchable: =false
                                           Items: =Ref_Acteurs
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Title"]
                                           SelectMultiple: =false
-                              - FldPermanent_22:
+                              - FldPermanent_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -557,7 +557,7 @@ Screens:
                                     LayoutMinWidth: =220
                                     Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
                                   Children:
-                                    - PermanentLabel_23:
+                                    - PermanentLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -567,11 +567,9 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Permanent au poste"
-                                    - PermanentInput_23:
+                                    - PermanentInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le permanent au poste"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           DefaultSelectedItems: |-
@@ -597,9 +595,11 @@ Screens:
                                                 "Title",
                                                 SortOrder.Ascending
                                             )
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Title"]
                                           SelectMultiple: =false
-                              - FldTitre_23:
+                              - FldTitre_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -610,7 +610,7 @@ Screens:
                                     LayoutMinWidth: =220
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - TitreChantierLabel_24:
+                                    - TitreChantierLabel_25:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -620,19 +620,19 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Nature des travaux"
-                                    - TitreChantierInput_24:
+                                    - TitreChantierInput_25:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Nature des travaux"
-                                          BorderColor: =If(varAttemptedSave && varOngletJournal = "Travaux" && IsBlank(Trim(TitreChantierInput_24.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                                          BorderColor: =If(varAttemptedSave && varOngletJournal = "Travaux" && IsBlank(Trim(TitreChantierInput_25.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Coalesce(varTravauxToEdit.Title, ""), Blank())
                                           FocusedBorderThickness: =2
                                           Height: =38
                                           HintText: |-
                                             ="Saisir la nature des travaux (ex: SMD, portiques...)"
-                              - FldPKDebut_22:
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
+                              - FldPKDebut_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -642,7 +642,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - PKDebutLabel_23:
+                                    - PKDebutLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -652,20 +652,20 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: =Switch(varOngletJournal, "LTV", "PK Début", "Incidents", "PK (Point Kilométrique)", "PK Début")
-                                    - PKDebutInput_23:
+                                    - PKDebutInput_24:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le PK début"
-                                          BorderColor: =If(Or("," in PKDebutInput_23.Text, "." in PKDebutInput_23.Text) || (varAttemptedSave && IsBlank(PKDebutInput_23.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                                          BorderColor: =If(Or("," in PKDebutInput_24.Text, "." in PKDebutInput_24.Text) || (varAttemptedSave && IsBlank(PKDebutInput_24.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           Default: |-
                                             =If(varActionEnCours = "Modifier", Switch(varOngletJournal, "Travaux", With({_v: varTravauxToEdit.PK_Debut}, If(IsBlank(_v), Blank(), Text(RoundDown(_v, 0), "0") & "+" & Text(Round(Mod(_v, 1) * 1000, 0), "000"))), "LTV", With({_v: varLtvToEdit.PK_Debut}, If(IsBlank(_v), Blank(), Text(RoundDown(_v, 0), "0") & "+" & Text(Round(Mod(_v, 1) * 1000, 0), "000"))), "Incidents", varIncidentToEdit.PK), Blank())
                                           FocusedBorderThickness: =2
                                           Height: =38
                                           HintText: |-
                                             ="PK début (ex: 12+400) uniquement le signe +"
-                              - FldPKFin_22:
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
+                              - FldPKFin_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -676,7 +676,7 @@ Screens:
                                     LayoutMinWidth: =220
                                     Visible: =varOngletJournal = "Travaux" || varOngletJournal = "LTV"
                                   Children:
-                                    - PKFinLabel_23:
+                                    - PKFinLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -686,20 +686,20 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: =Switch(varOngletJournal, "LTV", "PK Fin", "Travaux", "PK Fin", "Incidents", "Heure Fin")
-                                    - PKFinInput_23:
+                                    - PKFinInput_24:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le PK fin ou l'heure de fin"
-                                          BorderColor: =If(Or("," in PKFinInput_23.Text, "." in PKFinInput_23.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                                          BorderColor: =If(Or("," in PKFinInput_24.Text, "." in PKFinInput_24.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           Default: |-
                                             =If(varActionEnCours = "Modifier", Switch(varOngletJournal, "Travaux", With({_v: varTravauxToEdit.PK_Fin}, If(IsBlank(_v), Blank(), Text(RoundDown(_v, 0), "0") & "+" & Text(Round(Mod(_v, 1) * 1000, 0), "000"))), "LTV", With({_v: varLtvToEdit.'PK_Fin '}, If(IsBlank(_v), Blank(), Text(RoundDown(_v, 0), "0") & "+" & Text(Round(Mod(_v, 1) * 1000, 0), "000")))), Blank())
                                           FocusedBorderThickness: =2
                                           Height: =38
                                           HintText: |-
                                             ="PK fin (ex: 15+800) uniquement le signe +"
-                              - FldTaux_22:
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
+                              - FldTaux_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -710,7 +710,7 @@ Screens:
                                     LayoutMinWidth: =220
                                     Visible: =varOngletJournal = "LTV"
                                   Children:
-                                    - TauxLabel_23:
+                                    - TauxLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -720,20 +720,20 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Taux (km/h)"
-                                    - TauxInput_23:
+                                    - TauxInput_24:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le taux d'avancement"
-                                          BorderColor: =If(varAttemptedSave && varOngletJournal = "LTV" && IsBlank(TauxInput_23.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
+                                          BorderColor: =If(varAttemptedSave && varOngletJournal = "LTV" && IsBlank(TauxInput_24.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Text(varLtvToEdit.Taux), Blank())
                                           FocusedBorderThickness: =2
                                           Format: =TextFormat.Number
                                           Height: =38
                                           HintText: |-
                                             ="Ex: 30"
-                              - FldStatutLTV_22:
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
+                              - FldStatutLTV_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -744,7 +744,7 @@ Screens:
                                     LayoutMinWidth: =220
                                     Visible: =varOngletJournal = "LTV"
                                   Children:
-                                    - StatutLTVLabel_23:
+                                    - StatutLTVLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -754,11 +754,9 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Statut LTV"
-                                    - StatutLTVInput_23:
+                                    - StatutLTVInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Statut de la LTV"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           DefaultSelectedItems: |-
@@ -777,9 +775,11 @@ Screens:
                                                 {Value: "Imposée"},
                                                 {Value: "Supprimée"}
                                             )
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
-                              - TimeHeading_24:
+                              - TimeHeading_25:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -791,7 +791,7 @@ Screens:
                                     LayoutMinWidth: =Parent.Width - 24
                                     TabIndex: =0
                                     Text: =Switch(varOngletJournal, "Travaux", "3. HORODATAGES — Planifié / Réalisé", "Incidents", "3. HORODATAGES", "LTV", "3. DATE D'IMPOSITION")
-                              - BlocPlanifieLabel_20:
+                              - BlocPlanifieLabel_21:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -805,7 +805,7 @@ Screens:
                                     TabIndex: =0
                                     Text: ="▸ PLANIFIÉ"
                                     Visible: =varOngletJournal = "Travaux"
-                              - FldRequest_23:
+                              - FldRequest_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -816,7 +816,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Travaux" || varOngletJournal = "Incidents"
                                   Children:
-                                    - Heuredemande_15:
+                                    - Heuredemande_16:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -826,7 +826,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Heure demande "
-                                    - RowRequest_23:
+                                    - RowRequest_25:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -836,11 +836,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - RequestInput_24:
+                                          - RequestInput_25:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure de demande"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: |-
@@ -858,12 +856,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - RequestHour_24:
+                                          - RequestHour_25:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de demande ou de debut d'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: |-
@@ -884,14 +882,14 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - RequestMinute_24:
+                                          - RequestMinute_25:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute de demande ou de debut d'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: |-
@@ -912,10 +910,12 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldAuthorization_23:
+                              - FldAuthorization_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -926,7 +926,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - Heureautorise_15:
+                                    - Heureautorise_16:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -936,7 +936,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Heure autorisée"
-                                    - RowAuthorization_23:
+                                    - RowAuthorization_25:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -946,11 +946,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - AuthorizationInput_24:
+                                          - AuthorizationInput_25:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure d'autorisation"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heures_Autorisee), Today())
@@ -959,12 +957,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - AuthorizationHour_24:
+                                          - AuthorizationHour_25:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure autorisee"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heures_Autorisee)), Blank())
@@ -973,14 +971,14 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - AuthorizationMinute_24:
+                                          - AuthorizationMinute_25:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute autorisee"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heures_Autorisee)), Blank())
@@ -989,10 +987,12 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldEngagement_23:
+                              - FldEngagement_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1003,7 +1003,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - Heureengagment_15:
+                                    - Heureengagment_16:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1013,7 +1013,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Heure engagement"
-                                    - RowEngagement_23:
+                                    - RowEngagement_25:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1023,11 +1023,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - EngagementInput_24:
+                                          - EngagementInput_25:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heure_engagement), Today())
@@ -1036,12 +1034,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - EngagementHour_24:
+                                          - EngagementHour_25:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heure_engagement)), Blank())
@@ -1050,14 +1048,14 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - EngagementMinute_24:
+                                          - EngagementMinute_25:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heure_engagement)), Blank())
@@ -1066,10 +1064,12 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldFinPrevue_22:
+                              - FldFinPrevue_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1080,7 +1080,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - Heurefinprevue_15:
+                                    - Heurefinprevue_16:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1090,7 +1090,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Heure fin prévue"
-                                    - RowFinPrevue_22:
+                                    - RowFinPrevue_24:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1100,11 +1100,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - FinPrevueInput_23:
+                                          - FinPrevueInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heure_Fin_Prevue), Today())
@@ -1113,12 +1111,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - FinPrevueHour_23:
+                                          - FinPrevueHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heure_Fin_Prevue)), Blank())
@@ -1128,14 +1126,14 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - FinPrevueMinute_23:
+                                          - FinPrevueMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heure_Fin_Prevue)), Blank())
@@ -1145,10 +1143,12 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - BlocRealiseLabel_20:
+                              - BlocRealiseLabel_21:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -1162,7 +1162,7 @@ Screens:
                                     TabIndex: =0
                                     Text: ="▸ RÉALISÉ"
                                     Visible: =varOngletJournal = "Travaux"
-                              - FldDegagement_22:
+                              - FldDegagement_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1173,7 +1173,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - HeureDegaggement_15:
+                                    - HeureDegaggement_16:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1183,7 +1183,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Heure dégagement"
-                                    - RowDegagement_22:
+                                    - RowDegagement_24:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1193,11 +1193,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - DegagementInput_23:
+                                          - DegagementInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heures_Degagement), Today())
@@ -1206,12 +1204,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - DegagementHour_23:
+                                          - DegagementHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heures_Degagement)), Blank())
@@ -1221,14 +1219,14 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - DegagementMinute_23:
+                                          - DegagementMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heures_Degagement)), Blank())
@@ -1238,10 +1236,12 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldVoieRetablie_22:
+                              - FldVoieRetablie_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1252,7 +1252,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - Heurevoieretablie_15:
+                                    - Heurevoieretablie_16:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1262,7 +1262,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Voie rétablie "
-                                    - RowVoieRetablie_22:
+                                    - RowVoieRetablie_24:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1272,11 +1272,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - VoieRetablieInput_23:
+                                          - VoieRetablieInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.'Heures_Voie_Retablie '), Today())
@@ -1285,12 +1283,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - VoieRetablieHour_23:
+                                          - VoieRetablieHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.'Heures_Voie_Retablie ')), Blank())
@@ -1300,14 +1298,14 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - VoieRetablieMinute_23:
+                                          - VoieRetablieMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.'Heures_Voie_Retablie ')), Blank())
@@ -1317,10 +1315,12 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldProlongation_22:
+                              - FldProlongation_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1331,7 +1331,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - ProlongationLabel_23:
+                                    - ProlongationLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1341,7 +1341,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Prolongation (fin après)"
-                                    - RowProlongation_22:
+                                    - RowProlongation_24:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1351,11 +1351,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - ProlongationInput_23:
+                                          - ProlongationInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de fin après prolongation"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 FillPortions: =1
@@ -1363,12 +1361,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - ProlongationHour_23:
+                                          - ProlongationHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Prolongation - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =Blank()
@@ -1378,14 +1376,14 @@ Screens:
                                                 InputTextPlaceholder: ="H"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - ProlongationMinute_23:
+                                          - ProlongationMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Prolongation - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =Blank()
@@ -1395,10 +1393,12 @@ Screens:
                                                 InputTextPlaceholder: ="M"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldDateIncident_22:
+                              - FldDateIncident_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1409,7 +1409,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Incidents" || varOngletJournal = "LTV"
                                   Children:
-                                    - DateIncidentLabel_23:
+                                    - DateIncidentLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1419,7 +1419,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: =Switch(varOngletJournal, "Incidents", "Date incident", "LTV", "Date d’imposition")
-                                    - RowDateIncident_22:
+                                    - RowDateIncident_24:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1429,11 +1429,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - DateIncidentInput_23:
+                                          - DateIncidentInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier", DateValue(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.DateIncident)), Blank())
@@ -1442,12 +1440,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - DateIncidentHour_23:
+                                          - DateIncidentHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier", Filter(Sequence(24, 0, 1), Value = Hour(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.Heure_Début))), Blank())
@@ -1457,14 +1455,14 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - DateIncidentMinute_23:
+                                          - DateIncidentMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier", Filter(Sequence(60, 0, 1), Value = Minute(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.Heure_Début))), Blank())
@@ -1474,10 +1472,12 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldHeureFinInc_20:
+                              - FldHeureFinInc_22:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1488,7 +1488,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "Incidents"
                                   Children:
-                                    - HeureFinIncidentLabel_21:
+                                    - HeureFinIncidentLabel_22:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1498,7 +1498,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Heure Fin"
-                                    - RowHeureFinInc_20:
+                                    - RowHeureFinInc_22:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1508,11 +1508,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - HeureFinIncidentInput_21:
+                                          - HeureFinIncidentInput_22:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Date de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit), DateValue(varIncidentToEdit.Heure_Fin), Blank())
@@ -1520,12 +1518,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - HeureFinIncidentHour_21:
+                                          - HeureFinIncidentHour_22:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit.Heure_Fin), Filter(Sequence(24, 0, 1), Value = Hour(varIncidentToEdit.Heure_Fin)), Blank())
@@ -1535,14 +1533,14 @@ Screens:
                                                 InputTextPlaceholder: ="Heure"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - HeureFinIncidentMinute_21:
+                                          - HeureFinIncidentMinute_22:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit.Heure_Fin), Filter(Sequence(60, 0, 1), Value = Minute(varIncidentToEdit.Heure_Fin)), Blank())
@@ -1552,10 +1550,12 @@ Screens:
                                                 InputTextPlaceholder: ="Minute"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldDateSuppression_22:
+                              - FldDateSuppression_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1566,7 +1566,7 @@ Screens:
                                     LayoutMinWidth: =290
                                     Visible: =varOngletJournal = "LTV"
                                   Children:
-                                    - DateSuppressionLabel_23:
+                                    - DateSuppressionLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1576,7 +1576,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Date de suppression (si levée)"
-                                    - RowDateSuppression_22:
+                                    - RowDateSuppression_24:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1586,11 +1586,9 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - DateSuppressionInput_23:
+                                          - DateSuppressionInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), DateValue(varLtvToEdit.'Date_Suppression '), Blank())
@@ -1599,12 +1597,12 @@ Screens:
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 Size: =13
-                                          - DateSuppressionHour_23:
+                                          - DateSuppressionHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varLtvToEdit.'Date_Suppression ')), Blank())
@@ -1614,14 +1612,14 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - DateSuppressionMinute_23:
+                                          - DateSuppressionMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_JB)
-                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varLtvToEdit.'Date_Suppression ')), Blank())
@@ -1631,10 +1629,12 @@ Screens:
                                                 InputTextPlaceholder: ="Find items"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_JB)
+                                                OnSelect: =Reset(LockTimer_JB)
                                                 SearchFields: =[""]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - CalculCard_24:
+                              - CalculCard_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1656,7 +1656,7 @@ Screens:
                                     RadiusTopRight: =6
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - CalculTitle_24:
+                                    - CalculTitle_25:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1666,7 +1666,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="CALCULS AUTO (retard aut. + durée eng. + retard dég. - base = Prolongation si renseignée)"
-                                    - CalcValues_23:
+                                    - CalcValues_25:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -1676,7 +1676,7 @@ Screens:
                                           LayoutDirection: =If(App.Width < 760, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                                           LayoutGap: =8
                                         Children:
-                                          - RetardValue_24:
+                                          - RetardValue_25:
                                               Control: Label@2.5.1
                                               Properties:
                                                 Color: =RGBA(237, 108, 20, 1)
@@ -1693,13 +1693,13 @@ Screens:
                                                       With(
                                                           {
                                                               _demande: If(
-                                                                  !IsBlank(RequestHour_24.Selected),
-                                                                  DateTime(Year(RequestInput_24.SelectedDate), Month(RequestInput_24.SelectedDate), Day(RequestInput_24.SelectedDate), Value(RequestHour_24.Selected.Value), If(IsBlank(RequestMinute_24.Selected), 0, Value(RequestMinute_24.Selected.Value)), 0),
+                                                                  !IsBlank(RequestHour_25.Selected),
+                                                                  DateTime(Year(RequestInput_25.SelectedDate), Month(RequestInput_25.SelectedDate), Day(RequestInput_25.SelectedDate), Value(RequestHour_25.Selected.Value), If(IsBlank(RequestMinute_25.Selected), 0, Value(RequestMinute_25.Selected.Value)), 0),
                                                                   Blank()
                                                               ),
                                                               _autorisee: If(
-                                                                  !IsBlank(AuthorizationHour_24.Selected),
-                                                                  DateTime(Year(AuthorizationInput_24.SelectedDate), Month(AuthorizationInput_24.SelectedDate), Day(AuthorizationInput_24.SelectedDate), Value(AuthorizationHour_24.Selected.Value), If(IsBlank(AuthorizationMinute_24.Selected), 0, Value(AuthorizationMinute_24.Selected.Value)), 0),
+                                                                  !IsBlank(AuthorizationHour_25.Selected),
+                                                                  DateTime(Year(AuthorizationInput_25.SelectedDate), Month(AuthorizationInput_25.SelectedDate), Day(AuthorizationInput_25.SelectedDate), Value(AuthorizationHour_25.Selected.Value), If(IsBlank(AuthorizationMinute_25.Selected), 0, Value(AuthorizationMinute_25.Selected.Value)), 0),
                                                                   Blank()
                                                               )
                                                           },
@@ -1711,7 +1711,7 @@ Screens:
                                                       ),
                                                       "Retard aut. : --h--"
                                                   )
-                                          - DurationValue_24:
+                                          - DurationValue_25:
                                               Control: Label@2.5.1
                                               Properties:
                                                 Color: =RGBA(18, 135, 43, 1)
@@ -1724,8 +1724,8 @@ Screens:
                                                 Size: =12
                                                 TabIndex: =0
                                                 Text: |-
-                                                  =IfError(If(!IsBlank(AuthorizationHour_24.Selected) && !IsBlank(EngagementHour_24.Selected) && DateDiff(DateTime(Year(AuthorizationInput_24.SelectedDate), Month(AuthorizationInput_24.SelectedDate), Day(AuthorizationInput_24.SelectedDate), Value(AuthorizationHour_24.Selected.Value), Value(AuthorizationMinute_24.Selected.Value), 0), DateTime(Year(EngagementInput_24.SelectedDate), Month(EngagementInput_24.SelectedDate), Day(EngagementInput_24.SelectedDate), Value(EngagementHour_24.Selected.Value), Value(EngagementMinute_24.Selected.Value), 0), TimeUnit.Minutes) >= 0, "Durée eng. : " & RoundDown(DateDiff(DateTime(Year(AuthorizationInput_24.SelectedDate), Month(AuthorizationInput_24.SelectedDate), Day(AuthorizationInput_24.SelectedDate), Value(AuthorizationHour_24.Selected.Value), Value(AuthorizationMinute_24.Selected.Value), 0), DateTime(Year(EngagementInput_24.SelectedDate), Month(EngagementInput_24.SelectedDate), Day(EngagementInput_24.SelectedDate), Value(EngagementHour_24.Selected.Value), Value(EngagementMinute_24.Selected.Value), 0), TimeUnit.Minutes) / 60, 0) & "h" & Mod(DateDiff(DateTime(Year(AuthorizationInput_24.SelectedDate), Month(AuthorizationInput_24.SelectedDate), Day(AuthorizationInput_24.SelectedDate), Value(AuthorizationHour_24.Selected.Value), Value(AuthorizationMinute_24.Selected.Value), 0), DateTime(Year(EngagementInput_24.SelectedDate), Month(EngagementInput_24.SelectedDate), Day(EngagementInput_24.SelectedDate), Value(EngagementHour_24.Selected.Value), Value(EngagementMinute_24.Selected.Value), 0), TimeUnit.Minutes), 60), "Durée eng. : --h--"), "Durée eng. : --h--")
-                                          - RetardDegValue_23:
+                                                  =IfError(If(!IsBlank(AuthorizationHour_25.Selected) && !IsBlank(EngagementHour_25.Selected) && DateDiff(DateTime(Year(AuthorizationInput_25.SelectedDate), Month(AuthorizationInput_25.SelectedDate), Day(AuthorizationInput_25.SelectedDate), Value(AuthorizationHour_25.Selected.Value), Value(AuthorizationMinute_25.Selected.Value), 0), DateTime(Year(EngagementInput_25.SelectedDate), Month(EngagementInput_25.SelectedDate), Day(EngagementInput_25.SelectedDate), Value(EngagementHour_25.Selected.Value), Value(EngagementMinute_25.Selected.Value), 0), TimeUnit.Minutes) >= 0, "Durée eng. : " & RoundDown(DateDiff(DateTime(Year(AuthorizationInput_25.SelectedDate), Month(AuthorizationInput_25.SelectedDate), Day(AuthorizationInput_25.SelectedDate), Value(AuthorizationHour_25.Selected.Value), Value(AuthorizationMinute_25.Selected.Value), 0), DateTime(Year(EngagementInput_25.SelectedDate), Month(EngagementInput_25.SelectedDate), Day(EngagementInput_25.SelectedDate), Value(EngagementHour_25.Selected.Value), Value(EngagementMinute_25.Selected.Value), 0), TimeUnit.Minutes) / 60, 0) & "h" & Mod(DateDiff(DateTime(Year(AuthorizationInput_25.SelectedDate), Month(AuthorizationInput_25.SelectedDate), Day(AuthorizationInput_25.SelectedDate), Value(AuthorizationHour_25.Selected.Value), Value(AuthorizationMinute_25.Selected.Value), 0), DateTime(Year(EngagementInput_25.SelectedDate), Month(EngagementInput_25.SelectedDate), Day(EngagementInput_25.SelectedDate), Value(EngagementHour_25.Selected.Value), Value(EngagementMinute_25.Selected.Value), 0), TimeUnit.Minutes), 60), "Durée eng. : --h--"), "Durée eng. : --h--")
+                                          - RetardDegValue_24:
                                               Control: Label@2.5.1
                                               Properties:
                                                 Color: =RGBA(238, 32, 35, 1)
@@ -1742,17 +1742,17 @@ Screens:
                                                       With(
                                                           {
                                                               _finRef: If(
-                                                                  Year(ProlongationInput_23.SelectedDate) >= 2020 && !IsBlank(ProlongationHour_23.Selected),
-                                                                  DateTime(Year(ProlongationInput_23.SelectedDate), Month(ProlongationInput_23.SelectedDate), Day(ProlongationInput_23.SelectedDate), Value(ProlongationHour_23.Selected.Value), If(IsBlank(ProlongationMinute_23.Selected), 0, Value(ProlongationMinute_23.Selected.Value)), 0),
+                                                                  Year(ProlongationInput_24.SelectedDate) >= 2020 && !IsBlank(ProlongationHour_24.Selected),
+                                                                  DateTime(Year(ProlongationInput_24.SelectedDate), Month(ProlongationInput_24.SelectedDate), Day(ProlongationInput_24.SelectedDate), Value(ProlongationHour_24.Selected.Value), If(IsBlank(ProlongationMinute_24.Selected), 0, Value(ProlongationMinute_24.Selected.Value)), 0),
                                                                   If(
-                                                                      Year(FinPrevueInput_23.SelectedDate) >= 2020 && !IsBlank(FinPrevueHour_23.Selected),
-                                                                      DateTime(Year(FinPrevueInput_23.SelectedDate), Month(FinPrevueInput_23.SelectedDate), Day(FinPrevueInput_23.SelectedDate), Value(FinPrevueHour_23.Selected.Value), If(IsBlank(FinPrevueMinute_23.Selected), 0, Value(FinPrevueMinute_23.Selected.Value)), 0),
+                                                                      Year(FinPrevueInput_24.SelectedDate) >= 2020 && !IsBlank(FinPrevueHour_24.Selected),
+                                                                      DateTime(Year(FinPrevueInput_24.SelectedDate), Month(FinPrevueInput_24.SelectedDate), Day(FinPrevueInput_24.SelectedDate), Value(FinPrevueHour_24.Selected.Value), If(IsBlank(FinPrevueMinute_24.Selected), 0, Value(FinPrevueMinute_24.Selected.Value)), 0),
                                                                       Blank()
                                                                   )
                                                               ),
                                                               _deg: If(
-                                                                  Year(DegagementInput_23.SelectedDate) >= 2020 && !IsBlank(DegagementHour_23.Selected),
-                                                                  DateTime(Year(DegagementInput_23.SelectedDate), Month(DegagementInput_23.SelectedDate), Day(DegagementInput_23.SelectedDate), Value(DegagementHour_23.Selected.Value), If(IsBlank(DegagementMinute_23.Selected), 0, Value(DegagementMinute_23.Selected.Value)), 0),
+                                                                  Year(DegagementInput_24.SelectedDate) >= 2020 && !IsBlank(DegagementHour_24.Selected),
+                                                                  DateTime(Year(DegagementInput_24.SelectedDate), Month(DegagementInput_24.SelectedDate), Day(DegagementInput_24.SelectedDate), Value(DegagementHour_24.Selected.Value), If(IsBlank(DegagementMinute_24.Selected), 0, Value(DegagementMinute_24.Selected.Value)), 0),
                                                                   Blank()
                                                               )
                                                           },
@@ -1764,7 +1764,7 @@ Screens:
                                                       ),
                                                       "Retard dég. : --h--"
                                                   )
-                              - MotifEngLabel_23:
+                              - MotifEngLabel_24:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -1779,7 +1779,7 @@ Screens:
                                     Text: |-
                                       ="Motifs : Engagement / Eng. Tardif / Dégag. Tardif (facultatif)"
                                     Visible: =varOngletJournal = "Travaux"
-                              - FldMotifEng_22:
+                              - FldMotifEng_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1790,7 +1790,7 @@ Screens:
                                     LayoutMinWidth: =260
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - EngagementTardif_7:
+                                    - EngagementTardif_8:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1800,11 +1800,9 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Motif d'engagement tardif"
-                                    - MotifEngTardifInput_23:
+                                    - MotifEngTardifInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Motif de l'engagement tardif"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           DefaultSelectedItems: |-
@@ -1879,9 +1877,11 @@ Screens:
                                                 {Value: "Zone instable"},
                                                 {Value: "Autre"}
                                             )
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
-                              - FldMotifDeg_22:
+                              - FldMotifDeg_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1892,7 +1892,7 @@ Screens:
                                     LayoutMinWidth: =260
                                     Visible: =varOngletJournal = "Travaux"
                                   Children:
-                                    - DegagementTardif_7:
+                                    - DegagementTardif_8:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -1902,11 +1902,9 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Motif de dégagement tardif"
-                                    - MotifDegTardifInput_23:
+                                    - MotifDegTardifInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Motif du dégagement tardif"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           DefaultSelectedItems: |-
@@ -1981,9 +1979,11 @@ Screens:
                                                 {Value: "Zone instable"},
                                                 {Value: "Autre"}
                                             )
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
-                              - FldCommentaires_22:
+                              - FldCommentaires_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -1994,7 +1994,7 @@ Screens:
                                     LayoutMinWidth: =Parent.Width - 24
                                     Visible: =varOngletJournal = "Incidents"
                                   Children:
-                                    - CommentairesLabel_23:
+                                    - CommentairesLabel_24:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -2004,11 +2004,9 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Commentaires / Observations"
-                                    - CommentairesInput_23:
+                                    - CommentairesInput_24:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir les commentaires"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit), varIncidentToEdit.Commentaires, Blank())
@@ -2017,7 +2015,9 @@ Screens:
                                           HintText: ="Saisissez les commentaires sur la rupture/incident"
                                           MaxLength: =500
                                           Mode: =TextMode.MultiLine
-                        - SaveRow_23:
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
+                        - SaveRow_25:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -2028,7 +2028,7 @@ Screens:
                               LayoutJustifyContent: =LayoutJustifyContent.Center
                               PaddingTop: =8
                             Children:
-                              - SaveButton_24:
+                              - SaveButton_25:
                                   Control: Classic/Button@2.2.0
                                   Properties:
                                     Fill: =RGBA(255, 174, 0, 1)
@@ -2054,53 +2054,53 @@ Screens:
                                               false
                                           ),
                                           Notify("Reprise impossible : enregistrement introuvable. Rouvrez l'element existant.", NotificationType.Error),
-                                          Or("," in PKDebutInput_23.Text, "." in PKDebutInput_23.Text, (varOngletJournal <> "Incidents" && Or("," in PKFinInput_23.Text, "." in PKFinInput_23.Text))),
+                                          Or("," in PKDebutInput_24.Text, "." in PKDebutInput_24.Text, (varOngletJournal <> "Incidents" && Or("," in PKFinInput_24.Text, "." in PKFinInput_24.Text))),
                                           Notify("Format PK invalide. Utilisez uniquement le format 12+400 (pas de virgule ni de point).", NotificationType.Error),
-                                          IsBlank(DivisionInput_24.Selected),
+                                          IsBlank(DivisionInput_25.Selected),
                                           Notify("Division obligatoire.", NotificationType.Error),
-                                          IsBlank(CantonInput_24.Selected),
+                                          IsBlank(CantonInput_25.Selected),
                                           Notify("Canton obligatoire.", NotificationType.Error),
                                           If(
                                           varOngletJournal = "Travaux",
                                           If(
-                                              IsBlank(Trim(TitreChantierInput_24.Text)),
+                                              IsBlank(Trim(TitreChantierInput_25.Text)),
                                               Notify("Travaux : la Nature des travaux est obligatoire.", NotificationType.Error),
-                                              IsBlank(PKDebutInput_23.Text),
+                                              IsBlank(PKDebutInput_24.Text),
                                               Notify("Travaux : le PK début est obligatoire.", NotificationType.Error),
-                                              IsBlank(RegimeInput_24.Selected),
+                                              IsBlank(RegimeInput_25.Selected),
                                               Notify("Travaux : le Régime de travaux est obligatoire.", NotificationType.Error),
-                                              IsBlank(ActorInput_24.Selected),
+                                              IsBlank(ActorInput_25.Selected),
                                               Notify("Travaux : l'Intervenant est obligatoire.", NotificationType.Error),
-                                              IsBlank(RequestHour_24.Selected) || IsBlank(RequestMinute_24.Selected) || Year(RequestInput_24.SelectedDate) < 2020,
+                                              IsBlank(RequestHour_25.Selected) || IsBlank(RequestMinute_25.Selected) || Year(RequestInput_25.SelectedDate) < 2020,
                                               Notify("Travaux : l'heure de Demande est obligatoire (date + heure + minute).", NotificationType.Error),
-                                              IsBlank(AuthorizationHour_24.Selected) || IsBlank(AuthorizationMinute_24.Selected) || Year(AuthorizationInput_24.SelectedDate) < 2020,
+                                              IsBlank(AuthorizationHour_25.Selected) || IsBlank(AuthorizationMinute_25.Selected) || Year(AuthorizationInput_25.SelectedDate) < 2020,
                                               Notify("Travaux : l'heure d'Autorisation est obligatoire (date + heure + minute).", NotificationType.Error),
-                                              IsBlank(EngagementHour_24.Selected) || IsBlank(EngagementMinute_24.Selected) || Year(EngagementInput_24.SelectedDate) < 2020,
+                                              IsBlank(EngagementHour_25.Selected) || IsBlank(EngagementMinute_25.Selected) || Year(EngagementInput_25.SelectedDate) < 2020,
                                               Notify("Travaux : l'heure d'Engagement est obligatoire (date + heure + minute).", NotificationType.Error),
-                                              IfError(DateTime(Year(AuthorizationInput_24.SelectedDate), Month(AuthorizationInput_24.SelectedDate), Day(AuthorizationInput_24.SelectedDate), Value(AuthorizationHour_24.Selected.Value), Value(AuthorizationMinute_24.Selected.Value), 0) < DateTime(Year(RequestInput_24.SelectedDate), Month(RequestInput_24.SelectedDate), Day(RequestInput_24.SelectedDate), Value(RequestHour_24.Selected.Value), Value(RequestMinute_24.Selected.Value), 0), true),
+                                              IfError(DateTime(Year(AuthorizationInput_25.SelectedDate), Month(AuthorizationInput_25.SelectedDate), Day(AuthorizationInput_25.SelectedDate), Value(AuthorizationHour_25.Selected.Value), Value(AuthorizationMinute_25.Selected.Value), 0) < DateTime(Year(RequestInput_25.SelectedDate), Month(RequestInput_25.SelectedDate), Day(RequestInput_25.SelectedDate), Value(RequestHour_25.Selected.Value), Value(RequestMinute_25.Selected.Value), 0), true),
                                               Notify("Travaux : l'Autorisation doit etre posterieure ou egale a la Demande.", NotificationType.Error),
-                                              IfError(DateTime(Year(EngagementInput_24.SelectedDate), Month(EngagementInput_24.SelectedDate), Day(EngagementInput_24.SelectedDate), Value(EngagementHour_24.Selected.Value), Value(EngagementMinute_24.Selected.Value), 0) < DateTime(Year(AuthorizationInput_24.SelectedDate), Month(AuthorizationInput_24.SelectedDate), Day(AuthorizationInput_24.SelectedDate), Value(AuthorizationHour_24.Selected.Value), Value(AuthorizationMinute_24.Selected.Value), 0), true),
+                                              IfError(DateTime(Year(EngagementInput_25.SelectedDate), Month(EngagementInput_25.SelectedDate), Day(EngagementInput_25.SelectedDate), Value(EngagementHour_25.Selected.Value), Value(EngagementMinute_25.Selected.Value), 0) < DateTime(Year(AuthorizationInput_25.SelectedDate), Month(AuthorizationInput_25.SelectedDate), Day(AuthorizationInput_25.SelectedDate), Value(AuthorizationHour_25.Selected.Value), Value(AuthorizationMinute_25.Selected.Value), 0), true),
                                               Notify("Travaux : l'Engagement doit etre posterieur ou egal a l'Autorisation.", NotificationType.Error),
                                                IfError(
                                                  Patch(
                                                     Tx_Travaux,
                                                     If(varActionEnCours = "Modifier" && !IsBlank(varTravauxToEdit), LookUp(Tx_Travaux, ID = varTravauxToEdit.ID), Defaults(Tx_Travaux)),
                                                     {
-                                                        Title: If(!IsBlank(Trim(TitreChantierInput_24.Text)), Trim(TitreChantierInput_24.Text), If(varActionEnCours = "Modifier" && !IsBlank(varTravauxToEdit), Coalesce(varTravauxToEdit.Title, "Chantier - " & Text(Now(), "yyyymmdd-hhmm")), "Chantier - " & Text(Now(), "yyyymmdd-hhmm"))),
+                                                        Title: If(!IsBlank(Trim(TitreChantierInput_25.Text)), Trim(TitreChantierInput_25.Text), If(varActionEnCours = "Modifier" && !IsBlank(varTravauxToEdit), Coalesce(varTravauxToEdit.Title, "Chantier - " & Text(Now(), "yyyymmdd-hhmm")), "Chantier - " & Text(Now(), "yyyymmdd-hhmm"))),
                                                         Date_travaux: Today(),
-                                                        'CantonID ': CantonInput_24.Selected.ID,
-                                                        Regime_travaux: {Value: RegimeInput_24.Selected.Value},
-                                                        'ActeurID ': ActorInput_24.Selected.ID,
-                                                        Heure_demande: If(Year(RequestInput_24.SelectedDate) < 2020, Blank(), DateTime(Year(RequestInput_24.SelectedDate), Month(RequestInput_24.SelectedDate), Day(RequestInput_24.SelectedDate), Value(RequestHour_24.Selected.Value), Value(RequestMinute_24.Selected.Value), 0)),
-                                                        Heure_Fin_Prevue: If(Year(FinPrevueInput_23.SelectedDate) < 2020 || IsBlank(FinPrevueHour_23.Selected) || IsBlank(FinPrevueMinute_23.Selected), Blank(), DateTime(Year(FinPrevueInput_23.SelectedDate), Month(FinPrevueInput_23.SelectedDate), Day(FinPrevueInput_23.SelectedDate), Value(FinPrevueHour_23.Selected.Value), Value(FinPrevueMinute_23.Selected.Value), 0)),
-                                                        Heures_Autorisee: If(Year(AuthorizationInput_24.SelectedDate) < 2020, Blank(), DateTime(Year(AuthorizationInput_24.SelectedDate), Month(AuthorizationInput_24.SelectedDate), Day(AuthorizationInput_24.SelectedDate), Value(AuthorizationHour_24.Selected.Value), Value(AuthorizationMinute_24.Selected.Value), 0)),
-                                                        Heure_engagement: If(Year(EngagementInput_24.SelectedDate) < 2020, Blank(), DateTime(Year(EngagementInput_24.SelectedDate), Month(EngagementInput_24.SelectedDate), Day(EngagementInput_24.SelectedDate), Value(EngagementHour_24.Selected.Value), Value(EngagementMinute_24.Selected.Value), 0)),
-                                                        Heures_Degagement: If(Year(DegagementInput_23.SelectedDate) < 2020 || IsBlank(DegagementHour_23.Selected) || IsBlank(DegagementMinute_23.Selected), Blank(), DateTime(Year(DegagementInput_23.SelectedDate), Month(DegagementInput_23.SelectedDate), Day(DegagementInput_23.SelectedDate), Value(DegagementHour_23.Selected.Value), Value(DegagementMinute_23.Selected.Value), 0)),
-                                                        'Heures_Voie_Retablie ': If(Year(VoieRetablieInput_23.SelectedDate) < 2020 || IsBlank(VoieRetablieHour_23.Selected) || IsBlank(VoieRetablieMinute_23.Selected), Blank(), DateTime(Year(VoieRetablieInput_23.SelectedDate), Month(VoieRetablieInput_23.SelectedDate), Day(VoieRetablieInput_23.SelectedDate), Value(VoieRetablieHour_23.Selected.Value), Value(VoieRetablieMinute_23.Selected.Value), 0)),
-                                                        PK_Debut: With({_s: Split(PKDebutInput_23.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKDebutInput_23.Text), Blank()))),
-                                                        PK_Fin: With({_s: Split(PKFinInput_23.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKFinInput_23.Text), Blank()))),
-                                                        'Motifs_Engagement_Tardif ': If(IsBlank(MotifEngTardifInput_23.Selected) || MotifEngTardifInput_23.Selected.Value = "(Aucun)", Blank(), MotifEngTardifInput_23.Selected.Value),
-                                                        Motif_Degagement_Tardif: If(IsBlank(MotifDegTardifInput_23.Selected) || MotifDegTardifInput_23.Selected.Value = "(Aucun)", Blank(), MotifDegTardifInput_23.Selected.Value),
+                                                        'CantonID ': CantonInput_25.Selected.ID,
+                                                        Regime_travaux: {Value: RegimeInput_25.Selected.Value},
+                                                        'ActeurID ': ActorInput_25.Selected.ID,
+                                                        Heure_demande: If(Year(RequestInput_25.SelectedDate) < 2020, Blank(), DateTime(Year(RequestInput_25.SelectedDate), Month(RequestInput_25.SelectedDate), Day(RequestInput_25.SelectedDate), Value(RequestHour_25.Selected.Value), Value(RequestMinute_25.Selected.Value), 0)),
+                                                        Heure_Fin_Prevue: If(Year(FinPrevueInput_24.SelectedDate) < 2020 || IsBlank(FinPrevueHour_24.Selected) || IsBlank(FinPrevueMinute_24.Selected), Blank(), DateTime(Year(FinPrevueInput_24.SelectedDate), Month(FinPrevueInput_24.SelectedDate), Day(FinPrevueInput_24.SelectedDate), Value(FinPrevueHour_24.Selected.Value), Value(FinPrevueMinute_24.Selected.Value), 0)),
+                                                        Heures_Autorisee: If(Year(AuthorizationInput_25.SelectedDate) < 2020, Blank(), DateTime(Year(AuthorizationInput_25.SelectedDate), Month(AuthorizationInput_25.SelectedDate), Day(AuthorizationInput_25.SelectedDate), Value(AuthorizationHour_25.Selected.Value), Value(AuthorizationMinute_25.Selected.Value), 0)),
+                                                        Heure_engagement: If(Year(EngagementInput_25.SelectedDate) < 2020, Blank(), DateTime(Year(EngagementInput_25.SelectedDate), Month(EngagementInput_25.SelectedDate), Day(EngagementInput_25.SelectedDate), Value(EngagementHour_25.Selected.Value), Value(EngagementMinute_25.Selected.Value), 0)),
+                                                        Heures_Degagement: If(Year(DegagementInput_24.SelectedDate) < 2020 || IsBlank(DegagementHour_24.Selected) || IsBlank(DegagementMinute_24.Selected), Blank(), DateTime(Year(DegagementInput_24.SelectedDate), Month(DegagementInput_24.SelectedDate), Day(DegagementInput_24.SelectedDate), Value(DegagementHour_24.Selected.Value), Value(DegagementMinute_24.Selected.Value), 0)),
+                                                        'Heures_Voie_Retablie ': If(Year(VoieRetablieInput_24.SelectedDate) < 2020 || IsBlank(VoieRetablieHour_24.Selected) || IsBlank(VoieRetablieMinute_24.Selected), Blank(), DateTime(Year(VoieRetablieInput_24.SelectedDate), Month(VoieRetablieInput_24.SelectedDate), Day(VoieRetablieInput_24.SelectedDate), Value(VoieRetablieHour_24.Selected.Value), Value(VoieRetablieMinute_24.Selected.Value), 0)),
+                                                        PK_Debut: With({_s: Split(PKDebutInput_24.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKDebutInput_24.Text), Blank()))),
+                                                        PK_Fin: With({_s: Split(PKFinInput_24.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKFinInput_24.Text), Blank()))),
+                                                        'Motifs_Engagement_Tardif ': If(IsBlank(MotifEngTardifInput_24.Selected) || MotifEngTardifInput_24.Selected.Value = "(Aucun)", Blank(), MotifEngTardifInput_24.Selected.Value),
+                                                        Motif_Degagement_Tardif: If(IsBlank(MotifDegTardifInput_24.Selected) || MotifDegTardifInput_24.Selected.Value = "(Aucun)", Blank(), MotifDegTardifInput_24.Selected.Value),
                                                         Poste: {Value: varQuart},
                                                         AgentSaisie: {Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
                                                         DateSaisie: Now()
@@ -2113,15 +2113,15 @@ Screens:
                                           ),
                                           varOngletJournal = "LTV",
                                           If(
-                                              IsBlank(RegimeInput_24.Selected),
+                                              IsBlank(RegimeInput_25.Selected),
                                               Notify("LTV : le Motif de ralentissement est obligatoire.", NotificationType.Error),
-                                              IsBlank(ActorInput_24.Selected),
+                                              IsBlank(ActorInput_25.Selected),
                                               Notify("LTV : l'Intervenant est obligatoire.", NotificationType.Error),
-                                              IsBlank(PKDebutInput_23.Text),
+                                              IsBlank(PKDebutInput_24.Text),
                                               Notify("LTV : le PK début est obligatoire.", NotificationType.Error),
-                                              IsBlank(TauxInput_23.Text),
+                                              IsBlank(TauxInput_24.Text),
                                               Notify("LTV : le Taux (vitesse) est obligatoire.", NotificationType.Error),
-                                              IsBlank(DateIncidentHour_23.Selected) || IsBlank(DateIncidentMinute_23.Selected) || Year(DateIncidentInput_23.SelectedDate) < 2020,
+                                              IsBlank(DateIncidentHour_24.Selected) || IsBlank(DateIncidentMinute_24.Selected) || Year(DateIncidentInput_24.SelectedDate) < 2020,
                                               Notify("LTV : la date d'imposition est obligatoire (date + heure + minute).", NotificationType.Error),
                                                IfError(
                                                 Patch(
@@ -2129,15 +2129,15 @@ Screens:
                                                     If(varActionEnCours = "Modifier" && !IsBlank(varLtvToEdit), LookUp(Tx_LTV, ID = varLtvToEdit.ID), Defaults(Tx_LTV)),
                                                     {
                                                         Title: "LTV - " & Text(Now(), "yyyymmdd-hhmm"),
-                                                        Motif_Ralentissement:{Value: RegimeInput_24.Selected.Value},
-                                                        CantonID_: {Id: CantonInput_24.Selected.ID, Value: CantonInput_24.Selected.Titre},
-                                                        PK_Debut: With({_s: Split(PKDebutInput_23.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKDebutInput_23.Text), Blank()))),
-                                                        'PK_Fin ': With({_s: Split(PKFinInput_23.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKFinInput_23.Text), Blank()))),
-                                                        Taux: IfError(Value(TauxInput_23.Text), Blank()),
-                                                        ActeurID0: {Id: ActorInput_24.Selected.ID, Value: ActorInput_24.Selected.Title},
-                                                        Statut_LTV: {Value: Coalesce(StatutLTVInput_23.Selected.Value, If(IsBlank(If(Year(DateSuppressionInput_23.SelectedDate) < 2020 || IsBlank(DateSuppressionHour_23.Selected) || IsBlank(DateSuppressionMinute_23.Selected), Blank(), DateTime(Year(DateSuppressionInput_23.SelectedDate), Month(DateSuppressionInput_23.SelectedDate), Day(DateSuppressionInput_23.SelectedDate), Value(DateSuppressionHour_23.Selected.Value), Value(DateSuppressionMinute_23.Selected.Value), 0))), "Imposée", "Supprimée"))},
-                                                        'Date_imposition ': If(Year(DateIncidentInput_23.SelectedDate) < 2020 || IsBlank(DateIncidentHour_23.Selected) || IsBlank(DateIncidentMinute_23.Selected), Blank(), DateTime(Year(DateIncidentInput_23.SelectedDate), Month(DateIncidentInput_23.SelectedDate), Day(DateIncidentInput_23.SelectedDate), Value(DateIncidentHour_23.Selected.Value), Value(DateIncidentMinute_23.Selected.Value), 0)),
-                                                        'Date_Suppression ': If(Year(DateSuppressionInput_23.SelectedDate) < 2020 || IsBlank(DateSuppressionHour_23.Selected) || IsBlank(DateSuppressionMinute_23.Selected), Blank(), DateTime(Year(DateSuppressionInput_23.SelectedDate), Month(DateSuppressionInput_23.SelectedDate), Day(DateSuppressionInput_23.SelectedDate), Value(DateSuppressionHour_23.Selected.Value), Value(DateSuppressionMinute_23.Selected.Value), 0)),
+                                                        Motif_Ralentissement:{Value: RegimeInput_25.Selected.Value},
+                                                        CantonID_: {Id: CantonInput_25.Selected.ID, Value: CantonInput_25.Selected.Titre},
+                                                        PK_Debut: With({_s: Split(PKDebutInput_24.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKDebutInput_24.Text), Blank()))),
+                                                        'PK_Fin ': With({_s: Split(PKFinInput_24.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKFinInput_24.Text), Blank()))),
+                                                        Taux: IfError(Value(TauxInput_24.Text), Blank()),
+                                                        ActeurID0: {Id: ActorInput_25.Selected.ID, Value: ActorInput_25.Selected.Title},
+                                                        Statut_LTV: {Value: Coalesce(StatutLTVInput_24.Selected.Value, If(IsBlank(If(Year(DateSuppressionInput_24.SelectedDate) < 2020 || IsBlank(DateSuppressionHour_24.Selected) || IsBlank(DateSuppressionMinute_24.Selected), Blank(), DateTime(Year(DateSuppressionInput_24.SelectedDate), Month(DateSuppressionInput_24.SelectedDate), Day(DateSuppressionInput_24.SelectedDate), Value(DateSuppressionHour_24.Selected.Value), Value(DateSuppressionMinute_24.Selected.Value), 0))), "Imposée", "Supprimée"))},
+                                                        'Date_imposition ': If(Year(DateIncidentInput_24.SelectedDate) < 2020 || IsBlank(DateIncidentHour_24.Selected) || IsBlank(DateIncidentMinute_24.Selected), Blank(), DateTime(Year(DateIncidentInput_24.SelectedDate), Month(DateIncidentInput_24.SelectedDate), Day(DateIncidentInput_24.SelectedDate), Value(DateIncidentHour_24.Selected.Value), Value(DateIncidentMinute_24.Selected.Value), 0)),
+                                                        'Date_Suppression ': If(Year(DateSuppressionInput_24.SelectedDate) < 2020 || IsBlank(DateSuppressionHour_24.Selected) || IsBlank(DateSuppressionMinute_24.Selected), Blank(), DateTime(Year(DateSuppressionInput_24.SelectedDate), Month(DateSuppressionInput_24.SelectedDate), Day(DateSuppressionInput_24.SelectedDate), Value(DateSuppressionHour_24.Selected.Value), Value(DateSuppressionMinute_24.Selected.Value), 0)),
                                                         'Poste ': {Value: varQuart},
                                                         AgentSaisie: {Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
                                                         DateSaisie: Now()
@@ -2149,14 +2149,14 @@ Screens:
                                               )
                                           ),
                                           If(
-                                              IsBlank(RegimeInput_24.Selected),
+                                              IsBlank(RegimeInput_25.Selected),
                                               Notify("Incidents : le type de Localisation est obligatoire.", NotificationType.Error),
-                                              IsBlank(PKDebutInput_23.Text),
+                                              IsBlank(PKDebutInput_24.Text),
                                               Notify("Incidents : le PK est obligatoire.", NotificationType.Error),
-                                              IsBlank(DateIncidentHour_23.Selected) || IsBlank(DateIncidentMinute_23.Selected) || Year(DateIncidentInput_23.SelectedDate) < 2020,
+                                              IsBlank(DateIncidentHour_24.Selected) || IsBlank(DateIncidentMinute_24.Selected) || Year(DateIncidentInput_24.SelectedDate) < 2020,
                                               Notify("Incidents : la date de declaration est obligatoire (date + heure + minute).", NotificationType.Error),
-                                              !(IsBlank(HeureFinIncidentInput_21.SelectedDate) && IsBlank(HeureFinIncidentHour_21.Selected.Value) && IsBlank(HeureFinIncidentMinute_21.Selected.Value)) &&
-                                              (IsBlank(HeureFinIncidentInput_21.SelectedDate) || IsBlank(HeureFinIncidentHour_21.Selected.Value) || IsBlank(HeureFinIncidentMinute_21.Selected.Value)),
+                                              !(IsBlank(HeureFinIncidentInput_22.SelectedDate) && IsBlank(HeureFinIncidentHour_22.Selected.Value) && IsBlank(HeureFinIncidentMinute_22.Selected.Value)) &&
+                                              (IsBlank(HeureFinIncidentInput_22.SelectedDate) || IsBlank(HeureFinIncidentHour_22.Selected.Value) || IsBlank(HeureFinIncidentMinute_22.Selected.Value)),
                                               Notify("Fin d'incident : renseignez la date, l'heure et la minute, ou laissez les trois champs vides.", NotificationType.Error),
                                               IfError(
                                               Patch(
@@ -2164,14 +2164,14 @@ Screens:
                                                   If(varActionEnCours = "Modifier" && !IsBlank(varIncidentToEdit), LookUp(Tx_incidents_Ruptures, ID = varIncidentToEdit.ID), Defaults(Tx_incidents_Ruptures)),
                                                   {
                                                       Title: "Incident - " & Text(Now(), "yyyymmdd-hhmm"),
-                                                      DateIncident: If(Year(DateIncidentInput_23.SelectedDate) < 2020, Blank(), DateIncidentInput_23.SelectedDate),
-                                                      CantonID: {Id: CantonInput_24.Selected.ID, Value: CantonInput_24.Selected.Titre},
-                                                      PK: PKDebutInput_23.Text,
-                                                      Localisation_Type: {Value: RegimeInput_24.Selected.Value},
-                                                      Heure_Début: If(Year(RequestInput_24.SelectedDate) < 2020, Blank(), DateTime(Year(RequestInput_24.SelectedDate), Month(RequestInput_24.SelectedDate), Day(RequestInput_24.SelectedDate), Value(RequestHour_24.Selected.Value), Value(RequestMinute_24.Selected.Value), 0)),
-                                                      Heure_Fin: If(IsBlank(HeureFinIncidentInput_21.SelectedDate), Blank(), DateTime(Year(HeureFinIncidentInput_21.SelectedDate), Month(HeureFinIncidentInput_21.SelectedDate), Day(HeureFinIncidentInput_21.SelectedDate), Value(HeureFinIncidentHour_21.Selected.Value), Value(HeureFinIncidentMinute_21.Selected.Value), 0)),
-                                                      Etat: {Value: If(varActionEnCours = "Modifier" && HeureFinIncidentInput_21.SelectedDate = DateValue(varIncidentToEdit.Heure_Fin), varIncidentToEdit.Etat.Value, If(IsBlank(HeureFinIncidentInput_21.SelectedDate), "En cours", "Traitée"))},
-                                                      Commentaires: CommentairesInput_23.Text,
+                                                      DateIncident: If(Year(DateIncidentInput_24.SelectedDate) < 2020, Blank(), DateIncidentInput_24.SelectedDate),
+                                                      CantonID: {Id: CantonInput_25.Selected.ID, Value: CantonInput_25.Selected.Titre},
+                                                      PK: PKDebutInput_24.Text,
+                                                      Localisation_Type: {Value: RegimeInput_25.Selected.Value},
+                                                      Heure_Début: If(Year(RequestInput_25.SelectedDate) < 2020, Blank(), DateTime(Year(RequestInput_25.SelectedDate), Month(RequestInput_25.SelectedDate), Day(RequestInput_25.SelectedDate), Value(RequestHour_25.Selected.Value), Value(RequestMinute_25.Selected.Value), 0)),
+                                                      Heure_Fin: If(IsBlank(HeureFinIncidentInput_22.SelectedDate), Blank(), DateTime(Year(HeureFinIncidentInput_22.SelectedDate), Month(HeureFinIncidentInput_22.SelectedDate), Day(HeureFinIncidentInput_22.SelectedDate), Value(HeureFinIncidentHour_22.Selected.Value), Value(HeureFinIncidentMinute_22.Selected.Value), 0)),
+                                                      Etat: {Value: If(varActionEnCours = "Modifier" && HeureFinIncidentInput_22.SelectedDate = DateValue(varIncidentToEdit.Heure_Fin), varIncidentToEdit.Etat.Value, If(IsBlank(HeureFinIncidentInput_22.SelectedDate), "En cours", "Traitée"))},
+                                                      Commentaires: CommentairesInput_24.Text,
                                                       Poste: {Value: varQuart},
                                                       AgentSaisie: {Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
                                                       DateSaisie: Now()
@@ -2193,49 +2193,49 @@ Screens:
                                       Set(varTravauxToEdit, Blank());
                                       Set(varLtvToEdit, Blank());
                                       Set(varIncidentToEdit, Blank());
-                                      Reset(DivisionInput_24);
-                                      Reset(CantonInput_24);
-                                      Reset(RegimeInput_24);
-                                      Reset(ActorInput_24);
-                                      Reset(PermanentInput_23);
-                                      Reset(TitreChantierInput_24);
-                                      Reset(PKDebutInput_23);
-                                      Reset(PKFinInput_23);
-                                      Reset(TauxInput_23);
-                                      Reset(DateIncidentInput_23);
-                                      Reset(DateIncidentHour_23);
-                                      Reset(DateIncidentMinute_23);
-                                      Reset(StatutLTVInput_23);
-                                      Reset(DateSuppressionInput_23);
-                                      Reset(DateSuppressionHour_23);
-                                      Reset(DateSuppressionMinute_23);
-                                      Reset(RequestInput_24);
-                                      Reset(RequestHour_24);
-                                      Reset(RequestMinute_24);
-                                      Reset(AuthorizationInput_24);
-                                      Reset(AuthorizationHour_24);
-                                      Reset(AuthorizationMinute_24);
-                                      Reset(EngagementInput_24);
-                                      Reset(EngagementHour_24);
-                                      Reset(EngagementMinute_24);
-                                      Reset(HeureFinIncidentInput_21);
-                                      Reset(HeureFinIncidentHour_21);
-                                      Reset(HeureFinIncidentMinute_21);
-                                      Reset(FinPrevueInput_23);
-                                      Reset(FinPrevueHour_23);
-                                      Reset(FinPrevueMinute_23);
-                                      Reset(ProlongationInput_23);
-                                      Reset(ProlongationHour_23);
-                                      Reset(ProlongationMinute_23);
-                                      Reset(DegagementInput_23);
-                                      Reset(DegagementHour_23);
-                                      Reset(DegagementMinute_23);
-                                      Reset(VoieRetablieInput_23);
-                                      Reset(VoieRetablieHour_23);
-                                      Reset(VoieRetablieMinute_23);
-                                      Reset(MotifEngTardifInput_23);
-                                      Reset(MotifDegTardifInput_23);
-                                      Reset(CommentairesInput_23)
+                                      Reset(DivisionInput_25);
+                                      Reset(CantonInput_25);
+                                      Reset(RegimeInput_25);
+                                      Reset(ActorInput_25);
+                                      Reset(PermanentInput_24);
+                                      Reset(TitreChantierInput_25);
+                                      Reset(PKDebutInput_24);
+                                      Reset(PKFinInput_24);
+                                      Reset(TauxInput_24);
+                                      Reset(DateIncidentInput_24);
+                                      Reset(DateIncidentHour_24);
+                                      Reset(DateIncidentMinute_24);
+                                      Reset(StatutLTVInput_24);
+                                      Reset(DateSuppressionInput_24);
+                                      Reset(DateSuppressionHour_24);
+                                      Reset(DateSuppressionMinute_24);
+                                      Reset(RequestInput_25);
+                                      Reset(RequestHour_25);
+                                      Reset(RequestMinute_25);
+                                      Reset(AuthorizationInput_25);
+                                      Reset(AuthorizationHour_25);
+                                      Reset(AuthorizationMinute_25);
+                                      Reset(EngagementInput_25);
+                                      Reset(EngagementHour_25);
+                                      Reset(EngagementMinute_25);
+                                      Reset(HeureFinIncidentInput_22);
+                                      Reset(HeureFinIncidentHour_22);
+                                      Reset(HeureFinIncidentMinute_22);
+                                      Reset(FinPrevueInput_24);
+                                      Reset(FinPrevueHour_24);
+                                      Reset(FinPrevueMinute_24);
+                                      Reset(ProlongationInput_24);
+                                      Reset(ProlongationHour_24);
+                                      Reset(ProlongationMinute_24);
+                                      Reset(DegagementInput_24);
+                                      Reset(DegagementHour_24);
+                                      Reset(DegagementMinute_24);
+                                      Reset(VoieRetablieInput_24);
+                                      Reset(VoieRetablieHour_24);
+                                      Reset(VoieRetablieMinute_24);
+                                      Reset(MotifEngTardifInput_24);
+                                      Reset(MotifDegTardifInput_24);
+                                      Reset(CommentairesInput_24)
                                       )
                                     RadiusBottomLeft: =5
                                     RadiusBottomRight: =5
@@ -2244,7 +2244,7 @@ Screens:
                                     Size: =14
                                     Text: =If(varOngletJournal = "Travaux", "ENREGISTRER LE CHANTIER", If(varOngletJournal = "LTV", "ENREGISTRER LTV / RAL", "ENREGISTRER L'INCIDENT"))
                                     Width: =305
-                  - JournalPanel_24:
+                  - JournalPanel_25:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -2265,7 +2265,7 @@ Screens:
                         RadiusTopLeft: =6
                         RadiusTopRight: =6
                       Children:
-                        - JournalHeader_23:
+                        - JournalHeader_25:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -2275,7 +2275,7 @@ Screens:
                               LayoutDirection: =If(App.Width < 760, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                               LayoutGap: =8
                             Children:
-                              - JournalTitle_24:
+                              - JournalTitle_25:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -2286,7 +2286,7 @@ Screens:
                                     Size: =If(App.Width < 760, 14, 16)
                                     TabIndex: =0
                                     Text: ="JOURNAL DU QUART EN COURS (" & varQuart & ")"
-                              - JournalTools_23:
+                              - JournalTools_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -2297,7 +2297,7 @@ Screens:
                                     LayoutGap: =8
                                     Width: =350
                                   Children:
-                                    - EventCount_24:
+                                    - EventCount_25:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -2321,9 +2321,9 @@ Screens:
                                                             IsBlank(Heures_Degagement)
                                                         ) &&
                                                         If(
-                                                            IsBlank(FiltreDateTravaux_23.SelectedDate) || Year(FiltreDateTravaux_23.SelectedDate) < 2020,
+                                                            IsBlank(FiltreDateTravaux_24.SelectedDate) || Year(FiltreDateTravaux_24.SelectedDate) < 2020,
                                                             Date_travaux = Today(),
-                                                            Date_travaux >= FiltreDateTravaux_23.SelectedDate
+                                                            Date_travaux >= FiltreDateTravaux_24.SelectedDate
                                                         )
                                                     )
                                                 ),
@@ -2333,23 +2333,23 @@ Screens:
                                                         _base: Filter(
                                                             Tx_LTV,
                                                             (
-                                                                Coalesce(FiltrePerimetreLTV_23.Selected.Value, "Mon poste") = "Journée complète" ||
+                                                                Coalesce(FiltrePerimetreLTV_24.Selected.Value, "Mon poste") = "Journée complète" ||
                                                                 'Poste '.Value = varQuart ||
                                                                 Statut_LTV.Value = "Imposée"
                                                             ) &&
                                                             (
-                                                                IsBlank(FiltreStatutLTV_24.Selected) ||
-                                                                FiltreStatutLTV_24.Selected.Value = "Tous" ||
-                                                                Statut_LTV.Value = FiltreStatutLTV_24.Selected.Value
+                                                                IsBlank(FiltreStatutLTV_25.Selected) ||
+                                                                FiltreStatutLTV_25.Selected.Value = "Tous" ||
+                                                                Statut_LTV.Value = FiltreStatutLTV_25.Selected.Value
                                                             ) &&
                                                             (
-                                                                IsBlank(FiltreCantonLTV_24.Selected) ||
-                                                                CantonID_.Id = FiltreCantonLTV_24.Selected.ID
+                                                                IsBlank(FiltreCantonLTV_25.Selected) ||
+                                                                CantonID_.Id = FiltreCantonLTV_25.Selected.ID
                                                             ) &&
                                                             If(
-                                                                IsBlank(FiltreDateLTV_24.SelectedDate) || Year(FiltreDateLTV_24.SelectedDate) < 2020,
+                                                                IsBlank(FiltreDateLTV_25.SelectedDate) || Year(FiltreDateLTV_25.SelectedDate) < 2020,
                                                                 DateSaisie >= Today() && DateSaisie < DateAdd(Today(), 1, TimeUnit.Days),
-                                                                DateSaisie >= FiltreDateLTV_24.SelectedDate
+                                                                DateSaisie >= FiltreDateLTV_25.SelectedDate
                                                             )
                                                         )
                                                     },
@@ -2361,14 +2361,14 @@ Screens:
                                                         Tx_incidents_Ruptures,
                                                         Poste.Value = varQuart &&
                                                         If(
-                                                            IsBlank(FiltreDateIncidents_23.SelectedDate) || Year(FiltreDateIncidents_23.SelectedDate) < 2020,
+                                                            IsBlank(FiltreDateIncidents_24.SelectedDate) || Year(FiltreDateIncidents_24.SelectedDate) < 2020,
                                                             DateIncident = Today(),
-                                                            DateIncident >= FiltreDateIncidents_23.SelectedDate
+                                                            DateIncident >= FiltreDateIncidents_24.SelectedDate
                                                         )
                                                     )
                                                 )
                                             ) & " événements"
-                                    - BtnRefreshJournal_25:
+                                    - BtnRefreshJournal_26:
                                         Control: Classic/Button@2.2.0
                                         Properties:
                                           BorderColor: =RGBA(8, 49, 120, 1)
@@ -2391,7 +2391,7 @@ Screens:
                                           Text: ="Actualiser"
                                           Tooltip: ="Rafraîchir le journal sans quitter l'écran"
                                           Width: =100
-                        - FiltersBar_23:
+                        - FiltersBar_25:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -2402,7 +2402,7 @@ Screens:
                               LayoutGap: =8
                               LayoutWrap: =true
                             Children:
-                              - FiltreTravauxLabel_23:
+                              - FiltreTravauxLabel_24:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -2415,20 +2415,20 @@ Screens:
                                     Text: ="Historique"
                                     Visible: =varOngletJournal = "Travaux"
                                     Width: =90
-                              - FiltreDateTravaux_23:
+                              - FiltreDateTravaux_24:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
-                                    OnSelect: =Reset(LockTimer_JB)
-                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer travaux à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultDate: =Blank()
                                     Format: ="dd/mm/yyyy"
                                     Height: =36
+                                    OnChange: =Reset(LockTimer_JB)
+                                    OnSelect: =Reset(LockTimer_JB)
                                     Size: =12
                                     Visible: =varOngletJournal = "Travaux"
                                     Width: =150
-                              - FiltreDateTravauxHint_23:
+                              - FiltreDateTravauxHint_24:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -2440,7 +2440,7 @@ Screens:
                                     Text: ="Depuis (vide = aujourd'hui)"
                                     Visible: =varOngletJournal = "Travaux"
                                     Width: =190
-                              - FiltreLTVLabel_24:
+                              - FiltreLTVLabel_25:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -2453,11 +2453,9 @@ Screens:
                                     Text: ="Filtres LTV"
                                     Visible: =varOngletJournal = "LTV"
                                     Width: =80
-                              - FiltrePerimetreLTV_23:
+                              - FiltrePerimetreLTV_24:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
-                                    OnSelect: =Reset(LockTimer_JB)
-                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Perimetre LTV mon poste ou journee complete"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultSelectedItems: |-
@@ -2472,16 +2470,16 @@ Screens:
                                           {Value: "Mon poste"},
                                           {Value: "Journée complète"}
                                       )
+                                    OnChange: =Reset(LockTimer_JB)
+                                    OnSelect: =Reset(LockTimer_JB)
                                     SearchFields: =["Value"]
                                     SelectMultiple: =false
                                     Size: =12
                                     Visible: =varOngletJournal = "LTV"
                                     Width: =140
-                              - FiltreStatutLTV_24:
+                              - FiltreStatutLTV_25:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
-                                    OnSelect: =Reset(LockTimer_JB)
-                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer par statut LTV"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultSelectedItems: |-
@@ -2497,16 +2495,16 @@ Screens:
                                           {Value: "Imposée"},
                                           {Value: "Supprimée"}
                                       )
+                                    OnChange: =Reset(LockTimer_JB)
+                                    OnSelect: =Reset(LockTimer_JB)
                                     SearchFields: =["Value"]
                                     SelectMultiple: =false
                                     Size: =12
                                     Visible: =varOngletJournal = "LTV"
                                     Width: =110
-                              - FiltreCantonLTV_24:
+                              - FiltreCantonLTV_25:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
-                                    OnSelect: =Reset(LockTimer_JB)
-                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer par canton"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultSelectedItems: =Blank()
@@ -2516,25 +2514,27 @@ Screens:
                                     InputTextPlaceholder: ="Tous les cantons"
                                     IsSearchable: =false
                                     Items: =Ref_Cantons
+                                    OnChange: =Reset(LockTimer_JB)
+                                    OnSelect: =Reset(LockTimer_JB)
                                     SearchFields: =["Title"]
                                     SelectMultiple: =false
                                     Size: =12
                                     Visible: =varOngletJournal = "LTV"
                                     Width: =160
-                              - FiltreDateLTV_24:
+                              - FiltreDateLTV_25:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
-                                    OnSelect: =Reset(LockTimer_JB)
-                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultDate: =Blank()
                                     Format: ="dd/mm/yyyy"
                                     Height: =36
+                                    OnChange: =Reset(LockTimer_JB)
+                                    OnSelect: =Reset(LockTimer_JB)
                                     Size: =12
                                     Visible: =varOngletJournal = "LTV"
                                     Width: =140
-                              - FiltreDateLTVHint_24:
+                              - FiltreDateLTVHint_25:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -2546,7 +2546,7 @@ Screens:
                                     Text: ="Depuis (vide = aujourd'hui)"
                                     Visible: =varOngletJournal = "LTV"
                                     Width: =190
-                              - FiltreIncidentsLabel_23:
+                              - FiltreIncidentsLabel_24:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -2559,20 +2559,20 @@ Screens:
                                     Text: ="Historique"
                                     Visible: =varOngletJournal = "Incidents"
                                     Width: =90
-                              - FiltreDateIncidents_23:
+                              - FiltreDateIncidents_24:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
-                                    OnSelect: =Reset(LockTimer_JB)
-                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer incidents à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultDate: =Blank()
                                     Format: ="dd/mm/yyyy"
                                     Height: =36
+                                    OnChange: =Reset(LockTimer_JB)
+                                    OnSelect: =Reset(LockTimer_JB)
                                     Size: =12
                                     Visible: =varOngletJournal = "Incidents"
                                     Width: =150
-                              - FiltreDateIncidentsHint_23:
+                              - FiltreDateIncidentsHint_24:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -2584,7 +2584,7 @@ Screens:
                                     Text: ="Depuis (vide = aujourd'hui)"
                                     Visible: =varOngletJournal = "Incidents"
                                     Width: =190
-                        - GalleryTravaux_17:
+                        - GalleryTravaux_18:
                             Control: Gallery@2.15.0
                             Variant: Vertical
                             Properties:
@@ -2602,9 +2602,9 @@ Screens:
                                         (
                                             IsBlank(Heures_Degagement) ||
                                             If(
-                                                IsBlank(FiltreDateTravaux_23.SelectedDate) || Year(FiltreDateTravaux_23.SelectedDate) < 2020,
+                                                IsBlank(FiltreDateTravaux_24.SelectedDate) || Year(FiltreDateTravaux_24.SelectedDate) < 2020,
                                                 Date_travaux = Today(),
-                                                Date_travaux >= FiltreDateTravaux_23.SelectedDate
+                                                Date_travaux >= FiltreDateTravaux_24.SelectedDate
                                             )
                                         )
                                     ),
@@ -2617,7 +2617,7 @@ Screens:
                               TemplateSize: =72
                               Visible: =varOngletJournal = "Travaux"
                             Children:
-                              - TravBar_22:
+                              - TravBar_23:
                                   Control: Rectangle@2.3.0
                                   Properties:
                                     AccessibleLabel: ="Repere du chantier"
@@ -2626,7 +2626,7 @@ Screens:
                                     TabIndex: =0
                                     Width: =8.43
                                     Y: =3
-                              - TravIcon_22:
+                              - TravIcon_23:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     AccessibleLabel: ="Reprendre ce chantier"
@@ -2644,7 +2644,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 40, 59)
                                     X: =If(Parent.TemplateWidth < 520, 14, 25)
                                     Y: =15
-                              - TravName_22:
+                              - TravName_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     FocusedBorderThickness: =2
@@ -2657,7 +2657,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - Self.X - If(Parent.TemplateWidth < 520, 104, 160)
                                     X: =If(Parent.TemplateWidth < 520, 62, 105)
                                     Y: =11
-                              - TravDetails_22:
+                              - TravDetails_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -2670,7 +2670,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - Self.X - If(Parent.TemplateWidth < 520, 104, 160)
                                     X: =If(Parent.TemplateWidth < 520, 62, 105)
                                     Y: =37
-                              - TravStatus_22:
+                              - TravStatus_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -2685,7 +2685,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 90, 130)
                                     X: =Parent.TemplateWidth - Self.Width - 12
                                     Y: =11
-                              - TravMessageIcon_22:
+                              - TravMessageIcon_23:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     AccessibleLabel: ="Ajouter un feedback a ce chantier"
@@ -2697,7 +2697,7 @@ Screens:
                                     Width: =35
                                     X: =Parent.TemplateWidth - Self.Width - 20
                                     Y: =40
-                        - GalleryLTV_17:
+                        - GalleryLTV_18:
                             Control: Gallery@2.15.0
                             Variant: Vertical
                             Properties:
@@ -2709,23 +2709,23 @@ Screens:
                                     Filter(
                                         Tx_LTV,
                                         (
-                                            Coalesce(FiltrePerimetreLTV_23.Selected.Value, "Mon poste") = "Journée complète" ||
+                                            Coalesce(FiltrePerimetreLTV_24.Selected.Value, "Mon poste") = "Journée complète" ||
                                             'Poste '.Value = varQuart ||
                                             Statut_LTV.Value = "Imposée"
                                         ) &&
                                         (
-                                            IsBlank(FiltreStatutLTV_24.Selected) ||
-                                            FiltreStatutLTV_24.Selected.Value = "Tous" ||
-                                            Statut_LTV.Value = FiltreStatutLTV_24.Selected.Value
+                                            IsBlank(FiltreStatutLTV_25.Selected) ||
+                                            FiltreStatutLTV_25.Selected.Value = "Tous" ||
+                                            Statut_LTV.Value = FiltreStatutLTV_25.Selected.Value
                                         ) &&
                                         (
-                                            IsBlank(FiltreCantonLTV_24.Selected) ||
-                                            CantonID_.Id = FiltreCantonLTV_24.Selected.ID
+                                            IsBlank(FiltreCantonLTV_25.Selected) ||
+                                            CantonID_.Id = FiltreCantonLTV_25.Selected.ID
                                         ) &&
                                         If(
-                                            IsBlank(FiltreDateLTV_24.SelectedDate) || Year(FiltreDateLTV_24.SelectedDate) < 2020,
+                                            IsBlank(FiltreDateLTV_25.SelectedDate) || Year(FiltreDateLTV_25.SelectedDate) < 2020,
                                             DateSaisie >= Today() && DateSaisie < DateAdd(Today(), 1, TimeUnit.Days),
-                                            DateSaisie >= FiltreDateLTV_24.SelectedDate
+                                            DateSaisie >= FiltreDateLTV_25.SelectedDate
                                         )
                                     ),
                                     "Created",
@@ -2737,7 +2737,7 @@ Screens:
                               TemplateSize: =72
                               Visible: =varOngletJournal = "LTV"
                             Children:
-                              - LTVBar_22:
+                              - LTVBar_23:
                                   Control: Rectangle@2.3.0
                                   Properties:
                                     AccessibleLabel: ="Repere de la LTV"
@@ -2746,7 +2746,7 @@ Screens:
                                     TabIndex: =0
                                     Width: =8.43
                                     Y: =3
-                              - LTVIcon_22:
+                              - LTVIcon_23:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     AccessibleLabel: ="Reprendre cette LTV"
@@ -2764,7 +2764,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 40, 59)
                                     X: =If(Parent.TemplateWidth < 520, 14, 25)
                                     Y: =15
-                              - LTVName_22:
+                              - LTVName_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     FocusedBorderThickness: =2
@@ -2777,7 +2777,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - Self.X - If(Parent.TemplateWidth < 520, 104, 160)
                                     X: =If(Parent.TemplateWidth < 520, 62, 105)
                                     Y: =11
-                              - LTVDetails_22:
+                              - LTVDetails_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -2791,7 +2791,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - Self.X - If(Parent.TemplateWidth < 520, 104, 160)
                                     X: =If(Parent.TemplateWidth < 520, 62, 105)
                                     Y: =37
-                              - LTVStatus_22:
+                              - LTVStatus_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -2806,7 +2806,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 90, 130)
                                     X: =Parent.TemplateWidth - Self.Width - 12
                                     Y: =9
-                              - LTVMessageIcon_22:
+                              - LTVMessageIcon_23:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     AccessibleLabel: ="Feedback LTV indisponible"
@@ -2818,7 +2818,7 @@ Screens:
                                     Width: =35
                                     X: =Parent.TemplateWidth - Self.Width - 20
                                     Y: =39
-                              - LTVId_22:
+                              - LTVId_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -2831,7 +2831,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - Self.X - If(Parent.TemplateWidth < 520, 104, 150)
                                     X: =If(Parent.TemplateWidth < 520, 62, 105) + If(Parent.TemplateWidth < 520, 66, 119)
                                     Y: =37
-                              - LTVRate_22:
+                              - LTVRate_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: |-
@@ -2846,7 +2846,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 62, 109)
                                     X: =If(Parent.TemplateWidth < 520, 62, 105)
                                     Y: =37
-                        - GalleryIncidents_17:
+                        - GalleryIncidents_18:
                             Control: Gallery@2.15.0
                             Variant: Vertical
                             Properties:
@@ -2866,9 +2866,9 @@ Screens:
                                             Etat.Value = "En cours" ||
                                             IsBlank(Heure_Fin) ||
                                             If(
-                                                IsBlank(FiltreDateIncidents_23.SelectedDate) || Year(FiltreDateIncidents_23.SelectedDate) < 2020,
+                                                IsBlank(FiltreDateIncidents_24.SelectedDate) || Year(FiltreDateIncidents_24.SelectedDate) < 2020,
                                                 DateIncident = Today(),
-                                                DateIncident >= FiltreDateIncidents_23.SelectedDate
+                                                DateIncident >= FiltreDateIncidents_24.SelectedDate
                                             )
                                         )
                                     ),
@@ -2881,7 +2881,7 @@ Screens:
                               TemplateSize: =72
                               Visible: =varOngletJournal = "Incidents"
                             Children:
-                              - IncBar_22:
+                              - IncBar_23:
                                   Control: Rectangle@2.3.0
                                   Properties:
                                     AccessibleLabel: ="Repere de l'incident"
@@ -2890,7 +2890,7 @@ Screens:
                                     TabIndex: =0
                                     Width: =8.43
                                     Y: =3
-                              - IncIcon_22:
+                              - IncIcon_23:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     AccessibleLabel: ="Reprendre cet incident"
@@ -2908,7 +2908,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 40, 59)
                                     X: =If(Parent.TemplateWidth < 520, 14, 25)
                                     Y: =15
-                              - IncName_22:
+                              - IncName_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     FocusedBorderThickness: =2
@@ -2921,7 +2921,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - Self.X - If(Parent.TemplateWidth < 520, 104, 160)
                                     X: =If(Parent.TemplateWidth < 520, 62, 105)
                                     Y: =11
-                              - IncDetails_22:
+                              - IncDetails_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -2935,7 +2935,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - Self.X - If(Parent.TemplateWidth < 520, 104, 160)
                                     X: =If(Parent.TemplateWidth < 520, 62, 105)
                                     Y: =37
-                              - IncStatus_22:
+                              - IncStatus_23:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -2950,7 +2950,7 @@ Screens:
                                     Width: =If(Parent.TemplateWidth < 520, 90, 130)
                                     X: =Parent.TemplateWidth - Self.Width - 12
                                     Y: =11
-                              - IncMessageIcon_22:
+                              - IncMessageIcon_23:
                                   Control: Classic/Icon@2.5.0
                                   Properties:
                                     AccessibleLabel: ="Feedback incident indisponible"
@@ -2962,7 +2962,7 @@ Screens:
                                     Width: =35
                                     X: =Parent.TemplateWidth - Self.Width - 20
                                     Y: =40
-            - Footer_23:
+            - Footer_24:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -2979,7 +2979,7 @@ Screens:
                   PaddingRight: =8
                   PaddingTop: =8
                 Children:
-                  - ActionFeedback_24:
+                  - ActionFeedback_25:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =RGBA(8, 49, 120, 1)
@@ -2993,7 +2993,7 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="NOUVEAU POINTAGE TERRAIN"
                         Width: =If(App.Width < 760, 300, 340)
-                  - CloseShiftButton_24:
+                  - CloseShiftButton_25:
                       Control: Classic/Button@2.2.0
                       Properties:
                         Fill: =RGBA(255, 174, 0, 1)
@@ -3005,12 +3005,11 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="TERMINER LE POSTE & BILAN    →"
                         Width: =If(App.Width < 760, 300, 350)
-
       - LockTimer_JB:
           Control: Timer@2.1.0
           Properties:
-            AutoPause: =true
             Duration: =600000
+            Height: =1
             OnTimerEnd: |-
               =If(
                   !varSessionVerrouillee && !IsBlank(varSessionPoste),
@@ -3019,40 +3018,35 @@ Screens:
                   Set(LockPinInvalid_JB, false);
                   Reset(LockPin_JB)
               )
-            Repeat: =false
-            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
-            Height: =1
             Width: =1
       - LockInputPoll_JB:
           Control: Timer@2.1.0
           Properties:
-            AutoPause: =true
             Duration: =1000
+            Height: =1
             OnTimerEnd: |-
               =If(
                   varLockInputSnapshot_JB <> Concatenate(
-                                        Coalesce(TitreChantierInput_24.Text, ""), Char(10),
-                                        Coalesce(PKDebutInput_23.Text, ""), Char(10),
-                                        Coalesce(PKFinInput_23.Text, ""), Char(10),
-                                        Coalesce(TauxInput_23.Text, ""), Char(10),
-                                        Coalesce(CommentairesInput_23.Text, "")
+                                        Coalesce(TitreChantierInput_25.Text, ""), Char(10),
+                                        Coalesce(PKDebutInput_24.Text, ""), Char(10),
+                                        Coalesce(PKFinInput_24.Text, ""), Char(10),
+                                        Coalesce(TauxInput_24.Text, ""), Char(10),
+                                        Coalesce(CommentairesInput_24.Text, "")
                                     ),
                   Set(varLockInputSnapshot_JB, Concatenate(
-                                        Coalesce(TitreChantierInput_24.Text, ""), Char(10),
-                                        Coalesce(PKDebutInput_23.Text, ""), Char(10),
-                                        Coalesce(PKFinInput_23.Text, ""), Char(10),
-                                        Coalesce(TauxInput_23.Text, ""), Char(10),
-                                        Coalesce(CommentairesInput_23.Text, "")
+                                        Coalesce(TitreChantierInput_25.Text, ""), Char(10),
+                                        Coalesce(PKDebutInput_24.Text, ""), Char(10),
+                                        Coalesce(PKFinInput_24.Text, ""), Char(10),
+                                        Coalesce(TauxInput_24.Text, ""), Char(10),
+                                        Coalesce(CommentairesInput_24.Text, "")
                                     ));
                   Reset(LockTimer_JB)
               )
             Repeat: =true
-            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
-            Height: =1
             Width: =1
       - LockOverlay_JB:
           Control: GroupContainer@1.5.0
@@ -3091,13 +3085,13 @@ Screens:
             - LockPin_JB:
                 Control: Classic/TextInput@2.3.2
                 Properties:
-                  OnSelect: =Reset(LockTimer_JB)
                   AccessibleLabel: ="PIN de déverrouillage"
                   BorderColor: =RGBA(180, 185, 195, 1)
                   Default: =""
                   HintText: ="Code PIN"
                   MaxLength: =4
                   Mode: =TextMode.Password
+                  OnSelect: =Reset(LockTimer_JB)
                   Size: =If(App.Width < 760, 14, 18)
                   Width: =Min(App.Width - 48, 360)
                   X: =(Parent.Width - Self.Width) / 2

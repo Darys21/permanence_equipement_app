@@ -6,8 +6,8 @@ Screens:
       OnVisible: |-
         =Reset(LockTimer_FB);
         Set(varLockInputSnapshot_FB, Concatenate(
-                      Coalesce(PKInput_4.Text, ""), Char(10),
-                      Coalesce(ObservationInput_4.Text, "")
+                      Coalesce(PKInput_5.Text, ""), Char(10),
+                      Coalesce(ObservationInput_5.Text, "")
                   ));
         Refresh(Tx_Travaux);
         Refresh(Tx_Feedbacks);
@@ -27,7 +27,7 @@ Screens:
             )
         )
     Children:
-      - conRoot_FB:
+      - conRoot_FB_1:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
@@ -43,7 +43,7 @@ Screens:
             PaddingTop: =12
             Width: =App.Width
           Children:
-            - FeedbackHeader_4:
+            - FeedbackHeader_5:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -57,7 +57,7 @@ Screens:
                   PaddingLeft: =If(App.Width < 760, 12, 20)
                   PaddingRight: =If(App.Width < 760, 12, 20)
                 Children:
-                  - FbLogoGroup_2:
+                  - FbLogoGroup_3:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
@@ -66,7 +66,7 @@ Screens:
                         LayoutMinWidth: =If(App.Width < 760, 70, 200)
                         Width: =If(App.Width < 760, 70, 200)
                       Children:
-                        - LogoMark_18:
+                        - LogoMark_19:
                             Control: Rectangle@2.3.0
                             Properties:
                               AccessibleLabel: ="Logo SETRAG"
@@ -75,7 +75,7 @@ Screens:
                               TabIndex: =0
                               Width: =59
                               Y: =22
-                        - LogoText_22:
+                        - LogoText_23:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(255, 255, 255, 1)
@@ -89,7 +89,7 @@ Screens:
                               Width: =130
                               X: =66
                               Y: =8
-                        - HomeFromFeedback_4:
+                        - HomeFromFeedback_5:
                             Control: Classic/Button@2.2.0
                             Properties:
                               BorderColor: =RGBA(0, 0, 0, 0)
@@ -103,7 +103,7 @@ Screens:
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
                               Width: =Parent.Width
-                  - FbTitleBlock_2:
+                  - FbTitleBlock_3:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -113,7 +113,7 @@ Screens:
                         LayoutJustifyContent: =LayoutJustifyContent.Center
                         LayoutMinWidth: =0
                       Children:
-                        - FeedbackTitle_4:
+                        - FeedbackTitle_5:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
@@ -125,7 +125,7 @@ Screens:
                               Size: =If(App.Width < 760, 12, 20)
                               TabIndex: =0
                               Text: ="NOUVEAU POINTAGE TERRAIN"
-                        - FeedbackSubtitle_4:
+                        - FeedbackSubtitle_5:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
@@ -137,7 +137,7 @@ Screens:
                               TabIndex: =0
                               Text: ="Ajouter un pointage terrain"
                               Visible: =App.Width >= 760
-                  - FeedbackSession_4:
+                  - FeedbackSession_5:
                       Control: Label@2.5.1
                       Properties:
                         Align: =Align.Center
@@ -166,7 +166,6 @@ Screens:
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =34
-                        AccessibleLabel: ="Verrouiller le poste"
                         LayoutMinWidth: =40
                         OnSelect: |-
                           =Set(varSessionVerrouillee, true);
@@ -174,11 +173,12 @@ Screens:
                           Set(LockPinInvalid_FB, false);
                           Reset(LockPin_FB)
                         Size: =16
-                        Text: ="🔒"
+                        Text: |-
+                          ="🔒"
                         Tooltip: ="Verrouiller la session sans la fermer"
                         Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
                         Width: =40
-            - FeedbackWorkspace_4:
+            - FeedbackWorkspace_5:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -192,7 +192,7 @@ Screens:
                   PaddingRight: =12
                   PaddingTop: =12
                 Children:
-                  - InputPanel_4:
+                  - InputPanel_5:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -213,7 +213,7 @@ Screens:
                         RadiusTopLeft: =6
                         RadiusTopRight: =6
                       Children:
-                        - InputFlow_2:
+                        - InputFlow_3:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -223,7 +223,7 @@ Screens:
                               LayoutWrap: =true
                               PaddingRight: =8
                             Children:
-                              - EventHeading_4:
+                              - EventHeading_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -235,7 +235,7 @@ Screens:
                                     LayoutMinWidth: =Parent.Width - 24
                                     TabIndex: =0
                                     Text: ="1. SÉLECTION DU CHANTIER CONCERNÉ"
-                              - FldEvent_2:
+                              - FldEvent_3:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -245,7 +245,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =Parent.Width - 24
                                   Children:
-                                    - EventLabel_4:
+                                    - EventLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -255,10 +255,9 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Chantier concerné (poste en cours)"
-                                    - EventSelector_4:
+                                    - EventSelector_5:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Chantier auquel rattacher le feedback"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           DefaultSelectedItems: |-
@@ -284,10 +283,11 @@ Screens:
                                                 "Created",
                                                 SortOrder.Descending
                                             )
-                                          OnChange: =Reset(LockTimer_FB); Set(varFeedbackEvent, EventSelector_4.Selected)
+                                          OnChange: =Reset(LockTimer_FB); Set(varFeedbackEvent, EventSelector_5.Selected)
+                                          OnSelect: =Reset(LockTimer_FB)
                                           SearchFields: =["Title"]
                                           SelectMultiple: =false
-                              - EventContext_4:
+                              - EventContext_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -307,7 +307,7 @@ Screens:
                                           LookUp(Ref_Acteurs, ID = varFeedbackEvent.ActeurID, Title),
                                           "—"
                                       )
-                              - PointageHeading_4:
+                              - PointageHeading_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -319,7 +319,7 @@ Screens:
                                     LayoutMinWidth: =Parent.Width - 24
                                     TabIndex: =0
                                     Text: ="2. INFORMATIONS DU POINTAGE"
-                              - FldContactTime_2:
+                              - FldContactTime_3:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -329,7 +329,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =290
                                   Children:
-                                    - ContactTimeLabel_4:
+                                    - ContactTimeLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -339,7 +339,7 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Heure du pointage *"
-                                    - RowContactTime_2:
+                                    - RowContactTime_3:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
@@ -349,23 +349,21 @@ Screens:
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =6
                                         Children:
-                                          - ContactTime_4:
+                                          - ContactTime_5:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_FB)
-                                                OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Date du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 FillPortions: =1
                                                 Format: ="dd/mm/yyyy"
                                                 Height: =38
                                                 LayoutMinWidth: =130
+                                                OnChange: =Reset(LockTimer_FB)
+                                                OnSelect: =Reset(LockTimer_FB)
                                                 Size: =13
-                                          - ContactHour_4:
+                                          - ContactHour_5:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_FB)
-                                                OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Heure du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 DisplayFields: =["Value"]
@@ -373,14 +371,14 @@ Screens:
                                                 InputTextPlaceholder: ="hh"
                                                 IsSearchable: =false
                                                 Items: =Sequence(24, 0, 1)
+                                                OnChange: =Reset(LockTimer_FB)
+                                                OnSelect: =Reset(LockTimer_FB)
                                                 SearchFields: =["Value"]
                                                 SelectMultiple: =false
                                                 Width: =70
-                                          - ContactMinute_4:
+                                          - ContactMinute_5:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
-                                                OnSelect: =Reset(LockTimer_FB)
-                                                OnChange: =Reset(LockTimer_FB)
                                                 AccessibleLabel: ="Minute du pointage"
                                                 BorderColor: =RGBA(155, 163, 178, 1)
                                                 DisplayFields: =["Value"]
@@ -388,10 +386,12 @@ Screens:
                                                 InputTextPlaceholder: ="mm"
                                                 IsSearchable: =false
                                                 Items: =Sequence(60, 0, 1)
+                                                OnChange: =Reset(LockTimer_FB)
+                                                OnSelect: =Reset(LockTimer_FB)
                                                 SearchFields: =["Value"]
                                                 SelectMultiple: =false
                                                 Width: =70
-                              - FldContactMode_2:
+                              - FldContactMode_3:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -401,7 +401,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - ContactModeLabel_4:
+                                    - ContactModeLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -411,11 +411,9 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Mode de contact *"
-                                    - ContactMode_4:
+                                    - ContactMode_5:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_FB)
-                                          OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Moyen de contact du pointage"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           DisplayFields: =["Value"]
@@ -423,9 +421,11 @@ Screens:
                                           InputTextPlaceholder: ="Mode de contact"
                                           IsSearchable: =false
                                           Items: =["Sur place", "WhatsApp", "Téléphone", "Thuraya"]
+                                          OnChange: =Reset(LockTimer_FB)
+                                          OnSelect: =Reset(LockTimer_FB)
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
-                              - FldPK_2:
+                              - FldPK_3:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -435,7 +435,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - PKLabel_4:
+                                    - PKLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -445,18 +445,18 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Localisation exacte (PK)"
-                                    - PKInput_4:
+                                    - PKInput_5:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_FB)
-                                          OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Localisation exacte du pointage en PK"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Default: =Blank()
                                           Height: =38
                                           HintText: |-
                                             ="ex: 12+400"
-                              - FldContactStatus_2:
+                                          OnChange: =Reset(LockTimer_FB)
+                                          OnSelect: =Reset(LockTimer_FB)
+                              - FldContactStatus_3:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -466,7 +466,7 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =220
                                   Children:
-                                    - ContactStatusLabel_4:
+                                    - ContactStatusLabel_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           FocusedBorderThickness: =2
@@ -476,18 +476,18 @@ Screens:
                                           Size: =11
                                           TabIndex: =0
                                           Text: ="Statut du contact *"
-                                    - ContactStatus_4:
+                                    - ContactStatus_5:
                                         Control: Classic/Radio@2.3.0
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_FB)
-                                          OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Contact etabli (oui ou non)"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Height: =40
                                           Items: =["OUI", "NON"]
                                           Items.Value: =Value
                                           Layout: =Layout.Horizontal
-                              - ObservationHeading_4:
+                                          OnChange: =Reset(LockTimer_FB)
+                                          OnSelect: =Reset(LockTimer_FB)
+                              - ObservationHeading_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
@@ -499,7 +499,7 @@ Screens:
                                     LayoutMinWidth: =Parent.Width - 24
                                     TabIndex: =0
                                     Text: ="3. OBSERVATIONS TERRAIN"
-                              - FldObservation_2:
+                              - FldObservation_3:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -509,11 +509,9 @@ Screens:
                                     LayoutGap: =2
                                     LayoutMinWidth: =Parent.Width - 24
                                   Children:
-                                    - ObservationInput_4:
+                                    - ObservationInput_5:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          OnSelect: =Reset(LockTimer_FB)
-                                          OnChange: =Reset(LockTimer_FB)
                                           AccessibleLabel: ="Observations du pointage terrain"
                                           BorderColor: =RGBA(155, 163, 178, 1)
                                           Default: =Blank()
@@ -521,7 +519,9 @@ Screens:
                                           HintText: ="Saisissez vos observations terrain..."
                                           MaxLength: =1000
                                           Mode: =TextMode.MultiLine
-                                    - CharacterCount_4:
+                                          OnChange: =Reset(LockTimer_FB)
+                                          OnSelect: =Reset(LockTimer_FB)
+                                    - CharacterCount_5:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Right
@@ -530,8 +530,8 @@ Screens:
                                           Height: =20
                                           Size: =10
                                           TabIndex: =0
-                                          Text: =Len(ObservationInput_4.Text) & " / 1000"
-                        - SaveRow_2:
+                                          Text: =Len(ObservationInput_5.Text) & " / 1000"
+                        - SaveRow_3:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -542,7 +542,7 @@ Screens:
                               LayoutJustifyContent: =LayoutJustifyContent.Center
                               PaddingTop: =8
                             Children:
-                              - SaveFeedback_4:
+                              - SaveFeedback_5:
                                   Control: Classic/Button@2.2.0
                                   Properties:
                                     Fill: =RGBA(255, 174, 0, 1)
@@ -554,7 +554,7 @@ Screens:
                                     OnSelect: |-
                                       =Reset(LockTimer_FB);
                                       If(
-                                          IsBlank(EventSelector_4.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_4.Selected) || IsBlank(ContactStatus_4.Selected),
+                                          IsBlank(EventSelector_5.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_5.Selected) || IsBlank(ContactStatus_5.Selected),
                                           Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
                                           Patch(
                                               Tx_Feedbacks,
@@ -562,21 +562,21 @@ Screens:
                                               {
                                                   TravailID: varFeedbackEvent.ID,
                                                   HeureContact: If(
-                                                      Year(ContactTime_4.SelectedDate) < 2020 || IsBlank(ContactHour_4.Selected) || IsBlank(ContactMinute_4.Selected),
+                                                      Year(ContactTime_5.SelectedDate) < 2020 || IsBlank(ContactHour_5.Selected) || IsBlank(ContactMinute_5.Selected),
                                                       Blank(),
                                                       DateTime(
-                                                          Year(ContactTime_4.SelectedDate),
-                                                          Month(ContactTime_4.SelectedDate),
-                                                          Day(ContactTime_4.SelectedDate),
-                                                          Value(ContactHour_4.Selected.Value),
-                                                          Value(ContactMinute_4.Selected.Value),
+                                                          Year(ContactTime_5.SelectedDate),
+                                                          Month(ContactTime_5.SelectedDate),
+                                                          Day(ContactTime_5.SelectedDate),
+                                                          Value(ContactHour_5.Selected.Value),
+                                                          Value(ContactMinute_5.Selected.Value),
                                                           0
                                                       )
                                                   ),
-                                                  MoyenCom: {Value: ContactMode_4.Selected.Value},
-                                                  StatutContact: ContactStatus_4.Selected.Value = "OUI",
-                                                  'Commentaire ': ObservationInput_4.Text,
-                                                  PK: PKInput_4.Text,
+                                                  MoyenCom: {Value: ContactMode_5.Selected.Value},
+                                                  StatutContact: ContactStatus_5.Selected.Value = "OUI",
+                                                  'Commentaire ': ObservationInput_5.Text,
+                                                  PK: PKInput_5.Text,
                                                   Poste: {Value: varQuart},
                                                   AgentSaisie: {
                                                       Claims: "i:0#.f|membership|" & Lower(User().Email),
@@ -595,7 +595,7 @@ Screens:
                                     Size: =14
                                     Text: ="AJOUTER LE POINTAGE"
                                     Width: =280
-                  - SummaryPanel_9:
+                  - SummaryPanel_10:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -616,7 +616,7 @@ Screens:
                         RadiusTopLeft: =6
                         RadiusTopRight: =6
                       Children:
-                        - SummaryHeading_9:
+                        - SummaryHeading_10:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
@@ -627,7 +627,7 @@ Screens:
                               LayoutMinWidth: =0
                               TabIndex: =0
                               Text: ="RÉSUMÉ DU CHANTIER"
-                        - SummaryCard_4:
+                        - SummaryCard_5:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -649,7 +649,7 @@ Screens:
                               RadiusTopLeft: =6
                               RadiusTopRight: =6
                             Children:
-                              - SummaryTitle_4:
+                              - SummaryTitle_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(25, 28, 38, 1)
@@ -660,7 +660,7 @@ Screens:
                                     Size: =14
                                     TabIndex: =0
                                     Text: =Coalesce(varFeedbackEvent.Title, "Aucun chantier sélectionné")
-                              - SummaryDetails_3:
+                              - SummaryDetails_4:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -677,7 +677,7 @@ Screens:
                                       ) & Char(10) &
                                       "Date : " & Text(varFeedbackEvent.Date_travaux, "dd/mm/yyyy") &
                                       "    |    PK : " & Coalesce(Text(varFeedbackEvent.PK_Debut), "—")
-                              - SummaryStatus_4:
+                              - SummaryStatus_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =If(IsBlank(varFeedbackEvent.Heures_Degagement), RGBA(237, 108, 20, 1), RGBA(18, 135, 43, 1))
@@ -688,7 +688,7 @@ Screens:
                                     Size: =12
                                     TabIndex: =0
                                     Text: =If(IsBlank(varFeedbackEvent), "—", If(IsBlank(varFeedbackEvent.Heures_Degagement), "En cours", "Dégagé"))
-                        - HistoryHeading_3:
+                        - HistoryHeading_4:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
@@ -699,7 +699,7 @@ Screens:
                               LayoutMinWidth: =0
                               TabIndex: =0
                               Text: ="HISTORIQUE DES POINTAGES"
-                        - HistoryGallery_4:
+                        - HistoryGallery_5:
                             Control: Gallery@2.15.0
                             Variant: Vertical
                             Properties:
@@ -712,7 +712,7 @@ Screens:
                               TemplatePadding: =4
                               TemplateSize: =84
                             Children:
-                              - HistoryTime_4:
+                              - HistoryTime_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     FocusedBorderThickness: =2
@@ -725,7 +725,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 144
                                     X: =12
                                     Y: =6
-                              - HistoryMode_4:
+                              - HistoryMode_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Right
@@ -738,7 +738,7 @@ Screens:
                                     Width: =120
                                     X: =Parent.TemplateWidth - Self.Width - 12
                                     Y: =6
-                              - HistoryComment_4:
+                              - HistoryComment_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -750,7 +750,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 24
                                     X: =12
                                     Y: =34
-            - Footer_FB:
+            - Footer_FB_1:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -767,7 +767,7 @@ Screens:
                   PaddingRight: =8
                   PaddingTop: =8
                 Children:
-                  - BackToJournal_4:
+                  - BackToJournal_5:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =RGBA(8, 49, 120, 1)
@@ -781,7 +781,7 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="←   RETOUR AU JOURNAL DE BORD"
                         Width: =If(App.Width < 760, 300, 340)
-                  - SaveAndClose_3:
+                  - SaveAndClose_4:
                       Control: Classic/Button@2.2.0
                       Properties:
                         Fill: =RGBA(255, 174, 0, 1)
@@ -792,7 +792,7 @@ Screens:
                         OnSelect: |-
                           =Reset(LockTimer_FB);
                           If(
-                              IsBlank(EventSelector_4.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_4.Selected) || IsBlank(ContactStatus_4.Selected),
+                              IsBlank(EventSelector_5.Selected) || IsBlank(varFeedbackEvent) || IsBlank(ContactMode_5.Selected) || IsBlank(ContactStatus_5.Selected),
                               Notify("Sélectionnez un chantier, un mode et un statut de contact", NotificationType.Error),
                               Patch(
                                   Tx_Feedbacks,
@@ -800,21 +800,21 @@ Screens:
                                   {
                                       TravailID: varFeedbackEvent.ID,
                                       HeureContact: If(
-                                          Year(ContactTime_4.SelectedDate) < 2020 || IsBlank(ContactHour_4.Selected) || IsBlank(ContactMinute_4.Selected),
+                                          Year(ContactTime_5.SelectedDate) < 2020 || IsBlank(ContactHour_5.Selected) || IsBlank(ContactMinute_5.Selected),
                                           Blank(),
                                           DateTime(
-                                              Year(ContactTime_4.SelectedDate),
-                                              Month(ContactTime_4.SelectedDate),
-                                              Day(ContactTime_4.SelectedDate),
-                                              Value(ContactHour_4.Selected.Value),
-                                              Value(ContactMinute_4.Selected.Value),
+                                              Year(ContactTime_5.SelectedDate),
+                                              Month(ContactTime_5.SelectedDate),
+                                              Day(ContactTime_5.SelectedDate),
+                                              Value(ContactHour_5.Selected.Value),
+                                              Value(ContactMinute_5.Selected.Value),
                                               0
                                           )
                                       ),
-                                      MoyenCom: {Value: ContactMode_4.Selected.Value},
-                                      StatutContact: ContactStatus_4.Selected.Value = "OUI",
-                                      'Commentaire ': ObservationInput_4.Text,
-                                      PK: PKInput_4.Text,
+                                      MoyenCom: {Value: ContactMode_5.Selected.Value},
+                                      StatutContact: ContactStatus_5.Selected.Value = "OUI",
+                                      'Commentaire ': ObservationInput_5.Text,
+                                      PK: PKInput_5.Text,
                                       Poste: {Value: varQuart},
                                       AgentSaisie: {
                                           Claims: "i:0#.f|membership|" & Lower(User().Email),
@@ -834,12 +834,11 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="ENREGISTRER ET RETOUR JOURNAL"
                         Width: =If(App.Width < 760, 300, 350)
-
       - LockTimer_FB:
           Control: Timer@2.1.0
           Properties:
-            AutoPause: =true
             Duration: =600000
+            Height: =1
             OnTimerEnd: |-
               =If(
                   !varSessionVerrouillee && !IsBlank(varSessionPoste),
@@ -848,34 +847,29 @@ Screens:
                   Set(LockPinInvalid_FB, false);
                   Reset(LockPin_FB)
               )
-            Repeat: =false
-            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
-            Height: =1
             Width: =1
       - LockInputPoll_FB:
           Control: Timer@2.1.0
           Properties:
-            AutoPause: =true
             Duration: =1000
+            Height: =1
             OnTimerEnd: |-
               =If(
                   varLockInputSnapshot_FB <> Concatenate(
-                                        Coalesce(PKInput_4.Text, ""), Char(10),
-                                        Coalesce(ObservationInput_4.Text, "")
+                                        Coalesce(PKInput_5.Text, ""), Char(10),
+                                        Coalesce(ObservationInput_5.Text, "")
                                     ),
                   Set(varLockInputSnapshot_FB, Concatenate(
-                                        Coalesce(PKInput_4.Text, ""), Char(10),
-                                        Coalesce(ObservationInput_4.Text, "")
+                                        Coalesce(PKInput_5.Text, ""), Char(10),
+                                        Coalesce(ObservationInput_5.Text, "")
                                     ));
                   Reset(LockTimer_FB)
               )
             Repeat: =true
-            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
-            Height: =1
             Width: =1
       - LockOverlay_FB:
           Control: GroupContainer@1.5.0
@@ -914,13 +908,13 @@ Screens:
             - LockPin_FB:
                 Control: Classic/TextInput@2.3.2
                 Properties:
-                  OnSelect: =Reset(LockTimer_FB)
                   AccessibleLabel: ="PIN de déverrouillage"
                   BorderColor: =RGBA(180, 185, 195, 1)
                   Default: =""
                   HintText: ="Code PIN"
                   MaxLength: =4
                   Mode: =TextMode.Password
+                  OnSelect: =Reset(LockTimer_FB)
                   Size: =If(App.Width < 760, 14, 18)
                   Width: =Min(App.Width - 48, 360)
                   X: =(Parent.Width - Self.Width) / 2

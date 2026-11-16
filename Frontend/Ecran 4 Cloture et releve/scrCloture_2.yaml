@@ -7,7 +7,7 @@ Screens:
         =Reset(LockTimer_CL);
         Set(
             varLockInputSnapshot_CL,
-            Concatenate(Coalesce(ClosureComment_5.Text, ""))
+            Concatenate(Coalesce(ClosureComment_6.Text, ""))
         );
         Set(varEtapeCloture, 1);
         Refresh(Ref_Cantons);
@@ -17,7 +17,7 @@ Screens:
         Refresh(Tx_incidents_Ruptures);
         Refresh(Tx_Feedbacks)
     Children:
-      - conRoot_CL:
+      - conRoot_CL_1:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
@@ -33,7 +33,7 @@ Screens:
             PaddingTop: =12
             Width: =App.Width
           Children:
-            - ClosureHeader_5:
+            - ClosureHeader_6:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -47,7 +47,7 @@ Screens:
                   PaddingLeft: =If(App.Width < 760, 12, 20)
                   PaddingRight: =If(App.Width < 760, 12, 20)
                 Children:
-                  - ClLogoGroup_4:
+                  - ClLogoGroup_5:
                       Control: GroupContainer@1.5.0
                       Variant: ManualLayout
                       Properties:
@@ -56,14 +56,14 @@ Screens:
                         LayoutMinWidth: =If(App.Width < 760, 70, 200)
                         Width: =If(App.Width < 760, 70, 200)
                       Children:
-                        - LogoMark_17:
+                        - LogoMark_20:
                             Control: Rectangle@2.3.0
                             Properties:
                               Fill: =RGBA(255, 184, 0, 1)
                               Height: =5
                               Width: =59
                               Y: =22
-                        - LogoText_21:
+                        - LogoText_24:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(255, 255, 255, 1)
@@ -75,7 +75,7 @@ Screens:
                               Width: =130
                               X: =66
                               Y: =8
-                        - HomeFromClosure_3:
+                        - HomeFromClosure_4:
                             Control: Classic/Button@2.2.0
                             Properties:
                               BorderColor: =RGBA(0, 0, 0, 0)
@@ -89,7 +89,7 @@ Screens:
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
                               Width: =Parent.Width
-                  - ClTitleBlock_4:
+                  - ClTitleBlock_5:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -99,7 +99,7 @@ Screens:
                         LayoutJustifyContent: =LayoutJustifyContent.Center
                         LayoutMinWidth: =0
                       Children:
-                        - ClosureTitle_5:
+                        - ClosureTitle_6:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
@@ -109,7 +109,7 @@ Screens:
                               Height: =If(App.Width < 760, 44, 34)
                               Size: =If(App.Width < 760, 12, 20)
                               Text: ="CLÔTURE DU POSTE & RELÈVE"
-                        - ClosureSubtitle_5:
+                        - ClosureSubtitle_6:
                             Control: Label@2.5.1
                             Properties:
                               Align: =Align.Center
@@ -119,7 +119,7 @@ Screens:
                               Size: =12
                               Text: ="Synthèse et validation de fin de service"
                               Visible: =App.Width >= 760
-                  - ClosureSession_5:
+                  - ClosureSession_6:
                       Control: Label@2.5.1
                       Properties:
                         Align: =Align.Center
@@ -146,7 +146,6 @@ Screens:
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =34
-                        AccessibleLabel: ="Verrouiller le poste"
                         LayoutMinWidth: =40
                         OnSelect: |-
                           =Set(varSessionVerrouillee, true);
@@ -154,11 +153,12 @@ Screens:
                           Set(LockPinInvalid_CL, false);
                           Reset(LockPin_CL)
                         Size: =16
-                        Text: ="🔒"
+                        Text: |-
+                          ="🔒"
                         Tooltip: ="Verrouiller la session sans la fermer"
                         Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
                         Width: =40
-            - ClosureSteps_5:
+            - ClosureSteps_6:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -169,7 +169,7 @@ Screens:
                   LayoutGap: =8
                   LayoutMinHeight: =56
                 Children:
-                  - StepOne_5:
+                  - StepOne_6:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varEtapeCloture = 1, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
@@ -184,7 +184,7 @@ Screens:
                         OnSelect: =Reset(LockTimer_CL); Set(varEtapeCloture, 1)
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "1  Synthèse", "1   Synthèse & points ouverts")
-                  - StepTwo_5:
+                  - StepTwo_6:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varEtapeCloture = 2, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
@@ -199,7 +199,7 @@ Screens:
                         OnSelect: =Reset(LockTimer_CL); If(varEtapeCloture >= 1, Set(varEtapeCloture, 2))
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "2  Transmission", "2   Commentaire & transmission")
-                  - StepThree_5:
+                  - StepThree_6:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =If(varEtapeCloture = 3, RGBA(8, 75, 180, 1), RGBA(205, 210, 220, 1))
@@ -214,7 +214,7 @@ Screens:
                         OnSelect: =Reset(LockTimer_CL); If(varEtapeCloture >= 2, Set(varEtapeCloture, 3))
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "3  Confirmer", "3   Confirmation")
-            - ClosureWorkspace_5:
+            - ClosureWorkspace_6:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -228,7 +228,7 @@ Screens:
                   PaddingRight: =12
                   PaddingTop: =12
                 Children:
-                  - SummaryPanel_8:
+                  - SummaryPanel_11:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -249,7 +249,7 @@ Screens:
                         RadiusTopRight: =6
                         Visible: =varEtapeCloture = 1
                       Children:
-                        - SummaryHeading_8:
+                        - SummaryHeading_11:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
@@ -260,7 +260,7 @@ Screens:
                               Text: |-
                                 ="RÉSUMÉ DU POSTE " & varQuart & " (" &
                                 Switch(varQuart, "P1", "06H - 14H", "P2", "14H - 22H", "P3", "22H - 06H", "—") & ")"
-                        - SummaryPeriod_5:
+                        - SummaryPeriod_6:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(83, 87, 99, 1)
@@ -275,7 +275,7 @@ Screens:
                                     "P3", Text(Today(), "dd/mm/yyyy") & " 22:00 → " & Text(DateAdd(Today(), 1, TimeUnit.Days), "dd/mm/yyyy") & " 06:00",
                                     Text(Today(), "dd/mm/yyyy")
                                 )
-                        - KpiRow_4:
+                        - KpiRow_5:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -286,7 +286,7 @@ Screens:
                               LayoutMinHeight: =96
                               LayoutWrap: =true
                             Children:
-                              - WorkKpi_5:
+                              - WorkKpi_6:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -304,7 +304,7 @@ Screens:
                                     RadiusTopLeft: =6
                                     RadiusTopRight: =6
                                   Children:
-                                    - WorkKpiLabel_5:
+                                    - WorkKpiLabel_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -312,7 +312,7 @@ Screens:
                                           Height: =26
                                           Size: =11
                                           Text: ="Chantiers & Travaux"
-                                    - WorkKpiValue_5:
+                                    - WorkKpiValue_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -321,7 +321,7 @@ Screens:
                                           Height: =34
                                           Size: =22
                                           Text: =CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && Date_travaux = Today()))
-                                    - WorkKpiNote_5:
+                                    - WorkKpiNote_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -329,7 +329,7 @@ Screens:
                                           Height: =20
                                           Size: =11
                                           Text: =CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && Date_travaux = Today() && IsBlank(Heures_Degagement))) & " en cours"
-                              - LtvKpi_5:
+                              - LtvKpi_6:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -347,7 +347,7 @@ Screens:
                                     RadiusTopLeft: =6
                                     RadiusTopRight: =6
                                   Children:
-                                    - LtvKpiLabel_5:
+                                    - LtvKpiLabel_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -355,7 +355,7 @@ Screens:
                                           Height: =26
                                           Size: =11
                                           Text: ="LTV / RAL"
-                                    - LtvKpiValue_5:
+                                    - LtvKpiValue_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -364,7 +364,7 @@ Screens:
                                           Height: =34
                                           Size: =22
                                           Text: =CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && 'Date_imposition ' >= Today() && 'Date_imposition ' < DateAdd(Today(), 1, TimeUnit.Days)))
-                                    - LtvKpiNote_5:
+                                    - LtvKpiNote_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -372,7 +372,7 @@ Screens:
                                           Height: =20
                                           Size: =11
                                           Text: =CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && Statut_LTV.Value = "Imposée")) & " actives"
-                              - IncidentKpi_5:
+                              - IncidentKpi_6:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -390,7 +390,7 @@ Screens:
                                     RadiusTopLeft: =6
                                     RadiusTopRight: =6
                                   Children:
-                                    - IncidentKpiLabel_5:
+                                    - IncidentKpiLabel_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -398,7 +398,7 @@ Screens:
                                           Height: =26
                                           Size: =11
                                           Text: ="Ruptures / Incidents"
-                                    - IncidentKpiValue_5:
+                                    - IncidentKpiValue_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -407,7 +407,7 @@ Screens:
                                           Height: =34
                                           Size: =22
                                           Text: =CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && DateIncident >= Today() && DateIncident < DateAdd(Today(), 1, TimeUnit.Days)))
-                                    - IncidentKpiNote_5:
+                                    - IncidentKpiNote_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -415,7 +415,7 @@ Screens:
                                           Height: =20
                                           Size: =11
                                           Text: =CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && DateIncident >= Today() && DateIncident < DateAdd(Today(), 1, TimeUnit.Days) && (Etat.Value = "En cours" || IsBlank(Heure_Fin)))) & " en cours"
-                              - FeedbackKpi_5:
+                              - FeedbackKpi_6:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
@@ -433,7 +433,7 @@ Screens:
                                     RadiusTopLeft: =6
                                     RadiusTopRight: =6
                                   Children:
-                                    - FeedbackKpiLabel_5:
+                                    - FeedbackKpiLabel_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -441,7 +441,7 @@ Screens:
                                           Height: =26
                                           Size: =11
                                           Text: ="Feedbacks Terrain"
-                                    - FeedbackKpiValue_5:
+                                    - FeedbackKpiValue_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -450,7 +450,7 @@ Screens:
                                           Height: =34
                                           Size: =22
                                           Text: =CountRows(Filter(Tx_Feedbacks, Poste.Value = varQuart && HeureContact >= Today() && HeureContact < DateAdd(Today(), 1, TimeUnit.Days)))
-                                    - FeedbackKpiNote_5:
+                                    - FeedbackKpiNote_6:
                                         Control: Label@2.5.1
                                         Properties:
                                           Align: =Align.Center
@@ -458,14 +458,14 @@ Screens:
                                           Height: =20
                                           Size: =11
                                           Text: ="Points de contact"
-                        - DetailHeading_5:
+                        - DetailHeading_6:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
                               FontWeight: =FontWeight.Semibold
                               Height: =28
                               Text: ="DÉTAIL DES ÉVÉNEMENTS DU POSTE"
-                        - EventGallery_5:
+                        - EventGallery_6:
                             Control: Gallery@2.15.0
                             Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
                             Properties:
@@ -477,13 +477,13 @@ Screens:
                               TemplatePadding: =2
                               TemplateSize: =48
                             Children:
-                              - EventColorBar_5:
+                              - EventColorBar_6:
                                   Control: Rectangle@2.3.0
                                   Properties:
                                     Fill: =RGBA(8, 75, 180, 1)
                                     Height: =Parent.TemplateHeight
                                     Width: =5
-                              - EventWork_5:
+                              - EventWork_6:
                                   Control: Label@2.5.1
                                   Properties:
                                     FontWeight: =FontWeight.Semibold
@@ -493,7 +493,7 @@ Screens:
                                     Width: =Parent.TemplateWidth - 14 - 92
                                     X: =14
                                     Y: =2
-                              - EventDate_5:
+                              - EventDate_6:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(83, 87, 99, 1)
@@ -503,7 +503,7 @@ Screens:
                                     Width: =140
                                     X: =14
                                     Y: =24
-                              - EventStatus_5:
+                              - EventStatus_6:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Center
@@ -514,7 +514,7 @@ Screens:
                                     Width: =80
                                     X: =Parent.TemplateWidth - Self.Width - 8
                                     Y: =10
-                        - HandoverNotice_5:
+                        - HandoverNotice_6:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(125, 78, 0, 1)
@@ -528,7 +528,7 @@ Screens:
                                 "   • LTV actives : " & CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && Statut_LTV.Value = "Imposée")) &
                                 "   • Incidents ouverts : " & CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && (Etat.Value = "En cours" || IsBlank(Heure_Fin)))) & Char(10) &
                                 "• Feedbacks terrain saisis : " & CountRows(Filter(Tx_Feedbacks, Poste.Value = varQuart && HeureContact >= Today() && HeureContact < DateAdd(Today(), 1, TimeUnit.Days)))
-                  - TransmissionPanel_4:
+                  - TransmissionPanel_5:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -549,7 +549,7 @@ Screens:
                         RadiusTopRight: =6
                         Visible: =varEtapeCloture = 2
                       Children:
-                        - TxLeft_3:
+                        - TxLeft_4:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -558,18 +558,16 @@ Screens:
                               LayoutGap: =8
                               LayoutMinWidth: =260
                             Children:
-                              - CommentHeading_5:
+                              - CommentHeading_6:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
                                     FontWeight: =FontWeight.Bold
                                     Height: =28
                                     Text: ="COMMENTAIRE DE FIN DE POSTE"
-                              - ClosureComment_5:
+                              - ClosureComment_6:
                                   Control: Classic/TextInput@2.3.2
                                   Properties:
-                                    OnSelect: =Reset(LockTimer_CL)
-                                    OnChange: =Reset(LockTimer_CL)
                                     AccessibleLabel: ="Commentaire de fin de poste"
                                     BorderColor: =RGBA(155, 163, 178, 1)
                                     Default: =
@@ -578,26 +576,26 @@ Screens:
                                     HintText: ="Observations, consignes pour le poste suivant (intégré au rapport)..."
                                     MaxLength: =1000
                                     Mode: =TextMode.MultiLine
-                              - ClosureCount_5:
+                                    OnChange: =Reset(LockTimer_CL)
+                                    OnSelect: =Reset(LockTimer_CL)
+                              - ClosureCount_6:
                                   Control: Label@2.5.1
                                   Properties:
                                     Align: =Align.Right
                                     Color: =RGBA(83, 87, 99, 1)
                                     Height: =20
                                     Size: =10
-                                    Text: =Len(ClosureComment_5.Text) & " / 1000 caractères"
-                              - TransmissionHeading_5:
+                                    Text: =Len(ClosureComment_6.Text) & " / 1000 caractères"
+                              - TransmissionHeading_6:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
                                     FontWeight: =FontWeight.Bold
                                     Height: =28
                                     Text: ="TRANSMISSION AU POSTE SUIVANT"
-                              - NextShift_5:
+                              - NextShift_6:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
-                                    OnSelect: =Reset(LockTimer_CL)
-                                    OnChange: =Reset(LockTimer_CL)
                                     AccessibleLabel: ="Sélectionner le poste suivant"
                                     BorderColor: =RGBA(155, 163, 178, 1)
                                     DefaultSelectedItems: |-
@@ -613,9 +611,11 @@ Screens:
                                     Height: =42
                                     IsSearchable: =false
                                     Items: =["P1 (06h - 14h)", "P2 (14h - 22h)", "P3 (22h - 06h)"]
+                                    OnChange: =Reset(LockTimer_CL)
+                                    OnSelect: =Reset(LockTimer_CL)
                                     SearchFields: =["Value"]
                                     SelectMultiple: =false
-                              - MiniRecapTransmission_4:
+                              - MiniRecapTransmission_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(68, 73, 87, 1)
@@ -624,11 +624,11 @@ Screens:
                                     PaddingLeft: =8
                                     Size: =12
                                     Text: |-
-                                      ="À reprendre par " & Coalesce(NextShift_5.Selected.Value, "—") & " :" & Char(10) &
+                                      ="À reprendre par " & Coalesce(NextShift_6.Selected.Value, "—") & " :" & Char(10) &
                                       "• Travaux en cours : " & CountRows(Filter(Tx_Travaux, Poste.Value = varQuart && IsBlank(Heures_Degagement))) & Char(10) &
                                       "• LTV actives : " & CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && Statut_LTV.Value = "Imposée")) & Char(10) &
                                       "• Incidents ouverts : " & CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && (Etat.Value = "En cours" || IsBlank(Heure_Fin))))
-                              - LockNotice_5:
+                              - LockNotice_6:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 75, 180, 1)
@@ -637,7 +637,7 @@ Screens:
                                     PaddingLeft: =8
                                     Size: =11
                                     Text: ="Après clôture, les événements en cours seront rattachés au poste suivant. Les feedbacks pourront encore être consultés."
-                        - TxRight_3:
+                        - TxRight_4:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
@@ -646,14 +646,14 @@ Screens:
                               LayoutGap: =8
                               LayoutMinWidth: =260
                             Children:
-                              - ReportHeading_4:
+                              - ReportHeading_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     Color: =RGBA(8, 49, 120, 1)
                                     FontWeight: =FontWeight.Bold
                                     Height: =28
                                     Text: ="APERÇU DU RAPPORT DE FIN DE POSTE"
-                              - ReportPreview_4:
+                              - ReportPreview_5:
                                   Control: Label@2.5.1
                                   Properties:
                                     BorderColor: =RGBA(220, 224, 230, 1)
@@ -745,15 +745,15 @@ Screens:
                                       "2. TRANSMISSION AU POSTE SUIVANT" & Char(10) &
                                       "────────────────────────────────────────" & Char(10) &
                                       "Poste destinataire : " &
-                                      Coalesce(NextShift_5.Selected.Value, "Non renseigné") & Char(10) &
+                                      Coalesce(NextShift_6.Selected.Value, "Non renseigné") & Char(10) &
                                       Char(10) &
                                       "3. COMMENTAIRES ET CONSIGNES" & Char(10) &
                                       "────────────────────────────────────────" & Char(10) &
-                                      Coalesce(ClosureComment_5.Text, "(Aucun commentaire renseigné)") & Char(10) &
+                                      Coalesce(ClosureComment_6.Text, "(Aucun commentaire renseigné)") & Char(10) &
                                       Char(10) &
                                       "════════════════════════════════════════" & Char(10) &
                                       "Fin du rapport de poste"
-                  - ConfirmationPanel_5:
+                  - ConfirmationPanel_6:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
@@ -774,7 +774,7 @@ Screens:
                         RadiusTopRight: =6
                         Visible: =varEtapeCloture = 3
                       Children:
-                        - ConfirmationTitle_5:
+                        - ConfirmationTitle_6:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(8, 49, 120, 1)
@@ -782,7 +782,7 @@ Screens:
                               Height: =34
                               Size: =16
                               Text: ="CONFIRMATION DE LA CLÔTURE"
-                        - ConfirmationSummary_5:
+                        - ConfirmationSummary_6:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(68, 73, 87, 1)
@@ -797,10 +797,10 @@ Screens:
                                 "LTV actives : " & CountRows(Filter(Tx_LTV, 'Poste '.Value = varQuart && Statut_LTV.Value = "Imposée")) & Char(10) &
                                 "Incidents ouverts : " & CountRows(Filter(Tx_incidents_Ruptures, Poste.Value = varQuart && (Etat.Value = "En cours" || IsBlank(Heure_Fin)))) & Char(10) &
                                 "Feedbacks terrain : " & CountRows(Filter(Tx_Feedbacks, Poste.Value = varQuart && HeureContact >= Today() && HeureContact < DateAdd(Today(), 1, TimeUnit.Days))) & Char(10) &
-                                "Poste suivant : " & Coalesce(NextShift_5.Selected.Value, "Non renseigné") & Char(10) &
+                                "Poste suivant : " & Coalesce(NextShift_6.Selected.Value, "Non renseigné") & Char(10) &
                                 Char(10) &
-                                "Commentaire : " & Coalesce(ClosureComment_5.Text, "Aucun commentaire")
-                        - ConfirmationNotice_5:
+                                "Commentaire : " & Coalesce(ClosureComment_6.Text, "Aucun commentaire")
+                        - ConfirmationNotice_6:
                             Control: Label@2.5.1
                             Properties:
                               Color: =RGBA(125, 78, 0, 1)
@@ -809,7 +809,7 @@ Screens:
                               PaddingLeft: =8
                               Size: =12
                               Text: ="Vérifiez ces informations avant de cliquer sur « VALIDER & CLÔTURER LE POSTE ». Les événements en cours seront transmis au poste suivant."
-            - Footer_CL:
+            - Footer_CL_1:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
@@ -826,7 +826,7 @@ Screens:
                   PaddingRight: =8
                   PaddingTop: =8
                 Children:
-                  - ClosureBack_5:
+                  - ClosureBack_6:
                       Control: Classic/Button@2.2.0
                       Properties:
                         BorderColor: =RGBA(8, 49, 120, 1)
@@ -840,7 +840,7 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="←   RETOUR AU JOURNAL DE BORD"
                         Width: =If(App.Width < 760, 300, 340)
-                  - ValidateClosure_5:
+                  - ValidateClosure_6:
                       Control: Classic/Button@2.2.0
                       Properties:
                         Fill: =RGBA(255, 174, 0, 1)
@@ -862,13 +862,13 @@ Screens:
                                   With(
                                       {
                                           _nextPoste: If(
-                                              !IsBlank(NextShift_5.Selected) && StartsWith(Text(NextShift_5.Selected.Value), "P3"),
+                                              !IsBlank(NextShift_6.Selected) && StartsWith(Text(NextShift_6.Selected.Value), "P3"),
                                               "P3",
                                               If(
-                                                  !IsBlank(NextShift_5.Selected) && StartsWith(Text(NextShift_5.Selected.Value), "P2"),
+                                                  !IsBlank(NextShift_6.Selected) && StartsWith(Text(NextShift_6.Selected.Value), "P2"),
                                                   "P2",
                                                   If(
-                                                      !IsBlank(NextShift_5.Selected) && StartsWith(Text(NextShift_5.Selected.Value), "P1"),
+                                                      !IsBlank(NextShift_6.Selected) && StartsWith(Text(NextShift_6.Selected.Value), "P1"),
                                                       "P1",
                                                       Switch(varQuart, "P1", "P2", "P2", "P3", "P3", "P1", "P1")
                                                   )
@@ -930,12 +930,11 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: =If(varEtapeCloture < 3, "CONTINUER ÉTAPE SUIVANTE  →", "VALIDER & CLÔTURER LE POSTE")
                         Width: =If(App.Width < 760, 300, 360)
-
       - LockTimer_CL:
           Control: Timer@2.1.0
           Properties:
-            AutoPause: =true
             Duration: =600000
+            Height: =1
             OnTimerEnd: |-
               =If(
                   !varSessionVerrouillee && !IsBlank(varSessionPoste),
@@ -944,32 +943,27 @@ Screens:
                   Set(LockPinInvalid_CL, false);
                   Reset(LockPin_CL)
               )
-            Repeat: =false
-            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
-            Height: =1
             Width: =1
       - LockInputPoll_CL:
           Control: Timer@2.1.0
           Properties:
-            AutoPause: =true
             Duration: =1000
+            Height: =1
             OnTimerEnd: |-
               =If(
                   varLockInputSnapshot_CL <> Concatenate(
-                                        Coalesce(ClosureComment_5.Text, "")
+                                        Coalesce(ClosureComment_6.Text, "")
                                     ),
                   Set(varLockInputSnapshot_CL, Concatenate(
-                                        Coalesce(ClosureComment_5.Text, "")
+                                        Coalesce(ClosureComment_6.Text, "")
                                     ));
                   Reset(LockTimer_CL)
               )
             Repeat: =true
-            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
-            Height: =1
             Width: =1
       - LockOverlay_CL:
           Control: GroupContainer@1.5.0
@@ -1008,13 +1002,13 @@ Screens:
             - LockPin_CL:
                 Control: Classic/TextInput@2.3.2
                 Properties:
-                  OnSelect: =Reset(LockTimer_CL)
                   AccessibleLabel: ="PIN de déverrouillage"
                   BorderColor: =RGBA(180, 185, 195, 1)
                   Default: =""
                   HintText: ="Code PIN"
                   MaxLength: =4
                   Mode: =TextMode.Password
+                  OnSelect: =Reset(LockTimer_CL)
                   Size: =If(App.Width < 760, 14, 18)
                   Width: =Min(App.Width - 48, 360)
                   X: =(Parent.Width - Self.Width) / 2
