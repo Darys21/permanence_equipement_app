@@ -556,6 +556,7 @@ Screens:
                               - ClosureComment_5:
                                   Control: Classic/TextInput@2.3.2
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_CL)
                                     OnChange: =Reset(LockTimer_CL)
                                     AccessibleLabel: ="Commentaire de fin de poste"
                                     BorderColor: =RGBA(155, 163, 178, 1)
@@ -583,6 +584,7 @@ Screens:
                               - NextShift_5:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_CL)
                                     OnChange: =Reset(LockTimer_CL)
                                     AccessibleLabel: ="Sélectionner le poste suivant"
                                     BorderColor: =RGBA(155, 163, 178, 1)
@@ -973,6 +975,7 @@ Screens:
             - LockPin_CL:
                 Control: Classic/TextInput@2.3.2
                 Properties:
+                  OnSelect: =Reset(LockTimer_CL)
                   AccessibleLabel: ="PIN de déverrouillage"
                   BorderColor: =RGBA(180, 185, 195, 1)
                   Default: =""
