@@ -4,7 +4,8 @@ Screens:
       Fill: =RGBA(255, 255, 255, 1)
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
       OnVisible: |-
-        =If(varActionEnCours <> "Modifier", Set(varOngletJournal, "Travaux"));
+        =Reset(LockTimer_JB);
+        If(varActionEnCours <> "Modifier", Set(varOngletJournal, "Travaux"));
         Set(varAttemptedSave, false);
         Refresh(Ref_Cantons);
         Refresh(Ref_Acteurs);
@@ -99,7 +100,7 @@ Screens:
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
                               Height: =Parent.Height
-                              OnSelect: =Navigate(PrisePoste_2, ScreenTransition.Fade)
+                              OnSelect: =Reset(LockTimer_JB); Navigate(PrisePoste_2, ScreenTransition.Fade)
                               Size: =13.7
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
@@ -122,6 +123,29 @@ Screens:
                                 "   |   Agent : " &
                                 Coalesce(varAgentPermanentNom, "Aucun agent sélectionné")
                               Width: =Parent.Width
+                  - BtnLock_JB:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(255, 174, 0, 1)
+                        BorderThickness: =1
+                        Color: =RGBA(8, 49, 120, 1)
+                        Fill: =RGBA(255, 174, 0, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =34
+                        AccessibleLabel: ="Verrouiller le poste"
+                        LayoutMinWidth: =40
+                        OnSelect: |-
+                          =Set(varSessionVerrouillee, true);
+                          Set(varLockSource, "Manuel");
+                          Set(LockPinInvalid_JB, false);
+                          Reset(LockPin_JB)
+                        Size: =16
+                        Text: ="🔒"
+                        Tooltip: ="Verrouiller la session sans la fermer"
+                        Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
+                        Width: =40
                   - BtnChangerAgent_24:
                       Control: Classic/Button@2.2.0
                       Properties:
@@ -133,7 +157,8 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =36
                         OnSelect: |-
-                          =If(
+                          =Reset(LockTimer_JB);
+                          If(
                               !IsBlank(varAgentPermanentID),
                               Patch(
                                   Ref_Permanents,
@@ -173,7 +198,8 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =Parent.Height
                         OnSelect: |-
-                          =Set(varOngletJournal, "Travaux");
+                          =Reset(LockTimer_JB);
+                          Set(varOngletJournal, "Travaux");
                           Set(varAttemptedSave, false)
                         Size: =If(App.Width < 760, 12, 16)
                         Text: =If(App.Width < 760, "1. Travaux", "1. Chantiers & Travaux")
@@ -190,7 +216,8 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =Parent.Height
                         OnSelect: |-
-                          =Set(varOngletJournal, "LTV");
+                          =Reset(LockTimer_JB);
+                          Set(varOngletJournal, "LTV");
                           Set(varAttemptedSave, false)
                         Size: =If(App.Width < 760, 12, 16)
                         Text: =If(App.Width < 760, "2. LTV / RAL", "2. LTV / RAL (Ralentissements)")
@@ -207,7 +234,8 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =Parent.Height
                         OnSelect: |-
-                          =Set(varOngletJournal, "Incidents");
+                          =Reset(LockTimer_JB);
+                          Set(varOngletJournal, "Incidents");
                           Set(varAttemptedSave, false)
                         Size: =If(App.Width < 760, 12, 16)
                         Text: =If(App.Width < 760, "3. Incidents", "3. Incidents & Ruptures")
@@ -310,6 +338,8 @@ Screens:
                                     - DivisionInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner une division"
                                           BorderColor: =If(varAttemptedSave && IsBlank(DivisionInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           DefaultSelectedItems: |-
@@ -359,6 +389,8 @@ Screens:
                                     - CantonInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner un canton"
                                           BorderColor: =If(varAttemptedSave && IsBlank(CantonInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           DefaultSelectedItems: |-
@@ -421,6 +453,8 @@ Screens:
                                     - RegimeInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le régime de travaux"
                                           BorderColor: =If(varAttemptedSave && IsBlank(RegimeInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           DefaultSelectedItems: |-
@@ -481,6 +515,8 @@ Screens:
                                     - ActorInput_24:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le responsable intervenant (CDT, CDI, CBA)"
                                           BorderColor: =If(varAttemptedSave && (varOngletJournal = "Travaux" || varOngletJournal = "LTV") && IsBlank(ActorInput_24.Selected), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           DefaultSelectedItems: |-
@@ -527,6 +563,8 @@ Screens:
                                     - PermanentInput_23:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Sélectionner le permanent au poste"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           DefaultSelectedItems: |-
@@ -578,6 +616,8 @@ Screens:
                                     - TitreChantierInput_24:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Nature des travaux"
                                           BorderColor: =If(varAttemptedSave && varOngletJournal = "Travaux" && IsBlank(Trim(TitreChantierInput_24.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Coalesce(varTravauxToEdit.Title, ""), Blank())
@@ -608,6 +648,8 @@ Screens:
                                     - PKDebutInput_23:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le PK début"
                                           BorderColor: =If(Or("," in PKDebutInput_23.Text, "." in PKDebutInput_23.Text) || (varAttemptedSave && IsBlank(PKDebutInput_23.Text)), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           Default: |-
@@ -640,6 +682,8 @@ Screens:
                                     - PKFinInput_23:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le PK fin ou l'heure de fin"
                                           BorderColor: =If(Or("," in PKFinInput_23.Text, "." in PKFinInput_23.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           Default: |-
@@ -672,6 +716,8 @@ Screens:
                                     - TauxInput_23:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir le taux d'avancement"
                                           BorderColor: =If(varAttemptedSave && varOngletJournal = "LTV" && IsBlank(TauxInput_23.Text), RGBA(238, 32, 35, 1), RGBA(180, 185, 195, 1))
                                           Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Text(varLtvToEdit.Taux), Blank())
@@ -704,6 +750,8 @@ Screens:
                                     - StatutLTVInput_23:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Statut de la LTV"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           DefaultSelectedItems: |-
@@ -784,6 +832,8 @@ Screens:
                                           - RequestInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure de demande"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: |-
@@ -805,6 +855,8 @@ Screens:
                                           - RequestHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de demande ou de debut d'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: |-
@@ -831,6 +883,8 @@ Screens:
                                           - RequestMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute de demande ou de debut d'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: |-
@@ -888,6 +942,8 @@ Screens:
                                           - AuthorizationInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure d'autorisation"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heures_Autorisee), Today())
@@ -900,6 +956,8 @@ Screens:
                                           - AuthorizationHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure autorisee"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heures_Autorisee)), Blank())
@@ -914,6 +972,8 @@ Screens:
                                           - AuthorizationMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute autorisee"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heures_Autorisee)), Blank())
@@ -959,6 +1019,8 @@ Screens:
                                           - EngagementInput_24:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l'heure d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heure_engagement), Today())
@@ -971,6 +1033,8 @@ Screens:
                                           - EngagementHour_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heure_engagement)), Blank())
@@ -985,6 +1049,8 @@ Screens:
                                           - EngagementMinute_24:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute d'engagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heure_engagement)), Blank())
@@ -1030,6 +1096,8 @@ Screens:
                                           - FinPrevueInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heure_Fin_Prevue), Today())
@@ -1042,6 +1110,8 @@ Screens:
                                           - FinPrevueHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heure_Fin_Prevue)), Blank())
@@ -1057,6 +1127,8 @@ Screens:
                                           - FinPrevueMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de fin prévue - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heure_Fin_Prevue)), Blank())
@@ -1117,6 +1189,8 @@ Screens:
                                           - DegagementInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.Heures_Degagement), Today())
@@ -1129,6 +1203,8 @@ Screens:
                                           - DegagementHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.Heures_Degagement)), Blank())
@@ -1144,6 +1220,8 @@ Screens:
                                           - DegagementMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de dégagement - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.Heures_Degagement)), Blank())
@@ -1190,6 +1268,8 @@ Screens:
                                           - VoieRetablieInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), DateValue(varTravauxToEdit.'Heures_Voie_Retablie '), Today())
@@ -1202,6 +1282,8 @@ Screens:
                                           - VoieRetablieHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varTravauxToEdit.'Heures_Voie_Retablie ')), Blank())
@@ -1217,6 +1299,8 @@ Screens:
                                           - VoieRetablieMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir l heure de voie rétablie - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varTravauxToEdit.'Heures_Voie_Retablie ')), Blank())
@@ -1263,6 +1347,8 @@ Screens:
                                           - ProlongationInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de fin après prolongation"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 FillPortions: =1
@@ -1274,6 +1360,8 @@ Screens:
                                           - ProlongationHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Prolongation - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =Blank()
@@ -1289,6 +1377,8 @@ Screens:
                                           - ProlongationMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Prolongation - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =Blank()
@@ -1335,6 +1425,8 @@ Screens:
                                           - DateIncidentInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier", DateValue(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.DateIncident)), Blank())
@@ -1347,6 +1439,8 @@ Screens:
                                           - DateIncidentHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier", Filter(Sequence(24, 0, 1), Value = Hour(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.Heure_Début))), Blank())
@@ -1362,6 +1456,8 @@ Screens:
                                           - DateIncidentMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de l incident - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier", Filter(Sequence(60, 0, 1), Value = Minute(If(varOngletJournal = "LTV", varLtvToEdit.'Date_imposition ', varIncidentToEdit.Heure_Début))), Blank())
@@ -1408,6 +1504,8 @@ Screens:
                                           - HeureFinIncidentInput_21:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Date de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit), DateValue(varIncidentToEdit.Heure_Fin), Blank())
@@ -1419,6 +1517,8 @@ Screens:
                                           - HeureFinIncidentHour_21:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Heure de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit.Heure_Fin), Filter(Sequence(24, 0, 1), Value = Hour(varIncidentToEdit.Heure_Fin)), Blank())
@@ -1434,6 +1534,8 @@ Screens:
                                           - HeureFinIncidentMinute_21:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Minute de fin de l'incident"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit.Heure_Fin), Filter(Sequence(60, 0, 1), Value = Minute(varIncidentToEdit.Heure_Fin)), Blank())
@@ -1480,6 +1582,8 @@ Screens:
                                           - DateSuppressionInput_23:
                                               Control: Classic/DatePicker@2.6.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultDate: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), DateValue(varLtvToEdit.'Date_Suppression '), Blank())
@@ -1492,6 +1596,8 @@ Screens:
                                           - DateSuppressionHour_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression - heure"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Filter(Sequence(24, 0, 1), Value = Hour(varLtvToEdit.'Date_Suppression ')), Blank())
@@ -1507,6 +1613,8 @@ Screens:
                                           - DateSuppressionMinute_23:
                                               Control: Classic/ComboBox@2.4.0
                                               Properties:
+                                                OnSelect: =Reset(LockTimer_JB)
+                                                OnChange: =Reset(LockTimer_JB)
                                                 AccessibleLabel: ="Saisir la date de suppression - minutes"
                                                 BorderColor: =RGBA(180, 185, 195, 1)
                                                 DefaultSelectedItems: =If(varActionEnCours = "Modifier" && varOngletJournal = "LTV" && !IsBlank(varLtvToEdit), Filter(Sequence(60, 0, 1), Value = Minute(varLtvToEdit.'Date_Suppression ')), Blank())
@@ -1688,6 +1796,8 @@ Screens:
                                     - MotifEngTardifInput_23:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Motif de l'engagement tardif"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           DefaultSelectedItems: |-
@@ -1788,6 +1898,8 @@ Screens:
                                     - MotifDegTardifInput_23:
                                         Control: Classic/ComboBox@2.4.0
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Motif du dégagement tardif"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           DefaultSelectedItems: |-
@@ -1888,6 +2000,8 @@ Screens:
                                     - CommentairesInput_23:
                                         Control: Classic/TextInput@2.3.2
                                         Properties:
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          OnChange: =Reset(LockTimer_JB)
                                           AccessibleLabel: ="Saisir les commentaires"
                                           BorderColor: =RGBA(180, 185, 195, 1)
                                           Default: =If(varActionEnCours = "Modifier" && varOngletJournal = "Incidents" && !IsBlank(varIncidentToEdit), varIncidentToEdit.Commentaires, Blank())
@@ -1917,7 +2031,8 @@ Screens:
                                     FontWeight: =FontWeight.Bold
                                     Height: =44
                                     OnSelect: |-
-                                      =UpdateContext({_journalSaveSucceeded: false});
+                                      =Reset(LockTimer_JB);
+                                      UpdateContext({_journalSaveSucceeded: false});
                                       Set(varAttemptedSave, true);
                                       If(
                                           If(
@@ -2257,7 +2372,8 @@ Screens:
                                           Font: =Font.'Segoe UI'
                                           Height: =32
                                           OnSelect: |-
-                                            =Refresh(Tx_Travaux);
+                                            =Reset(LockTimer_JB);
+                                            Refresh(Tx_Travaux);
                                             Refresh(Tx_LTV);
                                             Refresh(Tx_incidents_Ruptures);
                                             Refresh(Tx_Feedbacks);
@@ -2295,6 +2411,8 @@ Screens:
                               - FiltreDateTravaux_23:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
+                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer travaux à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultDate: =Blank()
@@ -2331,6 +2449,8 @@ Screens:
                               - FiltrePerimetreLTV_23:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
+                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Perimetre LTV mon poste ou journee complete"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultSelectedItems: |-
@@ -2353,6 +2473,8 @@ Screens:
                               - FiltreStatutLTV_24:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
+                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer par statut LTV"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultSelectedItems: |-
@@ -2376,6 +2498,8 @@ Screens:
                               - FiltreCantonLTV_24:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
+                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer par canton"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultSelectedItems: =Blank()
@@ -2393,6 +2517,8 @@ Screens:
                               - FiltreDateLTV_24:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
+                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultDate: =Blank()
@@ -2429,6 +2555,8 @@ Screens:
                               - FiltreDateIncidents_23:
                                   Control: Classic/DatePicker@2.6.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_JB)
+                                    OnChange: =Reset(LockTimer_JB)
                                     AccessibleLabel: ="Filtrer incidents à partir d'une date"
                                     BorderColor: =RGBA(180, 185, 195, 1)
                                     DefaultDate: =Blank()
@@ -2500,7 +2628,8 @@ Screens:
                                     Height: =42
                                     Icon: =Icon.Tools
                                     OnSelect: |-
-                                      =Set(varOngletJournal, "Travaux");
+                                      =Reset(LockTimer_JB);
+                                      Set(varOngletJournal, "Travaux");
                                       Set(varActionEnCours, "Modifier");
                                       Set(varTravauxToEdit, ThisItem);
                                       Navigate(JournalDeBord_3, ScreenTransition.Fade)
@@ -2556,7 +2685,7 @@ Screens:
                                     Color: =RGBA(8, 49, 120, 1)
                                     Height: =25
                                     Icon: =Icon.Message
-                                    OnSelect: =Set(varFeedbackEvent, ThisItem); Navigate(scrFeedback, ScreenTransition.Fade)
+                                    OnSelect: =Reset(LockTimer_JB); Set(varFeedbackEvent, ThisItem); Navigate(scrFeedback, ScreenTransition.Fade)
                                     TabIndex: =0
                                     Width: =35
                                     X: =Parent.TemplateWidth - Self.Width - 20
@@ -2619,7 +2748,8 @@ Screens:
                                     Height: =42
                                     Icon: =Icon.Warning
                                     OnSelect: |-
-                                      =Set(varOngletJournal, "LTV");
+                                      =Reset(LockTimer_JB);
+                                      Set(varOngletJournal, "LTV");
                                       Set(varActionEnCours, "Modifier");
                                       Set(varLtvToEdit, ThisItem);
                                       Navigate(JournalDeBord_3, ScreenTransition.Fade)
@@ -2762,7 +2892,8 @@ Screens:
                                     Height: =42
                                     Icon: =Icon.Error
                                     OnSelect: |-
-                                      =Set(varOngletJournal, "Incidents");
+                                      =Reset(LockTimer_JB);
+                                      Set(varOngletJournal, "Incidents");
                                       Set(varActionEnCours, "Modifier");
                                       Set(varIncidentToEdit, ThisItem);
                                       Navigate(JournalDeBord_3, ScreenTransition.Fade)
@@ -2851,7 +2982,7 @@ Screens:
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =48
-                        OnSelect: =Navigate(scrFeedback, ScreenTransition.Fade)
+                        OnSelect: =Reset(LockTimer_JB); Navigate(scrFeedback, ScreenTransition.Fade)
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="NOUVEAU POINTAGE TERRAIN"
                         Width: =If(App.Width < 760, 300, 340)
@@ -2863,7 +2994,123 @@ Screens:
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
                         Height: =48
-                        OnSelect: =Navigate(scrCloture_2, ScreenTransition.Fade)
+                        OnSelect: =Reset(LockTimer_JB); Navigate(scrCloture_2, ScreenTransition.Fade)
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="TERMINER LE POSTE & BILAN    →"
                         Width: =If(App.Width < 760, 300, 350)
+
+      - LockTimer_JB:
+          Control: Timer@2.1.0
+          Properties:
+            AutoPause: =true
+            Duration: =600000
+            OnTimerEnd: |-
+              =If(
+                  !varSessionVerrouillee && !IsBlank(varSessionPoste),
+                  Set(varSessionVerrouillee, true);
+                  Set(varLockSource, "Automatique");
+                  Set(LockPinInvalid_JB, false);
+                  Reset(LockPin_JB)
+              )
+            Repeat: =false
+            Reset: =false
+            Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
+            Visible: =false
+            Height: =1
+            Width: =1
+      - LockOverlay_JB:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 126, 0.97)
+            Height: =App.Height
+            Visible: =varSessionVerrouillee
+            Width: =App.Width
+          Children:
+            - LockTitle_JB:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =56
+                  Size: =If(App.Width < 760, 20, 28)
+                  Text: ="POSTE VERROUILLÉ"
+                  Width: =Min(App.Width - 32, 640)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.34
+            - LockInfo_JB:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =54
+                  Size: =If(App.Width < 760, 11, 15)
+                  Text: =If(varLockSource = "Automatique", "Verrouillage automatique après 10 minutes d'inactivité. ", "Verrouillage manuel. ") & "Saisissez le PIN du permanent principal ou du deuxième permanent déclaré."
+                  Width: =Min(App.Width - 32, 720)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.43
+            - LockPin_JB:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  OnSelect: =Reset(LockTimer_JB)
+                  AccessibleLabel: ="PIN de déverrouillage"
+                  BorderColor: =RGBA(180, 185, 195, 1)
+                  Default: =""
+                  HintText: ="Code PIN"
+                  MaxLength: =4
+                  Mode: =TextMode.Password
+                  Size: =If(App.Width < 760, 14, 18)
+                  Width: =Min(App.Width - 48, 360)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.53
+            - LockError_JB:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 190, 190, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =32
+                  Size: =If(App.Width < 760, 10, 13)
+                  Text: ="Code PIN incorrect ou permanent non autorisé."
+                  Visible: =LockPinInvalid_JB
+                  Width: =Min(App.Width - 32, 600)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.61
+            - BtnUnlock_JB:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(255, 174, 0, 1)
+                  Color: =RGBA(8, 49, 120, 1)
+                  Fill: =RGBA(255, 174, 0, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =48
+                  OnSelect: |-
+                    =Set(
+                        varPermanentAutoriseDeverrouillage,
+                        LookUp(
+                            Ref_Permanents,
+                            (ID = varAgentPermanentID ||
+                             (!IsBlank(varPermanentSecondaireSession.ID) &&
+                              ID = varPermanentSecondaireSession.ID)) &&
+                            CodePIN = Trim(LockPin_JB.Text)
+                        )
+                    );
+                    If(
+                        IsBlank(varPermanentAutoriseDeverrouillage.ID),
+                        Set(LockPinInvalid_JB, true);
+                        Notify("Code PIN incorrect ou permanent non autorisé.", NotificationType.Error),
+                        Set(LockPinInvalid_JB, false);
+                        Set(varSessionVerrouillee, false);
+                        Reset(LockTimer_JB);
+                        Reset(LockPin_JB);
+                        Notify("Poste déverrouillé. Votre session est conservée.", NotificationType.Success)
+                    )
+                  Size: =If(App.Width < 760, 11, 14)
+                  Text: ="DÉVERROUILLER LE POSTE"
+                  Width: =Min(App.Width - 48, 360)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.69
