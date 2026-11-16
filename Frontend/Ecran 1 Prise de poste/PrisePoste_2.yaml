@@ -592,6 +592,7 @@ Screens:
                         - PermanentSecondaireCombo_PO:
                             Control: Classic/ComboBox@2.4.0
                             Properties:
+                              OnSelect: =Reset(LockTimer_PO)
                               AccessibleLabel: ="Sélectionner le deuxième permanent"
                               BorderColor: =RGBA(180, 185, 195, 1)
                               DefaultSelectedItems: =If(IsBlank(varPermanentSecondaireSelection.ID), [], [varPermanentSecondaireSelection])
@@ -1102,6 +1103,7 @@ Screens:
             - LockPin_PO:
                 Control: Classic/TextInput@2.3.2
                 Properties:
+                  OnSelect: =Reset(LockTimer_PO)
                   OnChange: =Reset(LockTimer_PO)
                   AccessibleLabel: ="PIN de déverrouillage"
                   BorderColor: =RGBA(180, 185, 195, 1)
