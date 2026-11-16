@@ -3,10 +3,19 @@ Screens:
     Properties:
       Fill: =RGBA(255, 255, 255, 1)
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
-      OnVisible: =Reset(LockTimer_CL);
-        Set(varLockInputSnapshot_CL, Concatenate(
-                      Coalesce(ClosureComment_5.Text, "")
-                  )); Set(varEtapeCloture, 1); Refresh(Ref_Cantons); Refresh(Ref_Acteurs); Refresh(Tx_Travaux); Refresh(Tx_LTV); Refresh(Tx_incidents_Ruptures); Refresh(Tx_Feedbacks)
+      OnVisible: |-
+        =Reset(LockTimer_CL);
+        Set(
+            varLockInputSnapshot_CL,
+            Concatenate(Coalesce(ClosureComment_5.Text, ""))
+        );
+        Set(varEtapeCloture, 1);
+        Refresh(Ref_Cantons);
+        Refresh(Ref_Acteurs);
+        Refresh(Tx_Travaux);
+        Refresh(Tx_LTV);
+        Refresh(Tx_incidents_Ruptures);
+        Refresh(Tx_Feedbacks)
     Children:
       - conRoot_CL:
           Control: GroupContainer@1.5.0
