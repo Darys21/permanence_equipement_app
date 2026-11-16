@@ -3,7 +3,7 @@ Screens:
     Properties:
       Fill: =RGBA(255, 255, 255, 1)
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
-      OnVisible: =Set(varEtapeCloture, 1); Refresh(Ref_Cantons); Refresh(Ref_Acteurs); Refresh(Tx_Travaux); Refresh(Tx_LTV); Refresh(Tx_incidents_Ruptures); Refresh(Tx_Feedbacks)
+      OnVisible: =Reset(LockTimer_CL); Set(varEtapeCloture, 1); Refresh(Ref_Cantons); Refresh(Ref_Acteurs); Refresh(Tx_Travaux); Refresh(Tx_LTV); Refresh(Tx_incidents_Ruptures); Refresh(Tx_Feedbacks)
     Children:
       - conRoot_CL:
           Control: GroupContainer@1.5.0
@@ -72,7 +72,7 @@ Screens:
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
                               Height: =Parent.Height
-                              OnSelect: =Navigate(PrisePoste_2, ScreenTransition.Fade)
+                              OnSelect: =Reset(LockTimer_CL); Navigate(PrisePoste_2, ScreenTransition.Fade)
                               Size: =4.01
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
@@ -123,6 +123,29 @@ Screens:
                           "   |   Agent : " &
                           Coalesce(varAgentPermanentNom, "Aucun agent sélectionné")
                         Width: =If(App.Width < 760, 140, 340)
+                  - BtnLock_CL:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(255, 174, 0, 1)
+                        BorderThickness: =1
+                        Color: =RGBA(8, 49, 120, 1)
+                        Fill: =RGBA(255, 174, 0, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Bold
+                        Height: =34
+                        AccessibleLabel: ="Verrouiller le poste"
+                        LayoutMinWidth: =40
+                        OnSelect: |-
+                          =Set(varSessionVerrouillee, true);
+                          Set(varLockSource, "Manuel");
+                          Set(LockPinInvalid_CL, false);
+                          Reset(LockPin_CL)
+                        Size: =16
+                        Text: ="🔒"
+                        Tooltip: ="Verrouiller la session sans la fermer"
+                        Visible: =!IsBlank(varSessionPoste) && !varSessionVerrouillee
+                        Width: =40
             - ClosureSteps_5:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
@@ -146,7 +169,7 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =48
                         LayoutMinWidth: =0
-                        OnSelect: =Set(varEtapeCloture, 1)
+                        OnSelect: =Reset(LockTimer_CL); Set(varEtapeCloture, 1)
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "1  Synthèse", "1   Synthèse & points ouverts")
                   - StepTwo_5:
@@ -161,7 +184,7 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =48
                         LayoutMinWidth: =0
-                        OnSelect: =If(varEtapeCloture >= 1, Set(varEtapeCloture, 2))
+                        OnSelect: =Reset(LockTimer_CL); If(varEtapeCloture >= 1, Set(varEtapeCloture, 2))
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "2  Transmission", "2   Commentaire & transmission")
                   - StepThree_5:
@@ -176,7 +199,7 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =48
                         LayoutMinWidth: =0
-                        OnSelect: =If(varEtapeCloture >= 2, Set(varEtapeCloture, 3))
+                        OnSelect: =Reset(LockTimer_CL); If(varEtapeCloture >= 2, Set(varEtapeCloture, 3))
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "3  Confirmer", "3   Confirmation")
             - ClosureWorkspace_5:
@@ -533,6 +556,8 @@ Screens:
                               - ClosureComment_5:
                                   Control: Classic/TextInput@2.3.2
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_CL)
+                                    OnChange: =Reset(LockTimer_CL)
                                     AccessibleLabel: ="Commentaire de fin de poste"
                                     BorderColor: =RGBA(155, 163, 178, 1)
                                     Default: =
@@ -559,6 +584,8 @@ Screens:
                               - NextShift_5:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
+                                    OnSelect: =Reset(LockTimer_CL)
+                                    OnChange: =Reset(LockTimer_CL)
                                     AccessibleLabel: ="Sélectionner le poste suivant"
                                     BorderColor: =RGBA(155, 163, 178, 1)
                                     DefaultSelectedItems: |-
@@ -797,7 +824,7 @@ Screens:
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =48
-                        OnSelect: =Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                        OnSelect: =Reset(LockTimer_CL); Navigate(JournalDeBord_3, ScreenTransition.Fade)
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="←   RETOUR AU JOURNAL DE BORD"
                         Width: =If(App.Width < 760, 300, 340)
@@ -810,7 +837,8 @@ Screens:
                         FontWeight: =FontWeight.Bold
                         Height: =48
                         OnSelect: |-
-                          =If(
+                          =Reset(LockTimer_CL);
+                          If(
                               varEtapeCloture < 3,
                               Set(varEtapeCloture, varEtapeCloture + 1),
                               If(
@@ -890,3 +918,119 @@ Screens:
                         Size: =If(App.Width < 760, 12, 14)
                         Text: =If(varEtapeCloture < 3, "CONTINUER ÉTAPE SUIVANTE  →", "VALIDER & CLÔTURER LE POSTE")
                         Width: =If(App.Width < 760, 300, 360)
+
+      - LockTimer_CL:
+          Control: Timer@2.1.0
+          Properties:
+            AutoPause: =true
+            Duration: =600000
+            OnTimerEnd: |-
+              =If(
+                  !varSessionVerrouillee && !IsBlank(varSessionPoste),
+                  Set(varSessionVerrouillee, true);
+                  Set(varLockSource, "Automatique");
+                  Set(LockPinInvalid_CL, false);
+                  Reset(LockPin_CL)
+              )
+            Repeat: =false
+            Reset: =false
+            Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
+            Visible: =false
+            Height: =1
+            Width: =1
+      - LockOverlay_CL:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(8, 49, 126, 0.97)
+            Height: =App.Height
+            Visible: =varSessionVerrouillee
+            Width: =App.Width
+          Children:
+            - LockTitle_CL:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =56
+                  Size: =If(App.Width < 760, 20, 28)
+                  Text: ="POSTE VERROUILLÉ"
+                  Width: =Min(App.Width - 32, 640)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.34
+            - LockInfo_CL:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =54
+                  Size: =If(App.Width < 760, 11, 15)
+                  Text: =If(varLockSource = "Automatique", "Verrouillage automatique après 10 minutes d'inactivité. ", "Verrouillage manuel. ") & "Saisissez le PIN du permanent principal ou du deuxième permanent déclaré."
+                  Width: =Min(App.Width - 32, 720)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.43
+            - LockPin_CL:
+                Control: Classic/TextInput@2.3.2
+                Properties:
+                  OnSelect: =Reset(LockTimer_CL)
+                  AccessibleLabel: ="PIN de déverrouillage"
+                  BorderColor: =RGBA(180, 185, 195, 1)
+                  Default: =""
+                  HintText: ="Code PIN"
+                  MaxLength: =4
+                  Mode: =TextMode.Password
+                  Size: =If(App.Width < 760, 14, 18)
+                  Width: =Min(App.Width - 48, 360)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.53
+            - LockError_CL:
+                Control: Label@2.5.1
+                Properties:
+                  Align: =Align.Center
+                  Color: =RGBA(255, 190, 190, 1)
+                  Font: =Font.'Segoe UI'
+                  Height: =32
+                  Size: =If(App.Width < 760, 10, 13)
+                  Text: ="Code PIN incorrect ou permanent non autorisé."
+                  Visible: =LockPinInvalid_CL
+                  Width: =Min(App.Width - 32, 600)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.61
+            - BtnUnlock_CL:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =RGBA(255, 174, 0, 1)
+                  Color: =RGBA(8, 49, 120, 1)
+                  Fill: =RGBA(255, 174, 0, 1)
+                  Font: =Font.'Segoe UI'
+                  FontWeight: =FontWeight.Bold
+                  Height: =48
+                  OnSelect: |-
+                    =Set(
+                        varPermanentAutoriseDeverrouillage,
+                        LookUp(
+                            Ref_Permanents,
+                            (ID = varAgentPermanentID ||
+                             (!IsBlank(varPermanentSecondaireSession.ID) &&
+                              ID = varPermanentSecondaireSession.ID)) &&
+                            CodePIN = Trim(LockPin_CL.Text)
+                        )
+                    );
+                    If(
+                        IsBlank(varPermanentAutoriseDeverrouillage.ID),
+                        Set(LockPinInvalid_CL, true);
+                        Notify("Code PIN incorrect ou permanent non autorisé.", NotificationType.Error),
+                        Set(LockPinInvalid_CL, false);
+                        Set(varSessionVerrouillee, false);
+                        Reset(LockTimer_CL);
+                        Reset(LockPin_CL);
+                        Notify("Poste déverrouillé. Votre session est conservée.", NotificationType.Success)
+                    )
+                  Size: =If(App.Width < 760, 11, 14)
+                  Text: ="DÉVERROUILLER LE POSTE"
+                  Width: =Min(App.Width - 48, 360)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =Parent.Height * 0.69
