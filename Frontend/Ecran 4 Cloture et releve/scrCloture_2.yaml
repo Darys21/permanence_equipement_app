@@ -3,7 +3,7 @@ Screens:
     Properties:
       Fill: =RGBA(255, 255, 255, 1)
       LoadingSpinnerColor: =RGBA(8, 49, 120, 1)
-      OnVisible: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Set(varEtapeCloture, 1); Refresh(Ref_Cantons); Refresh(Ref_Acteurs); Refresh(Tx_Travaux); Refresh(Tx_LTV); Refresh(Tx_incidents_Ruptures); Refresh(Tx_Feedbacks)
+      OnVisible: =Reset(LockTimer_CL); Set(varEtapeCloture, 1); Refresh(Ref_Cantons); Refresh(Ref_Acteurs); Refresh(Tx_Travaux); Refresh(Tx_LTV); Refresh(Tx_incidents_Ruptures); Refresh(Tx_Feedbacks)
     Children:
       - conRoot_CL:
           Control: GroupContainer@1.5.0
@@ -72,7 +72,7 @@ Screens:
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
                               Height: =Parent.Height
-                              OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Navigate(PrisePoste_2, ScreenTransition.Fade)
+                              OnSelect: =Reset(LockTimer_CL); Navigate(PrisePoste_2, ScreenTransition.Fade)
                               Size: =4.01
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
@@ -168,7 +168,7 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =48
                         LayoutMinWidth: =0
-                        OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Set(varEtapeCloture, 1)
+                        OnSelect: =Reset(LockTimer_CL); Set(varEtapeCloture, 1)
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "1  Synthèse", "1   Synthèse & points ouverts")
                   - StepTwo_5:
@@ -183,7 +183,7 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =48
                         LayoutMinWidth: =0
-                        OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); If(varEtapeCloture >= 1, Set(varEtapeCloture, 2))
+                        OnSelect: =Reset(LockTimer_CL); If(varEtapeCloture >= 1, Set(varEtapeCloture, 2))
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "2  Transmission", "2   Commentaire & transmission")
                   - StepThree_5:
@@ -198,7 +198,7 @@ Screens:
                         Font: =Font.'Segoe UI'
                         Height: =48
                         LayoutMinWidth: =0
-                        OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); If(varEtapeCloture >= 2, Set(varEtapeCloture, 3))
+                        OnSelect: =Reset(LockTimer_CL); If(varEtapeCloture >= 2, Set(varEtapeCloture, 3))
                         Size: =If(App.Width < 760, 11, 14)
                         Text: =If(App.Width < 760, "3  Confirmer", "3   Confirmation")
             - ClosureWorkspace_5:
@@ -555,7 +555,7 @@ Screens:
                               - ClosureComment_5:
                                   Control: Classic/TextInput@2.3.2
                                   Properties:
-                                    OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                    OnChange: =Reset(LockTimer_CL)
                                     AccessibleLabel: ="Commentaire de fin de poste"
                                     BorderColor: =RGBA(155, 163, 178, 1)
                                     Default: =
@@ -582,7 +582,7 @@ Screens:
                               - NextShift_5:
                                   Control: Classic/ComboBox@2.4.0
                                   Properties:
-                                    OnChange: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false))
+                                    OnChange: =Reset(LockTimer_CL)
                                     AccessibleLabel: ="Sélectionner le poste suivant"
                                     BorderColor: =RGBA(155, 163, 178, 1)
                                     DefaultSelectedItems: |-
@@ -821,7 +821,7 @@ Screens:
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         Height: =48
-                        OnSelect: =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false)); Navigate(JournalDeBord_3, ScreenTransition.Fade)
+                        OnSelect: =Reset(LockTimer_CL); Navigate(JournalDeBord_3, ScreenTransition.Fade)
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="←   RETOUR AU JOURNAL DE BORD"
                         Width: =If(App.Width < 760, 300, 340)
@@ -834,7 +834,7 @@ Screens:
                         FontWeight: =FontWeight.Bold
                         Height: =48
                         OnSelect: |-
-                          =Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+                          =Reset(LockTimer_CL);
                           If(
                               varEtapeCloture < 3,
                               Set(varEtapeCloture, varEtapeCloture + 1),
@@ -930,7 +930,7 @@ Screens:
                   Reset(LockPin_CL)
               )
             Repeat: =false
-            Reset: =varLockActivityReset
+            Reset: =false
             Start: =!varSessionVerrouillee && !IsBlank(varSessionPoste)
             Visible: =false
             Height: =1
@@ -1021,7 +1021,7 @@ Screens:
                         Notify("Code PIN incorrect ou permanent non autorisé.", NotificationType.Error),
                         Set(LockPinInvalid_CL, false);
                         Set(varSessionVerrouillee, false);
-                        Set(varLockActivityReset, !Coalesce(varLockActivityReset, false));
+                        Reset(LockTimer_CL);
                         Reset(LockPin_CL);
                         Notify("Poste déverrouillé. Votre session est conservée.", NotificationType.Success)
                     )
