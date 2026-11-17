@@ -67,11 +67,47 @@
             "name": "Motif_Ralentissement",
             "readOnly": false,
             "required": false,
-            "text": {
-                "allowMultipleLines": false,
-                "appendChangesToExistingText": false,
-                "linesForEditing": 0,
-                "maxLength": 255
+            "choice": {
+                "allowTextEntry": true,
+                "choices": [
+                    "Affaissement de la voie",
+                    "Attente Ballastage + Joints Mult",
+                    "Attente Complément Ballast",
+                    "Attente de soudures",
+                    "Attente Stabilisation",
+                    "Attente travaux RVB",
+                    "Coeur de l'ADV 14 Défectueux",
+                    "Coeur de l'aiguille avarié",
+                    "Défaut de nivellement",
+                    "Défaut d'écartement",
+                    "Défaut Géométrique de la Voie",
+                    "Défaut géométrique de la voie + Inc",
+                    "Défaut de Nivellement",
+                    "Décrochement de métal / FD",
+                    "Décrochement de métal / FG",
+                    "Déformation de la voie",
+                    "Dégagement tardif",
+                    "Déraillement",
+                    "Desserage Eclisse",
+                    "Détresse",
+                    "Eboulement",
+                    "Eclisses desserées",
+                    "Empreintes de Patinage",
+                    "Gauche Hors Tolérence",
+                    "Insuffisance de Ballast",
+                    "Joints de raccord",
+                    "Lame de l'ADV défectueuse",
+                    "Soudure rompue FD / Plancher Bois",
+                    "Soudure rompue FG / Plancher Mixte",
+                    "Soudure rompue FD / Plancher Béton",
+                    "Soudure rompue FG / Plancher Béton",
+                    "Attente mise en hauteur de la voie",
+                    "Attente soudures"
+                ],
+                "displayAs": "dropDownMenu"
+            },
+            "defaultValue": {
+                "value": "Affaissement de la voie"
             }
         },
         {
@@ -268,6 +304,128 @@
                 "allowUnlimitedLength": false,
                 "columnName": "ID",
                 "listId": "10864019-fea7-4a20-a418-64000d009ea0"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "SessionPosteID",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "0ca0e063-0ca6-4493-8b18-4e4809556929",
+            "indexed": false,
+            "name": "SessionPosteID",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PermanentAuteurID",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "d4287d8f-cfb3-46c4-9856-32ebd8ab76fe",
+            "indexed": false,
+            "name": "PermanentAuteurID",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PermanentAuteurNom",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "14f3aa33-702f-4058-9925-82d840e8fa5d",
+            "indexed": false,
+            "name": "PermanentAuteurNom",
+            "readOnly": false,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "DateEnregistrement",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "6e45d359-e97d-487f-9972-1ff5250ba64a",
+            "indexed": false,
+            "name": "DateEnregistrement",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PermanentModificateurID",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "d4b2c973-fd64-4bc5-800b-f1d36a5ab4b2",
+            "indexed": false,
+            "name": "PermanentModificateurID",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PermanentModificateurNom",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "99fcb19c-c2ea-4d2c-98d0-8bc927e86c98",
+            "indexed": false,
+            "name": "PermanentModificateurNom",
+            "readOnly": false,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "DateModification",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "a09478db-b178-4fcc-a5c7-c0d75a80a840",
+            "indexed": false,
+            "name": "DateModification",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
             }
         },
         {

@@ -260,6 +260,128 @@
         {
             "columnGroup": "Colonnes personnalisées",
             "description": "",
+            "displayName": "SessionPosteID",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "4079adb7-89ad-4b7d-b310-a601d20a6376",
+            "indexed": false,
+            "name": "SessionPosteID",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PermanentAuteurID",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "2b8f8c0c-c9cf-4b31-a8b0-f1ab7f5a89fe",
+            "indexed": false,
+            "name": "PermanentAuteurID",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PermanentAuteurNom",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "b73c9074-1a78-4f19-8798-bdd5dbc7ae16",
+            "indexed": false,
+            "name": "PermanentAuteurNom",
+            "readOnly": false,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "DateEnregistrement",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "582bcce5-f770-4bed-ae20-5f680d7560d2",
+            "indexed": false,
+            "name": "DateEnregistrement",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PermanentModificateurID",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "95dbe8ff-3c6a-41e5-bba3-707972c40e54",
+            "indexed": false,
+            "name": "PermanentModificateurID",
+            "readOnly": false,
+            "required": false,
+            "number": {
+                "decimalPlaces": "automatic",
+                "displayAs": "number",
+                "maximum": 1.7976931348623157e+308,
+                "minimum": -1.7976931348623157e+308
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "PermanentModificateurNom",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "43a511c7-74e1-4caa-ad1f-1b687d304a38",
+            "indexed": false,
+            "name": "PermanentModificateurNom",
+            "readOnly": false,
+            "required": false,
+            "text": {
+                "allowMultipleLines": false,
+                "appendChangesToExistingText": false,
+                "linesForEditing": 0,
+                "maxLength": 255
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
+            "displayName": "DateModification",
+            "enforceUniqueValues": false,
+            "hidden": false,
+            "id": "acbb19c4-ca62-4420-8899-60a5fc06ae45",
+            "indexed": false,
+            "name": "DateModification",
+            "readOnly": false,
+            "required": false,
+            "dateTime": {
+                "displayAs": "standard",
+                "format": "dateTime"
+            }
+        },
+        {
+            "columnGroup": "Colonnes personnalisées",
+            "description": "",
             "displayName": "ID",
             "enforceUniqueValues": false,
             "hidden": false,
