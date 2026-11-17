@@ -314,3 +314,77 @@ Travail réalisé dans la branche `feature/permanents-lock-session` du dépôt s
 - Vérifier l'import des quatre YAML dans Power Apps Studio, les propriétés de contrôle, la visibilité de l'overlay, les PIN valides/invalides des deux permanents, le comportement mardi/vendredi et les autres jours.
 - Vérifier l'affichage du ComboBox dans la zone de prise de poste et la compatibilité réelle de la colonne `Title` dans `Ref_Permanents`.
 - Ne passer les tâches à « Terminé » qu'après recette fonctionnelle dans Power Apps et contrôle des données SharePoint.
+
+
+## 15. Gestion pluripersonnelle et traçabilité individuelle — décisions validées le 16/11/2026
+
+Cette section **remplace les règles contradictoires antérieures** relatives au caractère bloquant du deuxième permanent (notamment POSTE-04, POSTE-13, POSTE-14 et les décisions des sections 10, 13 et 14). Les anciennes notes restent conservées comme historique, mais ne constituent plus la règle métier active.
+
+### 15.1 Décisions métier validées
+
+| ID | Action | Statut | Notes |
+|---|---|---|---|
+| POSTE-15 | Permettre au premier permanent d'accéder à la prise de poste sans attendre le deuxième | Décision validée / À faire | Le deuxième permanent ne doit jamais bloquer l'accès ou les opérations du premier, y compris le mardi et le vendredi. Ces jours restent des journées où deux permanents sont normalement attendus, mais l'application ne bloque pas le service si le second n'est pas encore connecté. |
+| POSTE-16 | Proposer l'ajout d'un deuxième permanent après la connexion du premier | Décision validée / À faire | La proposition apparaît après authentification du premier. Le deuxième peut être ajouté immédiatement ou ultérieurement. |
+| POSTE-17 | Permettre le changement d'opérateur sur le même poste | Décision validée / À faire | Bouton « Changer de permanent » ; afficher la liste des permanents associés à la session, puis demander le PIN du permanent qui prend la main. |
+| POSTE-18 | Maintenir un seul opérateur actif à la fois | Décision validée / À faire | L'opérateur authentifié est l'auteur par défaut de toutes les opérations qu'il enregistre jusqu'au prochain changement d'opérateur. |
+| POSTE-19 | Permettre l'ajout tardif du deuxième permanent | À faire | Le permanent secondaire doit pouvoir rejoindre une session déjà commencée, s'authentifier par PIN et être ajouté aux permanents associés sans perdre les données ni interrompre la session. |
+| AUD-01 | Enregistrer l'auteur de chaque opération | Décision validée / À faire | Travaux, incidents/ruptures, LTV et feedbacks : enregistrer automatiquement l'ID et le nom du permanent opérateur au moment de la création. |
+| AUD-02 | Rattacher chaque opération à la session de permanence | Décision validée / À faire | Chaque opération doit conserver l'identifiant de la session (poste + période) pour permettre la reconstitution de l'activité globale. |
+| AUD-03 | Conserver l'auteur initial et tracer les modifications | À faire | Ne jamais écraser l'auteur initial lors d'une modification. Ajouter séparément l'identité du dernier modificateur et la date de modification ; envisager un journal d'audit complet si l'historique de toutes les modifications est requis. |
+| CLOT-09 | Ajouter une synthèse globale de la permanence | Décision validée / À faire | Total des travaux, incidents/ruptures, LTV et feedbacks associés à la session. |
+| CLOT-10 | Ajouter une synthèse individuelle par permanent | Décision validée / À faire | Répartition des opérations par auteur, sans double comptage. |
+| CLOT-11 | Ajouter un historique détaillé des opérations | Décision validée / À faire | Afficher le type d'opération, l'identifiant/titre, l'auteur, la date/heure et, si pertinent, le dernier modificateur. |
+
+### 15.2 Règles de fonctionnement à implémenter
+
+- La connexion du premier permanent ouvre la session et permet de commencer immédiatement.
+- Après cette connexion, proposer l'ajout d'un deuxième permanent. Le choix « pas maintenant » ne bloque jamais la navigation.
+- Le deuxième permanent peut être ajouté plus tard depuis la session active.
+- Un bouton de changement d'opérateur affiche les permanents associés à la session ; le permanent choisi saisit son propre PIN.
+- Un seul opérateur est actif à la fois sur le poste partagé. Son identité est affichée clairement dans l'interface.
+- Chaque création de Travaux, Incident/Rupture, LTV ou Feedback écrit automatiquement l'auteur actif et l'identifiant de session.
+- Le verrouillage du poste reste distinct du changement d'opérateur : déverrouiller ne doit pas, à lui seul, changer l'opérateur actif.
+- La clôture présente une synthèse globale, une synthèse par permanent et un historique détaillé.
+- Les permanents attendus les mardis et vendredis peuvent être signalés dans l'interface, mais l'absence du deuxième ne doit pas empêcher le premier de travailler.
+
+### 15.3 Préparation SharePoint — schéma cible à confirmer avant implémentation
+
+**Nouvelle liste recommandée :** `Tx_SessionsPermanence`, pour persister chaque session de poste (ne pas dépendre uniquement des variables Power Apps).
+
+Colonnes proposées :
+- `Title` (Texte, valeur descriptive de la session).
+- `DateDebut` (Date et heure).
+- `DateFin` (Date et heure, facultative tant que la session est ouverte).
+- `Poste` (Choix : P1, P2, P3).
+- `PermanentPrincipalID` (Nombre entier, ID SharePoint de `Ref_Permanents`).
+- `PermanentPrincipalNom` (Texte, instantané du nom).
+- `PermanentSecondaireID` (Nombre entier, facultatif).
+- `PermanentSecondaireNom` (Texte, facultatif).
+- `StatutSession` (Choix : En cours, Clôturée, Abandonnée).
+
+Colonnes à ajouter aux listes transactionnelles `Tx_Travaux`, `Tx_LTV`, liste Incidents/Ruptures réelle et liste Feedback réelle :
+- `SessionPosteID` (Nombre entier, ID SharePoint de l'élément dans `Tx_SessionsPermanence`).
+- `PermanentAuteurID` (Nombre entier, ID SharePoint du permanent dans `Ref_Permanents`).
+- `PermanentAuteurNom` (Texte sur une ligne, instantané du nom au moment de l'enregistrement).
+- `DateEnregistrement` (Date et heure).
+- `PermanentModificateurID` (Nombre entier, facultatif).
+- `PermanentModificateurNom` (Texte sur une ligne, facultatif).
+- `DateModification` (Date et heure, facultative).
+
+Les colonnes système SharePoint `ID`, `Created` et `Modified` restent disponibles ; les colonnes explicites ci-dessus servent à rattacher les opérations au permanent et à la session métier. Vérifier les noms internes après création. Les colonnes d'auteur ne doivent pas être des colonnes Personne M365 : les permanents sont authentifiés par le référentiel `Ref_Permanents`, pas nécessairement par leur compte Microsoft 365.
+
+**Attention :** les noms exacts des listes Incidents/Ruptures et Feedback ainsi que les schémas réels doivent être confirmés dans `Backend/contextBD.md` et dans SharePoint avant toute création de colonnes. Éviter de créer des doublons si un champ équivalent existe déjà.
+
+### 15.4 Ordre de réalisation proposé
+
+1. Auditer les listes SharePoint et leurs noms internes/types réels.
+2. Créer `Tx_SessionsPermanence` et les colonnes de rattachement/auteur après validation du schéma.
+3. Implémenter la création et la persistance de la session de permanence.
+4. Implémenter l'ajout initial ou tardif du deuxième permanent et le changement d'opérateur avec PIN.
+5. Afficher l'opérateur actif et injecter automatiquement son identité dans les Patch des quatre familles d'opérations.
+6. Préserver l'auteur initial et enregistrer les informations de modification.
+7. Construire les trois vues de clôture : globale, individuelle et historique détaillé.
+8. Tester avec deux permanents, y compris changement d'opérateur, verrouillage/déverrouillage, ajout tardif et clôture.
+
+Aucun YAML ni formulaire n'est modifié par cette décision de backlog. Les changements de schéma SharePoint et de code restent à réaliser après audit.
