@@ -388,3 +388,83 @@ Les colonnes système SharePoint `ID`, `Created` et `Modified` restent disponibl
 8. Tester avec deux permanents, y compris changement d'opérateur, verrouillage/déverrouillage, ajout tardif et clôture.
 
 Aucun YAML ni formulaire n'est modifié par cette décision de backlog. Les changements de schéma SharePoint et de code restent à réaliser après audit.
+
+## 16. État réel des écrans et du backend — vérification de main — 17/11/2026
+
+Cette section fait foi pour l'état technique constaté dans les fichiers actuellement présents sur la branche main. Elle corrige les statuts devenus obsolètes des sections 13 à 15, sans supprimer l'historique des décisions.
+
+### 16.1 Verrouillage du poste — présent dans les YAML de main
+
+| Écran | Verrouillage automatique après 10 min | Verrouillage manuel | Déverrouillage par PIN |
+|---|---|---|---|
+| PrisePoste_2 | Présent (LockTimer_PO, 600 000 ms) | Présent | Présent |
+| JournalDeBord_3 | Présent (LockTimer_JB, 600 000 ms) | Présent | Présent |
+| scrFeedback | Présent (LockTimer_FB, 600 000 ms) | Présent | Présent |
+| scrCloture_2 | Présent (LockTimer_CL, 600 000 ms) | Présent | Présent |
+| scrIdentificationAgent | Non applicable | Non applicable | Authentification initiale par PIN |
+
+- Les quatre écrans opérationnels ont un overlay de verrouillage et une action de déverrouillage.
+- Le PIN accepté est celui du permanent principal ou du deuxième permanent déclaré, selon la formule présente dans les YAML.
+- Le déverrouillage conserve la session Power Apps en mémoire ; il ne doit pas être confondu avec un changement d'opérateur.
+- Journal, Feedback et Clôture possèdent également un timer de surveillance des champs de saisie pour réinitialiser le délai lors de changements détectés. Prise de poste réinitialise principalement le timer via les événements des contrôles.
+- À valider dans Power Apps Studio : chronométrer réellement les 10 minutes sur chaque écran ; vérifier les interactions non détectées (défilement, clics sur contrôles sans événement instrumenté, navigation) ; tester PIN valide/invalide des deux permanents et vérifier qu'aucune donnée saisie n'est perdue.
+- Le verrouillage protège l'interface partagée ; il ne remplace pas les autorisations SharePoint côté serveur.
+
+Correction de statut : les affirmations des sections 13 et 14 selon lesquelles le verrouillage automatique n'existait pas sont historiques et ne décrivent plus les fichiers actuellement présents sur main. Le verrouillage automatique et manuel est maintenant présent dans les quatre écrans opérationnels audités.
+
+### 16.2 Versions des écrans auditées sur main
+
+| Fichier | SHA du contenu vérifié |
+|---|---|
+| Frontend/Ecran 1 Prise de poste/scrIdentificationAgent.yaml | a1e69abbc909c0d6e3a1e93707bc393ca73f362a |
+| Frontend/Ecran 1 Prise de poste/PrisePoste_2.yaml | 5ec1d7105c0f01b8c3726d242064d116f2d774a4 |
+| Frontend/Ecran 2 Journal de bord/JournalDeBord_3.yaml | 79503fb6e122745a6d73653dcf202d8949cb7c98 |
+| Frontend/Ecran Feedback/scrFeedback.yaml | e4e59c45c15a91590bcb6cd74492ce22ad8390b8 |
+| Frontend/Ecran 4 Cloture et releve/scrCloture_2.yaml | 9e5aff180ee35140e8da42100e177ab5912e15d4 |
+
+Ces SHA identifient les contenus audités sur main le 17/11/2026. Ils ne prouvent pas que Power Apps Studio contient exactement ces mêmes fichiers ni que l'import et la recette fonctionnelle ont été réalisés.
+
+### 16.3 Backend SharePoint — colonnes déjà présentes dans les exports
+
+L'audit des exports JSON de Backend/schemas_export/ dans main a confirmé :
+
+- La liste Tx_SessionsPermanence existe et contient notamment DateDebut, DateFin, Poste, PermanentPrincipalID, PermanentPrincipalNom, PermanentSecondaireID, PermanentSecondaireNom et StatutSession.
+- Les quatre listes transactionnelles exportées — Tx_Travaux, Tx_LTV, Tx_incidents_Ruptures et Tx_Feedbacks — contiennent les champs SessionPosteID, PermanentAuteurID, PermanentAuteurNom, DateEnregistrement, PermanentModificateurID, PermanentModificateurNom et DateModification.
+
+Conséquence : ne pas recréer ces listes ou colonnes. La priorité est désormais de raccorder les écrans à ce schéma existant et de confirmer dans l'environnement SharePoint cible que les exports correspondent bien à la structure publiée.
+
+Documentation à synchroniser : Backend/contextBD.md décrit encore un ancien schéma (six listes) et ne documente pas correctement la liste de sessions ni les champs d'audit. Mettre ce document à jour à partir des exports JSON vérifiés.
+
+### 16.4 Fonctionnalités encore à développer dans les écrans
+
+| ID | Action restante | Statut au 17/11/2026 | Critère d'acceptation |
+|---|---|---|---|
+| SESSION-01 | Créer une session SharePoint dans Tx_SessionsPermanence au démarrage de la prise de poste | À faire | Un élément est créé avec date de début, poste, permanent principal et statut « En cours » ; son ID est conservé dans varSessionPoste ou variable dédiée. |
+| SESSION-02 | Retrouver/rétablir la session après navigation ou rechargement | À faire | L'application retrouve la session ouverte et ne crée pas une deuxième session par erreur. Prévoir une réauthentification PIN si nécessaire. |
+| POSTE-20 | Proposer l'ajout du deuxième permanent après l'authentification du premier | À faire | Le premier peut continuer immédiatement ; « Plus tard » n'empêche aucune opération, y compris mardi/vendredi. |
+| POSTE-21 | Ajouter un deuxième permanent à une session déjà commencée | À faire | Le permanent est sélectionné dans Ref_Permanents, authentifié par son PIN et rattaché à la session persistée. |
+| POSTE-22 | Changer l'opérateur actif par bouton et PIN | À faire | Le bouton affiche les permanents associés ; le PIN du permanent sélectionné est vérifié ; la session de poste n'est pas recréée. |
+| POSTE-23 | Afficher clairement l'opérateur actif | À faire | Le nom de l'opérateur actuellement authentifié est visible sur les écrans opérationnels. |
+| AUD-04 | Alimenter automatiquement les champs d'auteur et de session à chaque création | À faire | Chaque Patch de Travaux, LTV, Incident/Rupture et Feedback renseigne l'ID de session, l'ID/nom de l'auteur actif et la date d'enregistrement. |
+| AUD-05 | Alimenter les champs de modification sans écraser l'auteur initial | À faire | Les modifications renseignent le modificateur et la date ; les champs d'auteur initial restent inchangés. |
+| CLOT-12 | Calculer une synthèse globale à partir de la session persistée | À faire | Les opérations rattachées à l'ID de session sont comptées une seule fois. |
+| CLOT-13 | Afficher une synthèse individuelle par permanent | À faire | Les opérations sont réparties selon PermanentAuteurID/PermanentAuteurNom. |
+| CLOT-14 | Afficher l'historique détaillé des opérations de la session | À faire | Chaque ligne affiche le type, le titre/identifiant, l'auteur et la date ; le dernier modificateur est affiché si renseigné. |
+| DOC-01 | Synchroniser Backend/contextBD.md avec les exports JSON | À faire | Toutes les listes, colonnes, types et choix actuels sont documentés ; les divergences sont signalées. |
+
+### 16.5 Ordre de réalisation actualisé
+
+1. Prise de poste : implémenter la création persistante de session dans Tx_SessionsPermanence et conserver son ID.
+2. Gestion des permanents : ajouter le deuxième permanent après connexion ou ultérieurement, sans bloquer le premier.
+3. Opérateur actif : implémenter le changement d'opérateur par sélection + PIN et afficher l'identité active.
+4. Traçabilité : raccorder les Patch des quatre listes transactionnelles aux champs d'auteur, de session et de modification.
+5. Clôture : produire les synthèses globale et individuelle ainsi que l'historique détaillé.
+6. Documentation et recette : synchroniser contextBD.md puis tester les parcours complets dans Power Apps Studio et contrôler les éléments SharePoint créés.
+
+### 16.6 Périmètre de cette vérification
+
+- Audit statique des cinq YAML et des exports de schéma sur main.
+- Aucun YAML n'a été modifié pendant cet audit.
+- Aucun test d'exécution Power Apps Studio ni test réel SharePoint n'a été réalisé dans le cadre de cette vérification.
+- Ne pas déclarer les fonctionnalités « terminées » sur la seule base de la présence d'un contrôle ou d'une formule dans le YAML.
+
