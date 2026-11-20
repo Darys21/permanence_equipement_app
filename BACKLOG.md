@@ -468,3 +468,95 @@ Documentation à synchroniser : Backend/contextBD.md décrit encore un ancien sc
 - Aucun test d'exécution Power Apps Studio ni test réel SharePoint n'a été réalisé dans le cadre de cette vérification.
 - Ne pas déclarer les fonctionnalités « terminées » sur la seule base de la présence d'un contrôle ou d'une formule dans le YAML.
 
+
+
+## 17. Audit des nouveaux commentaires métier — 20/11/2026
+
+Audit réalisé sur les fichiers actuellement présents dans `main`, notamment :
+- `Frontend/Ecran 1 Prise de poste/PrisePoste_2.yaml` — contenu SHA `3fa86f8938878405ab2ce746792665265b83b8a6`.
+- `Frontend/Ecran 2 Journal de bord/JournalDeBord_3.yaml` — contenu SHA `79503fb6e122745a6d73653dcf202d8949cb7c98`.
+- Exports backend `Backend/schemas_export/Tx_LTV.json` — SHA `0da994aee06e2fd0296e22058451848aa236eb49`.
+- Export backend `Backend/schemas_export/Tx_incidents_Ruptures.json` — SHA `7a36977c5262b799258f2c3a9cb760907da89708`.
+
+Cette section complète les sections précédentes et fait foi pour les nouveaux commentaires examinés. Elle ne vaut pas validation fonctionnelle dans Power Apps Studio.
+
+### 17.1 Succession automatique des postes et éléments en cours
+
+| ID | Commentaire / action | État constaté | Statut backlog / critère |
+|---|---|---|---|
+| POSTE-24 | À la connexion suivante, rendre accessible uniquement le poste successeur (P1 → P2 → P3 → P1) | Non implémenté dans le YAML audité : `OnVisible` calcule un poste suggéré selon l'heure et les boutons P1/P2/P3 restent sélectionnables. | À faire. Déterminer le poste précédent réellement clôturé et appliquer la succession métier, sans confondre l'heure actuelle avec le poste successeur. |
+| POSTE-25 | N'afficher que les Travaux réellement en cours dans les éléments à reprendre | Partiellement implémenté : galerie Travaux filtrée par `IsBlank(Heures_Degagement)`. La formule ne vérifie pas explicitement le statut de chantier ni le poste successeur. | À valider / améliorer. Confirmer que l'absence de dégagement est le critère métier officiel et que seuls les chantiers attendus sont affichés. |
+| POSTE-26 | N'afficher que les incidents réellement en cours dans les éléments à reprendre | Partiellement implémenté : la galerie utilise `IsBlank(Heure_Fin) || Etat.Value = "En cours" || IsBlank(Etat)`. Cette condition peut inclure des enregistrements incomplets ou incohérents. | À corriger. Définir une règle unique basée sur le statut réel et vérifier les données historiques. |
+| POSTE-27 | N'afficher que les LTV actives dans les éléments à reprendre | Présent partiellement : filtre sur `Imposée` et ancienne valeur `Imposée (Active)`. Le schéma JSON actuel ne documente que `Imposée` et `Supprimée`. | À corriger / valider : retirer l'ancienne valeur si elle n'existe plus dans l'environnement et filtrer sur le statut Choice exact. |
+
+### 17.2 LTV par poste — imposition et suppression
+
+Constat : l'écran Journal de bord possède déjà un formulaire LTV avec statut `Imposée` / `Supprimée`, date d'imposition, date de suppression, canton, PK début/fin, taux, motif et acteur lié. Les LTV supprimées sont visuellement différenciées en vert dans la galerie et les imposées en rouge. Le formulaire et les données sont donc partiellement présents ; le commentaire n'est pas entièrement couvert.
+
+L'export actuel de `Tx_LTV` confirme notamment :
+- `Statut_LTV` : Choice `Imposée` / `Supprimée`.
+- `Date_imposition` et `Date_Suppression` : DateTime.
+- `CantonID_` : Lookup vers le référentiel des cantons.
+- `PK_Debut`, `PK_Fin`, `Taux` : Number.
+- `ActeurID0` : Lookup vers le référentiel des acteurs.
+- Les champs de rattachement de session et d'audit existent déjà.
+
+| ID | Action | État constaté | Statut backlog / critère |
+|---|---|---|---|
+| LTV-01 | Distinguer clairement les rubriques Imposition et Suppression | Partiellement présent via statut, dates et couleur ; séparation fonctionnelle complète à confirmer dans l'UX. | À valider / compléter. Les deux parcours doivent afficher les champs propres à l'action. |
+| LTV-02 | Afficher la date de suppression | Champ SharePoint et contrôle présents. | Présent dans le code / à valider fonctionnellement. |
+| LTV-03 | Afficher la région et déterminer automatiquement la zone kilométrique correspondante | Non démontré dans le YAML LTV audité ; l'enregistrement référence le canton et les PK, mais aucun champ Région n'est visible dans le schéma Tx_LTV examiné. | À faire / dépendance backend à auditer. Vérifier le référentiel des cantons et ses bornes PK avant de définir le calcul. |
+| LTV-04 | Afficher le canton | Lookup canton présent dans le formulaire. | Présent dans le code / à valider. |
+| LTV-05 | Enregistrer l'auteur de la suppression (CDT, CBR, etc.) | Le champ `ActeurID0` existe et est utilisé comme acteur associé ; il faut confirmer qu'il représente bien l'auteur de la suppression et qu'il est renseigné distinctement lors d'une suppression. | À clarifier / compléter. Ne pas confondre acteur associé à la LTV et auteur de l'action de suppression. |
+| LTV-06 | Comptabiliser le nombre de LTV par région | Non démontré. Un compteur global Imp/Sup existe, mais pas de regroupement fiable par région. | À faire. Calculer les totaux par région à partir du référentiel et des LTV, sans double comptage. |
+| LTV-07 | Reprendre les mêmes informations pour l'imposition | Date d'imposition, canton, PK, taux et acteur sont présents dans le modèle actuel. La logique métier et la présentation dédiée restent à vérifier. | Présent partiellement / à valider. |
+
+### 17.3 Momentum incident
+
+L'export de `Tx_incidents_Ruptures` contient actuellement `DateIncident` (date seule), `Heure_D_x00e9_but`, `Heure_Fin`, `PK` (texte), `Etat` (Choice : `Consolidée`, `Traitée`, `En cours`), `CantonID0` (Lookup) et `Commentaires`. Il ne contient pas de colonnes distinctes pour toutes les étapes horaires demandées ni de champ dédié à l'acteur responsable du traitement.
+
+| ID | Action | État constaté | Statut backlog / critère |
+|---|---|---|---|
+| INC-01 | Enregistrer l'heure de déclaration | Partiellement couvert : date et heure de début existent, mais leur correspondance exacte avec l'heure de déclaration doit être confirmée. | À clarifier / compléter. |
+| INC-02 | Enregistrer l'heure d'engagement | Non démontré dans le formulaire Incident/Rupture ni dans le schéma actuel. | À faire. |
+| INC-03 | Enregistrer les heures d'intervention | Non démontré ; aucun champ dédié aux heures d'intervention multiples n'est présent dans le schéma examiné. | À faire. Définir si une ou plusieurs interventions peuvent être enregistrées. |
+| INC-04 | Enregistrer le PK exact | Partiellement couvert : champ `PK` texte présent, sans validation de format ou de précision démontrée. | À valider / améliorer. |
+| INC-05 | Gérer les états En cours, Consolidation et Réparation définitive | Partiellement couvert : Choice actuel `En cours`, `Consolidée`, `Traitée`. Le libellé et la sémantique de `Traitée` ne sont pas équivalents de façon certaine à « Réparation définitive ». | À clarifier puis adapter. Ne pas renommer les choix SharePoint sans validation métier. |
+| INC-06 | Identifier l'acteur responsable du traitement | Non démontré comme champ métier distinct ; `AgentSaisie` et les champs d'auteur/audit ne remplacent pas nécessairement le responsable du traitement. | À faire / dépendance schéma à confirmer. |
+
+### 17.4 Vue globalisante quotidienne des LTV et impact trains
+
+| ID | Action | État constaté | Statut backlog / critère |
+|---|---|---|---|
+| GLOB-01 | Consolider les LTV de tous les postes sur une journée | Partiellement présent : le Journal contient un filtre de périmètre « Journée complète », mais la vue et sa formule doivent être vérifiées pour garantir l'inclusion exacte de P1, P2 et P3 sur la date choisie. | À valider / compléter. |
+| GLOB-02 | Afficher l'impact sur les trains marchandises et voyageurs | Non démontré dans le formulaire LTV ni dans le schéma Tx_LTV examiné. | À faire. Définir les champs ou la règle de calcul et la source des circulations impactées. |
+| GLOB-03 | Afficher les LTV actives en cours dans la vue globale | Le statut `Imposée` existe ; une vue agrégée quotidienne consolidant les trois postes n'est pas démontrée. | À faire / compléter. |
+| GLOB-04 | Remplacer le fichier Excel global LTV par une vue consolidée dans l'application | Non implémenté comme livrable complet. | À faire. Définir les filtres date, poste, région, canton, statut et les colonnes du fichier Excel de référence. |
+
+### 17.5 Ajout du poste P (2x12) et poste exceptionnel
+
+| ID | Action | État constaté | Statut backlog / critère |
+|---|---|---|---|
+| POSTE-28 | Ajouter le poste P (2x12) | Non présent dans les choix P1/P2/P3 visibles et non documenté dans le schéma actuel des colonnes Choice Poste. | À clarifier puis à faire. Confirmer le sens opérationnel de P (2x12), ses horaires et sa relation avec les postes existants avant de modifier les choix SharePoint. |
+| POSTE-29 | Permettre une saisie libre pour un poste exceptionnel / force majeure | Non démontré. Le poste de session et les postes transactionnels utilisent actuellement des choix structurés P1/P2/P3. | À clarifier puis à faire. Définir si la saisie libre doit être stockée dans une colonne dédiée ou dans un champ descriptif, sans casser les filtres et statistiques existants. |
+
+### 17.6 Points de vigilance backend
+
+- Ne pas créer de doublons de colonnes : les champs de session et d'audit existent déjà dans les exports transactionnels.
+- Le schéma Tx_LTV confirme les dates d'imposition/suppression, le canton, les PK, le taux, l'acteur associé et les statuts, mais pas une région ni un champ explicite « auteur de suppression ».
+- Le schéma Tx_incidents_Ruptures ne confirme pas les trois étapes horaires demandées ni un acteur responsable du traitement.
+- Le schéma actuel utilise les choix P1/P2/P3. L'ajout de P (2x12) doit être préparé avec une vérification des dépendances Power Apps, SharePoint et des filtres existants.
+- Les calculs région/km doivent s'appuyer sur le référentiel officiel des cantons et ses bornes PK ; ne pas déduire une région depuis un libellé ou inventer des bornes.
+- Les statuts « présent dans le code » restent à tester dans Power Apps Studio et sur SharePoint.
+
+### 17.7 Ordre recommandé pour ces nouveaux commentaires
+
+1. Clarifier et implémenter la règle de succession des postes, sans se limiter à une suggestion horaire.
+2. Fiabiliser les filtres des éléments réellement en cours sur la prise de poste.
+3. Auditer le référentiel des cantons et définir la correspondance région / bornes PK.
+4. Compléter les rubriques LTV Imposition / Suppression et les compteurs par région.
+5. Définir le modèle des étapes horaires et du responsable pour les incidents.
+6. Concevoir la vue globale quotidienne LTV et la mesure d'impact trains.
+7. Clarifier le poste P (2x12) et le mécanisme de poste exceptionnel.
+8. Réaliser les tests Power Apps Studio et contrôler les données SharePoint avant de passer les tâches à « validé ».
+
