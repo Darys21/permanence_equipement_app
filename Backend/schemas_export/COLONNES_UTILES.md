@@ -79,6 +79,17 @@
 - AgentSaisie: PERSONNE
 - DateSaisie: DateTime
 
+## Tx_SessionsPermamence
+ - DateDebut
+ - DateFin
+ - Poste
+ - PermanentPrincipalID
+ - PermanentPrincipalNom
+ - PermanentSecondaireID
+ - PermanentSecondaireNom 
+ - StatutSession
+  
+
 ---
 
 ## RÈGLES 8 POUR FRONT-END POWER APPS YAML
