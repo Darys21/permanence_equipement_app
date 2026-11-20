@@ -560,3 +560,20 @@ L'export de `Tx_incidents_Ruptures` contient actuellement `DateIncident` (date s
 7. Clarifier le poste P (2x12) et le mécanisme de poste exceptionnel.
 8. Réaliser les tests Power Apps Studio et contrôler les données SharePoint avant de passer les tâches à « validé ».
 
+
+
+### 17.8 Correction de l'état SESSION-01 / SESSION-02 après audit du YAML actualisé
+
+Le YAML `PrisePoste_2.yaml` actuellement présent sur `main` (SHA `3fa86f8938878405ab2ce746792665265b83b8a6`) contient désormais :
+- la recherche de sessions `En cours` du même poste dans une fenêtre glissante de 12 heures ;
+- la reprise si le permanent connecté est principal ou secondaire ;
+- l'ajout du permanent connecté comme secondaire lorsqu'une session candidate du même poste possède un emplacement secondaire libre ;
+- la création d'une session si aucune session candidate n'est réutilisable ;
+- la conservation de l'enregistrement dans `varSessionPoste` ;
+- la restauration des permanents principal et secondaire depuis leurs IDs SharePoint après sélection de la session.
+
+En conséquence, les statuts historiques de la section 16.4 doivent être lus ainsi :
+- `SESSION-01` : **Terminé (code) / À valider** — création persistée présente dans le YAML, mais tests réels SharePoint et Power Apps Studio non fournis.
+- `SESSION-02` : **Partiellement implémenté / À valider** — recherche et reprise au clic sur « Valider ma prise de poste » présentes ; aucune restauration automatique de session n'est exécutée dans `OnVisible` après rechargement de l'application.
+
+Cette correction ne valide pas la règle de succession automatique des postes, qui reste suivie séparément par `POSTE-24`. Aucun test d'exécution Power Apps Studio n'a été réalisé lors de cet audit.
