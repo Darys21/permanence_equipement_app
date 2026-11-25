@@ -1783,7 +1783,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
-                                    Height: =64
+                                    Height: =If(MotifEngTardifInput_24.Selected.Value = "Autre", 104, 64)
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =2
@@ -1808,7 +1808,11 @@ Screens:
                                           DefaultSelectedItems: |-
                                             =If(
                                                 varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit.'Motifs_Engagement_Tardif '),
-                                                [{Value: varTravauxToEdit.'Motifs_Engagement_Tardif '}],
+                                                If(
+                                                    IsBlank(LookUp(MotifEngTardifInput_24.Items, Value = varTravauxToEdit.'Motifs_Engagement_Tardif ')),
+                                                    [{Value: "Autre"}],
+                                                    [{Value: varTravauxToEdit.'Motifs_Engagement_Tardif '}]
+                                                ),
                                                 [{Value: ""}]
                                             )
                                           DisplayFields: =["Value"]
@@ -1881,11 +1885,29 @@ Screens:
                                           OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
+                                    - MotifEngLibreInput_24:
+                                        Control: Classic/TextInput@2.3.2
+                                        Properties:
+                                          AccessibleLabel: ="Précision du motif (engagement tardif) si Autre"
+                                          BorderColor: =RGBA(180, 185, 195, 1)
+                                          Default: |-
+                                            =If(
+                                                varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit.'Motifs_Engagement_Tardif ') && IsBlank(LookUp(MotifEngTardifInput_24.Items, Value = varTravauxToEdit.'Motifs_Engagement_Tardif ')),
+                                                varTravauxToEdit.'Motifs_Engagement_Tardif ',
+                                                Blank()
+                                            )
+                                          FocusedBorderThickness: =2
+                                          Height: =38
+                                          HintText: ="Précisez le motif (texte libre)"
+                                          MaxLength: =255
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          Visible: =MotifEngTardifInput_24.Selected.Value = "Autre"
                               - FldMotifDeg_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
-                                    Height: =64
+                                    Height: =If(MotifDegTardifInput_24.Selected.Value = "Autre", 104, 64)
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =2
@@ -1910,7 +1932,11 @@ Screens:
                                           DefaultSelectedItems: |-
                                             =If(
                                                 varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit.Motif_Degagement_Tardif),
-                                                [{Value: varTravauxToEdit.Motif_Degagement_Tardif}],
+                                                If(
+                                                    IsBlank(LookUp(MotifDegTardifInput_24.Items, Value = varTravauxToEdit.Motif_Degagement_Tardif)),
+                                                    [{Value: "Autre"}],
+                                                    [{Value: varTravauxToEdit.Motif_Degagement_Tardif}]
+                                                ),
                                                 [{Value: ""}]
                                             )
                                           DisplayFields: =["Value"]
@@ -1983,6 +2009,24 @@ Screens:
                                           OnSelect: =Reset(LockTimer_JB)
                                           SearchFields: =["Value"]
                                           SelectMultiple: =false
+                                    - MotifDegLibreInput_24:
+                                        Control: Classic/TextInput@2.3.2
+                                        Properties:
+                                          AccessibleLabel: ="Précision du motif (dégagement tardif) si Autre"
+                                          BorderColor: =RGBA(180, 185, 195, 1)
+                                          Default: |-
+                                            =If(
+                                                varActionEnCours = "Modifier" && varOngletJournal = "Travaux" && !IsBlank(varTravauxToEdit.Motif_Degagement_Tardif) && IsBlank(LookUp(MotifDegTardifInput_24.Items, Value = varTravauxToEdit.Motif_Degagement_Tardif)),
+                                                varTravauxToEdit.Motif_Degagement_Tardif,
+                                                Blank()
+                                            )
+                                          FocusedBorderThickness: =2
+                                          Height: =38
+                                          HintText: ="Précisez le motif (texte libre)"
+                                          MaxLength: =255
+                                          OnChange: =Reset(LockTimer_JB)
+                                          OnSelect: =Reset(LockTimer_JB)
+                                          Visible: =MotifDegTardifInput_24.Selected.Value = "Autre"
                               - FldCommentaires_24:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
@@ -2099,8 +2143,8 @@ Screens:
                                                         'Heures_Voie_Retablie ': If(Year(VoieRetablieInput_24.SelectedDate) < 2020 || IsBlank(VoieRetablieHour_24.Selected) || IsBlank(VoieRetablieMinute_24.Selected), Blank(), DateTime(Year(VoieRetablieInput_24.SelectedDate), Month(VoieRetablieInput_24.SelectedDate), Day(VoieRetablieInput_24.SelectedDate), Value(VoieRetablieHour_24.Selected.Value), Value(VoieRetablieMinute_24.Selected.Value), 0)),
                                                         PK_Debut: With({_s: Split(PKDebutInput_24.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKDebutInput_24.Text), Blank()))),
                                                         PK_Fin: With({_s: Split(PKFinInput_24.Text, "+")}, If(CountRows(_s) = 2, Value(First(_s).Value) + Value(Last(_s).Value)/1000, IfError(Value(PKFinInput_24.Text), Blank()))),
-                                                        'Motifs_Engagement_Tardif ': If(IsBlank(MotifEngTardifInput_24.Selected) || MotifEngTardifInput_24.Selected.Value = "(Aucun)", Blank(), MotifEngTardifInput_24.Selected.Value),
-                                                        Motif_Degagement_Tardif: If(IsBlank(MotifDegTardifInput_24.Selected) || MotifDegTardifInput_24.Selected.Value = "(Aucun)", Blank(), MotifDegTardifInput_24.Selected.Value),
+                                                        'Motifs_Engagement_Tardif ': If(IsBlank(MotifEngTardifInput_24.Selected) || MotifEngTardifInput_24.Selected.Value = "(Aucun)", Blank(), If(MotifEngTardifInput_24.Selected.Value = "Autre" && !IsBlank(Trim(MotifEngLibreInput_24.Text)), Trim(MotifEngLibreInput_24.Text), MotifEngTardifInput_24.Selected.Value)),
+                                                        Motif_Degagement_Tardif: If(IsBlank(MotifDegTardifInput_24.Selected) || MotifDegTardifInput_24.Selected.Value = "(Aucun)", Blank(), If(MotifDegTardifInput_24.Selected.Value = "Autre" && !IsBlank(Trim(MotifDegLibreInput_24.Text)), Trim(MotifDegLibreInput_24.Text), MotifDegTardifInput_24.Selected.Value)),
                                                         Poste: {Value: varQuart},
                                                         AgentSaisie: {Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
                                                         DateSaisie: Now()
@@ -2235,6 +2279,8 @@ Screens:
                                       Reset(VoieRetablieMinute_24);
                                       Reset(MotifEngTardifInput_24);
                                       Reset(MotifDegTardifInput_24);
+                                      Reset(MotifEngLibreInput_24);
+                                      Reset(MotifDegLibreInput_24);
                                       Reset(CommentairesInput_24)
                                       )
                                     RadiusBottomLeft: =5

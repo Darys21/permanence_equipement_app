@@ -61,7 +61,7 @@
 | JOUR-10 | Vérifier les filtres et galeries par poste | À valider | Ne pas supposer que les données ouvertes sont automatiquement transférées entre postes. |
 | JOUR-11 | Vérifier les messages de succès/échec et la conservation du formulaire en cas d'erreur | À valider | Feedback visible uniquement après confirmation de la sauvegarde. |
 | JOUR-12 | Rechercher un canton par saisie/matching | À faire | Demande issue des retours d'équipe. |
-| JOUR-13 | Ajouter des motifs standardisés avec saisie libre complémentaire | À faire | Engagement et dégagement tardifs notamment. |
+| JOUR-13 | Ajouter des motifs standardisés avec saisie libre complémentaire | Modifié — non validé (25/11/2026) | Engagement et dégagement tardifs : liste de motifs conservée ; si « Autre » est choisi, un champ texte libre (255 car.) apparaît et son contenu est enregistré à la place de « Autre ». Voir §18. |
 | JOUR-14 | Ajouter un historique des événements | À faire | Historique complet consultable, selon règles d'accès à définir. |
 | JOUR-15 | Ajouter les filtres LTV par date et canton | À faire | Besoin issu des notes d'alignement métier. |
 | JOUR-16 | Permettre la mise à jour de l'intervenant qui reprend un événement | À faire | Conserver l'historique de l'intervenant précédent si la règle métier le demande. |
@@ -577,3 +577,18 @@ En conséquence, les statuts historiques de la section 16.4 doivent être lus ai
 - `SESSION-02` : **Partiellement implémenté / À valider** — recherche et reprise au clic sur « Valider ma prise de poste » présentes ; aucune restauration automatique de session n'est exécutée dans `OnVisible` après rechargement de l'application.
 
 Cette correction ne valide pas la règle de succession automatique des postes, qui reste suivie séparément par `POSTE-24`. Aucun test d'exécution Power Apps Studio n'a été réalisé lors de cet audit.
+
+## 18. Journal de bord — motifs tardifs et mouvements travaux — 25/11/2026
+
+Fichier modifié : `Frontend/Ecran 2 Journal de bord/JournalDeBord_3.yaml` (ciblé, aucune refonte).
+
+### 18.1 Motifs d'engagement / dégagement tardif (JOUR-13)
+- Existant conservé : `MotifEngTardifInput_24` et `MotifDegTardifInput_24` (ComboBox, liste de motifs, facultatifs, onglet Travaux), colonnes texte 255 `Motifs_Engagement_Tardif` / `Motif_Degagement_Tardif`, `Patch` par `LookUp(Tx_Travaux, ID = …)` (pas de doublon en modification).
+- Ajouté : `MotifEngLibreInput_24` et `MotifDegLibreInput_24` (TextInput, visibles si « Autre »), hauteur des conteneurs `FldMotifEng_24` / `FldMotifDeg_24` ajustée, formule de sauvegarde, restauration en modification (valeur hors liste → « Autre » + texte repris) et `Reset` après enregistrement.
+- Aucune colonne SharePoint créée ni modifiée.
+- Statut : **Modifié — non validé**. YAML parsé sans erreur ; import/compilation Studio et tests manuels non faits.
+- À tester dans Studio : (1) choisir « Autre » → le champ apparaît ; (2) enregistrer avec texte → SharePoint contient le texte ; (3) rouvrir en modification → « Autre » + texte repris ; (4) modifier sans doublon d'ID ; (5) motif de la liste → enregistré tel quel.
+
+### 18.2 Mouvements travaux — BLOQUÉ
+- `based_permanence_file/PERMANENCE EQUIPEMENT RECAP POSTE - AOUT 2023.xlsx` analysé (31 feuilles journalières + feuille `District`) : aucune rubrique ni libellé « Mouvement(s) travaux ». Les travaux n'y apparaissent que comme motifs de ralentissement (« Travaux portique en cours », etc.) et dans « Autres situations à suivre ».
+- Rien implémenté. Information manquante : structure exacte de la rubrique (colonnes, ordre, valeurs) — onglet/feuille/capture à indiquer, ou définition métier.
