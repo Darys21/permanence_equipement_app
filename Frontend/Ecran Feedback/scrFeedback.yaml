@@ -98,7 +98,7 @@ Screens:
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
                               Height: =Parent.Height
-                              OnSelect: =Reset(LockTimer_FB); Navigate(PrisePoste_2, ScreenTransition.Fade)
+                              OnSelect: =Reset(LockTimer_FB); Navigate(PrisePoste_2_backup, ScreenTransition.Fade)
                               Size: =4.01
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
@@ -304,7 +304,7 @@ Screens:
                                       ="Type : Chantier    |    Date : " & Text(varFeedbackEvent.Date_travaux, "dd/mm/yyyy") &
                                       "    |    Resp. : " & Coalesce(
                                           LookUp(Ref_Acteurs, ID = varFeedbackEvent.'ActeurID ', Title),
-                                          LookUp(Ref_Acteurs, ID = varFeedbackEvent.ActeurID, Title),
+                                          LookUp(Ref_Acteurs, ID = varFeedbackEvent.'ActeurID ', Title),
                                           "—"
                                       )
                               - PointageHeading_5:
@@ -659,7 +659,7 @@ Screens:
                                     Height: =28
                                     Size: =14
                                     TabIndex: =0
-                                    Text: =Coalesce(varFeedbackEvent.Title, "Aucun chantier sélectionné")
+                                    Text: =Coalesce(varFeedbackEvent.Titre, "Aucun chantier sélectionné")
                               - SummaryDetails_4:
                                   Control: Label@2.5.1
                                   Properties:
@@ -672,7 +672,7 @@ Screens:
                                     Text: |-
                                       ="Canton : " & Coalesce(
                                           LookUp(Ref_Cantons, ID = varFeedbackEvent.'CantonID ', Titre),
-                                          LookUp(Ref_Cantons, ID = varFeedbackEvent.CantonID, Titre),
+                                          LookUp(Ref_Cantons, ID = varFeedbackEvent.'CantonID ', Titre),
                                           "—"
                                       ) & Char(10) &
                                       "Date : " & Text(varFeedbackEvent.Date_travaux, "dd/mm/yyyy") &

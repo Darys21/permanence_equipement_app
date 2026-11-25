@@ -411,7 +411,7 @@ Screens:
                                               // 7. Nettoyage et navigation
                                               Reset(PinInput_ID_7);
                                               Navigate(
-                                                  PrisePoste_2,
+                                                  PrisePoste_2_backup,
                                                   ScreenTransition.Fade
                                               )
                                           )

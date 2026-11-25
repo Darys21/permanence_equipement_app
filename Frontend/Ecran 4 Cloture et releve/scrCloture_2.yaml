@@ -84,7 +84,7 @@ Screens:
                               Fill: =RGBA(0, 0, 0, 0)
                               FocusedBorderThickness: =2
                               Height: =Parent.Height
-                              OnSelect: =Reset(LockTimer_CL); Navigate(PrisePoste_2, ScreenTransition.Fade)
+                              OnSelect: =Reset(LockTimer_CL); Navigate(PrisePoste_2_backup, ScreenTransition.Fade)
                               Size: =4.01
                               Text: ="Retour à la prise de poste"
                               Tooltip: ="Retour à la prise de poste"
@@ -489,7 +489,7 @@ Screens:
                                     FontWeight: =FontWeight.Semibold
                                     Height: =24
                                     Size: =12
-                                    Text: =Coalesce(ThisItem.Title, ThisItem.Titre, "Sans titre")
+                                    Text: =Coalesce(ThisItem.Titre, ThisItem.Titre, "Sans titre")
                                     Width: =Parent.TemplateWidth - 14 - 92
                                     X: =14
                                     Y: =2

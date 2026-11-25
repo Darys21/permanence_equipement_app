@@ -280,17 +280,20 @@ Screens:
                               - StepTxt1_PO_1:
                                   Control: Label@2.5.1
                                   Properties:
-                                    Color: =If(true, RGBA(16, 54, 117, 1), RGBA(110, 122, 145, 1))
+                                    Color: |+
+                                      =If(true, RGBA(16, 54, 117, 1), RGBA(110, 122, 145, 1))
                                     DisabledColor: =RGBA(255, 255, 255, 1)
                                     FillPortions: =1
                                     Font: =Font.'Segoe UI'
                                     FontWeight: =FontWeight.Bold
                                     LayoutMinWidth: =120
+                                    Size: =12
                                     Text: ="Votre poste"
                         - StepLine1_PO_1:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
                               FillPortions: =0
                               Height: =34
                               LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -308,6 +311,7 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
                               FillPortions: =0
                               Height: =44
                               LayoutAlignItems: =LayoutAlignItems.Center
@@ -343,11 +347,13 @@ Screens:
                                     Font: =Font.'Segoe UI'
                                     FontWeight: =FontWeight.Bold
                                     LayoutMinWidth: =120
+                                    Size: =12
                                     Text: ="Éléments à reprendre"
                         - StepLine2_PO_1:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
                               FillPortions: =0
                               Height: =34
                               LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -365,6 +371,7 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              AlignInContainer: =AlignInContainer.SetByContainer
                               FillPortions: =0
                               Height: =44
                               LayoutAlignItems: =LayoutAlignItems.Center
@@ -400,6 +407,7 @@ Screens:
                                     Font: =Font.'Segoe UI'
                                     FontWeight: =FontWeight.Bold
                                     LayoutMinWidth: =120
+                                    Size: =12
                                     Text: ="Validation"
                   - ContentCol_PO_1:
                       Control: GroupContainer@1.5.0
@@ -440,7 +448,7 @@ Screens:
                                           Font: =Font.'Segoe UI'
                                           FontWeight: =FontWeight.Bold
                                           Height: =44
-                                          Size: =If(App.Width < 760, 20, 30)
+                                          Size: =If(App.Width < 760, 20, 20)
                                           Text: |-
                                             ="Bonjour, " & Coalesce(varAgentPermanentNom, User().FullName) & " 👋"
                                     - WelcomeSub_PO_1:
@@ -449,7 +457,7 @@ Screens:
                                           Color: =RGBA(16, 54, 117, 1)
                                           Font: =Font.'Segoe UI'
                                           Height: =30
-                                          Size: =If(App.Width < 760, 13, 17)
+                                          Size: =If(App.Width < 760, 13, 15)
                                           Text: ="Voici votre prise de poste pour aujourd'hui."
                                     - WelcomeRuleRow_PO_1:
                                         Control: GroupContainer@1.5.0
@@ -479,6 +487,7 @@ Screens:
                                     LayoutAlignItems: =LayoutAlignItems.Stretch
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =8
+                                    LayoutJustifyContent: =LayoutJustifyContent.Center
                                     LayoutMinHeight: =200
                                     PaddingBottom: =16
                                     PaddingLeft: =18
@@ -503,6 +512,7 @@ Screens:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
+                                          AlignInContainer: =AlignInContainer.SetByContainer
                                           FillPortions: =0
                                           Height: =124
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -840,6 +850,7 @@ Screens:
                                                       Font: =Font.'Segoe UI'
                                                       FontWeight: =FontWeight.Bold
                                                       Height: =30
+                                                      Size: =12
                                                       Text: ="Chantiers & Travaux en cours"
                                                       Width: =Len(Self.Text) * 8.5
                                                       X: =54
@@ -1042,6 +1053,7 @@ Screens:
                                                       Font: =Font.'Segoe UI'
                                                       FontWeight: =FontWeight.Bold
                                                       Height: =30
+                                                      Size: =12
                                                       Text: ="LTV / RAL actifs"
                                                       Width: =Len(Self.Text) * 8.5
                                                       X: =54
@@ -1240,6 +1252,7 @@ Screens:
                                                       Font: =Font.'Segoe UI'
                                                       FontWeight: =FontWeight.Bold
                                                       Height: =30
+                                                      Size: =12
                                                       Text: ="Incidents & ruptures en cours"
                                                       Width: =Len(Self.Text) * 8.5
                                                       X: =54
