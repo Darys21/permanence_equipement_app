@@ -255,7 +255,8 @@ Screens:
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =If(App.Width < 1000, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                   LayoutGap: =12
-                  LayoutMinHeight: =If(App.Width < 1000, 1700, 640)
+                  FillPortions: =1
+                  LayoutMinHeight: =If(App.Width < 1000, 1700, 360)
                   PaddingBottom: =12
                   PaddingLeft: =12
                   PaddingRight: =12
@@ -484,8 +485,8 @@ Screens:
                                           DisplayFields: =["Value"]
                                           FocusedBorderThickness: =2
                                           Height: =38
-                                          InputTextPlaceholder: ="Find items"
-                                          IsSearchable: =false
+                                          InputTextPlaceholder: ="Taper pour rechercher"
+                                          IsSearchable: =true
                                           Items: |-
                                             =Switch(
                                                 varOngletJournal,
@@ -539,8 +540,8 @@ Screens:
                                           DisplayFields: =["Title"]
                                           FocusedBorderThickness: =2
                                           Height: =38
-                                          InputTextPlaceholder: ="CDT / CDI / CBA (terrain)"
-                                          IsSearchable: =false
+                                          InputTextPlaceholder: ="Taper le début du nom pour rechercher"
+                                          IsSearchable: =true
                                           Items: =Ref_Acteurs
                                           OnChange: =Reset(LockTimer_JB)
                                           OnSelect: =Reset(LockTimer_JB)
@@ -568,37 +569,14 @@ Screens:
                                           TabIndex: =0
                                           Text: ="Permanent au poste"
                                     - PermanentInput_24:
-                                        Control: Classic/ComboBox@2.4.0
+                                        Control: Classic/TextInput@2.3.2
                                         Properties:
-                                          AccessibleLabel: ="Sélectionner le permanent au poste"
+                                          AccessibleLabel: ="Permanent au poste"
                                           BorderColor: =RGBA(180, 185, 195, 1)
-                                          DefaultSelectedItems: |-
-                                            =If(
-                                                !IsBlank(varAgentPermanentID),
-                                                Filter(
-                                                    Ref_Permanents,
-                                                    ID = varAgentPermanentID
-                                                ),
-                                                Blank()
-                                            )
-                                          DisplayFields: =["Title"]
+                                          Default: =Coalesce(varAgentPermanentNom, LookUp(Ref_Permanents, ID = varAgentPermanentID, Title), "")
                                           DisplayMode: =DisplayMode.View
                                           FocusedBorderThickness: =2
                                           Height: =38
-                                          InputTextPlaceholder: ="Agent de permanence"
-                                          Items: |-
-                                            =SortByColumns(
-                                                Filter(
-                                                    Ref_Permanents,
-                                                    Actif.Value = "Oui"
-                                                ),
-                                                "Title",
-                                                SortOrder.Ascending
-                                            )
-                                          OnChange: =Reset(LockTimer_JB)
-                                          OnSelect: =Reset(LockTimer_JB)
-                                          SearchFields: =["Title"]
-                                          SelectMultiple: =false
                               - FldTitre_25:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
@@ -1818,8 +1796,8 @@ Screens:
                                           DisplayFields: =["Value"]
                                           FocusedBorderThickness: =2
                                           Height: =38
-                                          InputTextPlaceholder: ="Choisir un motif"
-                                          IsSearchable: =false
+                                          InputTextPlaceholder: ="Taper pour rechercher un motif"
+                                          IsSearchable: =true
                                           Items: |-
                                             =Table(
                                                 {Value: "Affaissement de la voie"},
@@ -1942,8 +1920,8 @@ Screens:
                                           DisplayFields: =["Value"]
                                           FocusedBorderThickness: =2
                                           Height: =38
-                                          InputTextPlaceholder: ="Choisir un motif"
-                                          IsSearchable: =false
+                                          InputTextPlaceholder: ="Taper pour rechercher un motif"
+                                          IsSearchable: =true
                                           Items: |-
                                             =Table(
                                                 {Value: "Affaissement de la voie"},
@@ -2359,7 +2337,7 @@ Screens:
                                             =Switch(
                                                 varOngletJournal,
                                                 "Travaux",
-                                                CountRows(
+                                                Text(CountRows(
                                                     Filter(
                                                         Tx_Travaux,
                                                         (
@@ -2372,7 +2350,7 @@ Screens:
                                                             Date_travaux >= FiltreDateTravaux_24.SelectedDate
                                                         )
                                                     )
-                                                ),
+                                                )),
                                                 "LTV",
                                                 With(
                                                     {
@@ -2402,7 +2380,7 @@ Screens:
                                                     CountRows(_base) & " | Imp " & CountRows(Filter(_base, Statut_LTV.Value = "Imposée")) & " | Sup " & CountRows(Filter(_base, Statut_LTV.Value = "Supprimée"))
                                                 ),
                                                 "Incidents",
-                                                CountRows(
+                                                Text(CountRows(
                                                     Filter(
                                                         Tx_incidents_Ruptures,
                                                         Poste.Value = varQuart &&
@@ -2412,7 +2390,7 @@ Screens:
                                                             DateIncident >= FiltreDateIncidents_24.SelectedDate
                                                         )
                                                     )
-                                                )
+                                                ))
                                             ) & " événements"
                                     - BtnRefreshJournal_26:
                                         Control: Classic/Button@2.2.0
