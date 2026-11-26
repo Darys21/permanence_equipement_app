@@ -170,7 +170,7 @@ Screens:
                               Patch(
                                   Ref_Permanents,
                                   LookUp(Ref_Permanents, ID = varAgentPermanentID),
-                                  {Actif: {Value: "Non"}}
+                                  {'Actif ': {Value: "Non"}}
                               )
                           );
                           Set(varAgentPermanent, Blank());
@@ -3012,7 +3012,9 @@ Screens:
                         Fill: =RGBA(255, 255, 255, 1)
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
+                        FillPortions: =0
                         Height: =48
+                        LayoutMinWidth: =If(App.Width < 760, 200, 340)
                         OnSelect: =Reset(LockTimer_JB); Navigate(scrFeedback, ScreenTransition.Fade)
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="NOUVEAU POINTAGE TERRAIN"
@@ -3024,7 +3026,9 @@ Screens:
                         FocusedBorderThickness: =2
                         Font: =Font.'Segoe UI'
                         FontWeight: =FontWeight.Bold
+                        FillPortions: =0
                         Height: =48
+                        LayoutMinWidth: =If(App.Width < 760, 200, 350)
                         OnSelect: =Reset(LockTimer_JB); Navigate(scrCloture_2, ScreenTransition.Fade)
                         Size: =If(App.Width < 760, 12, 14)
                         Text: ="TERMINER LE POSTE & BILAN    →"
