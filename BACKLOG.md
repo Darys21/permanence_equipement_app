@@ -60,7 +60,7 @@
 | JOUR-09 | Valider l'ordre chronologique et les calculs de durée/retard | À valider | Vérifier les champs Date/Heure, les valeurs vides et les cas de prolongation. |
 | JOUR-10 | Vérifier les filtres et galeries par poste | À valider | Ne pas supposer que les données ouvertes sont automatiquement transférées entre postes. |
 | JOUR-11 | Vérifier les messages de succès/échec et la conservation du formulaire en cas d'erreur | À valider | Feedback visible uniquement après confirmation de la sauvegarde. |
-| JOUR-12 | Rechercher un canton par saisie/matching | À faire | Demande issue des retours d'équipe. |
+| JOUR-12 | Rechercher un canton par saisie/matching | Modifié — non validé (25/11/2026) | Demande issue des retours d'équipe. |
 | JOUR-13 | Ajouter des motifs standardisés avec saisie libre complémentaire | Modifié — non validé (25/11/2026) | Engagement et dégagement tardifs : liste de motifs conservée ; si « Autre » est choisi, un champ texte libre (255 car.) apparaît et son contenu est enregistré à la place de « Autre ». Voir §18. |
 | JOUR-14 | Ajouter un historique des événements | À faire | Historique complet consultable, selon règles d'accès à définir. |
 | JOUR-15 | Ajouter les filtres LTV par date et canton | À faire | Besoin issu des notes d'alignement métier. |
@@ -285,7 +285,7 @@ Correction appliquée dans `pa_yaml_script/JournalDeBord_3.yaml` : lors d'une mo
 
 | ID | Action | Statut | Vérification |
 |---|---|---|---|
-| JOUR-27 | Corriger l'erreur de conversion affichée par le compteur LTV `EventCount_22` (« Impossible de convertir la valeur '0 | Imp 0 | Sup 0' en nombre ») | Correctif à faire — non bloquant | L'utilisateur confirme que le LTV s'enregistre correctement et que le message de succès apparaît. Le défaut concerne l'indicateur/compteur d'affichage ; ne pas modifier le chemin de sauvegarde LTV pour traiter cette anomalie. La première proposition de correction de typage n'a pas résolu le problème. |
+| JOUR-27 | Corriger l'erreur de conversion affichée par le compteur LTV `EventCount_22` (« Impossible de convertir la valeur '0 | Imp 0 | Sup 0' en nombre ») | Correctif à faire — non bloquant | L'utilisateur confirme que le LTV s'enregistre correctement et que le message de succès apparaît. Le défaut concerne l'indicateur/compteur d'affichage ; ne pas modifier le chemin de sauvegarde LTV pour traiter cette anomalie. La première proposition de correction de typage n'a pas résolu le problème. **25/11/2026 : cause identifiée et corrigée dans le YAML (Modifié — non validé), voir §19.** |
 
 ### 13.5 Résultat de la vérification
 
@@ -592,3 +592,40 @@ Fichier modifié : `Frontend/Ecran 2 Journal de bord/JournalDeBord_3.yaml` (cibl
 ### 18.2 Mouvements travaux — BLOQUÉ
 - `based_permanence_file/PERMANENCE EQUIPEMENT RECAP POSTE - AOUT 2023.xlsx` analysé (31 feuilles journalières + feuille `District`) : aucune rubrique ni libellé « Mouvement(s) travaux ». Les travaux n'y apparaissent que comme motifs de ralentissement (« Travaux portique en cours », etc.) et dans « Autres situations à suivre ».
 - Rien implémenté. Information manquante : structure exacte de la rubrique (colonnes, ordre, valeurs) — onglet/feuille/capture à indiquer, ou définition métier.
+
+## 19. Journal de bord — recherche dans les listes, compteur LTV, permanent, boutons de pied — 25/11/2026
+
+Fichier modifié : `Frontend/Ecran 2 Journal de bord/JournalDeBord_3.yaml`. Tous les points ci-dessous sont **Modifié — non validé** (YAML parsé sans erreur ; import Studio et tests manuels non faits).
+
+| ID | Point | Changement | À tester dans Studio |
+|---|---|---|---|
+| JOUR-12 (étendu) | Recherche par saisie dans les listes longues | `IsSearchable: =true` (avec `SearchFields` déjà définis) sur `ActorInput_25` (Responsable intervenant), `RegimeInput_25` (dont Motif de ralentissement en LTV), `MotifEngTardifInput_24`, `MotifDegTardifInput_24` | Taper le début d'un mot : la liste se réduit, un clic sélectionne. Vérifier aussi la recherche « contient » (comportement natif de la propriété) |
+| JOUR-27 | Erreur « Impossible de convertir la valeur '0 \| Imp 0 \| Sup 0' en nombre » | Cause : le `Switch` de `EventCount_25` renvoyait un nombre (Travaux, Incidents) et un texte (LTV) ; Power Apps type le résultat sur la 1re branche. Correctif : `Text(CountRows(...))` sur Travaux et Incidents. L'enregistrement LTV n'était pas concerné (erreur d'affichage du compteur seulement) | Onglet LTV : plus de message d'erreur, compteur « n \| Imp x \| Sup y » ; compteurs Travaux/Incidents inchangés |
+| JOUR-28 (nouveau) | « Permanent au poste » vide | `PermanentInput_24` était un ComboBox filtré sur `Actif.Value = "Oui"` ; remplacé par un TextInput en lecture seule : `Default = Coalesce(varAgentPermanentNom, LookUp(Ref_Permanents, ID = varAgentPermanentID, Title), "")`. Aucune écriture n'utilise ce contrôle (non référencé dans les `Patch`) | Le nom du permanent connecté s'affiche sur Travaux et LTV |
+| JOUR-29 (nouveau) | Boutons Feedback / Clôture invisibles après publication | Capture de l'application publiée (agrandie) : le pied de page est visible mais les deux boutons sont réduits à un trait de ~2 px (leur bordure bleue), aux extrémités gauche et droite. Cause probable : `ActionFeedback_25` et `CloseShiftButton_25` n'avaient ni `FillPortions` ni `LayoutMinWidth` dans `Footer_24` (AutoLayout horizontal) ; la largeur `Width` seule n'est pas respectée dans le lecteur publié, alors que `SaveButton_25` et les onglets définissent `FillPortions`. Correctif : `FillPortions: =0` et `LayoutMinWidth` (340 / 350 ; 200 sous 760 px). Le correctif précédent (`Workspace_25` : `FillPortions: =1`, `LayoutMinHeight` 360) est conservé : il évite aussi que le pied de page sorte de la zone visible sur petit écran | Publier et vérifier sur PC et mobile : les deux boutons affichent leur libellé et naviguent vers `scrFeedback` / `scrCloture_2`. Si toujours écrasés, relever la largeur de fenêtre |
+
+Cette liste reste ouverte : le comportement exact de la recherche (début de mot vs contient) et la visibilité du pied de page ne peuvent être confirmés qu'en Studio / application publiée.
+
+| JOUR-30 (nouveau) | Bouton « Changer d'agent » : colonne `Actif` | `Patch(Ref_Permanents, …, {Actif: …})` utilisait `Actif`, alors que `PrisePoste_2`, `scrIdentificationAgent` et `scrCloture_2` utilisent `'Actif '` (avec espace final). Aligné sur `'Actif '`. Le schéma `Ref_Permanents` n'est pas exporté dans `Backend/schemas_export` : nom à confirmer dans Studio | Modifié — non validé. Cliquer « Changer d'agent » puis vérifier dans SharePoint que `Actif` passe à « Non » |
+
+## 20. État d'avancement — 26/11/2026
+
+Légende : **Validé** = confirmé par vos tests ; **Modifié — non validé** = code modifié, import Studio et recette manuelle à faire ; **Bloqué** = information métier manquante ; **À faire**.
+
+| Domaine | Point | État |
+|---|---|---|
+| Identification / prise de poste | PIN, P1/P2/P3, session partagée | Validé (tests précédents) |
+| Prise de poste | Succession stricte des postes (POSTE-24), filtres « en cours » (POSTE-25/26/27), poste P 2x12 et poste exceptionnel (POSTE-28/29) | À faire / décision métier |
+| Journal — Travaux | Motifs tardifs : liste + texte libre si « Autre » (JOUR-13) | Modifié — non validé |
+| Journal — Travaux | Mouvements travaux | Bloqué : aucune rubrique dans l'Excel de base ; structure à fournir |
+| Journal — listes | Recherche par saisie : Responsable intervenant, motifs tardifs, motif de ralentissement LTV (JOUR-12 étendu) | Modifié — non validé |
+| Journal — LTV | Erreur de conversion du compteur (JOUR-27) : affichage seulement, l'enregistrement LTV n'était pas touché | Modifié — non validé |
+| Journal — formulaire | « Permanent au poste » vide (JOUR-28) | Modifié — non validé |
+| Journal — pied de page | Boutons Feedback / Clôture invisibles une fois publiés (JOUR-29) | Modifié — non validé |
+| Journal — agent | Colonne `Actif` du bouton « Changer d'agent » (JOUR-30) | Modifié — non validé |
+| Journal — validation | Signalement automatique des champs obligatoires manquants | À faire (étape 2) |
+| LTV | Région/km automatiques, auteur de suppression, compteurs par région, vue globale quotidienne, impact trains | À faire / dépendance backend |
+| Incidents | Étapes horaires, responsable du traitement, durées, états | À faire / décision métier |
+| Clôture / relève | Synthèse de performance, transmission persistante | À faire |
+
+Rien dans ce tableau n'est « Validé métier » avant recette dans Power Apps Studio et contrôle des données SharePoint.
